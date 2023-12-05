@@ -3,6 +3,7 @@ package com.ayman.fightEnemies;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferStrategy;
 
 public class Game extends Canvas implements Runnable{
 
@@ -48,7 +49,31 @@ public class Game extends Canvas implements Runnable{
 
         running = true;
         while(running) {
+            update();
+            render();
         }
+    }
+
+    public void update() {
+
+    }
+
+    public void render() {
+
+        BufferStrategy bufferStrategy = getBufferStrategy();
+        if(bufferStrategy == null) {
+            createBufferStrategy(3); //triple buffering
+            return;
+        }
+
+        Graphics graphics = bufferStrategy.getDrawGraphics();
+        graphics.setColor(Color.BLACK);
+        graphics.fillRect(0, 0, getWidth()  , getHeight() );
+        graphics.setColor(new Color(21, 232, 165));
+        graphics.fillRect(0, 0, getWidth() /2 , getHeight() /2);
+
+        graphics.dispose();
+        bufferStrategy.show(); //swap buffers
     }
 
     public static void main(String[] args) {
