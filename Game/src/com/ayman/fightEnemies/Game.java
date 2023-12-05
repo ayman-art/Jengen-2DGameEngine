@@ -1,31 +1,31 @@
 package com.ayman.fightEnemies;
 
 
+import javax.swing.*;
+import java.awt.*;
 
-public class Game implements Runnable{
+public class Game extends Canvas implements Runnable{
 
-    private static final int width = 300;
-    private static final int height = width / 12 * 8;
-    private static final int scaleFactor = 3;
+
+    public static final int width = 300;
+    public static final int height = width / 12 * 8;
+    public static final int scaleFactor = 3;
     private boolean running = false;
 
 
     private Thread thread;
+    private JFrame jFrame;
 
 
+    public Game() {
 
+        Dimension size = new Dimension(width * scaleFactor, height * scaleFactor);
+        setPreferredSize(size);
 
-
-
-    int getWidth() {
-        return width;
+        jFrame = new JFrame();
     }
-    int getHeight() {
-        return height;
-    }
-    int getScaleFactor() {
-        return scaleFactor;
-    }
+
+
 
 
 
@@ -48,7 +48,19 @@ public class Game implements Runnable{
 
         running = true;
         while(running) {
-
         }
+    }
+
+    public static void main(String[] args) {
+        Game game = new Game();
+        game.jFrame.setResizable(false);
+        game.jFrame.setTitle("FightEnemies");
+        game.jFrame.add(game);
+        game.jFrame.pack();
+        game.jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        game.jFrame.setLocationRelativeTo(null);
+        game.jFrame.setVisible(true);
+
+        game.start();
     }
 }
