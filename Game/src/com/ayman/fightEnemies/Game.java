@@ -4,6 +4,8 @@ package com.ayman.fightEnemies;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
+import java.awt.image.BufferedImage;
+import java.awt.image.DataBufferInt;
 
 public class Game extends Canvas implements Runnable{
 
@@ -12,7 +14,9 @@ public class Game extends Canvas implements Runnable{
     public static final int height = width / 12 * 8;
     public static final int scaleFactor = 3;
     private boolean running = false;
-
+    private BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+    private int[] pixels = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
+    private Screen screen;
 
     private Thread thread;
     private JFrame jFrame;
@@ -24,6 +28,7 @@ public class Game extends Canvas implements Runnable{
         setPreferredSize(size);
 
         jFrame = new JFrame();
+        screen = new Screen(width, height);
     }
 
 
@@ -66,14 +71,22 @@ public class Game extends Canvas implements Runnable{
             return;
         }
 
+        screen.clear();
+        screen.render();
+
+        for(int i = 0; i < pixels.length; i++) {
+            pixels[i] = screen.pixels[i];
+        }
+
         Graphics graphics = bufferStrategy.getDrawGraphics();
-        graphics.setColor(Color.BLACK);
-        graphics.fillRect(0, 0, getWidth()  , getHeight() );
-        graphics.setColor(new Color(21, 232, 165));
-        graphics.fillRect(0, 0, getWidth() /2 , getHeight() /2);
+        graphics.drawImage(image, 0, 0, getWidth(), getHeight(), null);
+
+        graphics.drawImage(image, 0, 0, getWidth(), getHeight(), null);
 
         graphics.dispose();
-        bufferStrategy.show(); //swap buffers
+        bufferStrategy.show();
+
+
     }
 
     public static void main(String[] args) {
