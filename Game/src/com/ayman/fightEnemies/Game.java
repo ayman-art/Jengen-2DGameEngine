@@ -53,9 +53,40 @@ public class Game extends Canvas implements Runnable{
     public void run() {
 
         running = true;
+
+        long lastTime = System.nanoTime();
+        long timer = System.currentTimeMillis();
+        final double ns = 1000000000.0 / 60.0; //for converting to one of sixity part of second
+        double delta = 0 / ns;
+        int frames = 0;
+        int updates = 0;
         while(running) {
-            update();
+            long now = System.nanoTime();
+
+            delta += (now - lastTime) / ns;
+            lastTime = now;
+
+            while(delta >= 1) {
+                update();
+                updates++;
+                delta--;
+            }
+
+
             render();
+            frames++;
+
+            if(System.currentTimeMillis() - timer > 1000) {
+                timer += 1000;
+                jFrame.setTitle("FightEnemies | " + updates + " ups, " + frames + " fps");
+                updates = 0;
+                frames = 0;
+            }
+        }
+        try {
+            stop();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
         }
     }
 
