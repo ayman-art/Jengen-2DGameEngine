@@ -1,8 +1,13 @@
 package com.ayman.fightEnemies;
 
 
+import com.ayman.fightEnemies.Input.Keyboard;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.FocusListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
@@ -18,9 +23,12 @@ public class Game extends Canvas implements Runnable{
     private int[] pixels = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
     private Screen screen;
 
+
+    private Keyboard keyboard;
+
     private Thread thread;
     private JFrame jFrame;
-    private int xr = 0;
+    private int xr = 0, yr = 0;
 
 
     public Game() {
@@ -30,6 +38,12 @@ public class Game extends Canvas implements Runnable{
 
         jFrame = new JFrame();
         screen = new Screen(width, height);
+
+        keyboard = new Keyboard();
+        addKeyListener(keyboard);
+
+
+        setFocusable(true);
     }
 
 
@@ -92,7 +106,15 @@ public class Game extends Canvas implements Runnable{
     }
 
     public void update() {
-        xr++;
+
+        if(keyboard.up)     yr--;
+        if(keyboard.down)   yr++;
+        if(keyboard.left)   xr--;
+        if(keyboard.right)  xr++;
+
+        keyboard.update();
+
+
     }
 
     public void render() {
@@ -104,7 +126,7 @@ public class Game extends Canvas implements Runnable{
         }
 
         screen.clear();
-        screen.render(xr, 0);
+        screen.render(xr, yr);
 
         for(int i = 0; i < pixels.length; i++) {
             pixels[i] = screen.pixels[i];
@@ -130,6 +152,9 @@ public class Game extends Canvas implements Runnable{
         game.jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         game.jFrame.setLocationRelativeTo(null);
         game.jFrame.setVisible(true);
+
+
+        game.requestFocus(); //request focus for the game
 
         game.start();
     }
