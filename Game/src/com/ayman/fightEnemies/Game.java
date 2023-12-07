@@ -20,6 +20,7 @@ public class Game extends Canvas implements Runnable{
 
     private Thread thread;
     private JFrame jFrame;
+    private int xr = 0;
 
 
     public Game() {
@@ -91,7 +92,7 @@ public class Game extends Canvas implements Runnable{
     }
 
     public void update() {
-
+        xr++;
     }
 
     public void render() {
@@ -103,7 +104,7 @@ public class Game extends Canvas implements Runnable{
         }
 
         screen.clear();
-        screen.render();
+        screen.render(xr, 0);
 
         for(int i = 0; i < pixels.length; i++) {
             pixels[i] = screen.pixels[i];
