@@ -1,4 +1,4 @@
-package com.ayman.fightEnemies;
+package com.ayman.fightEnemies.Graphics;
 
 import java.util.Random;
 
