@@ -2,7 +2,9 @@ package com.ayman.fightEnemies.Graphics;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 
 public class SpriteSheet {
 
@@ -12,6 +14,16 @@ public class SpriteSheet {
 
     public int[] pixels;
 
+    public static SpriteSheet tiles;
+
+    static {
+        try {
+            tiles = new SpriteSheet("resources\\Sheets\\spritesheet.png", 256);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public SpriteSheet(String path, int size) throws IOException {
 
         this.path = path;
@@ -19,15 +31,17 @@ public class SpriteSheet {
         pixels = new int[SIZE * SIZE];
 
         try {
-            this.load();
+            this.load(path);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
-    private void load() throws IOException {
+    private void load(String path) throws IOException {
 
-        BufferedImage image = ImageIO.read(SpriteSheet.class.getResource(path));
+
+
+        BufferedImage image = ImageIO.read(new File(path));
 
         int w = image.getWidth();
         int h = image.getHeight();

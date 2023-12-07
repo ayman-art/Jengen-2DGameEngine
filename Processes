@@ -4,3 +4,4 @@ synchronized for thread safety
 
 
 
+//path is passed in the load method in the spritesheet because the path might be not initialized yet

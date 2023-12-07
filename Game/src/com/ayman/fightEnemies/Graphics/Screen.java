@@ -44,7 +44,7 @@ public class Screen {
 
                 int tileIndex = (x+xr >> 4) + (y + yr >> 4)  * MAP_SIZE ;
 
-                pixels[x + y * width ] = tiles[(tileIndex+MAP_SIZE * MAP_SIZE) % (MAP_SIZE * MAP_SIZE)];
+                pixels[x + y * width ] = Sprite.sky.pixels[(x + xr & 15) + (y + yr & 15) * Sprite.sky.SIZE];
             }
         }
     }
