@@ -42,9 +42,11 @@ public class Screen {
             for(int y = 0; y < height; y++) {
             for(int x = 0; x < width; x++) {
 
-                int tileIndex = (x+xr >> 4) + (y + yr >> 4)  * MAP_SIZE ;
 
-                pixels[x + y * width ] = Sprite.sky.pixels[(x + xr & 15) + (y + yr & 15) * Sprite.sky.SIZE];
+
+                pixels[x + y * width ] = ((x + xr)/16 + (y + yr) / 16 )% 2 == 0? Sprite.bird.pixels[(x + xr & 15) + (y + yr & 15) * Sprite.bird.SIZE] :
+                Sprite.sky.pixels[(x + xr & 15) + (y + yr & 15) * Sprite.sky.SIZE];
+
             }
         }
     }

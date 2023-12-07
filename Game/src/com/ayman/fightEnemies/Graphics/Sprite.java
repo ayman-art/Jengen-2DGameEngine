@@ -9,6 +9,7 @@ public class Sprite {
     private SpriteSheet sheet; //The sheet that contains the sprite
 
     public static Sprite sky = new Sprite(16, 0, 0, SpriteSheet.tiles);
+    public static Sprite bird = new Sprite(16, 1, 0, SpriteSheet.tiles);
 
 
     public Sprite(int size, int x, int y, SpriteSheet sheet) {
