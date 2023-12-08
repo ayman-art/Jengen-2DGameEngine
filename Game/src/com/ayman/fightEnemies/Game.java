@@ -3,6 +3,8 @@ package com.ayman.fightEnemies;
 
 import com.ayman.fightEnemies.Graphics.Screen;
 import com.ayman.fightEnemies.Input.Keyboard;
+import com.ayman.fightEnemies.level.LevelGenerator;
+import com.ayman.fightEnemies.level.RandomLevelGenerator;
 
 import javax.swing.*;
 import java.awt.*;
@@ -26,6 +28,8 @@ public class Game extends Canvas implements Runnable{
 
     private Thread thread;
     private JFrame jFrame;
+
+    LevelGenerator level;
     private int xr = 0, yr = 0;
 
 
@@ -37,6 +41,7 @@ public class Game extends Canvas implements Runnable{
         jFrame = new JFrame();
         screen = new Screen(width, height);
 
+        level = new RandomLevelGenerator(64, 64);
         keyboard = new Keyboard();
         addKeyListener(keyboard);
 
@@ -124,7 +129,7 @@ public class Game extends Canvas implements Runnable{
         }
 
         screen.clear();
-        screen.render(xr, yr);
+        level.render(xr, yr, screen);
 
         for(int i = 0; i < pixels.length; i++) {
             pixels[i] = screen.pixels[i];
@@ -133,7 +138,6 @@ public class Game extends Canvas implements Runnable{
         Graphics graphics = bufferStrategy.getDrawGraphics();
         graphics.drawImage(image, 0, 0, getWidth(), getHeight(), null);
 
-        graphics.drawImage(image, 0, 0, getWidth(), getHeight(), null);
 
         graphics.dispose();
         bufferStrategy.show();

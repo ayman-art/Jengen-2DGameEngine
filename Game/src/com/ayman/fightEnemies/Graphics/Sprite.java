@@ -1,5 +1,7 @@
 package com.ayman.fightEnemies.Graphics;
 
+import java.awt.*;
+
 public class Sprite {
 
     public final int SIZE;
@@ -11,6 +13,8 @@ public class Sprite {
     public static Sprite sky = new Sprite(16, 0, 0, SpriteSheet.tiles);
     public static Sprite bird = new Sprite(16, 1, 0, SpriteSheet.tiles);
 
+    public static Sprite voidSprite = new Sprite(16, Color.red.getRGB());
+
 
     public Sprite(int size, int x, int y, SpriteSheet sheet) {
 
@@ -21,6 +25,21 @@ public class Sprite {
         pixels = new int[SIZE * SIZE];
 
         load();
+    }
+
+    public Sprite(int size, int color) {
+
+        this.SIZE = size;
+        pixels = new int[SIZE * SIZE];
+
+        setColor(color);
+    }
+
+    private void setColor(int color) {
+
+        for(int i = 0; i < SIZE * SIZE; i++) {
+            pixels[i] = color;
+        }
     }
 
 

@@ -1,11 +1,13 @@
 package com.ayman.fightEnemies.Graphics;
 
+import com.ayman.fightEnemies.level.tile.Tile;
+
 import java.util.Random;
 
 public class Screen {
 
-    private final int width;
-    private final int height;
+    public final int width;
+    public final int height;
     public int[] pixels;
 
     private final int MAP_SIZE = 64;
@@ -15,8 +17,8 @@ public class Screen {
     public int[] tiles = new int[MAP_SIZE * MAP_SIZE];
     private Random random = new Random();
 
-    int counter = 0;
-    int timer = 0;
+
+    public int xOffset, yOffset;
 
     public Screen(int width, int height) {
 
@@ -35,19 +37,38 @@ public class Screen {
         for(int i = 0; i < pixels.length; i++) {
             pixels[i] = 0;
         }
+
+
+
     }
 
-    public void render(int xr, int yr) {
-
-            for(int y = 0; y < height; y++) {
-            for(int x = 0; x < width; x++) {
 
 
 
-                pixels[x + y * width ] = ((x + xr)/16 + (y + yr) / 16 )% 2 == 0? Sprite.bird.pixels[(x + xr & 15) + (y + yr & 15) * Sprite.bird.SIZE] :
-                Sprite.sky.pixels[(x + xr & 15) + (y + yr & 15) * Sprite.sky.SIZE];
 
+    public void renderTile(int xp, int yp, Tile tile) {
+
+        xp -= xOffset;
+        yp -= yOffset;
+
+
+        for(int y = 0; y < tile.sprite.SIZE; y++) {
+            int ya = yp + y;
+            for(int x = 0; x < tile.sprite.SIZE; x++) {
+                int xa = xp + x;
+
+                if(xa < 0 || xa >= width || ya < 0 || ya >= height) continue;
+
+                pixels[xa + ya * width] = tile.sprite.pixels[x + y * tile.sprite.SIZE];
             }
         }
     }
+
+    public void setOffset(int xOffset, int yOffset) {
+
+        this.xOffset = xOffset;
+        this.yOffset = yOffset;
+    }
 }
+
+
