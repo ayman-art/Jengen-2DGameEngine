@@ -3,8 +3,8 @@ package com.ayman.fightEnemies;
 
 import com.ayman.fightEnemies.Graphics.Screen;
 import com.ayman.fightEnemies.Input.Keyboard;
-import com.ayman.fightEnemies.level.LevelGenerator;
-import com.ayman.fightEnemies.level.RandomLevelGenerator;
+import com.ayman.fightEnemies.level.Level;
+import com.ayman.fightEnemies.level.RandomLevel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -29,7 +29,7 @@ public class Game extends Canvas implements Runnable{
     private Thread thread;
     private JFrame jFrame;
 
-    LevelGenerator level;
+    Level level;
     private int xr = 0, yr = 0;
 
 
@@ -41,7 +41,7 @@ public class Game extends Canvas implements Runnable{
         jFrame = new JFrame();
         screen = new Screen(width, height);
 
-        level = new RandomLevelGenerator(64, 64);
+        level = new RandomLevel(64, 64);
         keyboard = new Keyboard();
         addKeyListener(keyboard);
 

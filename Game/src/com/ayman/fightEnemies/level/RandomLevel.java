@@ -2,10 +2,10 @@ package com.ayman.fightEnemies.level;
 
 import java.util.Random;
 
-public class RandomLevelGenerator extends LevelGenerator {
+public class RandomLevel extends Level {
 
     private static final Random random = new Random();
-    public RandomLevelGenerator(int width, int height) {
+    public RandomLevel(int width, int height) {
         super(width, height);
     }
 
