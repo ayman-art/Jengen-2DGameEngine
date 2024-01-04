@@ -3,6 +3,7 @@ package com.ayman.fightEnemies;
 
 import com.ayman.fightEnemies.Graphics.Screen;
 import com.ayman.fightEnemies.Input.Keyboard;
+import com.ayman.fightEnemies.entity.mob.Player;
 import com.ayman.fightEnemies.level.Level;
 import com.ayman.fightEnemies.level.RandomLevel;
 
@@ -18,19 +19,29 @@ public class Game extends Canvas implements Runnable{
     public static final int width = 300;
     public static final int height = width / 12 * 8;
     public static final int scaleFactor = 3;
+
+
     private boolean running = false;
+
+
     private BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
     private int[] pixels = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
+
+
+
     private Screen screen;
-
-
     private Keyboard keyboard;
+
+
 
     private Thread thread;
     private JFrame jFrame;
 
     Level level;
-    private int xr = 0, yr = 0;
+
+    Player player;
+
+
 
 
     public Game() {
@@ -38,13 +49,15 @@ public class Game extends Canvas implements Runnable{
         Dimension size = new Dimension(width * scaleFactor, height * scaleFactor);
         setPreferredSize(size);
 
-        jFrame = new JFrame();
-        screen = new Screen(width, height);
 
-        level = new RandomLevel(64, 64);
+        screen = new Screen(width, height);
         keyboard = new Keyboard();
         addKeyListener(keyboard);
 
+        jFrame = new JFrame();
+
+        level = new RandomLevel(64, 64);
+        player = new Player(keyboard);
 
         setFocusable(true);
     }
@@ -74,14 +87,14 @@ public class Game extends Canvas implements Runnable{
 
         long lastTime = System.nanoTime();
         long timer = System.currentTimeMillis();
-        final double ns = 1000000000.0 / 60.0; //for converting to one of sixity part of second
+        final double ns = 1000000000.0 / 60.0; //for converting to one of sixty part of second
         double delta = 0 / ns;
         int frames = 0;
         int updates = 0;
         while(running) {
             long now = System.nanoTime();
 
-            delta += (now - lastTime) / ns;
+            delta += (now - lastTime) / ns; // number of "Updates" we need to do
             lastTime = now;
 
             while(delta >= 1) {
@@ -90,13 +103,15 @@ public class Game extends Canvas implements Runnable{
                 delta--;
             }
 
-
+            //render limit without limit
             render();
             frames++;
 
-            if(System.currentTimeMillis() - timer > 1000) {
+            if(System.currentTimeMillis() - timer > 1000) {     // Update the title every second
                 timer += 1000;
                 jFrame.setTitle("FightEnemies | " + updates + " ups, " + frames + " fps");
+
+                //reset the updates and frames
                 updates = 0;
                 frames = 0;
             }
@@ -110,10 +125,7 @@ public class Game extends Canvas implements Runnable{
 
     public void update() {
 
-        if(keyboard.up)     yr--;
-        if(keyboard.down)   yr++;
-        if(keyboard.left)   xr--;
-        if(keyboard.right)  xr++;
+        player.update();
 
         keyboard.update();
 
@@ -124,20 +136,22 @@ public class Game extends Canvas implements Runnable{
 
         BufferStrategy bufferStrategy = getBufferStrategy();
         if(bufferStrategy == null) {
-            createBufferStrategy(3); //triple buffering
+            createBufferStrategy(3); //triple buffering for faster rendering
             return;
         }
 
         screen.clear();
-        level.render(xr, yr, screen);
+        level.render(player.x, player.y, screen);
 
         for(int i = 0; i < pixels.length; i++) {
-            pixels[i] = screen.pixels[i];
+            this.pixels[i] = screen.pixels[i]; //copy the pixels data from screen to the pixels array of the image object
         }
 
         Graphics graphics = bufferStrategy.getDrawGraphics();
         graphics.drawImage(image, 0, 0, getWidth(), getHeight(), null);
-
+        graphics.setColor(Color.WHITE);
+        graphics.setFont(new Font("Verdana", 0, 50));
+        graphics.drawString("X: " + player.x + ", Y: " + player.y, 450, 450);
 
         graphics.dispose();
         bufferStrategy.show();
