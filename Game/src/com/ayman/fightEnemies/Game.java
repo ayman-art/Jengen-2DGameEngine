@@ -141,7 +141,11 @@ public class Game extends Canvas implements Runnable{
         }
 
         screen.clear();
-        level.render(player.x, player.y, screen);
+        // Center the screen on the player
+        int xScroll = player.x - screen.width / 2;
+        int yScroll = player.y - screen.height / 2;
+        level.render(xScroll, yScroll, screen);
+        player.render(screen); //render the player after screen is created to prevent null pointer exception
 
         for(int i = 0; i < pixels.length; i++) {
             this.pixels[i] = screen.pixels[i]; //copy the pixels data from screen to the pixels array of the image object
