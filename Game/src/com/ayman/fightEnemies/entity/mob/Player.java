@@ -14,6 +14,7 @@ public class Player extends Mob {
         this.x = x;
         this.y = y;
         this.input = input;
+        this.sprite = Sprite.player_forward;
     }
 
 
@@ -33,10 +34,11 @@ public class Player extends Mob {
     }
 
     public void render(Screen screen) {
-        int size = 16;
-        int x = this.x - size;
-        int y = this.y - size;
-        screen.renderPlayer(x, y, Sprite.player);
+        if(this.dir == 0) this.sprite = Sprite.player_forward;
+        if(this.dir == 1) this.sprite = Sprite.player_right;
+        if(this.dir == 2) this.sprite = Sprite.player_backwards;
+
+        screen.renderPlayer(x - 16, y - 16, this.sprite);
 
     }
 }

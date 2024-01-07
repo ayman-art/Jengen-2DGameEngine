@@ -161,6 +161,8 @@ public class Game extends Canvas implements Runnable{
         bufferStrategy.show();
 
 
+
+
     }
 
     public static void main(String[] args) {
