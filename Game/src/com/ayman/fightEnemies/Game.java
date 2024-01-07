@@ -6,6 +6,7 @@ import com.ayman.fightEnemies.Input.Keyboard;
 import com.ayman.fightEnemies.entity.mob.Player;
 import com.ayman.fightEnemies.level.Level;
 import com.ayman.fightEnemies.level.RandomLevel;
+import com.ayman.fightEnemies.level.SpawnLevel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -56,8 +57,11 @@ public class Game extends Canvas implements Runnable{
 
         jFrame = new JFrame();
 
-        level = new RandomLevel(64, 64);
+//        level = new RandomLevel(64, 64);
+        level = new SpawnLevel("resources\\Sheets\\level1.png");
+
         player = new Player(keyboard);
+
 
         setFocusable(true);
     }
