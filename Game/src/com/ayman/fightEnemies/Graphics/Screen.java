@@ -64,7 +64,7 @@ public class Screen {
         }
     }
 
-    public void renderPlayer(int xp, int yp, Sprite sprite) {
+    public void renderPlayer(int xp, int yp, Sprite sprite, boolean flip) {
 
         xp -= xOffset;
         yp -= yOffset;
@@ -72,7 +72,7 @@ public class Screen {
         for(int y = 0; y < 32; y++) {
             int ya = yp + y;
             for(int x = 0; x < 32; x++) {
-                int xa = xp + x;
+                int xa = xp + (flip ? 31 - x : x);
 
                 if(xa < -32 || xa >= width || ya < 0 || ya >= height) continue;
 

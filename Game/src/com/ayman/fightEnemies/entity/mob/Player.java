@@ -29,16 +29,17 @@ public class Player extends Mob {
 
     }
 
-    public void render() {
-
-    }
 
     public void render(Screen screen) {
+        boolean flip = false;
         if(this.dir == 0) this.sprite = Sprite.player_forward;
-        if(this.dir == 1) this.sprite = Sprite.player_right;
+        if(this.dir == 1 || this.dir == 3) {
+            this.sprite = Sprite.player_side;
+            if(this.dir == 3) flip = true;
+        }
         if(this.dir == 2) this.sprite = Sprite.player_backwards;
 
-        screen.renderPlayer(x - 16, y - 16, this.sprite);
+        screen.renderPlayer(x - 16, y - 16, this.sprite, flip);
 
     }
 }
