@@ -55,6 +55,9 @@ public class Level {
 
         if(tiles[x + y * width] == 0) return Tile.bird;
         else if(tiles[x + y * width] == 1) return Tile.sky;
+        else if(tiles[x + y * width] == 2) return Tile.grass;
+        else if(tiles[x + y * width] == 3) return Tile.flower;
+        else if(tiles[x + y * width] == 4) return Tile.rock;
         return Tile.voidTile;
     }
 }
