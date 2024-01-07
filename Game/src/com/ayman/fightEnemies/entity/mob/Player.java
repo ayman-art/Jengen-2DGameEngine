@@ -34,6 +34,8 @@ public class Player extends Mob {
 
     public void render(Screen screen) {
         int size = 16;
+        int x = this.x - size;
+        int y = this.y - size;
         screen.renderPlayer(x, y, Sprite.player0);
         screen.renderPlayer(x + 16, y, Sprite.player1);
         screen.renderPlayer(x, y + 16, Sprite.player2);
