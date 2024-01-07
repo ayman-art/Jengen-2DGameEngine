@@ -69,14 +69,15 @@ public class Screen {
         xp -= xOffset;
         yp -= yOffset;
 
-        for(int y = 0; y < 16; y++) {
+        for(int y = 0; y < 32; y++) {
             int ya = yp + y;
-            for(int x = 0; x < 16; x++) {
+            for(int x = 0; x < 32; x++) {
                 int xa = xp + x;
 
-                if(xa < 0 || xa >= width || ya < 0 || ya >= height) continue;
-                if(sprite.pixels[x + y * 16] != 0xffff00ff)
-                    pixels[xa + ya * width] = sprite.pixels[x + y * 16];
+                if(xa < -32 || xa >= width || ya < 0 || ya >= height) continue;
+
+                int col = sprite.pixels[x + y * 32];
+                if(col != 0xffff00ff) pixels[xa + ya * width] = col;
             }
         }
     }
