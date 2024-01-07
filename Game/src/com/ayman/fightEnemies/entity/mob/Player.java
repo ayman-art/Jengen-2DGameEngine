@@ -7,6 +7,7 @@ import com.ayman.fightEnemies.Input.Keyboard;
 public class Player extends Mob {
 
     private Keyboard input;
+    private int anim = 0;
     public Player(Keyboard input) {
         this.input = input;
     }
@@ -24,7 +25,16 @@ public class Player extends Mob {
         if(input.down) ya++;
         if(input.left) xa--;
         if(input.right) xa++;
-        if(xa != 0 || ya != 0) move(xa, ya);
+        if(xa != 0 || ya != 0){
+            moving = true;
+            move(xa, ya);
+        } else {
+            moving = false;
+        }
+
+
+        if(anim < 1000) anim++;
+        else anim = 0;
 
 
     }
@@ -32,14 +42,39 @@ public class Player extends Mob {
 
     public void render(Screen screen) {
         boolean flip = false;
-        if(this.dir == 0) this.sprite = Sprite.player_forward;
-        if(this.dir == 1 || this.dir == 3) {
-            this.sprite = Sprite.player_side;
-            if(this.dir == 3) flip = true;
+
+        if(dir == 0) {
+            sprite = Sprite.player_forward;
+            if(moving) {
+                if(anim % 20 > 10) { //change the sprite every 10 frames
+                    sprite = Sprite.player_forward_1;
+                } else {
+                    sprite = Sprite.player_forward_2;
+                }
+            }
         }
-        if(this.dir == 2) this.sprite = Sprite.player_backwards;
+        if(dir == 1 || dir == 3) {
+            if(dir == 3) flip = true;
+            sprite = Sprite.player_side;
+            if(moving) {
+                if(anim % 20 > 10) { //change the sprite every 10 frames
+                    sprite = Sprite.player_side_1;
+                } else {
+                    sprite = Sprite.player_side_2;
+                }
+            }
+        }
+        if(dir == 2) {
+            sprite = Sprite.player_backwards;
+            if(moving) {
+                if(anim % 20 > 10) { //change the sprite every 10 frames
+                    sprite = Sprite.player_backwards_1;
+                } else {
+                    sprite = Sprite.player_backwards_2;
+                }
+            }
+        }
 
-        screen.renderPlayer(x - 16, y - 16, this.sprite, flip);
-
+        screen.renderPlayer(x - 16, y - 16, sprite, flip);
     }
 }
