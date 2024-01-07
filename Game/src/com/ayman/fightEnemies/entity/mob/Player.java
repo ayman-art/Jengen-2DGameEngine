@@ -1,5 +1,7 @@
 package com.ayman.fightEnemies.entity.mob;
 
+import com.ayman.fightEnemies.Graphics.Screen;
+import com.ayman.fightEnemies.Graphics.Sprite;
 import com.ayman.fightEnemies.Input.Keyboard;
 
 public class Player extends Mob {
@@ -27,6 +29,15 @@ public class Player extends Mob {
     }
 
     public void render() {
+
+    }
+
+    public void render(Screen screen) {
+        int size = 16;
+        screen.renderPlayer(x, y, Sprite.player0);
+        screen.renderPlayer(x + 16, y, Sprite.player1);
+        screen.renderPlayer(x, y + 16, Sprite.player2);
+        screen.renderPlayer(x + 16, y + 16, Sprite.player3);
 
     }
 }
