@@ -10,7 +10,7 @@ public class WaterTile extends Tile{
 
     @Override
     public boolean isSolid() {
-        return true;
+        return false;
     }
 
     public void render(int x, int y, Screen screen) {

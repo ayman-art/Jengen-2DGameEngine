@@ -11,6 +11,9 @@ public class Entity {
     private boolean removed = false; //if the entity is removed from the level
     protected Level level;
 
+    public void init(Level level) {
+        this.level = level;
+    }
     protected final Random random = new Random();
 
     public void update() {

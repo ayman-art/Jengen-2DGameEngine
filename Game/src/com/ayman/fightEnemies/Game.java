@@ -61,8 +61,9 @@ public class Game extends Canvas implements Runnable{
 //        level = new RandomLevel(64, 64);
         level = Level.spawn;
 
-        TileCoordinate playerSpawn = new TileCoordinate(14, 9);
+        TileCoordinate playerSpawn = new TileCoordinate(3, 9);
         player = new Player(playerSpawn.x(), playerSpawn.y(), keyboard);
+        player.init(level);
 
 
         setFocusable(true);
