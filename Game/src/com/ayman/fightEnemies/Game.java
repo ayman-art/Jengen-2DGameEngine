@@ -58,7 +58,7 @@ public class Game extends Canvas implements Runnable{
         jFrame = new JFrame();
 
 //        level = new RandomLevel(64, 64);
-        level = new SpawnLevel("resources\\Sheets\\level1.png");
+        level = Level.spawn;
 
         player = new Player(keyboard);
 
