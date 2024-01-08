@@ -3,6 +3,7 @@ package com.ayman.fightEnemies;
 
 import com.ayman.fightEnemies.Graphics.Screen;
 import com.ayman.fightEnemies.Input.Keyboard;
+import com.ayman.fightEnemies.Input.Mouse;
 import com.ayman.fightEnemies.entity.mob.Player;
 import com.ayman.fightEnemies.level.Level;
 import com.ayman.fightEnemies.level.RandomLevel;
@@ -55,6 +56,10 @@ public class Game extends Canvas implements Runnable{
         screen = new Screen(width, height);
         keyboard = new Keyboard();
         addKeyListener(keyboard);
+
+        Mouse mouse = new Mouse();
+        addMouseListener(mouse); // for mouse pressed and released
+        addMouseMotionListener(mouse); // for mouse moved and dragged
 
         jFrame = new JFrame();
 
@@ -164,6 +169,8 @@ public class Game extends Canvas implements Runnable{
         graphics.setFont(new Font("Verdana", 0, 50));
         graphics.drawString("X: " + player.x + ", Y: " + player.y, 450, 450);
 
+
+        graphics.fillRect(Mouse.getX() - 32, Mouse.getY() - 32, 64, 64);
         graphics.dispose();
         bufferStrategy.show();
 
