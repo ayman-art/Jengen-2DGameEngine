@@ -168,6 +168,7 @@ public class Game extends Canvas implements Runnable{
         graphics.setColor(Color.WHITE);
         graphics.setFont(new Font("Verdana", 0, 50));
         graphics.drawString("X: " + player.x + ", Y: " + player.y, 450, 450);
+        graphics.drawString(Mouse.getButton() + "", 80, 80);
 
 
         graphics.fillRect(Mouse.getX() - 32, Mouse.getY() - 32, 64, 64);

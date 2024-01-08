@@ -1,8 +1,10 @@
 package com.ayman.fightEnemies.entity.mob;
 
+import com.ayman.fightEnemies.Game;
 import com.ayman.fightEnemies.Graphics.Screen;
 import com.ayman.fightEnemies.Graphics.Sprite;
 import com.ayman.fightEnemies.Input.Keyboard;
+import com.ayman.fightEnemies.Input.Mouse;
 
 public class Player extends Mob {
 
@@ -37,6 +39,19 @@ public class Player extends Mob {
         else anim = 0;
 
 
+
+        updateShoot();
+    }
+
+    private void updateShoot() {
+        if(Mouse.getButton() == 1) {
+            double dx = Mouse.getX() - (Game.width * Game.scaleFactor) / 2;
+            double dy = Mouse.getY() - (Game.height * Game.scaleFactor)/ 2;
+
+            System.out.println("dx: " + dx + ", dy: " + dy);
+            double dir = Math.atan2(dy, dx);
+            shoot(x, y, dir);
+        }
     }
 
 
