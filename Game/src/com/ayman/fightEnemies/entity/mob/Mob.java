@@ -41,8 +41,8 @@ public abstract class Mob extends Entity {
         int offSetX = -8; //the offset of the collision box from the Center of the Mob
         int offSetY = -6; //the offset of the collision box from the Center of the Mob
         for(int c = 0; c < 4; c++) {
-            int xt = ((x + xa) + c % 2 * width + offSetX) >> 4; //the x coordinate of the tile the Mob is colliding with
-            int yt = ((y + ya) + c / 2 * height + offSetY) >> 4; //the y coordinate of the tile the Mob is colliding with
+            int xt = ((x + xa) + c % 2 * (width-1) + offSetX) >> 4; //the x coordinate of the tile the Mob is colliding with
+            int yt = ((y + ya) + c / 2 * (height-1) + offSetY) >> 4; //the y coordinate of the tile the Mob is colliding with
             if(level.getTile(xt, yt).isSolid()) solid = true;
         }
         return solid;
