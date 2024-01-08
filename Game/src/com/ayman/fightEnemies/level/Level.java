@@ -64,10 +64,15 @@ public class Level {
         if(x < 0 || y < 0 || x >= width || y >= height) return Tile.voidTile;
 
        // System.out.println(tiles[x + y * width]);
+        
 
         if(tiles[x + y * width] == 0xff00ff00) return Tile.grass;
         if(tiles[x + y * width] == 0xff000000) return Tile.rock;
         if(tiles[x + y * width] == 0xffffff00) return Tile.flower;
+        if(tiles[x + y * width] == 0xff7f7f00) return Tile.brick;
+        if(tiles[x + y * width] == 0xff00ffff) return Tile.water;
+        if(tiles[x + y * width] == 0xff7f3300) return Tile.wood;
+
 
 
         return Tile.voidTile;
