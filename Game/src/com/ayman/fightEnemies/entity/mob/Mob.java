@@ -35,7 +35,24 @@ public abstract class Mob extends Entity {
     }
 
     private boolean collision(int xa, int ya) {
-        return level.getTile((x + xa) >> 4, (y + ya) >> 4).isSolid();
+        int size = 16; //the size of the sprite
+        int[][] corners = new int[][] { //the corners of the sprite
+                {-size, -size}, {size-1, -size}, {-size, size-1}, {size-1, size-1},
+                {0, size-1}, {0, -size}, {-size, 0}, {size-1, 0}
+        };
+        for(int[] corner : corners) {
+            int xc = x + corner[0] + xa;
+            int yc = y + corner[1] + ya;
+            System.out.println((xc>>4) + ", " + (yc>>4));
+            System.out.println(level.getTile(xc>>4, yc>>4));
+            if(level.getTile(xc>>4, yc>>4).isSolid()) {
+                return true;
+            }
+        }
+
+
+
+        return false;
     }
 
 }
