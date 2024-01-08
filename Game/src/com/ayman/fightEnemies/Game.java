@@ -7,6 +7,7 @@ import com.ayman.fightEnemies.entity.mob.Player;
 import com.ayman.fightEnemies.level.Level;
 import com.ayman.fightEnemies.level.RandomLevel;
 import com.ayman.fightEnemies.level.SpawnLevel;
+import com.ayman.fightEnemies.level.TileCoordinate;
 
 import javax.swing.*;
 import java.awt.*;
@@ -60,7 +61,8 @@ public class Game extends Canvas implements Runnable{
 //        level = new RandomLevel(64, 64);
         level = Level.spawn;
 
-        player = new Player(keyboard);
+        TileCoordinate playerSpawn = new TileCoordinate(14, 9);
+        player = new Player(playerSpawn.x(), playerSpawn.y(), keyboard);
 
 
         setFocusable(true);

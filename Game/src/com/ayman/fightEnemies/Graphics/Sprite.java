@@ -19,7 +19,7 @@ public class Sprite {
     public static Sprite brick = new Sprite(16, 6, 0, SpriteSheet.tiles);
     public static Sprite wood = new Sprite(16, 7, 0, SpriteSheet.tiles);
 
-    public static Sprite voidSprite = new Sprite(16, Color.red.getRGB());
+    public static Sprite voidSprite = new Sprite(16, Color.GRAY.getRGB());
 
     public static Sprite player0 = new Sprite(16, 0, 1, SpriteSheet.tiles);
     public static Sprite player1 = new Sprite(16, 1, 1, SpriteSheet.tiles);
