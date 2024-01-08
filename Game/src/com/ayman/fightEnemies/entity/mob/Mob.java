@@ -9,6 +9,13 @@ public abstract class Mob extends Entity {
     protected boolean moving = false;
 
     public void move(int xa, int ya) {
+
+        if(xa != 0 && ya != 0) {
+            move(xa, 0);
+            move(0, ya);
+            return;
+        }
+
         if(xa > 0) dir = 1; //east
         if(xa < 0) dir = 3; //west
         if(ya > 0) dir = 2; //south
