@@ -67,12 +67,15 @@ public class Level {
        // System.out.println(tiles[x + y * width]);
 
 
-        if(tiles[x + y * width] == 0xff00ff00) return Tile.grass;
-        if(tiles[x + y * width] == 0xff000000) return Tile.rock;
-        if(tiles[x + y * width] == 0xffffff00) return Tile.flower;
-        if(tiles[x + y * width] == 0xffff0000) return Tile.brick;
-        if(tiles[x + y * width] == 0xff00ffff) return Tile.water;
-        if(tiles[x + y * width] == 0xff7f0000) return Tile.wood;
+        if(tiles[x + y * width] == Tile.grassColor) return Tile.grass;
+        if(tiles[x + y * width] == Tile.brickColor) return Tile.brick;
+        if(tiles[x + y * width] == Tile.rockColor) return Tile.rock;
+        if(tiles[x + y * width] == Tile.flowerColor) return Tile.flower;
+        if(tiles[x + y * width] == Tile.skyColor) return Tile.sky;
+        if(tiles[x + y * width] == Tile.birdColor) return Tile.bird;
+        if(tiles[x + y * width] == Tile.waterColor) return Tile.water;
+        if(tiles[x + y * width] == Tile.woodColor) return Tile.wood;
+
 
 
 

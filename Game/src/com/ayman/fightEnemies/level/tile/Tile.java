@@ -22,6 +22,17 @@ public class Tile {
         public static Tile voidTile = new VoidTile(Sprite.voidSprite);
 
 
+        public static final int grassColor = 0xff00ff00;
+        public static final int rockColor = 0xff000000;
+        public static final int flowerColor = 0xffffff00;
+        public static final int skyColor = 0; // not used.
+        public static final int birdColor = 0; // not used.
+        public static final int brickColor = 0xffff0000;
+        public static final int waterColor = 0xff00ffff;
+        public static final int woodColor = 0xff7F0000;
+
+
+
 
 
 
