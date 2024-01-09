@@ -2,6 +2,8 @@ package com.ayman.fightEnemies.entity.mob;
 
 import com.ayman.fightEnemies.Graphics.Sprite;
 import com.ayman.fightEnemies.entity.Entity;
+import com.ayman.fightEnemies.entity.projectile.Projectile;
+import com.ayman.fightEnemies.entity.projectile.WizardProjectile;
 
 public abstract class Mob extends Entity {
     protected Sprite sprite;
@@ -68,6 +70,7 @@ public abstract class Mob extends Entity {
     }
 
     public void shoot(int x, int y, double dir) {
-        System.out.println("Angle: " + Math.toDegrees(dir));
+
+        Projectile projectile = new WizardProjectile(x, y, dir);
     }
 }
