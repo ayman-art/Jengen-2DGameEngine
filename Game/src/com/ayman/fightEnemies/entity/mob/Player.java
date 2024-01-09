@@ -5,11 +5,16 @@ import com.ayman.fightEnemies.Graphics.Screen;
 import com.ayman.fightEnemies.Graphics.Sprite;
 import com.ayman.fightEnemies.Input.Keyboard;
 import com.ayman.fightEnemies.Input.Mouse;
+import com.ayman.fightEnemies.entity.projectile.Projectile;
+import com.ayman.fightEnemies.entity.projectile.WizardProjectile;
 
 public class Player extends Mob {
 
     private Keyboard input;
     private int anim = 0;
+
+    private Projectile projectile;
+    private int fireInterval = 0;
     public Player(Keyboard input) {
         this.input = input;
     }
@@ -18,6 +23,8 @@ public class Player extends Mob {
         this.y = y;
         this.input = input;
         this.sprite = Sprite.player_forward;
+
+        fireInterval = WizardProjectile.FIRE_INTERVAL;
     }
 
 
@@ -38,6 +45,10 @@ public class Player extends Mob {
         if(anim < 1000) anim++;
         else anim = 0;
 
+        fireInterval--;
+
+
+
 
 
         updateShoot();
@@ -50,14 +61,20 @@ public class Player extends Mob {
         for(int i = 0; i < projectiles.size(); i++) {
             if(projectiles.get(i).isRemoved()) {
 
-                level.remove(projectiles.get(i)); //remove the projectile from the level first
-                projectiles.remove(i);
+                var del = projectiles.get(i);
+                projectiles.remove(del);
+                level.removeProjectile(del);
                 i--; //to avoid skipping the next projectile in the list
             }
         }}
 
 
     private void updateShoot() {
+
+        if(fireInterval > 0) {
+            return;
+        }
+
         if(Mouse.getButton() == 1) {
             double dx = Mouse.getX() - (Game.width * Game.scaleFactor) / 2;
             double dy = Mouse.getY() - (Game.height * Game.scaleFactor)/ 2;
@@ -65,7 +82,11 @@ public class Player extends Mob {
             System.out.println("dx: " + dx + ", dy: " + dy);
             double dir = Math.atan2(dy, dx);
             shoot(x, y, dir);
+
+
         }
+
+        fireInterval += WizardProjectile.FIRE_INTERVAL;
     }
 
 

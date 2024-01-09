@@ -93,7 +93,7 @@ public class Level {
         this.entities.add(entity);
     }
 
-    public void remove(Projectile projectile) {
-        this.entities.remove(projectile);
+    public void removeProjectile(Projectile projectile) {
+        //this.entities.remove(projectile);
     }
 }

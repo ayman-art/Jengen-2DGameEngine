@@ -5,12 +5,13 @@ import com.ayman.fightEnemies.Graphics.Sprite;
 import com.ayman.fightEnemies.level.tile.Tile;
 
 public class WizardProjectile extends Projectile {
+
+    public static final int FIRE_INTERVAL = 3;
     public WizardProjectile(int x, int y, double dir) {
         super(x, y, dir);
-        range = 20;
-        speed = 4;
+        range = 100;
+        speed = 1;
         damage = 20;
-        rateOfFire = 20;
         nx = speed * Math.cos(angle);
         ny = speed * Math.sin(angle);
 
