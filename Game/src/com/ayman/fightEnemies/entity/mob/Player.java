@@ -42,7 +42,20 @@ public class Player extends Mob {
 
         updateShoot();
         System.out.println(projectiles.size());
+
+        clear();
     }
+
+    private void clear() {
+        for(int i = 0; i < projectiles.size(); i++) {
+            if(projectiles.get(i).isRemoved()) {
+
+                level.remove(projectiles.get(i)); //remove the projectile from the level first
+                projectiles.remove(i);
+                i--; //to avoid skipping the next projectile in the list
+            }
+        }}
+
 
     private void updateShoot() {
         if(Mouse.getButton() == 1) {
