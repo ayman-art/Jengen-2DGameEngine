@@ -14,7 +14,7 @@ public class WizardProjectile extends Projectile {
         nx = speed * Math.cos(angle);
         ny = speed * Math.sin(angle);
 
-        sprite = Sprite.rock;
+        sprite = Sprite.wizardProjectile;
 
     }
 
@@ -35,6 +35,6 @@ public class WizardProjectile extends Projectile {
 
     @Override
     public void render(Screen screen) {
-        screen.renderSprite((int)x, (int)y, sprite);
+        screen.renderProjectile((int)x, (int)y, this);
     }
 }

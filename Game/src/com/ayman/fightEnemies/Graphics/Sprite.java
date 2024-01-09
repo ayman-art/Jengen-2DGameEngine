@@ -19,6 +19,7 @@ public class Sprite {
     public static Sprite brick = new Sprite(16, 6, 0, SpriteSheet.tiles);
     public static Sprite wood = new Sprite(16, 7, 0, SpriteSheet.tiles);
 
+    public static Sprite wizardProjectile = new Sprite(16, 8, 0, SpriteSheet.tiles);
     public static Sprite voidSprite = new Sprite(16, Color.GRAY.getRGB());
 
     public static Sprite player0 = new Sprite(16, 0, 1, SpriteSheet.tiles);
@@ -34,6 +35,7 @@ public class Sprite {
     public static Sprite player_backwards = new Sprite(32, 2, 1, SpriteSheet.tiles);
     public static Sprite player_backwards_1 = new Sprite(32, 2, 2, SpriteSheet.tiles);
     public static Sprite player_backwards_2 = new Sprite(32, 2, 3, SpriteSheet.tiles);
+
 
     public Sprite(int size, int x, int y, SpriteSheet sheet) {
 

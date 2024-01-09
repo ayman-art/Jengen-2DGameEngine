@@ -1,5 +1,7 @@
 package com.ayman.fightEnemies.Graphics;
 
+import com.ayman.fightEnemies.entity.projectile.Projectile;
+import com.ayman.fightEnemies.entity.projectile.WizardProjectile;
 import com.ayman.fightEnemies.level.tile.Tile;
 
 import java.util.Random;
@@ -84,6 +86,26 @@ public class Screen {
     }
     public void renderSprite(int xp, int yp, Sprite sprite){
         renderSprite(xp, yp, sprite, false);
+    }
+
+    public void renderProjectile(int x, int y, Projectile projectile) {
+
+            x -= xOffset;
+            y -= yOffset;
+
+            for(int y0 = 0; y0 < projectile.getSpriteSize(); y0++) {
+                int ya = y + y0;
+                for(int x0 = 0; x0 < projectile.getSpriteSize(); x0++) {
+                    int xa = x + x0;
+
+                    if(xa < -projectile.getSpriteSize() || xa >= width || ya < 0 || ya >= height) break;
+                    if(xa < 0) xa = 0;
+
+                    int col = projectile.getSprite().pixels[x0 + y0 * projectile.getSpriteSize()];
+                    if(col != 0xffff00ff) pixels[xa + ya * width] = col;
+                }
+            }
+
     }
 
     public void renderPlayer(int xp, int yp, Sprite sprite, boolean flip) {
