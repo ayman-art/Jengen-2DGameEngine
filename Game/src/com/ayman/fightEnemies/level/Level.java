@@ -68,6 +68,27 @@ public class Level {
         }
     }
 
+    public boolean tileCollision(double x, double y, double xa, double ya, int size) {
+
+        boolean solid = false;
+        int width = 4; //the width of the Mob collision box
+        int height = 4; //the height of the Mob collision box
+        int offSetX = -2; //the offset of the collision box from the Center of the Mob
+        int offSetY = 4; //the offset of the collision box from the Center of the Mob
+        for(int c = 0; c < 4; c++) {
+//            double xt = ((x + xa) + c % 2 * size/5 -5) /16; //the x coordinate of the tile the Mob is colliding with
+//            double xt = ((x + xa) + c % 2 * size/5 -5) /16; //the x coordinate of the tile the Mob is colliding with
+            double xt = ((x + xa) + c % 2 * width + offSetX) /16; //the x coordinate of the tile the Mob is colliding with
+            double yt = ((y + ya) + c / 2 * height + offSetY) / 16; //the y coordinate of the tile the Mob is colliding with
+
+            if(getTile((int)xt, (int)yt).isSolid()) solid = true;
+        }
+        return solid;
+
+
+
+    }
+
     public Tile getTile(int x, int y) {
         if(x < 0 || y < 0 || x >= width || y >= height) return Tile.voidTile;
 
@@ -90,10 +111,11 @@ public class Level {
     }
 
     public void add(Entity entity) {
+        entity.init(this);
         this.entities.add(entity);
     }
 
     public void removeProjectile(Projectile projectile) {
-        //this.entities.remove(projectile);
+        this.entities.remove(projectile);
     }
 }

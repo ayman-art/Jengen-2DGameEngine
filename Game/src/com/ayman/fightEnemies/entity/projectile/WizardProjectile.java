@@ -2,11 +2,12 @@ package com.ayman.fightEnemies.entity.projectile;
 
 import com.ayman.fightEnemies.Graphics.Screen;
 import com.ayman.fightEnemies.Graphics.Sprite;
+import com.ayman.fightEnemies.entity.Entity;
 import com.ayman.fightEnemies.level.tile.Tile;
 
 public class WizardProjectile extends Projectile {
 
-    public static final int FIRE_INTERVAL = 3;
+    public static final int FIRE_INTERVAL = 2;
     public WizardProjectile(int x, int y, double dir) {
         super(x, y, dir);
         range = 100;
@@ -24,6 +25,8 @@ public class WizardProjectile extends Projectile {
     }
 
     public void move() {
+        if(level.tileCollision(x, y, nx, ny, 64))
+            return;
         x += nx;
         y += ny;
         if(distance() > range) remove();

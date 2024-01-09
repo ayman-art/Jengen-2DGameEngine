@@ -167,13 +167,13 @@ public class Game extends Canvas implements Runnable{
 
         Graphics graphics = bufferStrategy.getDrawGraphics();
         graphics.drawImage(image, 0, 0, getWidth(), getHeight(), null);
-        graphics.setColor(Color.WHITE);
+        graphics.setColor(Color.black);
         graphics.setFont(new Font("Verdana", 0, 50));
         graphics.drawString("X: " + player.x + ", Y: " + player.y, 450, 450);
         graphics.drawString(Mouse.getButton() + "", 80, 80);
 
 
-        graphics.fillRect(Mouse.getX() - 32, Mouse.getY() - 32, 64, 64);
+        graphics.fillRect(Mouse.getX() , Mouse.getY(), 8, 8);
         graphics.dispose();
         bufferStrategy.show();
 
