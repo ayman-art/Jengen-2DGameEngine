@@ -25,8 +25,10 @@ public class WizardProjectile extends Projectile {
     }
 
     public void move() {
-        if(level.tileCollision(x, y, nx, ny, 5))
+        if(level.tileCollision(x, y, nx, ny, 5)) {
+            remove();
             return;
+        }
         x += nx;
         y += ny;
         if(distance() > range) remove();
