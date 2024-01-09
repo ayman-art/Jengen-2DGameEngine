@@ -5,11 +5,15 @@ import com.ayman.fightEnemies.entity.Entity;
 import com.ayman.fightEnemies.entity.projectile.Projectile;
 import com.ayman.fightEnemies.entity.projectile.WizardProjectile;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public abstract class Mob extends Entity {
     protected Sprite sprite;
     protected int dir = 0; //direction of the mob, popular convention :(0 = north, 1 = east, 2 = south, 3 = west)
     protected boolean moving = false;
 
+    protected List<Projectile> projectiles = new ArrayList<>(); // To keep track of projectiles fired by a specific mob
     public void move(int xa, int ya) {
 
         if(xa != 0 && ya != 0) {
@@ -69,8 +73,10 @@ public abstract class Mob extends Entity {
         return false;
     }
 
-    public void shoot(int x, int y, double dir) {
+    protected void shoot(int x, int y, double dir) {
 
         Projectile projectile = new WizardProjectile(x, y, dir);
+        projectiles.add(projectile);
+        level.add(projectile);
     }
 }

@@ -1,7 +1,12 @@
 package com.ayman.fightEnemies.level;
 
 import com.ayman.fightEnemies.Graphics.Screen;
+import com.ayman.fightEnemies.entity.Entity;
+import com.ayman.fightEnemies.entity.projectile.Projectile;
 import com.ayman.fightEnemies.level.tile.Tile;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class Level {
@@ -11,6 +16,7 @@ public class Level {
     protected int[] tiles;
     protected int[] tilesInt;
     public static Level spawn = new SpawnLevel("resources\\Sheets\\level1.png");
+    private List<Entity> entities = new ArrayList<>();
 
     public Level(int width, int height) {
 
@@ -33,7 +39,9 @@ public class Level {
     }
 
     public void update() {
-
+        for(int i = 0; i < entities.size(); i++) {
+            entities.get(i).update();
+        }
     }
 
     protected void time() {
@@ -52,12 +60,11 @@ public class Level {
             for(int x = x0; x < x1; x++) {
 
                 getTile(x, y).render(x, y, screen);
-
-
-
-
-
             }
+        }
+
+        for(int i = 0; i < entities.size(); i++) {
+            entities.get(i).render(screen);
         }
     }
 
@@ -82,4 +89,7 @@ public class Level {
         return Tile.voidTile;
     }
 
+    public void add(Entity entity) {
+        this.entities.add(entity);
+    }
 }

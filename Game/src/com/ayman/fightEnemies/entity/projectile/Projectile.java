@@ -1,5 +1,6 @@
 package com.ayman.fightEnemies.entity.projectile;
 
+import com.ayman.fightEnemies.Graphics.Sprite;
 import com.ayman.fightEnemies.entity.Entity;
 
 public abstract class Projectile extends Entity {
@@ -11,6 +12,8 @@ public abstract class Projectile extends Entity {
         protected double distance;
         protected double speed, rateOfFire, range, damage;
 
+        protected Sprite sprite;
+
         public Projectile(int x, int y, double dir) {
             xOrigin = x;
             yOrigin = y;
@@ -19,15 +22,15 @@ public abstract class Projectile extends Entity {
             this.y = y;
         }
 
-        protected void move() {
-
+        public void move() {
+            System.out.println("Move from Projectile");
         }
 
         public void update() {
-
+            System.out.println("Update from Projectile");
         }
 
-        public void render() {
+         void render() {
 
         }
 }

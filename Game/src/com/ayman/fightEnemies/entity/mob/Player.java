@@ -41,6 +41,7 @@ public class Player extends Mob {
 
 
         updateShoot();
+        System.out.println(projectiles.size());
     }
 
     private void updateShoot() {

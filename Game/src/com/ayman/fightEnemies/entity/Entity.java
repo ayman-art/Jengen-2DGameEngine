@@ -17,7 +17,7 @@ public class Entity {
     protected final Random random = new Random();
 
     public void update() {
-
+        System.out.println("Update from Entity");
     }
 
     public void render(Screen screen) {
