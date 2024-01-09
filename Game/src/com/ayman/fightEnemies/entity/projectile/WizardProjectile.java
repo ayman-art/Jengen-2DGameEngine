@@ -25,7 +25,7 @@ public class WizardProjectile extends Projectile {
     }
 
     public void move() {
-        if(level.tileCollision(x, y, nx, ny, 64))
+        if(level.tileCollision(x, y, nx, ny, 5))
             return;
         x += nx;
         y += ny;
