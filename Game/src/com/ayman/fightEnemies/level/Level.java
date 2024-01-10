@@ -78,8 +78,8 @@ public class Level {
         for(int c = 0; c < 4; c++) {
 //            double xt = ((x + xa) + c % 2 * size/5 -5) /16; //the x coordinate of the tile the Mob is colliding with
 //            double xt = ((x + xa) + c % 2 * size/5 -5) /16; //the x coordinate of the tile the Mob is colliding with
-            double xt = ((x + xa) + c % 2 * size / 2 + offSetX) /16; //the x coordinate of the tile the Mob is colliding with
-            double yt = ((y + ya) + c / 2 * size / 2 + offSetY) / 16; //the y coordinate of the tile the Mob is colliding with
+            double xt = ((x + xa) + c % 2 * size + offSetX) /16; //the x coordinate of the tile the Mob is colliding with
+            double yt = ((y + ya) + c / 2 * size + offSetY) / 16; //the y coordinate of the tile the Mob is colliding with
 
             if(getTile((int)xt, (int)yt).isSolid()) solid = true;
         }
