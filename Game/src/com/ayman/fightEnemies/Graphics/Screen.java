@@ -73,14 +73,15 @@ public class Screen {
             yp -= yOffset;
         }
 
-        for(int y = 0; y < sprite.SIZE; y++) {
-            int ya = y + yp;
-            for(int x = 0; x < sprite.SIZE; x++) {
-                int xa = x + xp;
+        for(int y = 0; y < sprite.getHeight(); y++) {
+            int ya = yp + y;
+            for(int x = 0; x < sprite.getWidth(); x++) {
+                int xa = xp + x;
 
                 if(xa < 0 || xa >= width || ya < 0 || ya >= height) continue;
 
-                pixels[xa + ya * width] = sprite.pixels[x + y * sprite.SIZE];
+                int col = sprite.pixels[x + y * sprite.getWidth()];
+                if(col != 0xffff00ff) pixels[xa + ya * width] = col;
             }
         }
     }
