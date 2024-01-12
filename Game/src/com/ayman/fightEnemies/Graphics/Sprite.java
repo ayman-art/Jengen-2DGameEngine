@@ -51,6 +51,16 @@ public class Sprite {
         load();
     }
 
+    public Sprite(int width, int height, int color) {
+
+        SIZE = -1;
+        this.width = width;
+        this.height = height;
+        pixels = new int[width * height];
+
+        setColor(color);
+    }
+
     public Sprite(int size, int color) {
 
         this.SIZE = size;
@@ -61,7 +71,7 @@ public class Sprite {
 
     private void setColor(int color) {
 
-        for(int i = 0; i < SIZE * SIZE; i++) {
+        for(int i = 0; i < width * height; i++) {
             pixels[i] = color;
         }
     }
