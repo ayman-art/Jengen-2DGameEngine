@@ -5,6 +5,7 @@ import java.awt.*;
 public class Sprite {
 
     public final int SIZE;
+    private int width, height;
     private int x, y;
     public int[] pixels;
 
@@ -40,6 +41,8 @@ public class Sprite {
     public Sprite(int size, int x, int y, SpriteSheet sheet) {
 
         this.SIZE = size;
+        this.width = size;
+        this.height = size;
         this.x = x * size;
         this.y = y * size;
         this.sheet = sheet;
@@ -62,6 +65,15 @@ public class Sprite {
             pixels[i] = color;
         }
     }
+
+    public int getWidth() {
+        return width;
+    }
+    public int getHeight() {
+        return height;
+    }
+
+
 
 
     private void load() {
