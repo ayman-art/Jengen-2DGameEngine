@@ -165,10 +165,11 @@ public class Game extends Canvas implements Runnable{
 
         Sprite sprite = new Sprite(2,2, 0xff00ff);
         Random random = new Random();
-        int x = random.nextInt(10);
-        int y = random.nextInt(10);
-        for(int i = 0; i < 1000; i++) {
+        for(int i = 0; i < 10; i++) {
+            int x = random.nextInt(10);
+            int y = random.nextInt(10);
             screen.renderSprite(x, y-12, sprite, false);
+
         }
 
         for(int i = 0; i < pixels.length; i++) {
