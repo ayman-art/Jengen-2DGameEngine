@@ -2,8 +2,7 @@ package com.ayman.fightEnemies.entity.mob;
 
 import com.ayman.fightEnemies.Graphics.Sprite;
 import com.ayman.fightEnemies.entity.Entity;
-import com.ayman.fightEnemies.entity.Spawner;
-import com.ayman.fightEnemies.entity.particle.Particle;
+import com.ayman.fightEnemies.entity.spawner.Spawner;
 import com.ayman.fightEnemies.entity.projectile.Projectile;
 import com.ayman.fightEnemies.entity.projectile.WizardProjectile;
 

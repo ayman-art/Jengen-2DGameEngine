@@ -1,12 +1,13 @@
-package com.ayman.fightEnemies.entity;
+package com.ayman.fightEnemies.entity.spawner;
 
+import com.ayman.fightEnemies.entity.Entity;
 import com.ayman.fightEnemies.entity.particle.Particle;
 import com.ayman.fightEnemies.level.Level;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Spawner extends Entity{
+public class Spawner extends Entity {
 
     List<Entity> entities = new ArrayList<>();
 

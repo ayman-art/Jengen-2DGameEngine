@@ -2,7 +2,7 @@ package com.ayman.fightEnemies.level;
 
 import com.ayman.fightEnemies.Graphics.Screen;
 import com.ayman.fightEnemies.entity.Entity;
-import com.ayman.fightEnemies.entity.Spawner;
+import com.ayman.fightEnemies.entity.spawner.Spawner;
 import com.ayman.fightEnemies.entity.particle.Particle;
 import com.ayman.fightEnemies.entity.projectile.Projectile;
 import com.ayman.fightEnemies.level.tile.Tile;
