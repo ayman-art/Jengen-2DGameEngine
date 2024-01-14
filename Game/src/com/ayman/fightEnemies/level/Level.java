@@ -2,6 +2,7 @@ package com.ayman.fightEnemies.level;
 
 import com.ayman.fightEnemies.Graphics.Screen;
 import com.ayman.fightEnemies.entity.Entity;
+import com.ayman.fightEnemies.entity.Spawner;
 import com.ayman.fightEnemies.entity.particle.Particle;
 import com.ayman.fightEnemies.entity.projectile.Projectile;
 import com.ayman.fightEnemies.level.tile.Tile;
@@ -32,6 +33,9 @@ public class Level {
 
         loadLevel(path);
         generateLevel();
+
+        Spawner spawner = new Spawner(3*16, 1*20, Spawner.Type.PARTICLE, 50, this);
+        this.add(spawner);
     }
 
     protected void generateLevel() {
@@ -130,7 +134,14 @@ public class Level {
 
     public void add(Entity entity) {
         entity.init(this);
-        this.entities.add(entity);
+
+        if(entity instanceof Particle) {
+            particles.add((Particle) entity);
+        } else if(entity instanceof Projectile) {
+            projectiles.add((Projectile) entity);
+        } else {
+            entities.add(entity);
+        }
     }
 
     public void removeProjectile(Projectile projectile) {
