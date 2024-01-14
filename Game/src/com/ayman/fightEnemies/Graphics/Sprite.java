@@ -21,6 +21,8 @@ public class Sprite {
     public static Sprite wood = new Sprite(16, 7, 0, SpriteSheet.tiles);
 
     public static Sprite wizardProjectile = new Sprite(16, 8, 0, SpriteSheet.tiles);
+
+    public static Sprite basicParticle = new Sprite(3, 0xAAAAAA);
     public static Sprite voidSprite = new Sprite(16, Color.GRAY.getRGB());
 
     public static Sprite player0 = new Sprite(16, 0, 1, SpriteSheet.tiles);
