@@ -2,6 +2,7 @@ package com.ayman.fightEnemies.entity.mob;
 
 import com.ayman.fightEnemies.Graphics.Sprite;
 import com.ayman.fightEnemies.entity.Entity;
+import com.ayman.fightEnemies.entity.particle.Particle;
 import com.ayman.fightEnemies.entity.projectile.Projectile;
 import com.ayman.fightEnemies.entity.projectile.WizardProjectile;
 
@@ -30,6 +31,9 @@ public abstract class Mob extends Entity {
         if(!collision(xa, ya)) {
             x += xa;
             y += ya;
+        } else {
+            Particle p = new Particle(x, y, 50, 50);
+            level.add(p);
         }
     }
     public void update() {

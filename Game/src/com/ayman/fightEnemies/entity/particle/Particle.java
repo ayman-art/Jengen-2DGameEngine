@@ -20,7 +20,7 @@ public class Particle extends Entity {
 
         this.xDouble = this.x = x;
         this.yDouble = this.y = y;
-        this.life = life + (random.nextInt(20) - 10);
+        this.life = life;
         sprite = Sprite.basicParticle;
         this.xVel = random.nextGaussian();
         this.yVel = random.nextGaussian();
@@ -29,7 +29,6 @@ public class Particle extends Entity {
     public Particle(int x, int y, int life, int amount) {
         this(x, y, life);
         particles.add(this);
-        particles = new ArrayList<Particle>(amount);
         for(int i = 0; i < amount - 1; i++) {
             particles.add(new Particle(x, y, life));
         }
@@ -43,9 +42,11 @@ public class Particle extends Entity {
 
     public void render(Screen screen) {
         for(int i = 0; i < particles.size(); i++) {
-            particles.get(i).render(screen);
+
+            screen.renderSprite((int) particles.get(i).xDouble, (int) particles.get(i).yDouble, sprite, false);
         }
-        screen.renderSprite(x, y, sprite, true);
     }
+
+
 
 }

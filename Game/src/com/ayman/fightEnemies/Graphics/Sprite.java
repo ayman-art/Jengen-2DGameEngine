@@ -66,6 +66,8 @@ public class Sprite {
     public Sprite(int size, int color) {
 
         this.SIZE = size;
+        this.width = size;
+        this.height = size;
         pixels = new int[SIZE * SIZE];
 
         setColor(color);
