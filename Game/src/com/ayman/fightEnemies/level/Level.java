@@ -48,14 +48,25 @@ public class Level {
     public void update() {
         for(int i = 0; i < entities.size(); i++) {
             entities.get(i).update();
-            if(entities.get(i).isRemoved()) entities.remove(i);
         }
         for(int i = 0; i < projectiles.size(); i++) {
             projectiles.get(i).update();
-            if(projectiles.get(i).isRemoved()) projectiles.remove(i);
         }
         for(int i = 0; i < particles.size(); i++) {
             particles.get(i).update();
+        }
+
+        clean();
+    }
+
+    private void clean() {
+        for(int i = 0; i < entities.size(); i++) {
+            if(entities.get(i).isRemoved()) entities.remove(i);
+        }
+        for(int i = 0; i < projectiles.size(); i++) {
+            if(projectiles.get(i).isRemoved()) projectiles.remove(i);
+        }
+        for(int i = 0; i < particles.size(); i++) {
             if(particles.get(i).isRemoved()) particles.remove(i);
         }
     }
