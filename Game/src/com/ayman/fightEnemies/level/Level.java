@@ -102,18 +102,18 @@ public class Level {
         }
     }
 
-    public boolean tileCollision(double x, double y, double xa, double ya, int size) {
+    public boolean tileCollision(int x, int y, int size, int xOffset, int yOffset) { // universal method for tile collision
 
         boolean solid = false;
         int width = 4; //the width of the Mob collision box
         int height = 4; //the height of the Mob collision box
-        int offSetX = -2; //the offset of the collision box from the Center of the Mob
-        int offSetY = 4; //the offset of the collision box from the Center of the Mob
+//        int xOffset = -2; //the offset of the collision box from the Center of the Mob
+//        int yOffset = 4; //the offset of the collision box from the Center of the Mob
         for(int c = 0; c < 4; c++) {
 //            double xt = ((x + xa) + c % 2 * size/5 -5) /16; //the x coordinate of the tile the Mob is colliding with
 //            double xt = ((x + xa) + c % 2 * size/5 -5) /16; //the x coordinate of the tile the Mob is colliding with
-            double xt = ((x + xa) + c % 2 * size + offSetX) /16; //the x coordinate of the tile the Mob is colliding with
-            double yt = ((y + ya) + c / 2 * size + offSetY) / 16; //the y coordinate of the tile the Mob is colliding with
+            double xt = ((x) + c % 2 * size + xOffset) /16; //the x coordinate of the tile the Mob is colliding with
+            double yt = ((y) + c / 2 * size + yOffset) / 16; //the y coordinate of the tile the Mob is colliding with
 
             if(getTile((int)xt, (int)yt).isSolid()) solid = true;
         }
