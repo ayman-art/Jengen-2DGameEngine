@@ -32,8 +32,8 @@ public abstract class Mob extends Entity {
             x += xa;
             y += ya;
         } else {
-            Particle p = new Particle(x, y, 1, 1, level);
-            level.add(p);
+            Particle p = new Particle(x, y, 5, 1, level);
+            level.addParticle(p);
         }
     }
     public void update() {
