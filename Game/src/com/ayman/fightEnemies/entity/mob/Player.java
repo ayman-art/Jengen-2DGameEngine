@@ -52,7 +52,7 @@ public class Player extends Mob {
 
 
         updateShoot();
-        System.out.println(projectiles.size());
+        //System.out.println(projectiles.size());
 
         clear();
     }
@@ -66,7 +66,9 @@ public class Player extends Mob {
                 level.removeProjectile(del);
                 i--; //to avoid skipping the next projectile in the list
             }
-        }}
+        }
+
+    }
 
 
     private void updateShoot() {
@@ -79,7 +81,7 @@ public class Player extends Mob {
             double dx = Mouse.getX() - (Game.width * Game.scaleFactor) / 2;
             double dy = Mouse.getY() - (Game.height * Game.scaleFactor)/ 2;
 
-            System.out.println("dx: " + dx + ", dy: " + dy);
+//            System.out.println("dx: " + dx + ", dy: " + dy);
             double dir = Math.atan2(dy, dx);
             shoot(x, y, dir);
 

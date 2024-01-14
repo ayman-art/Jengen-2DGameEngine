@@ -4,13 +4,14 @@ import com.ayman.fightEnemies.Graphics.Screen;
 import com.ayman.fightEnemies.Graphics.Sprite;
 import com.ayman.fightEnemies.entity.Entity;
 import com.ayman.fightEnemies.entity.particle.Particle;
+import com.ayman.fightEnemies.level.Level;
 import com.ayman.fightEnemies.level.tile.Tile;
 
 public class WizardProjectile extends Projectile {
 
     public static final int FIRE_INTERVAL = 2;
-    public WizardProjectile(int x, int y, double dir) {
-        super(x, y, dir);
+    public WizardProjectile(int x, int y, double dir, Level level) {
+        super(x, y, dir, level);
         range = 100;
         speed = 1;
         damage = 20;
@@ -28,8 +29,9 @@ public class WizardProjectile extends Projectile {
     public void move() {
         if(level.tileCollision(x, y, nx, ny, 5)) {
 
-            Particle p = new Particle((int) x, (int) y, 50, 50);
-            level.add(p);
+            Particle p = new Particle((int) x, (int) y, 50, 50, level);
+            p.init(level);
+            level.addParticle(p);
             remove();
             return;
         }

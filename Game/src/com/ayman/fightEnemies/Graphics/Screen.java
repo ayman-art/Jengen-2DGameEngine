@@ -72,22 +72,19 @@ public class Screen {
             xp -= xOffset;
             yp -= yOffset;
         }
-        System.out.println("rendering sprite from Screen.java1");
 
         for(int y = 0; y < sprite.getHeight(); y++) {
             int ya = yp + y;
             for(int x = 0; x < sprite.getWidth(); x++) {
                 int xa = xp + x;
 
-                System.out.println("rendering sprite from Screen.java2");
                 if(xa < 0 || xa >= width || ya < 0 || ya >= height) continue;
 
                 int col = sprite.pixels[x + y * sprite.getWidth()];
                 if(col != 0xffff00ff) {
                     pixels[xa + ya * width] = col;
-                    System.out.println("xa: " + xa + ", ya: " + ya  );
+                    //System.out.println("xa: " + xa + ", ya: " + ya  );
                 }
-                System.out.println("rendering sprite from Screen.java3");
             }
         }
     }

@@ -2,6 +2,7 @@ package com.ayman.fightEnemies.entity.projectile;
 
 import com.ayman.fightEnemies.Graphics.Sprite;
 import com.ayman.fightEnemies.entity.Entity;
+import com.ayman.fightEnemies.level.Level;
 
 public abstract class Projectile extends Entity {
 
@@ -14,7 +15,8 @@ public abstract class Projectile extends Entity {
 
         protected Sprite sprite;
 
-        public Projectile(int x, int y, double dir) {
+        public Projectile(int x, int y, double dir, Level level) {
+            init(level);
             xOrigin = x;
             yOrigin = y;
             angle = dir;

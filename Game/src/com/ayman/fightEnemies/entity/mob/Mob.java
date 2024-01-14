@@ -32,7 +32,7 @@ public abstract class Mob extends Entity {
             x += xa;
             y += ya;
         } else {
-            Particle p = new Particle(x, y, 50, 50);
+            Particle p = new Particle(x, y, 1, 1, level);
             level.add(p);
         }
     }
@@ -79,8 +79,8 @@ public abstract class Mob extends Entity {
 
     protected void shoot(int x, int y, double dir) {
 
-        Projectile projectile = new WizardProjectile(x, y, dir);
+        Projectile projectile = new WizardProjectile(x, y, dir, level);
         projectiles.add(projectile);
-        level.add(projectile);
+        level.addProjectile(projectile);
     }
 }

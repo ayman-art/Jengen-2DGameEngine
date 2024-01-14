@@ -2,6 +2,7 @@ package com.ayman.fightEnemies.level;
 
 import com.ayman.fightEnemies.Graphics.Screen;
 import com.ayman.fightEnemies.entity.Entity;
+import com.ayman.fightEnemies.entity.particle.Particle;
 import com.ayman.fightEnemies.entity.projectile.Projectile;
 import com.ayman.fightEnemies.level.tile.Tile;
 
@@ -17,6 +18,8 @@ public class Level {
     protected int[] tilesInt;
     public static Level spawn = new SpawnLevel("resources\\Sheets\\level1.png");
     private List<Entity> entities = new ArrayList<>();
+    private List<Projectile> projectiles = new ArrayList<>();
+    private List<Particle> particles = new ArrayList<>();
 
     public Level(int width, int height) {
 
@@ -42,6 +45,13 @@ public class Level {
         for(int i = 0; i < entities.size(); i++) {
             entities.get(i).update();
         }
+        for(int i = 0; i < projectiles.size(); i++) {
+            projectiles.get(i).update();
+        }
+        for(int i = 0; i < particles.size(); i++) {
+            particles.get(i).update();
+            if(particles.get(i).isRemoved()) particles.remove(i);
+        }
     }
 
     protected void time() {
@@ -65,6 +75,12 @@ public class Level {
 
         for(int i = 0; i < entities.size(); i++) {
             entities.get(i).render(screen);
+        }
+        for(int i = 0; i < projectiles.size(); i++) {
+            projectiles.get(i).render(screen);
+        }
+        for(int i = 0; i < particles.size(); i++) {
+            particles.get(i).render(screen);
         }
     }
 
@@ -116,6 +132,15 @@ public class Level {
     }
 
     public void removeProjectile(Projectile projectile) {
-        this.entities.remove(projectile);
+        this.projectiles.remove(projectile);
+    }
+
+
+    public void addParticle(Particle p) {
+        this.particles.add(p);
+    }
+
+    public void addProjectile(Projectile projectile) {
+        this.projectiles.add(projectile);
     }
 }

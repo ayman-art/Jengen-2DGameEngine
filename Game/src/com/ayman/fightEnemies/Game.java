@@ -163,14 +163,7 @@ public class Game extends Canvas implements Runnable{
         level.render(xScroll, yScroll, screen);
         player.render(screen); //render the player after screen is created to make sure the player is on top of the screen
 
-        Sprite sprite = new Sprite(2,2, 0xff00ff);
-        Random random = new Random();
-        for(int i = 0; i < 10; i++) {
-            int x = random.nextInt(10);
-            int y = random.nextInt(10);
-            screen.renderSprite(x, y-12, sprite, false);
 
-        }
 
         for(int i = 0; i < pixels.length; i++) {
             this.pixels[i] = screen.pixels[i]; //copy the pixels data from screen to the pixels array of the image object
