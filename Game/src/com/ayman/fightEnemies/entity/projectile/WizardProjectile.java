@@ -8,7 +8,7 @@ import com.ayman.fightEnemies.level.Level;
 
 public class WizardProjectile extends Projectile {
 
-    public static final int FIRE_INTERVAL = 2;
+    public static final int FIRE_INTERVAL = 4;
     public WizardProjectile(int x, int y, double dir, Level level) {
         super(x, y, dir, level);
         range = 100;
@@ -28,7 +28,7 @@ public class WizardProjectile extends Projectile {
     public void move() {
         if(level.tileCollision(x, y, nx, ny, 5)) {
 
-            ParticleSpawner particleSpawner = new ParticleSpawner((int)x, (int)y,50, 50, level);
+            ParticleSpawner particleSpawner = new ParticleSpawner((int)x, (int)y,0, 5, level);
             level.add(particleSpawner);
             remove();
             return;

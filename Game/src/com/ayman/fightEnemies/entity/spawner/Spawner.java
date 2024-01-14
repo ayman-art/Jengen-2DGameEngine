@@ -23,7 +23,7 @@ public class Spawner extends Entity {
         switch (type) {
             case PARTICLE:
                 for(int i = 0; i < amount; i++) {
-                    level.addParticle(new Particle(x, y, 50));
+                    level.addParticle(new Particle(x, y, 5));
                 }
                 break;
             case MOB:

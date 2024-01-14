@@ -2,6 +2,7 @@ package com.ayman.fightEnemies.entity.mob;
 
 import com.ayman.fightEnemies.Graphics.Sprite;
 import com.ayman.fightEnemies.entity.Entity;
+import com.ayman.fightEnemies.entity.spawner.ParticleSpawner;
 import com.ayman.fightEnemies.entity.spawner.Spawner;
 import com.ayman.fightEnemies.entity.projectile.Projectile;
 import com.ayman.fightEnemies.entity.projectile.WizardProjectile;
@@ -32,9 +33,9 @@ public abstract class Mob extends Entity {
             x += xa;
             y += ya;
         } else {
-            Spawner spawner = new Spawner(x, y, Spawner.Type.PARTICLE, 50, level);
+            ParticleSpawner particleSpawner = new ParticleSpawner(x,y, 20, 1, level);
 
-            level.add(spawner);
+            level.add(particleSpawner);
         }
     }
     public void update() {

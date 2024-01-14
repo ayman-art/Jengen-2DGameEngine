@@ -34,8 +34,9 @@ public class Level {
         loadLevel(path);
         generateLevel();
 
-        Spawner spawner = new Spawner(3*16, 1*20, Spawner.Type.PARTICLE, 50, this);
-        this.add(spawner);
+
+
+
     }
 
     protected void generateLevel() {
