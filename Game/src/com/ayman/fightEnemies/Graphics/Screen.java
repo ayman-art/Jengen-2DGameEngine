@@ -112,6 +112,24 @@ public class Screen {
 
     }
 
+    public void renderSpriteSheet(int xp, int yp, SpriteSheet spriteSheet, boolean fixed) {
+        if(!fixed) {
+            xp -= xOffset;
+            yp -= yOffset;
+        }
+
+        for(int y = 0; y < spriteSheet.HEIGHT; y++) {
+            int ya = y + yp;
+            for(int x = 0; x < spriteSheet.WIDTH; x++) {
+                int xa = x + xp;
+                if(xa < 0 || xa >= width || ya <  0 || ya >= height)
+                    continue;
+                pixels[xa + ya * width] = spriteSheet.pixels[x + y * spriteSheet.WIDTH];
+            }
+
+        }
+    }
+
     public void renderPlayer(int xp, int yp, Sprite sprite, boolean flip) {
 
         xp -= xOffset;

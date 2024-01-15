@@ -3,6 +3,7 @@ package com.ayman.fightEnemies;
 
 import com.ayman.fightEnemies.Graphics.Screen;
 import com.ayman.fightEnemies.Graphics.Sprite;
+import com.ayman.fightEnemies.Graphics.SpriteSheet;
 import com.ayman.fightEnemies.Input.Keyboard;
 import com.ayman.fightEnemies.Input.Mouse;
 import com.ayman.fightEnemies.entity.mob.Player;
@@ -161,6 +162,7 @@ public class Game extends Canvas implements Runnable{
         int xScroll = player.x - screen.width / 2;
         int yScroll = player.y - screen.height / 2;
         level.render(xScroll, yScroll, screen);
+        screen.renderSpriteSheet(player.x, player.y, SpriteSheet.tiles, false);
         player.render(screen); //render the player after screen is created to make sure the player is on top of the screen
 
 
