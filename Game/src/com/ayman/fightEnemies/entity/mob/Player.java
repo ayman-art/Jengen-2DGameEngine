@@ -1,8 +1,10 @@
 package com.ayman.fightEnemies.entity.mob;
 
 import com.ayman.fightEnemies.Game;
+import com.ayman.fightEnemies.Graphics.AnimatedSprite;
 import com.ayman.fightEnemies.Graphics.Screen;
 import com.ayman.fightEnemies.Graphics.Sprite;
+import com.ayman.fightEnemies.Graphics.SpriteSheet;
 import com.ayman.fightEnemies.Input.Keyboard;
 import com.ayman.fightEnemies.Input.Mouse;
 import com.ayman.fightEnemies.entity.projectile.Projectile;
@@ -15,6 +17,16 @@ public class Player extends Mob {
 
     private Projectile projectile;
     private int fireInterval = 0;
+
+    private boolean moving = false;
+    private AnimatedSprite down = new AnimatedSprite(SpriteSheet.player_down, 32, 32, 3);
+    private AnimatedSprite up = new AnimatedSprite(SpriteSheet.player_up, 32, 32, 3);
+    private AnimatedSprite left = new AnimatedSprite(SpriteSheet.player_left, 32, 32, 3);
+    private AnimatedSprite right = new AnimatedSprite(SpriteSheet.player_right, 32, 32, 3);
+
+    private AnimatedSprite currentAnim = down;
+
+
     public Player(Keyboard input) {
         this.input = input;
     }

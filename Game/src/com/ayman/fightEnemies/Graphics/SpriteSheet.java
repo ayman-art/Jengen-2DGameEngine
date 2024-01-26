@@ -9,8 +9,8 @@ public class SpriteSheet {
 
     private String path;
 
-    public final int SIZE;
-    public final int WIDTH, HEIGHT;
+    public final int SIZE; //size of the sprite sheet in pixels
+    public final int WIDTH, HEIGHT; //size of the sprite sheet in pixels
 
     public int[] pixels;
 
@@ -29,11 +29,10 @@ public class SpriteSheet {
             currentLevel = new SpriteSheet("resources\\Sheets\\level1.png", 256);
 
             player = new SpriteSheet(tiles, 0, 1, 3, 3, 32);
-            player_up = new SpriteSheet(player, 0,1,1,3,32);
-            player_right = new SpriteSheet(player, 1,1,1,3,32);
-//            player_left = player_right.flipped();
-            player_down = new SpriteSheet(player, 1,2,1,3,32);
-
+            player_up = new SpriteSheet(player, 0, 1, 1, 3, 32);
+            player_right = new SpriteSheet(player, 1, 1, 1, 3, 32);
+            player_left = new SpriteSheet(player_right).flipped();
+            player_down = new SpriteSheet(player, 1, 2, 1, 3, 32);
 
 
         } catch (IOException e) {
@@ -53,6 +52,17 @@ public class SpriteSheet {
             throw new RuntimeException(e);
         }
     }
+
+    public SpriteSheet(SpriteSheet spriteSheet) {
+
+            this.path = spriteSheet.path;
+            this.SIZE = spriteSheet.SIZE;
+            this.WIDTH = spriteSheet.WIDTH;
+            this.HEIGHT = spriteSheet.HEIGHT;
+            this.pixels = spriteSheet.pixels;
+            this.sprites = spriteSheet.sprites;
+    }
+
     public SpriteSheet(String path, int width, int height) throws IOException {
 
         this.path = path;
@@ -67,6 +77,7 @@ public class SpriteSheet {
             throw new RuntimeException(e);
         }
     }
+
     public SpriteSheet(SpriteSheet spriteSheet, int x, int y, int width, int height, int spriteSize) { //for cropping sprites
 
         int xBegin = x * spriteSize;
@@ -78,9 +89,9 @@ public class SpriteSheet {
         HEIGHT = hPixels;
 
         pixels = new int[wPixels * hPixels];
-        for(int y0 = 0; y0 < hPixels; y0++) {
+        for (int y0 = 0; y0 < hPixels; y0++) {
             int yPixel = yBegin + y0;
-            for(int x0 = 0; x0 < wPixels; x0++) {
+            for (int x0 = 0; x0 < wPixels; x0++) {
                 int xPixel = xBegin + x0;
                 pixels[x0 + y0 * wPixels] = spriteSheet.pixels[xPixel + yPixel * WIDTH];
 
@@ -90,11 +101,11 @@ public class SpriteSheet {
         int frame = 0;
         sprites = new Sprite[width * height];
 
-        for(int ya = 0; ya < height; ya++) {
-            for(int xa = 0; xa < width; xa++) {
+        for (int ya = 0; ya < height; ya++) {
+            for (int xa = 0; xa < width; xa++) {
                 int[] spritePixels = new int[spriteSize * spriteSize];
-                for(int y0 = 0; y0 < spriteSize; y0++) {
-                    for(int x0 = 0; x0 < spriteSize; x0++) {
+                for (int y0 = 0; y0 < spriteSize; y0++) {
+                    for (int x0 = 0; x0 < spriteSize; x0++) {
                         spritePixels[x0 + y0 * spriteSize] = pixels[(x0 + xa * spriteSize) + (y0 + ya * spriteSize) * WIDTH];
                     }
                 }
@@ -107,7 +118,6 @@ public class SpriteSheet {
     }
 
     private void load(String path) throws IOException {
-
 
 
         BufferedImage image = ImageIO.read(new File(path));
@@ -124,22 +134,22 @@ public class SpriteSheet {
 
 
     public SpriteSheet flip() {
-        for(int y0 = 0; y0 < HEIGHT; y0++) {
-            for(int x0 = 0; x0 < WIDTH / 2; x0++) {
-                int xReverse = WIDTH - x0;
-                int tempPixel = pixels[x0 + y0 * WIDTH];
-                pixels[x0 + y0 * WIDTH] = pixels[xReverse + y0 * WIDTH];
-                pixels[xReverse + y0 * WIDTH] = tempPixel;
+        for (int y0 = 0; y0 < HEIGHT; y0++) {
+            for (int x0 = 0; x0 < WIDTH / 2; x0++) {
+                int temp = pixels[x0 + y0 * WIDTH];
+                int xReflected = (WIDTH - 1 - x0);
+                pixels[x0 + y0 * WIDTH] = pixels[xReflected + y0 * WIDTH];
+                pixels[xReflected+ y0 * WIDTH] = temp;
             }
         }
         return this;
     }
 
-//    public SpriteSheet flipped() {
-//        try {
-//            return ((SpriteSheet) this.clone()).flip();
-//        } catch (CloneNotSupportedException e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
+    public SpriteSheet flipped() throws IOException {
+
+        SpriteSheet result = new SpriteSheet(this);
+        result.flip();
+        return result;
+    }
+
 }
