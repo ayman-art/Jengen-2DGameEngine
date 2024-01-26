@@ -1,5 +1,6 @@
 package com.ayman.fightEnemies.level;
 
+import com.ayman.fightEnemies.entity.mob.Dummy;
 import com.ayman.fightEnemies.level.tile.Tile;
 
 import javax.imageio.ImageIO;
@@ -29,6 +30,8 @@ public class SpawnLevel extends Level{
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
+        add(new Dummy(0,0));
     }
     protected void generateLevel() {
 

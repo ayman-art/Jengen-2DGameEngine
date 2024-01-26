@@ -1,7 +1,6 @@
 package com.ayman.fightEnemies.Graphics;
 
 import com.ayman.fightEnemies.entity.projectile.Projectile;
-import com.ayman.fightEnemies.entity.projectile.WizardProjectile;
 import com.ayman.fightEnemies.level.tile.Tile;
 
 import java.util.Random;
@@ -130,7 +129,7 @@ public class Screen {
         }
     }
 
-    public void renderPlayer(int xp, int yp, Sprite sprite, boolean flip) {
+    public void renderMob(int xp, int yp, Sprite sprite, boolean flip) {
 
         xp -= xOffset;
         yp -= yOffset;
