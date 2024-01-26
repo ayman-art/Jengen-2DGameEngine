@@ -15,13 +15,27 @@ public class SpriteSheet {
 
     public int[] pixels;
 
-    public static SpriteSheet tiles;
+    public static SpriteSheet tiles, currentLevel;
+    public static SpriteSheet player;
+    public static SpriteSheet player_down;
+    public static SpriteSheet player_up;
+    public static SpriteSheet player_left;
+    public static SpriteSheet player_right;
 
     private Sprite[] sprites;
 
     static {
         try {
             tiles = new SpriteSheet("resources\\Sheets\\spritesheet.png", 256);
+            currentLevel = new SpriteSheet("resources\\Sheets\\level1.png", 256);
+
+            player = new SpriteSheet(tiles, 0, 2, 3, 3, 32);
+            player_up = new SpriteSheet(player, 0,0,1,3,32);
+            player_right = new SpriteSheet(player, 0,0,1,3,32);
+            player_down = new SpriteSheet(player, 0,0,1,3,32);
+
+
+
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -106,5 +120,17 @@ public class SpriteSheet {
 
     public Sprite[] getSprites() {
         return sprites;
+    }
+
+
+    public void flip() {
+        for(int y0 = 0; y0 < HEIGHT; y0++) {
+            for(int x0 = 0; x0 < WIDTH / 2; x0++) {
+                int xReverse = WIDTH - x0;
+                int tempPixel = pixels[x0 + y0 * WIDTH];
+                pixels[x0 + y0 * WIDTH] = pixels[xReverse + y0 * WIDTH];
+                pixels[xReverse + y0 * WIDTH] = tempPixel;
+            }
+        }
     }
 }
