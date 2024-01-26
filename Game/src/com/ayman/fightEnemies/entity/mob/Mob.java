@@ -1,5 +1,6 @@
 package com.ayman.fightEnemies.entity.mob;
 
+import com.ayman.fightEnemies.Graphics.Screen;
 import com.ayman.fightEnemies.Graphics.Sprite;
 import com.ayman.fightEnemies.entity.Entity;
 import com.ayman.fightEnemies.entity.spawner.ParticleSpawner;
@@ -38,13 +39,9 @@ public abstract class Mob extends Entity {
             level.add(particleSpawner);
         }
     }
-    public void update() {
+    public abstract void update();
 
-    }
-
-    public void render() {
-
-    }
+    public abstract void render(Screen screen);
 
     private boolean collision(int xa, int ya) {
         boolean solid = false;

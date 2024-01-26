@@ -4,7 +4,6 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 
 public class SpriteSheet {
 
@@ -29,10 +28,11 @@ public class SpriteSheet {
             tiles = new SpriteSheet("resources\\Sheets\\spritesheet.png", 256);
             currentLevel = new SpriteSheet("resources\\Sheets\\level1.png", 256);
 
-            player = new SpriteSheet(tiles, 0, 2, 3, 3, 32);
-            player_up = new SpriteSheet(player, 0,0,1,3,32);
-            player_right = new SpriteSheet(player, 0,0,1,3,32);
-            player_down = new SpriteSheet(player, 0,0,1,3,32);
+            player = new SpriteSheet(tiles, 0, 1, 3, 3, 32);
+            player_up = new SpriteSheet(player, 0,1,1,3,32);
+            player_right = new SpriteSheet(player, 1,1,1,3,32);
+//            player_left = player_right.flipped();
+            player_down = new SpriteSheet(player, 1,2,1,3,32);
 
 
 
@@ -123,7 +123,7 @@ public class SpriteSheet {
     }
 
 
-    public void flip() {
+    public SpriteSheet flip() {
         for(int y0 = 0; y0 < HEIGHT; y0++) {
             for(int x0 = 0; x0 < WIDTH / 2; x0++) {
                 int xReverse = WIDTH - x0;
@@ -132,5 +132,14 @@ public class SpriteSheet {
                 pixels[xReverse + y0 * WIDTH] = tempPixel;
             }
         }
+        return this;
     }
+
+//    public SpriteSheet flipped() {
+//        try {
+//            return ((SpriteSheet) this.clone()).flip();
+//        } catch (CloneNotSupportedException e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
 }
