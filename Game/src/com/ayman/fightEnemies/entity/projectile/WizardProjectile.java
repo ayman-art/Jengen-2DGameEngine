@@ -6,13 +6,16 @@ import com.ayman.fightEnemies.entity.spawner.ParticleSpawner;
 import com.ayman.fightEnemies.entity.spawner.Spawner;
 import com.ayman.fightEnemies.level.Level;
 
+import java.util.*;
+
 public class WizardProjectile extends Projectile {
 
     public static final int FIRE_INTERVAL = 4;
     public WizardProjectile(int x, int y, double dir, Level level) {
         super(x, y, dir, level);
         range = 100;
-        speed = 1;
+        speed = 2;
+
         damage = 20;
         nx = speed * Math.cos(angle);
         ny = speed * Math.sin(angle);

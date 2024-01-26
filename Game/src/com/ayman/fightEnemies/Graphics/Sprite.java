@@ -9,7 +9,7 @@ public class Sprite {
     private int x, y;
     public int[] pixels;
 
-    private SpriteSheet sheet; //The sheet that contains the sprite
+    protected SpriteSheet sheet; //The sheet that contains the sprite
 
     public static Sprite sky = new Sprite(16, 0, 0, SpriteSheet.tiles);
     public static Sprite bird = new Sprite(16, 1, 0, SpriteSheet.tiles);
@@ -40,6 +40,14 @@ public class Sprite {
     public static Sprite player_backwards_2 = new Sprite(32, 2, 3, SpriteSheet.tiles);
 
 
+
+    protected Sprite(SpriteSheet sheet, int width, int height) {
+
+        SIZE = (width == height) ? width : -1;
+        this.width = width;
+        this.height = height;
+        this.sheet = sheet;
+    }
     public Sprite(int size, int x, int y, SpriteSheet sheet) {
 
         this.SIZE = size;
@@ -71,6 +79,17 @@ public class Sprite {
         pixels = new int[SIZE * SIZE];
 
         setColor(color);
+    }
+
+    public Sprite(int[] spritePixels, int spriteSize, int spriteSize1) {
+
+        SIZE = (spriteSize == spriteSize1) ? spriteSize : -1;
+        this.width = spriteSize;
+        this.height = spriteSize1;
+        pixels = new int[spriteSize * spriteSize1];
+        for(int i = 0; i < spritePixels.length; i++) {
+            pixels[i] = spritePixels[i];
+        }
     }
 
     private void setColor(int color) {

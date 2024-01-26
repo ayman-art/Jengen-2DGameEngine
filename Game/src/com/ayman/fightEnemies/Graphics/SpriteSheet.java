@@ -17,6 +17,8 @@ public class SpriteSheet {
 
     public static SpriteSheet tiles;
 
+    private Sprite[] sprites;
+
     static {
         try {
             tiles = new SpriteSheet("resources\\Sheets\\spritesheet.png", 256);
@@ -71,6 +73,22 @@ public class SpriteSheet {
             }
         }
 
+        int frame = 0;
+        sprites = new Sprite[width * height];
+
+        for(int ya = 0; ya < height; ya++) {
+            for(int xa = 0; xa < width; xa++) {
+                int[] spritePixels = new int[spriteSize * spriteSize];
+                for(int y0 = 0; y0 < spriteSize; y0++) {
+                    for(int x0 = 0; x0 < spriteSize; x0++) {
+                        spritePixels[x0 + y0 * spriteSize] = pixels[(x0 + xa * spriteSize) + (y0 + ya * spriteSize) * WIDTH];
+                    }
+                }
+                Sprite sprite = new Sprite(spritePixels, spriteSize, spriteSize);
+                sprites[frame++] = sprite;
+            }
+        }
+
 
     }
 
@@ -84,5 +102,9 @@ public class SpriteSheet {
         int h = image.getHeight();
 
         image.getRGB(0, 0, w, h, pixels, 0, w); //
+    }
+
+    public Sprite[] getSprites() {
+        return sprites;
     }
 }
