@@ -24,7 +24,7 @@ public class Player extends Mob {
     private AnimatedSprite left = new AnimatedSprite(SpriteSheet.player_left, 32, 32, 3);
     private AnimatedSprite right = new AnimatedSprite(SpriteSheet.player_right, 32, 32, 3);
 
-    private AnimatedSprite currentAnim = down;
+    private AnimatedSprite currentAnim = new AnimatedSprite(SpriteSheet.player, 32, 32, 3);
 
 
     public Player(Keyboard input) {
@@ -105,40 +105,40 @@ public class Player extends Mob {
 
 
     public void render(Screen screen) {
-        boolean flip = false;
+//        boolean flip = false;
+//
+//        if(dir == 0) {
+//            sprite = Sprite.player_forward;
+//            if(moving) {
+//                if(anim % 20 > 10) { //change the sprite every 10 frames
+//                    sprite = Sprite.player_forward_1;
+//                } else {
+//                    sprite = Sprite.player_forward_2;
+//                }
+//            }
+//        }
+//        if(dir == 1 || dir == 3) {
+//            if(dir == 3) flip = true;
+//            sprite = Sprite.player_side;
+//            if(moving) {
+//                if(anim % 20 > 10) { //change the sprite every 10 frames
+//                    sprite = Sprite.player_side_1;
+//                } else {
+//                    sprite = Sprite.player_side_2;
+//                }
+//            }
+//        }
+//        if(dir == 2) {
+//            sprite = Sprite.player_backwards;
+//            if(moving) {
+//                if(anim % 20 > 10) { //change the sprite every 10 frames
+//                    sprite = Sprite.player_backwards_1;
+//                } else {
+//                    sprite = Sprite.player_backwards_2;
+//                }
+//            }
+//        }
 
-        if(dir == 0) {
-            sprite = Sprite.player_forward;
-            if(moving) {
-                if(anim % 20 > 10) { //change the sprite every 10 frames
-                    sprite = Sprite.player_forward_1;
-                } else {
-                    sprite = Sprite.player_forward_2;
-                }
-            }
-        }
-        if(dir == 1 || dir == 3) {
-            if(dir == 3) flip = true;
-            sprite = Sprite.player_side;
-            if(moving) {
-                if(anim % 20 > 10) { //change the sprite every 10 frames
-                    sprite = Sprite.player_side_1;
-                } else {
-                    sprite = Sprite.player_side_2;
-                }
-            }
-        }
-        if(dir == 2) {
-            sprite = Sprite.player_backwards;
-            if(moving) {
-                if(anim % 20 > 10) { //change the sprite every 10 frames
-                    sprite = Sprite.player_backwards_1;
-                } else {
-                    sprite = Sprite.player_backwards_2;
-                }
-            }
-        }
-
-        screen.renderMob(x - 16, y - 16, sprite, flip);
+        screen.renderMob(x - 16, y - 16, currentAnim, false);
     }
 }

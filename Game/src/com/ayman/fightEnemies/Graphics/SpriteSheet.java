@@ -29,10 +29,10 @@ public class SpriteSheet {
             currentLevel = new SpriteSheet("resources\\Sheets\\level1.png", 256);
 
             player = new SpriteSheet(tiles, 0, 1, 3, 3, 32);
-            player_up = new SpriteSheet(player, 0, 1, 1, 3, 32);
-            player_right = new SpriteSheet(player, 1, 1, 1, 3, 32);
+            player_up = new SpriteSheet(player, 0, 0, 1, 3, 32);
+            player_right = new SpriteSheet(player, 1, 0, 1, 3, 32);
             player_left = new SpriteSheet(player_right).flipped();
-            player_down = new SpriteSheet(player, 1, 2, 1, 3, 32);
+            player_down = new SpriteSheet(player, 2, 0, 1, 3, 32);
 
 
         } catch (IOException e) {
@@ -93,26 +93,15 @@ public class SpriteSheet {
             int yPixel = yBegin + y0;
             for (int x0 = 0; x0 < wPixels; x0++) {
                 int xPixel = xBegin + x0;
-                pixels[x0 + y0 * wPixels] = spriteSheet.pixels[xPixel + yPixel * WIDTH];
-
+                pixels[x0 + y0 * wPixels] =
+                        spriteSheet.pixels[xPixel + yPixel * spriteSheet.WIDTH];
             }
         }
 
         int frame = 0;
         sprites = new Sprite[width * height];
 
-        for (int ya = 0; ya < height; ya++) {
-            for (int xa = 0; xa < width; xa++) {
-                int[] spritePixels = new int[spriteSize * spriteSize];
-                for (int y0 = 0; y0 < spriteSize; y0++) {
-                    for (int x0 = 0; x0 < spriteSize; x0++) {
-                        spritePixels[x0 + y0 * spriteSize] = pixels[(x0 + xa * spriteSize) + (y0 + ya * spriteSize) * WIDTH];
-                    }
-                }
-                Sprite sprite = new Sprite(spritePixels, spriteSize, spriteSize);
-                sprites[frame++] = sprite;
-            }
-        }
+
 
 
     }
