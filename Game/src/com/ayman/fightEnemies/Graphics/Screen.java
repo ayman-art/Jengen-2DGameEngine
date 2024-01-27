@@ -139,7 +139,7 @@ public class Screen {
             for(int x = 0; x < 32; x++) {
                 int xa = xp + (flip ? 31 - x : x);
 
-                if(xa < -32 || xa >= width || ya < 0 || ya >= height) continue;
+                if(xa < 0 || xa >= width || ya < 0 || ya >= height) continue;
 
                 int col = sprite.pixels[x + y * 32];
                 if(col != 0xffff00ff) pixels[xa + ya * width] = col;
