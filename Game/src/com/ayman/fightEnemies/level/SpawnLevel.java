@@ -31,7 +31,7 @@ public class SpawnLevel extends Level{
             throw new RuntimeException(e);
         }
 
-        add(new Dummy(0,0));
+        add(new Dummy(2,3));
     }
     protected void generateLevel() {
 
