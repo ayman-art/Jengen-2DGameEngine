@@ -34,6 +34,11 @@ public class AnimatedSprite {
    }
 
 
+    public void restart() {
+        frame = 0;
+
+    }
+
     public void update() {
         time++;
         if(time % rate == 0) {

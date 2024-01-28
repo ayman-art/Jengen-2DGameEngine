@@ -65,7 +65,11 @@ public class Player extends Mob {
         }
 
 
-        currentAnimatedSprite.update();
+        if(moving) {
+            currentAnimatedSprite.update();
+        } else {
+            currentAnimatedSprite.restart();
+        }
 
         fireInterval--;
 
