@@ -12,7 +12,7 @@ public class AnimatedSprite extends Sprite {
     public AnimatedSprite(SpriteSheet sheet, int width, int height, int length) {
         super(sheet, width, height);
         this.length = length;
-        currentSPrite = sheet.getSprites()[0];
+        currentSPrite = sheet.getSprites()[0]; //Very Important! if we don't do this, the currentSprite will be null and we will get a null pointer exception
         System.out.println("length" + length);
         if(length > sheet.getSprites().length) System.err.println("Error! the length of the animation is greater than the number of sprites in the sheet!");
 
