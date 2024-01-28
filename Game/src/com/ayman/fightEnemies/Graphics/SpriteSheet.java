@@ -98,23 +98,7 @@ public class SpriteSheet {
             }
         }
 
-        sprites = new Sprite[width * height];
 
-        for (int yTile = 0; yTile < 3; yTile++) {
-
-            for (int xTile = 0; xTile < width; xTile++) {
-
-                int[] currentSprite = new int[spriteSize * spriteSize];
-                for (int y0 = 0; y0 < spriteSize; y0++) {
-                    for (int x0 = 0; x0 < spriteSize; x0++) {
-                        currentSprite[x0 + y0 * spriteSize]
-                                = spriteSheet.pixels[(x0 + xTile * spriteSize) + (y0 + yTile * spriteSize) * spriteSheet.WIDTH];
-                    }
-                }
-                sprites[yTile + height * xTile] = new Sprite(currentSprite, WIDTH, HEIGHT);
-            }
-
-        }
 
 
 }

@@ -3,7 +3,6 @@ package com.ayman.fightEnemies.entity.mob;
 import com.ayman.fightEnemies.Game;
 import com.ayman.fightEnemies.Graphics.AnimatedSprite;
 import com.ayman.fightEnemies.Graphics.Screen;
-import com.ayman.fightEnemies.Graphics.Sprite;
 import com.ayman.fightEnemies.Graphics.SpriteSheet;
 import com.ayman.fightEnemies.Input.Keyboard;
 import com.ayman.fightEnemies.Input.Mouse;
@@ -18,12 +17,13 @@ public class Player extends Mob {
     private int fireInterval = 0;
 
     private boolean moving = false;
-    private AnimatedSprite down = new AnimatedSprite(SpriteSheet.player_down, 32, 32, 3);
-    private AnimatedSprite up = new AnimatedSprite(SpriteSheet.player_up, 32, 32, 3);
-    private AnimatedSprite left = new AnimatedSprite(SpriteSheet.player_left, 32, 32, 3);
-    private AnimatedSprite right = new AnimatedSprite(SpriteSheet.player_right, 32, 32, 3);
+    private AnimatedSprite down = new AnimatedSprite(SpriteSheet.player_down, 3);
+    private AnimatedSprite up = new AnimatedSprite(SpriteSheet.player_up, 3);
+    private AnimatedSprite left = new AnimatedSprite(SpriteSheet.player_left, 3);
+    private AnimatedSprite right = new AnimatedSprite(SpriteSheet.player_right, 3);
 
-    private AnimatedSprite currentAnim = down;
+
+    private AnimatedSprite currentAnimatedSprite = down;
 
 
     public Player(Keyboard input) {
@@ -33,7 +33,7 @@ public class Player extends Mob {
         this.x = x;
         this.y = y;
         this.input = input;
-        this.sprite = Sprite.player_backwards;
+        this.currentAnimatedSprite = down;
 
         fireInterval = WizardProjectile.FIRE_INTERVAL;
     }
@@ -41,10 +41,22 @@ public class Player extends Mob {
 
     public void update() {
         int xa = 0, ya = 0;
-        if(input.up) ya--;
-        if(input.down) ya++;
-        if(input.left) xa--;
-        if(input.right) xa++;
+        if(input.up) {
+            ya--;
+            currentAnimatedSprite = up;
+        }
+        if(input.down) {
+            ya++;
+            currentAnimatedSprite = down;
+        }
+        if(input.left) {
+            xa--;
+            currentAnimatedSprite = left;
+        }
+        if(input.right) {
+            xa++;
+            currentAnimatedSprite = right;
+        }
         if(xa != 0 || ya != 0){
             moving = true;
             move(xa, ya);
@@ -53,7 +65,7 @@ public class Player extends Mob {
         }
 
 
-        currentAnim.update();
+        currentAnimatedSprite.update();
 
         fireInterval--;
 
@@ -137,8 +149,6 @@ public class Player extends Mob {
 //            }
 //        }
 
-        screen.renderMob(x - 16, y - 16, currentAnim.getCurrentSPrite(), false);
-        if(down.getCurrentSPrite() != null)
-            System.out.println("GOOOOOOD");
+        screen.renderMob(x - 16, y - 16, currentAnimatedSprite.getCurrentSPrite(), false);
     }
 }

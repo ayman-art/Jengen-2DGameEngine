@@ -41,7 +41,7 @@ public class Sprite {
 
 
 
-    protected Sprite(SpriteSheet sheet, int width, int height) {
+    public Sprite(SpriteSheet sheet, int width, int height) {
 
         SIZE = (width == height) ? width : -1;
 
