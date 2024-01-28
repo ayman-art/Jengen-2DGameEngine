@@ -13,7 +13,6 @@ import com.ayman.fightEnemies.entity.projectile.WizardProjectile;
 public class Player extends Mob {
 
     private Keyboard input;
-    private int anim = 0;
 
     private Projectile projectile;
     private int fireInterval = 0;
@@ -24,7 +23,7 @@ public class Player extends Mob {
     private AnimatedSprite left = new AnimatedSprite(SpriteSheet.player_left, 32, 32, 3);
     private AnimatedSprite right = new AnimatedSprite(SpriteSheet.player_right, 32, 32, 3);
 
-    private AnimatedSprite currentAnim = new AnimatedSprite(SpriteSheet.player, 32, 32, 3);
+    private AnimatedSprite currentAnim = down;
 
 
     public Player(Keyboard input) {
@@ -34,7 +33,7 @@ public class Player extends Mob {
         this.x = x;
         this.y = y;
         this.input = input;
-        this.sprite = Sprite.player_forward;
+        this.sprite = Sprite.player_backwards;
 
         fireInterval = WizardProjectile.FIRE_INTERVAL;
     }
@@ -54,8 +53,7 @@ public class Player extends Mob {
         }
 
 
-        if(anim < 1000) anim++;
-        else anim = 0;
+        currentAnim.update();
 
         fireInterval--;
 
@@ -139,6 +137,8 @@ public class Player extends Mob {
 //            }
 //        }
 
-        screen.renderMob(x - 16, y - 16, currentAnim, false);
+        screen.renderMob(x - 16, y - 16, currentAnim.getCurrentSPrite(), false);
+        if(down.getCurrentSPrite() != null)
+            System.out.println("GOOOOOOD");
     }
 }
