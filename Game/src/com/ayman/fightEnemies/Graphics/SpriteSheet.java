@@ -21,7 +21,7 @@ public class SpriteSheet {
     public static SpriteSheet player_left;
     public static SpriteSheet player_right;
 
-    private Sprite[] sprites;
+
 
     static {
         try {
@@ -31,7 +31,7 @@ public class SpriteSheet {
             player = new SpriteSheet(tiles, 0, 1, 3, 3, 32);
             player_up = new SpriteSheet(player, 0, 0, 1, 3, 32);
             player_right = new SpriteSheet(player, 1, 0, 1, 3, 32);
-            player_left = new SpriteSheet(player_right).flipped();
+            player_left = player_right.flippedCopy();
             player_down = new SpriteSheet(player, 2, 0, 1, 3, 32);
 
 
@@ -59,8 +59,12 @@ public class SpriteSheet {
             this.SIZE = spriteSheet.SIZE;
             this.WIDTH = spriteSheet.WIDTH;
             this.HEIGHT = spriteSheet.HEIGHT;
-            this.pixels = spriteSheet.pixels;
-            this.sprites = spriteSheet.sprites;
+            this.pixels = new int[WIDTH * HEIGHT];
+            for(int i = 0; i < spriteSheet.pixels.length; i++) {
+                this.pixels[i] = spriteSheet.pixels[i];
+            }
+
+
     }
 
     public SpriteSheet(String path, int width, int height) throws IOException {
@@ -115,9 +119,6 @@ public class SpriteSheet {
         image.getRGB(0, 0, w, h, pixels, 0, w); //
     }
 
-    public Sprite[] getSprites() {
-        return sprites;
-    }
 
 
     public SpriteSheet flip() {
@@ -132,7 +133,7 @@ public class SpriteSheet {
         return this;
     }
 
-    public SpriteSheet flipped() throws IOException {
+    public SpriteSheet flippedCopy() throws IOException {
 
         SpriteSheet result = new SpriteSheet(this);
         result.flip();
