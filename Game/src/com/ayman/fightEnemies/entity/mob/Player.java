@@ -56,7 +56,17 @@ public class Player extends Mob {
         }
         if(xa != 0 || ya != 0){
             moving = true;
-            move(xa, ya);
+            if(!collision(xa*20, ya*20))
+                move(xa*20, ya*20);
+            else {
+                int maxXa = 0, maxYa = 0;
+                int sign = xa > 0 ? 1 : -1;
+                int sign2 = ya > 0 ? 1 : -1;
+                if(xa!=0)while(!collision(maxXa + sign, 0)) maxXa += sign;
+                if(ya!=0)while(!collision(0, maxYa + sign2)) maxYa += sign2;
+                move(maxXa, maxYa);
+            }
+
         } else {
             moving = false;
         }
@@ -151,13 +161,6 @@ public class Player extends Mob {
 //        }
 
         screen.renderMob(x - 16, y - 16, this, false);
-    }
-
-    public int getX() {
-        return x;
-    }
-    public int getY() {
-        return y;
     }
 
 }

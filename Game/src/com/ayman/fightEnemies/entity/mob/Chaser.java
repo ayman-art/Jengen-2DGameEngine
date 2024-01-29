@@ -32,7 +32,7 @@ public class Chaser extends Mob{
 
         int distancePow2 = (int) (Math.pow(level.getPlayer().getX() - x, 2) + Math.pow(level.getPlayer().getY() - y, 2));
         int distance = (int) Math.sqrt(distancePow2);
-        if(this.currentAnimatedSprite.getCurrentSPrite().SIZE > distance || distance > 500) {
+        if(this.currentAnimatedSprite.getCurrentSPrite().SIZE > distance || distance > 100) {
             return;
         }
         int xa = level.getPlayer().getX() - x;

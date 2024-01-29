@@ -2,6 +2,7 @@ package com.ayman.fightEnemies.level;
 
 import com.ayman.fightEnemies.Graphics.Screen;
 import com.ayman.fightEnemies.entity.Entity;
+import com.ayman.fightEnemies.entity.mob.Mob;
 import com.ayman.fightEnemies.entity.mob.Player;
 import com.ayman.fightEnemies.entity.spawner.Spawner;
 import com.ayman.fightEnemies.entity.particle.Particle;
@@ -19,7 +20,7 @@ public class Level {
     protected int[] tiles;
     protected int[] tilesInt;
     public static Level spawn = new SpawnLevel("resources\\Sheets\\level1.png");
-    private List<Entity> entities = new ArrayList<>();
+    private List<Entity> mobs = new ArrayList<>();
     private List<Projectile> projectiles = new ArrayList<>();
     private List<Particle> particles = new ArrayList<>();
 
@@ -48,8 +49,8 @@ public class Level {
     }
 
     public void update() {
-        for(int i = 0; i < entities.size(); i++) {
-            entities.get(i).update();
+        for(int i = 0; i < mobs.size(); i++) {
+            mobs.get(i).update();
         }
         for(int i = 0; i < projectiles.size(); i++) {
             projectiles.get(i).update();
@@ -62,8 +63,8 @@ public class Level {
     }
 
     private void clean() {
-        for(int i = 0; i < entities.size(); i++) {
-            if(entities.get(i).isRemoved()) entities.remove(i);
+        for(int i = 0; i < mobs.size(); i++) {
+            if(mobs.get(i).isRemoved()) mobs.remove(i);
         }
         for(int i = 0; i < projectiles.size(); i++) {
             if(projectiles.get(i).isRemoved()) projectiles.remove(i);
@@ -92,8 +93,8 @@ public class Level {
             }
         }
 
-        for(int i = 0; i < entities.size(); i++) {
-            entities.get(i).render(screen);
+        for(int i = 0; i < mobs.size(); i++) {
+            mobs.get(i).render(screen);
         }
         for(int i = 0; i < projectiles.size(); i++) {
             projectiles.get(i).render(screen);
@@ -153,7 +154,7 @@ public class Level {
         } else if(entity instanceof Projectile) {
             projectiles.add((Projectile) entity);
         } else {
-            entities.add(entity);
+            mobs.add(entity);
         }
     }
 
@@ -171,9 +172,26 @@ public class Level {
     }
 
     public Player getPlayer() {
-        for(int i = 0; i < entities.size(); i++) {
-            if(entities.get(i) instanceof Player) return (Player) entities.get(i);
+        for(int i = 0; i < mobs.size(); i++) {
+            if(mobs.get(i) instanceof Player) return (Player) mobs.get(i);
         }
         return null;
+    }
+
+
+    public List<Mob> getMobs(Mob mob, int radius) {
+        List<Mob> result = new ArrayList<>();
+        int ex = (int)mob.getX();
+        int ey = (int)mob.getY();
+        for(int i = 0; i < mobs.size(); i++) {
+            Entity entity = mobs.get(i);
+            int x = (int)mob.getX();
+            int y = (int)mob.getY();
+            int dx = Math.abs(x - ex);
+            int dy = Math.abs(y - ey);
+            double distance = Math.sqrt((dx * dx) + (dy * dy));
+            if(distance <= radius) result.add(mob);
+        }
+        return result;
     }
 }

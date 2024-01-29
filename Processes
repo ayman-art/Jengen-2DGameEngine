@@ -12,3 +12,5 @@ entities move but tiles don't
 
 
 we must make an initial state because the game runs before update and render is called
+
+we can use quad trees to get the near entiteis in an efficient way

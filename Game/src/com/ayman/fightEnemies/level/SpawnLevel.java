@@ -32,7 +32,7 @@ public class SpawnLevel extends Level{
             throw new RuntimeException(e);
         }
 
-        add(new Chaser(2,3));
+        for(int i = 0; i < 5; i++)add(new Chaser(2,2+i));
     }
     protected void generateLevel() {
 

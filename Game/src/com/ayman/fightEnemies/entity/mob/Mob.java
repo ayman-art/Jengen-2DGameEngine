@@ -44,7 +44,7 @@ public abstract class Mob extends Entity {
 
     public abstract void render(Screen screen);
 
-    private boolean collision(int xa, int ya) {
+    protected boolean collision(int xa, int ya) {
         boolean solid = false;
         int width = 16; //the width of the Mob collision box
         int height = 16; //the height of the Mob collision box
@@ -87,4 +87,14 @@ public abstract class Mob extends Entity {
     public Sprite getSprite() {
         return currentAnimatedSprite.getCurrentSPrite();
     }
+
+
+
+    public int getX() {
+        return x;
+    }
+    public int getY() {
+        return y;
+    }
+
 }
