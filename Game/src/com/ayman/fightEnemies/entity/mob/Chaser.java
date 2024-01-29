@@ -7,7 +7,7 @@ import com.ayman.fightEnemies.Graphics.SpriteSheet;
 
 import java.util.Random;
 
-public class Dummy extends Mob{
+public class Chaser extends Mob{
 
     private AnimatedSprite up = new AnimatedSprite(SpriteSheet.player_up, 3);
     private AnimatedSprite down = new AnimatedSprite(SpriteSheet.player_down, 3);
@@ -22,7 +22,7 @@ public class Dummy extends Mob{
     }
     protected Direction direction = Direction.DOWN;
 
-    public Dummy(int x, int y) {
+    public Chaser(int x, int y) {
         this.x = x << 4;
         this.y = y << 4;
         this.currentAnimatedSprite = down;

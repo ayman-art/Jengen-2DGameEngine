@@ -1,5 +1,6 @@
 package com.ayman.fightEnemies.entity.mob;
 
+import com.ayman.fightEnemies.Graphics.AnimatedSprite;
 import com.ayman.fightEnemies.Graphics.Screen;
 import com.ayman.fightEnemies.Graphics.Sprite;
 import com.ayman.fightEnemies.entity.Entity;
@@ -12,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Mob extends Entity {
-    protected Sprite sprite;
+    protected AnimatedSprite currentAnimatedSprite;
     protected int dir = 0; //direction of the mob, popular convention :(0 = north, 1 = east, 2 = south, 3 = west)
     protected boolean moving = false;
 
@@ -81,5 +82,9 @@ public abstract class Mob extends Entity {
         Projectile projectile = new WizardProjectile(x, y, dir, level);
         projectiles.add(projectile);
         level.addProjectile(projectile);
+    }
+
+    public Sprite getSprite() {
+        return currentAnimatedSprite.getCurrentSPrite();
     }
 }

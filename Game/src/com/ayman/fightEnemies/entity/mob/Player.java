@@ -23,9 +23,6 @@ public class Player extends Mob {
     private AnimatedSprite right = new AnimatedSprite(SpriteSheet.player_right, 3);
 
 
-    private AnimatedSprite currentAnimatedSprite = down;
-
-
     public Player(Keyboard input) {
         this.input = input;
     }
@@ -153,6 +150,6 @@ public class Player extends Mob {
 //            }
 //        }
 
-        screen.renderMob(x - 16, y - 16, currentAnimatedSprite.getCurrentSPrite(), false);
+        screen.renderMob(x - 16, y - 16, this, false);
     }
 }
