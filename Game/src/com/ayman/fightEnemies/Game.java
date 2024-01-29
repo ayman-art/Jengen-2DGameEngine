@@ -71,7 +71,7 @@ public class Game extends Canvas implements Runnable{
 
         TileCoordinate playerSpawn = new TileCoordinate(3, 9);
         player = new Player(playerSpawn.x(), playerSpawn.y(), keyboard);
-        player.init(level);
+        level.add(player);
 
 
         setFocusable(true);
@@ -142,8 +142,6 @@ public class Game extends Canvas implements Runnable{
 
         level.update();
 
-        player.update();
-
         keyboard.update();
 
 
@@ -163,9 +161,6 @@ public class Game extends Canvas implements Runnable{
         int yScroll = player.y - screen.height / 2;
         level.render(xScroll, yScroll, screen);
 //        screen.renderSpriteSheet(player.x, player.y, SpriteSheet.tiles, false);
-        player.render(screen); //render the player after screen is created to make sure the player is on top of the screen
-
-
 
         for(int i = 0; i < pixels.length; i++) {
             this.pixels[i] = screen.pixels[i]; //copy the pixels data from screen to the pixels array of the image object
