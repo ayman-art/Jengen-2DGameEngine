@@ -15,12 +15,7 @@ public class Chaser extends Mob{
     private AnimatedSprite right = new AnimatedSprite(SpriteSheet.player_right, 3);
 
 
-    private Random random = new Random();
     private int time = 0;
-    private enum Direction {
-        UP, DOWN, LEFT, RIGHT, NONE
-    }
-    protected Direction direction = Direction.DOWN;
 
     public Chaser(int x, int y) {
         this.x = x << 4;
@@ -32,62 +27,35 @@ public class Chaser extends Mob{
 
         time++;
 
-        if(time % ( 60) == 0) {
-            Direction newDirection = Direction.values()[random.nextInt(5)];
-            if(direction != newDirection) {
-                direction = newDirection;
+        int xa = level.getPlayer().getX() - x;
+        int ya = level.getPlayer().getY() - y;
+        if(xa * xa + ya * ya < 50 * 50) {
+            if(xa < 0) {
+                xa = -1;
+            } else if(xa > 0) {
+                xa = 1;
+            }
+            if(ya < 0) {
+                ya = -1;
+            } else if(ya > 0) {
+                ya = 1;
+            }
+
+
+            if(xa != 0 || ya != 0){
+                moving = true;
+                move(xa, ya);
             } else {
-                direction = Direction.NONE;
+                moving = false;
+            }
+
+
+            if(moving) {
+                currentAnimatedSprite.update();
+            } else {
+                currentAnimatedSprite.restart();
             }
         }
-
-        if(random.nextInt(100) == 0) {
-            shoot(x, y, random.nextGaussian());
-        }
-
-
-        int xa = 0, ya = 0;
-        if(direction == Direction.UP) {
-            ya--;
-            currentAnimatedSprite = up;
-        }
-        if(direction == Direction.DOWN) {
-            ya++;
-            currentAnimatedSprite = down;
-        }
-        if(direction == Direction.LEFT) {
-            xa--;
-            currentAnimatedSprite = left;
-        }
-        if(direction == Direction.RIGHT) {
-            xa++;
-            currentAnimatedSprite = right;
-        }
-        if(direction == Direction.NONE) {
-            currentAnimatedSprite.restart();
-        }
-
-        if(level.tileCollision(this.x + xa, this.y + ya, 32, -16, -16)) {
-            direction = Direction.NONE;
-            return;
-        }
-
-        if(xa != 0 || ya != 0){
-            moving = true;
-            move(xa, ya);
-        } else {
-            moving = false;
-        }
-
-
-        if(moving) {
-            currentAnimatedSprite.update();
-        } else {
-            currentAnimatedSprite.restart();
-        }
-
-
-
 
 
     }

@@ -152,4 +152,12 @@ public class Player extends Mob {
 
         screen.renderMob(x - 16, y - 16, this, false);
     }
+
+    public int getX() {
+        return x;
+    }
+    public int getY() {
+        return y;
+    }
+
 }

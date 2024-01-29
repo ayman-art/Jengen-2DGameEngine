@@ -2,6 +2,7 @@ package com.ayman.fightEnemies.level;
 
 import com.ayman.fightEnemies.Graphics.Screen;
 import com.ayman.fightEnemies.entity.Entity;
+import com.ayman.fightEnemies.entity.mob.Player;
 import com.ayman.fightEnemies.entity.spawner.Spawner;
 import com.ayman.fightEnemies.entity.particle.Particle;
 import com.ayman.fightEnemies.entity.projectile.Projectile;
@@ -167,5 +168,12 @@ public class Level {
 
     public void addProjectile(Projectile projectile) {
         this.projectiles.add(projectile);
+    }
+
+    public Player getPlayer() {
+        for(int i = 0; i < entities.size(); i++) {
+            if(entities.get(i) instanceof Player) return (Player) entities.get(i);
+        }
+        return null;
     }
 }

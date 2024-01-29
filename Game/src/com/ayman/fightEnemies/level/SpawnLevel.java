@@ -1,5 +1,6 @@
 package com.ayman.fightEnemies.level;
 
+import com.ayman.fightEnemies.entity.mob.Chaser;
 import com.ayman.fightEnemies.entity.mob.Dummy;
 import com.ayman.fightEnemies.level.tile.Tile;
 
@@ -31,7 +32,7 @@ public class SpawnLevel extends Level{
             throw new RuntimeException(e);
         }
 
-        add(new Dummy(2,3));
+        add(new Chaser(2,3));
     }
     protected void generateLevel() {
 
