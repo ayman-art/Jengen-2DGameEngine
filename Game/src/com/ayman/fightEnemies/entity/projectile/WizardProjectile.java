@@ -13,7 +13,7 @@ public class WizardProjectile extends Projectile {
     public static final int FIRE_INTERVAL = 4;
     public WizardProjectile(int x, int y, double dir, Level level) {
         super(x, y, dir, level);
-        range = 100;
+        range = 1000;
         speed = 2;
 
         damage = 20;

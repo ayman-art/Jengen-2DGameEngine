@@ -54,18 +54,32 @@ public class Player extends Mob {
             xa++;
             currentAnimatedSprite = right;
         }
-        if(xa != 0 || ya != 0){
+        if(xa != 0 || ya != 0) {
             moving = true;
-            if(!collision(xa*20, ya*20))
-                move(xa*20, ya*20);
-            else {
-                int maxXa = 0, maxYa = 0;
-                int sign = xa > 0 ? 1 : -1;
-                int sign2 = ya > 0 ? 1 : -1;
-                if(xa!=0)while(!collision(maxXa + sign, 0)) maxXa += sign;
-                if(ya!=0)while(!collision(0, maxYa + sign2)) maxYa += sign2;
-                move(maxXa, maxYa);
+            int speed = 1;
+            int maxXa = 0, maxYa = 0;
+
+            int width = 16, height = 16;
+            if (xa != 0) {
+                while(!collision(maxXa + width * xa, 0) && Math.abs(maxXa + width * xa) <= speed)
+                    maxXa += width * xa;
+                while (!collision(maxXa + xa, 0) && Math.abs(maxXa + xa)  <= speed)
+                    maxXa += xa;
+
             }
+
+            if (ya != 0) {
+                while(!collision(0, maxYa + height * ya) && Math.abs(maxYa + height * ya ) <= speed)
+                    maxYa += height * ya;
+                while (!collision(0, maxYa + ya) && Math.abs(maxYa + ya) <= speed)
+                    maxYa += ya;
+
+            }
+
+            if(collision(maxXa + xa, 0)) move(maxXa + xa, 0);
+            if(collision(0, maxYa + ya)) move(0, maxYa + ya);
+            move(maxXa, maxYa);
+
 
         } else {
             moving = false;
