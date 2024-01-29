@@ -60,6 +60,13 @@ public class Vector2i {
         return false;
     }
 
+
+    public double distanceTo(Vector2i vector) {
+        double dx = vector.getX() - this.getX();
+        double dy = vector.getY() - this.getY();
+        return Math.sqrt(dx * dx + dy * dy);
+    }
+
     public String toString() {
         return "(" + getX() + ", " + getY() + ")";
     }
