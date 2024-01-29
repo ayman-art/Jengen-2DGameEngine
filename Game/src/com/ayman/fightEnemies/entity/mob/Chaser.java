@@ -26,36 +26,48 @@ public class Chaser extends Mob{
     public void update() {
 
         time++;
+        if(time%10 == 0) {
+            return;
+        }
 
+        int distancePow2 = (int) (Math.pow(level.getPlayer().getX() - x, 2) + Math.pow(level.getPlayer().getY() - y, 2));
+        int distance = (int) Math.sqrt(distancePow2);
+        if(this.currentAnimatedSprite.getCurrentSPrite().SIZE > distance || distance > 500) {
+            return;
+        }
         int xa = level.getPlayer().getX() - x;
         int ya = level.getPlayer().getY() - y;
-        if(xa * xa + ya * ya < 50 * 50) {
-            if(xa < 0) {
-                xa = -1;
-            } else if(xa > 0) {
-                xa = 1;
-            }
-            if(ya < 0) {
-                ya = -1;
-            } else if(ya > 0) {
-                ya = 1;
-            }
 
-
-            if(xa != 0 || ya != 0){
-                moving = true;
-                move(xa, ya);
-            } else {
-                moving = false;
-            }
-
-
-            if(moving) {
-                currentAnimatedSprite.update();
-            } else {
-                currentAnimatedSprite.restart();
-            }
+        if(xa < 0) {
+            xa = -1;
+            currentAnimatedSprite = left;
+        } else if(xa > 0) {
+            xa = 1;
+            currentAnimatedSprite = right;
         }
+        if(ya < 0) {
+            ya = -1;
+            currentAnimatedSprite = up;
+        } else if(ya > 0) {
+            ya = 1;
+            currentAnimatedSprite = down;
+        }
+
+
+        if(xa != 0 || ya != 0){
+            moving = true;
+            move(xa, ya);
+        } else {
+            moving = false;
+        }
+
+
+        if(moving) {
+            currentAnimatedSprite.update();
+        } else {
+            currentAnimatedSprite.restart();
+        }
+
 
 
     }
