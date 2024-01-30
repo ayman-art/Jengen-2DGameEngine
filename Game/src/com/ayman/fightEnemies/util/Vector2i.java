@@ -54,6 +54,7 @@ public class Vector2i {
         return y;
     }
 
+    @Override
     public boolean equals(Object object) {
         if(!(object instanceof Vector2i)) return false;
         Vector2i vec = (Vector2i) object;

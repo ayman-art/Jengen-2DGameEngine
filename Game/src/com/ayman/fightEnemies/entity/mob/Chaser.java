@@ -42,18 +42,22 @@ public class Chaser extends Mob{
 //        int ya = level.getPlayer().getY() - y;
 
         int xa = 0, ya = 0;
+        x+=8;
+        y+=8;
 
         List<Node> path =
-                level.findPath(new Vector2i(x >> 4, y >> 4),
+                level.findPath(new Vector2i(x >> 4, y>> 4 ),
                         new Vector2i(level.getPlayer().getX() >> 4, level.getPlayer().getY() >> 4));
-
+        y-=8;
+        x-=8;
         if(path != null) {
             if(path.size() > 0) {
-                Vector2i vec = path.get(path.size() - 1).tileCoordinate;
-                if(x < vec.getX() << 4) xa++;
-                if(x > vec.getX() << 4) xa--;
-                if(y < vec.getY() << 4) ya++;
-                if(y > vec.getY() << 4) ya--;
+                Vector2i vec = path.get(1).tileCoordinate;
+
+                if(x/16 < vec.getX() ) xa++;
+                if(x/16 > vec.getX() ) xa--;
+                if(y/16 < vec.getY() ) ya++;
+                if(y/16 > vec.getY() ) ya--;
             }
         }
 
@@ -94,6 +98,6 @@ public class Chaser extends Mob{
 
     }
     public void render(Screen screen) {
-        screen.renderMob(x - 16, y - 16, this, false);
+        screen.renderMob(x, y, this, false);
     }
 }

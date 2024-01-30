@@ -67,7 +67,7 @@ public class Dummy extends Mob{
             currentAnimatedSprite.restart();
         }
 
-        if(level.tileCollision(this.x + xa, this.y + ya, 32, -16, -16)) {
+        if(level.tileCollision(this.x + xa, this.y + ya, 16, 0,0)) {
             direction = Direction.NONE;
             return;
         }

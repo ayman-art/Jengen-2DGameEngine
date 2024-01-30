@@ -29,15 +29,15 @@ public class Sprite {
     public static Sprite player1 = new Sprite(16, 1, 1, SpriteSheet.tiles);
     public static Sprite player2 = new Sprite(16, 0, 2, SpriteSheet.tiles);
     public static Sprite player3 = new Sprite(16, 1, 2, SpriteSheet.tiles);
-    public static Sprite player_forward = new Sprite(32, 0, 1, SpriteSheet.tiles);
-    public static Sprite player_forward_1 = new Sprite(32, 0, 2, SpriteSheet.tiles);
-    public static Sprite player_forward_2 = new Sprite(32, 0, 3, SpriteSheet.tiles);
-    public static Sprite player_side = new Sprite(32, 1, 1, SpriteSheet.tiles);
-    public static Sprite player_side_1 = new Sprite(32, 1, 2, SpriteSheet.tiles);
-    public static Sprite player_side_2 = new Sprite(32, 1, 3, SpriteSheet.tiles);
-    public static Sprite player_backwards = new Sprite(32, 2, 1, SpriteSheet.tiles);
-    public static Sprite player_backwards_1 = new Sprite(32, 2, 2, SpriteSheet.tiles);
-    public static Sprite player_backwards_2 = new Sprite(32, 2, 3, SpriteSheet.tiles);
+    public static Sprite player_forward = new Sprite(16, 0, 1, SpriteSheet.tiles);
+    public static Sprite player_forward_1 = new Sprite(16, 0, 2, SpriteSheet.tiles);
+    public static Sprite player_forward_2 = new Sprite(16, 0, 3, SpriteSheet.tiles);
+    public static Sprite player_side = new Sprite(16, 1, 1, SpriteSheet.tiles);
+    public static Sprite player_side_1 = new Sprite(16, 1, 2, SpriteSheet.tiles);
+    public static Sprite player_side_2 = new Sprite(16, 1, 3, SpriteSheet.tiles);
+    public static Sprite player_backwards = new Sprite(16, 2, 1, SpriteSheet.tiles);
+    public static Sprite player_backwards_1 = new Sprite(16, 2, 2, SpriteSheet.tiles);
+    public static Sprite player_backwards_2 = new Sprite(16, 2, 3, SpriteSheet.tiles);
 
 
 

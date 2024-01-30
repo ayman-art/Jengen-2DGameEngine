@@ -28,11 +28,11 @@ public class SpriteSheet {
             tiles = new SpriteSheet("resources\\Sheets\\spritesheet.png", 256);
             currentLevel = new SpriteSheet("resources\\Sheets\\level1.png", 256);
 
-            player = new SpriteSheet(tiles, 0, 1, 3, 3, 32);
-            player_up = new SpriteSheet(player, 0, 0, 1, 3, 32);
-            player_right = new SpriteSheet(player, 1, 0, 1, 3, 32);
+            player = new SpriteSheet(tiles, 0, 1, 3, 3, 16);
+            player_up = new SpriteSheet(player, 0, 0, 1, 3, 16);
+            player_right = new SpriteSheet(player, 1, 0, 1, 3, 16);
             player_left = player_right.flippedCopy();
-            player_down = new SpriteSheet(player, 2, 0, 1, 3, 32);
+            player_down = new SpriteSheet(player, 2, 0, 1, 3, 16);
 
 
         } catch (IOException e) {

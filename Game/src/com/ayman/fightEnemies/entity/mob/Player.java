@@ -174,7 +174,7 @@ public class Player extends Mob {
 //            }
 //        }
 
-        screen.renderMob(x - 16, y - 16, this, false);
+        screen.renderMob(x , y, this, false);
     }
 
 }
