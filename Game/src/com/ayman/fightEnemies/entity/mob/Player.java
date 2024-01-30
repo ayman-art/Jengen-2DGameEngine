@@ -56,7 +56,7 @@ public class Player extends Mob {
         }
         if(xa != 0 || ya != 0) {
             moving = true;
-            int speed = 20;
+            int speed = 2;
             int maxXa = 0, maxYa = 0;
 
             int width = 16, height = 16;

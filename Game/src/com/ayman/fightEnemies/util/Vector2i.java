@@ -1,5 +1,7 @@
 package com.ayman.fightEnemies.util;
 
+import java.util.Vector;
+
 public class Vector2i {
     private int x, y;
 
@@ -18,9 +20,8 @@ public class Vector2i {
     }
 
     public Vector2i add(Vector2i vector) {
-        this.x += vector.getX();
-        this.y += vector.getY();
-        return this;
+        return new Vector2i( this.x + vector.getX(), this.y + vector.getY());
+
     }
 
     public Vector2i subtract(Vector2i vector) {

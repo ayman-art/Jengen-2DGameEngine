@@ -4,7 +4,6 @@ import com.ayman.fightEnemies.Graphics.Screen;
 import com.ayman.fightEnemies.entity.Entity;
 import com.ayman.fightEnemies.entity.mob.Mob;
 import com.ayman.fightEnemies.entity.mob.Player;
-import com.ayman.fightEnemies.entity.spawner.Spawner;
 import com.ayman.fightEnemies.entity.particle.Particle;
 import com.ayman.fightEnemies.entity.projectile.Projectile;
 import com.ayman.fightEnemies.level.tile.Tile;
@@ -203,42 +202,51 @@ public class Level {
             new Vector2i(0, 1)    // Down
     );
     public List<Node> findPath(Vector2i start, Vector2i goal) {
-        List<Node> path = new ArrayList<>();
-        PriorityQueue<Node> frontier = new PriorityQueue<>(Comparator.comparingDouble(node -> node.f));
-        Set<Node> visited = new HashSet<>();
 
+        List<Node> path = new ArrayList<>();
+        PriorityQueue<Node> frontier = new PriorityQueue<>(Comparator.comparingDouble(Node::getF));
+        Set<Vector2i> visited = new HashSet<>();
+        Map<Vector2i, Integer> costSoFar = new HashMap<>();
+
+        //init
         Node startNode = new Node(start, null, 0, start.distanceTo(goal));
         frontier.add(startNode);
+        costSoFar.put(startNode.tileCoordinate, 0);
 
-        while (!frontier.isEmpty()) {
-            Node currentNode = frontier.poll();
+        while(!frontier.isEmpty()) {
+            Node current = frontier.poll();
+            if(visited.contains(current.tileCoordinate)) continue;
+            visited.add(current.tileCoordinate);
 
-            if (currentNode.tile.equals(goal)) {
-                while (currentNode != null) {
-                    path.add(currentNode);
-                    currentNode = currentNode.parent;
+
+            if(current.getTileCoordinate().equals(goal)) {
+                while(current.parent != null) {
+                    path.add(current);
+                    current = current.parent;
                 }
                 break;
             }
 
-            visited.add(currentNode);
-
-            for (Vector2i direction : DIRECTIONS) {
-                Vector2i nextTile = currentNode.tile.add(direction);
-                if (!getTile(nextTile.getX(), nextTile.getY()).isSolid()) {
-                    Node neighbor = new Node(nextTile, currentNode, currentNode.g + 1, nextTile.distanceTo(goal));
-
-                    if (!visited.contains(neighbor) || neighbor.g < currentNode.g) {
-                        frontier.add(neighbor);
-                        visited.add(neighbor);
-                    }
+            for(Vector2i direction : DIRECTIONS) {
+                Vector2i next = current.tileCoordinate.add(direction);
+                int newCost = costSoFar.get(current.tileCoordinate) + 1;
+                Node nextNode = new Node(next, current, newCost, next.distanceTo(goal));
+                if(!visited.contains(nextNode.tileCoordinate) && (costSoFar.get(nextNode.tileCoordinate) == null || newCost < costSoFar.get(nextNode.tileCoordinate)) ){
+                    costSoFar.put(nextNode.tileCoordinate, newCost);
+                    frontier.add(nextNode);
                 }
             }
         }
 
+
+
         Collections.reverse(path);
         return path;
     }
+
+
+
+
 
 
 
