@@ -20,18 +20,19 @@ public class Chaser extends Mob{
 
     private int time = 0;
 
+    private Vector2i vec;
+
     public Chaser(int x, int y) {
         this.x = x << 4;
         this.y = y << 4;
+        this.vec = new Vector2i(x, y);
         this.currentAnimatedSprite = down;
     }
 
     public void update() {
 
         time++;
-        if(time%5 == 0) {
-            return;
-        }
+
 
         int distancePow2 = (int) (Math.pow(level.getPlayer().getX() - x, 2) + Math.pow(level.getPlayer().getY() - y, 2));
         int distance = (int) Math.sqrt(distancePow2);
@@ -42,22 +43,29 @@ public class Chaser extends Mob{
 //        int ya = level.getPlayer().getY() - y;
 
         int xa = 0, ya = 0;
-        x+=8;
-        y+=8;
 
-        List<Node> path =
-                level.findPath(new Vector2i(x >> 4, y>> 4 ),
-                        new Vector2i(level.getPlayer().getX() >> 4, level.getPlayer().getY() >> 4));
-        y-=8;
-        x-=8;
-        if(path != null) {
-            if(path.size() > 0) {
-                Vector2i vec = path.get(1).tileCoordinate;
+        if(x !=vec.getX() * 16 || y != vec.getY() * 16){
+            if(x < vec.getX() * 16) xa++;
+            if(x > vec.getX() * 16) xa--;
+            if(y < vec.getY() * 16) ya++;
+            if(y > vec.getY() * 16) ya--;
 
-                if(x/16 < vec.getX() ) xa++;
-                if(x/16 > vec.getX() ) xa--;
-                if(y/16 < vec.getY() ) ya++;
-                if(y/16 > vec.getY() ) ya--;
+        }
+        else {
+            List<Node> path =
+                    level.findPath(new Vector2i(x >> 4, y >> 4),
+                            new Vector2i(level.getPlayer().getX() >> 4, level.getPlayer().getY() >> 4));
+
+            if (path != null) {
+                if (path.size() >   1) {
+                    vec = path.get(0).tileCoordinate;
+
+                    if (x / 16 < vec.getX()) xa++;
+                    if (x / 16 > vec.getX()) xa--;
+                    if (y / 16 < vec.getY()) ya++;
+                    if (y / 16 > vec.getY()) ya--;
+                }
+                else System.exit(0);
             }
         }
 
@@ -81,6 +89,7 @@ public class Chaser extends Mob{
 
         if(xa != 0 || ya != 0){
             moving = true;
+            move(xa, ya);
             move(xa, ya);
         } else {
             moving = false;
