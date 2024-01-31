@@ -252,6 +252,13 @@ public class Level {
             for(Vector2i direction : DIRECTIONS) {
                 Vector2i next = current.tileCoordinate.add(direction);
                 if(getTile(next.getX(), next.getY()).isSolid()) continue;
+                if(direction.getX()!=0 && direction.getY()!=0) {
+                    if(getTile(current.getTileCoordinate().getX()+direction.getX(),
+                            current.getTileCoordinate().getY()).isSolid())
+                        continue;
+                    if(getTile(current.getTileCoordinate().getX(), current.getTileCoordinate().getY()+direction.getY()).isSolid())
+                        continue;
+                }
                 int newCost = costSoFar.get(current.tileCoordinate) + 1;
                 Node nextNode = new Node(next, current, newCost, next.distanceTo(goal));
                 if(!visited.contains(nextNode.tileCoordinate) && (costSoFar.get(nextNode.tileCoordinate) == null || newCost < costSoFar.get(nextNode.tileCoordinate)) ){
