@@ -286,7 +286,7 @@ public class Level {
         PriorityQueue<Node> frontier = new PriorityQueue<>(Comparator.comparingDouble(Node::getF));
         Set<Vector2i> visited = new TreeSet<>(Comparator.comparing(Vector2i::getX).thenComparing(Vector2i::getY));
         Map<Vector2i, Integer> costSoFar = new TreeMap<>(Comparator.comparing(Vector2i::getX).thenComparing(Vector2i::getY));
-        if(costSoFar.size() > 20000) System.out.println("holl fuck");
+
         //init
         Node startNode = new Node(start, null, 0, start.distanceTo(goal));
         frontier.add(startNode);
@@ -301,12 +301,10 @@ public class Level {
 
             Node current = frontier.poll();
             boolean bad = false;
-            if(visited.contains(current.tileCoordinate)) System.out.println("what");
             for(var v: visited) {
                 if(v.equals(current.tileCoordinate))
-                    System.out.print("fuck");
                 if(v.getX() == current.getTileCoordinate().getX() && v.getY() == current.getTileCoordinate().getY()) {
-                    System.out.println("no");
+
                     bad = true;
                     break;
                 }
