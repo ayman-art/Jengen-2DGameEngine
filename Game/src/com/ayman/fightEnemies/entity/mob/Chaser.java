@@ -90,7 +90,6 @@ public class Chaser extends Mob{
         if(xa != 0 || ya != 0){
             moving = true;
             move(xa, ya);
-            move(xa, ya);
         } else {
             moving = false;
             currentAnimatedSprite.restart();

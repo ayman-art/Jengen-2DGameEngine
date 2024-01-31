@@ -8,6 +8,7 @@ public class Keyboard implements KeyListener {
 
     private boolean[] keys = new boolean[200];
     public boolean up, down, left, right; //States of the keys
+    public boolean s;
 
     public void update() {
 
@@ -15,6 +16,7 @@ public class Keyboard implements KeyListener {
         down = keys[KeyEvent.VK_DOWN] ;
         left = keys[KeyEvent.VK_LEFT] ;
         right = keys[KeyEvent.VK_RIGHT] ;
+        s = keys[KeyEvent.VK_S] ;
 
 
     }

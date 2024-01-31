@@ -199,7 +199,12 @@ public class Level {
             new Vector2i(-1, 0),  // Left
             new Vector2i(1, 0),   // Right
             new Vector2i(0, -1),  // Up
-            new Vector2i(0, 1)    // Down
+            new Vector2i(0, 1),    // Down
+            new Vector2i(1, 1),
+            new Vector2i(-1, 1),
+            new Vector2i(1, -1),
+            new Vector2i(-1, -1)
+
     );
     public List<Node> findPath(Vector2i start, Vector2i goal) {
 

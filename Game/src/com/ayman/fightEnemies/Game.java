@@ -36,7 +36,7 @@ public class Game extends Canvas implements Runnable{
 
 
     private Screen screen;
-    private Keyboard keyboard;
+    public Keyboard keyboard;
 
 
 
