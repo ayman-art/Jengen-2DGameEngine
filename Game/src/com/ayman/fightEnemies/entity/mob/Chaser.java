@@ -2,13 +2,13 @@ package com.ayman.fightEnemies.entity.mob;
 
 import com.ayman.fightEnemies.Graphics.AnimatedSprite;
 import com.ayman.fightEnemies.Graphics.Screen;
-import com.ayman.fightEnemies.Graphics.Sprite;
 import com.ayman.fightEnemies.Graphics.SpriteSheet;
 import com.ayman.fightEnemies.level.Node;
+import com.ayman.fightEnemies.level.tile.Tile;
 import com.ayman.fightEnemies.util.Vector2i;
 
 import java.util.List;
-import java.util.Random;
+import java.util.Set;
 
 public class Chaser extends Mob{
 
@@ -18,11 +18,14 @@ public class Chaser extends Mob{
     private AnimatedSprite right = new AnimatedSprite(SpriteSheet.player_right, 3);
 
 
+    List<Node> path = null;
+    Set<Vector2i> visited = null;
     private int time = 0;
 
     private Vector2i vec;
 
     public Chaser(int x, int y) {
+        init(level);
         this.x = x << 4;
         this.y = y << 4;
         this.vec = new Vector2i(x, y);
@@ -52,9 +55,11 @@ public class Chaser extends Mob{
 
         }
         else {
-            List<Node> path =
+            path =
                     level.findPath(new Vector2i(x >> 4, y >> 4),
                             new Vector2i(level.getPlayer().getX() >> 4, level.getPlayer().getY() >> 4));
+            visited = level.findVis(new Vector2i(x >> 4, y >> 4),
+                    new Vector2i(level.getPlayer().getX() >> 4, level.getPlayer().getY() >> 4));
 
             if (path != null) {
                 if (path.size() >   1) {
@@ -108,4 +113,14 @@ public class Chaser extends Mob{
     public void render(Screen screen) {
         screen.renderMob(x, y, this, false);
     }
+    public void renderPath(Screen screen) {
+        if(visited == null) {
+            return;
+        } else {
+            System.out.println("working");
+            for(Vector2i v : visited) {
+                screen.renderTile(v.getX() << 4, v.getY() << 4, Tile.voidTile);}
+        }
+    }
+
 }

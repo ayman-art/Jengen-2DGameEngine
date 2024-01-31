@@ -2,6 +2,7 @@ package com.ayman.fightEnemies.level;
 
 import com.ayman.fightEnemies.Graphics.Screen;
 import com.ayman.fightEnemies.entity.Entity;
+import com.ayman.fightEnemies.entity.mob.Chaser;
 import com.ayman.fightEnemies.entity.mob.Mob;
 import com.ayman.fightEnemies.entity.mob.Player;
 import com.ayman.fightEnemies.entity.particle.Particle;
@@ -94,6 +95,10 @@ public class Level {
 
         for(int i = 0; i < mobs.size(); i++) {
             mobs.get(i).render(screen);
+            if(mobs.get(i) instanceof Chaser) {
+                Chaser chaser = (Chaser) mobs.get(i);
+                chaser.renderPath(screen);
+            }
         }
         for(int i = 0; i < projectiles.size(); i++) {
             projectiles.get(i).render(screen);
@@ -101,6 +106,8 @@ public class Level {
         for(int i = 0; i < particles.size(); i++) {
             particles.get(i).render(screen);
         }
+
+
     }
 
     public boolean tileCollision(int x, int y, int size, int xOffset, int yOffset) { // universal method for tile collision
@@ -272,6 +279,73 @@ public class Level {
 
         Collections.reverse(path);
         return path;
+    }
+    public Set<Vector2i> findVis(Vector2i start, Vector2i goal) {
+
+        List<Node> path = new ArrayList<>();
+        PriorityQueue<Node> frontier = new PriorityQueue<>(Comparator.comparingDouble(Node::getF));
+        Set<Vector2i> visited = new TreeSet<>(Comparator.comparing(Vector2i::getX).thenComparing(Vector2i::getY));
+        Map<Vector2i, Integer> costSoFar = new TreeMap<>(Comparator.comparing(Vector2i::getX).thenComparing(Vector2i::getY));
+        if(costSoFar.size() > 20000) System.out.println("holl fuck");
+        //init
+        Node startNode = new Node(start, null, 0, start.distanceTo(goal));
+        frontier.add(startNode);
+        costSoFar.put(startNode.tileCoordinate, 0);
+
+        while(!frontier.isEmpty()) {
+            if(frontier.size() > 10000) System.out.println("Wrong work with queue");
+            if(visited.size() > 1000) {
+                System.out.println("Wrong work with visiting");
+            }
+
+
+            Node current = frontier.poll();
+            boolean bad = false;
+            if(visited.contains(current.tileCoordinate)) System.out.println("what");
+            for(var v: visited) {
+                if(v.equals(current.tileCoordinate))
+                    System.out.print("fuck");
+                if(v.getX() == current.getTileCoordinate().getX() && v.getY() == current.getTileCoordinate().getY()) {
+                    System.out.println("no");
+                    bad = true;
+                    break;
+                }
+            }
+            if(bad) continue;
+            visited.add(current.tileCoordinate);
+
+
+            if(current.getTileCoordinate().equals(goal)) {
+                while(current.parent != null) {
+                    path.add(current);
+                    current = current.parent;
+                }
+                break;
+            }
+
+            for(Vector2i direction : DIRECTIONS) {
+                Vector2i next = current.tileCoordinate.add(direction);
+                if(getTile(next.getX(), next.getY()).isSolid()) continue;
+                if(direction.getX()!=0 && direction.getY()!=0) {
+                    if(getTile(current.getTileCoordinate().getX()+direction.getX(),
+                            current.getTileCoordinate().getY()).isSolid())
+                        continue;
+                    if(getTile(current.getTileCoordinate().getX(), current.getTileCoordinate().getY()+direction.getY()).isSolid())
+                        continue;
+                }
+                int newCost = costSoFar.get(current.tileCoordinate) + 1;
+                Node nextNode = new Node(next, current, newCost, next.distanceTo(goal));
+                if(!visited.contains(nextNode.tileCoordinate) && (costSoFar.get(nextNode.tileCoordinate) == null || newCost < costSoFar.get(nextNode.tileCoordinate)) ){
+                    costSoFar.put(nextNode.tileCoordinate, newCost);
+                    frontier.add(nextNode);
+                }
+            }
+        }
+
+
+
+        Collections.reverse(path);
+        return visited;
     }
 
 

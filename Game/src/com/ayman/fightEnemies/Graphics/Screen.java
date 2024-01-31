@@ -52,7 +52,7 @@ public class Screen {
 
         xp -= xOffset;
         yp -= yOffset;
-
+//        System.out.println("xp: " + xp + ", yp: " + yp);
 
         for(int y = 0; y < tile.sprite.SIZE; y++) {
             int ya = yp + y;
