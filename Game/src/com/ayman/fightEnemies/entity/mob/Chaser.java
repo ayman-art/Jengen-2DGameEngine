@@ -58,8 +58,8 @@ public class Chaser extends Mob{
             path =
                     level.findPath(new Vector2i(x >> 4, y >> 4),
                             new Vector2i(level.getPlayer().getX() >> 4, level.getPlayer().getY() >> 4));
-            visited = level.findVis(new Vector2i(x >> 4, y >> 4),
-                    new Vector2i(level.getPlayer().getX() >> 4, level.getPlayer().getY() >> 4));
+//            visited = level.findVis(new Vector2i(x >> 4, y >> 4),
+//                    new Vector2i(level.getPlayer().getX() >> 4, level.getPlayer().getY() >> 4));
 
             if (path != null) {
                 if (path.size() >   1) {
@@ -118,6 +118,8 @@ public class Chaser extends Mob{
             return;
         } else {
             System.out.println("working");
+            Set<Vector2i> visited = level.findVis(new Vector2i(x >> 4, y >> 4),
+                    new Vector2i(level.getPlayer().getX() >> 4, level.getPlayer().getY() >> 4));
             for(Vector2i v : visited) {
                 screen.renderTile(v.getX() << 4, v.getY() << 4, Tile.voidTile);}
         }

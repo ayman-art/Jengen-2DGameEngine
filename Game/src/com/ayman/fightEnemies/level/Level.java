@@ -334,7 +334,7 @@ public class Level {
                         continue;
                 }
                 int newCost = costSoFar.get(current.tileCoordinate) + 1;
-                Node nextNode = new Node(next, current, newCost, next.distanceTo(goal));
+                Node nextNode = new Node(next, current, newCost, next.distanceTo(goal)*10);
                 if(!visited.contains(nextNode.tileCoordinate) && (costSoFar.get(nextNode.tileCoordinate) == null || newCost < costSoFar.get(nextNode.tileCoordinate)) ){
                     costSoFar.put(nextNode.tileCoordinate, newCost);
                     frontier.add(nextNode);
