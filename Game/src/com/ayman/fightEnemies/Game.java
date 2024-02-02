@@ -43,7 +43,7 @@ public class Game extends Canvas implements Runnable{
 
 
     private Thread thread;
-    private JFrame jFrame;
+    public JFrame jFrame;
 
     Level level;
 
@@ -51,8 +51,9 @@ public class Game extends Canvas implements Runnable{
 
 
 
-
-    public Game() {
+    final String playerName;
+    public Game(String playerName) {
+        this.playerName = playerName;
 
         Dimension size = new Dimension(width * scaleFactor, height * scaleFactor);
         setPreferredSize(size);
@@ -126,7 +127,7 @@ public class Game extends Canvas implements Runnable{
 
             if(System.currentTimeMillis() - timer > 1000) {     // Update the title every second
                 timer += 1000;
-                jFrame.setTitle("FightEnemies | " + updates + " ups, " + frames + " fps");
+                jFrame.setTitle("FightEnemies | " + updates + " ups, " + frames + " fps - " + playerName);
 
                 //reset the updates and frames
                 updates = 0;
@@ -171,7 +172,7 @@ public class Game extends Canvas implements Runnable{
         Graphics graphics = bufferStrategy.getDrawGraphics();
         graphics.drawImage(image, 0, 0, getWidth(), getHeight(), null);
         graphics.setColor(Color.black);
-        graphics.setFont(new Font("Verdana", 0, 50));
+        graphics.setFont(new Font("Verdana", Font.PLAIN, 50));
         graphics.drawString("X: " + player.x + ", Y: " + player.y, 450, 450);
         graphics.drawString(Mouse.getButton() + "", 80, 80);
 
@@ -186,7 +187,7 @@ public class Game extends Canvas implements Runnable{
     }
 
     public static void main(String[] args) {
-        Game game = new Game();
+        Game game = new Game("SASA");
         game.jFrame.setResizable(false);
         game.jFrame.setTitle("FightEnemies");
         game.jFrame.add(game);
