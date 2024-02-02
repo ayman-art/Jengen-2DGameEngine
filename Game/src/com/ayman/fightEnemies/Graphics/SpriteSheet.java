@@ -25,8 +25,8 @@ public class SpriteSheet {
 
     static {
         try {
-            tiles = new SpriteSheet("resources\\Sheets\\spritesheet.png", 256);
-            currentLevel = new SpriteSheet("resources\\Sheets\\level1.png", 256);
+            tiles = new SpriteSheet("/Sheets/spritesheet.png", 256);
+            currentLevel = new SpriteSheet("/Sheets/level1.png", 256);
 
             player = new SpriteSheet(tiles, 0, 1, 3, 3, 16);
             player_up = new SpriteSheet(player, 0, 0, 1, 3, 16);
@@ -111,7 +111,8 @@ public class SpriteSheet {
     private void load(String path) throws IOException {
 
 
-        BufferedImage image = ImageIO.read(new File(path));
+        BufferedImage image = ImageIO.read(getClass().getResource("/Sheets/spritesheet.png"));
+        System.out.println(path);
 
         int w = image.getWidth();
         int h = image.getHeight();

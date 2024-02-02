@@ -22,6 +22,8 @@ import java.util.Random;
 public class Game extends Canvas implements Runnable{
 
 
+
+
     public static final int width = 300;
     public static final int height = width / 12 * 8;
     public static final int scaleFactor = 3;
