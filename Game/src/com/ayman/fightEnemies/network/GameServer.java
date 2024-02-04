@@ -1,14 +1,19 @@
 package com.ayman.fightEnemies.network;
 
-public class GameServer extends Thread{
+import org.w3c.dom.ls.LSOutput;
+
+import java.net.DatagramSocket;
+import java.util.List;
+
+public class GameServer extends Thread {
 
         private int port;
+        private DatagramSocket socket;
+        private List<GameClient> clients;
+        private Thread run, send, receive;
 
-        public GameServer(int port) {
-            this.port = port;
+        public GameServer() {
+
         }
 
-        public void run() {
-
-        }
 }
