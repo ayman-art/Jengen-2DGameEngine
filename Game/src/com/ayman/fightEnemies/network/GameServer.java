@@ -1,7 +1,7 @@
 package com.ayman.fightEnemies.network;
 
-import org.w3c.dom.ls.LSOutput;
 
+import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.util.List;
 import java.util.Scanner;
@@ -11,7 +11,6 @@ public class GameServer extends Thread {
         private int port;
         private DatagramSocket socket;
         private List<GameClient> clients;
-        private Thread run, send, receive;
 
         public GameServer(int port) {
                 this.port = port;
@@ -20,16 +19,20 @@ public class GameServer extends Thread {
                 } catch (Exception e) {
                         e.printStackTrace();
                 }
-
-                run = new Thread(this, "Server");
-
-
+               this.start();
         }
 
         public void run() {
                 System.out.println("Server started on port: " + port);
                 while(true) {
-                        System.out.println("Server is running...");
+                        byte[] data = new byte[1024];
+                        DatagramPacket packet = new DatagramPacket(data, data.length);
+                        try {
+                                socket.receive(packet);
+                        } catch (Exception e) {
+                                e.printStackTrace();
+                        }
+
                 }
         }
 
@@ -40,5 +43,6 @@ public class GameServer extends Thread {
                 int port = scanner.nextInt();
                 new GameServer(port).start();
         }
+
 
 }
