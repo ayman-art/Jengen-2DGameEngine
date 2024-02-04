@@ -3,6 +3,7 @@ package com.ayman.fightEnemies.network;
 
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
+import java.net.InetAddress;
 import java.util.List;
 import java.util.Scanner;
 
@@ -40,6 +41,14 @@ public class GameServer extends Thread {
 
         public List<GameClient> getClients() {
                 return clients;
+        }
+
+        public void send(String message, GameClient gameClient){
+                try {
+                        socket.send(new DatagramPacket(message.getBytes(), message.length(), gameClient.getIpAddress(), gameClient.getPort()));
+                } catch (Exception e) {
+                        e.printStackTrace();
+                }
         }
 
         public static void main(String[] args) {
