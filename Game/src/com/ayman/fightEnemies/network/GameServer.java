@@ -12,6 +12,8 @@ public class GameServer extends Thread {
         private DatagramSocket socket;
         private List<GameClient> clients;
 
+        public final int MAX_CLIENTS = 4;
+
         public GameServer(int port) {
                 this.port = port;
                 try {
@@ -36,6 +38,9 @@ public class GameServer extends Thread {
                 }
         }
 
+        public List<GameClient> getClients() {
+                return clients;
+        }
 
         public static void main(String[] args) {
                 Scanner scanner = new Scanner(System.in);
