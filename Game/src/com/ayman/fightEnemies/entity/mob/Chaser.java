@@ -1,8 +1,12 @@
 package com.ayman.fightEnemies.entity.mob;
 
+import com.ayman.fightEnemies.Game;
 import com.ayman.fightEnemies.Graphics.AnimatedSprite;
 import com.ayman.fightEnemies.Graphics.Screen;
 import com.ayman.fightEnemies.Graphics.SpriteSheet;
+import com.ayman.fightEnemies.Input.Mouse;
+import com.ayman.fightEnemies.entity.projectile.Projectile;
+import com.ayman.fightEnemies.entity.projectile.WizardProjectile;
 import com.ayman.fightEnemies.level.Node;
 import com.ayman.fightEnemies.level.tile.Tile;
 import com.ayman.fightEnemies.util.Vector2i;
@@ -16,6 +20,8 @@ public class Chaser extends Mob{
     private AnimatedSprite down = new AnimatedSprite(SpriteSheet.player_down, 3);
     private AnimatedSprite left = new AnimatedSprite(SpriteSheet.player_left, 3);
     private AnimatedSprite right = new AnimatedSprite(SpriteSheet.player_right, 3);
+
+    private int fireInterval = WizardProjectile.FIRE_INTERVAL;
 
 
     List<Node> path = null;
@@ -107,8 +113,48 @@ public class Chaser extends Mob{
             currentAnimatedSprite.restart();
         }
 
+        fireInterval--;
+
+        updateShoot();
+
+        clear();
+
+    }
 
 
+    private void updateShoot() {
+        Player p = level.getPlayer();
+
+        if(fireInterval > 0) {
+            return;
+        }
+
+
+
+            double dx = level.getPlayer().getX() - this.x;
+            double dy = level.getPlayer().getY() - this.y;
+
+            if(dx*dx + dy*dy > 100*100) return;
+//            System.out.println("dx: " + dx + ", dy: " + dy);
+            double dir = Math.atan2(dy, dx);
+            shoot(x, y, dir);
+
+
+
+
+        fireInterval += WizardProjectile.FIRE_INTERVAL;
+    }
+
+    void clear() {
+        for(int i = 0; i < projectiles.size(); i++) {
+            if(projectiles.get(i).isRemoved()) {
+
+                var del = projectiles.get(i);
+                projectiles.remove(del);
+                level.removeProjectile(del);
+                i--; //to avoid skipping the next projectile in the list
+            }
+        }
     }
     public void render(Screen screen) {
         screen.renderMob(x, y, this, false);
@@ -124,5 +170,7 @@ public class Chaser extends Mob{
                 screen.renderTile(v.getX() << 4, v.getY() << 4, Tile.voidTile);}
         }
     }
+
+
 
 }

@@ -1,9 +1,10 @@
-package com.ayman.fightEnemies.network;
+package com.ayman.fightEnemies.network.client;
 
 import com.ayman.fightEnemies.Game;
 
 import java.io.IOException;
 import java.net.*;
+import java.util.Arrays;
 import java.util.UUID;
 
 public class GameClient extends Thread{
@@ -33,6 +34,7 @@ public class GameClient extends Thread{
         } catch (SocketException e) {
             e.printStackTrace();
         }
+
     }
 
 
@@ -42,7 +44,10 @@ public class GameClient extends Thread{
             byte[] data = new byte[1024];
             DatagramPacket packet = new DatagramPacket(data, data.length);
             try {
+                System.out.println("WAAAAIN");
+                System.out.println(this.socket.getPort() + " " + this.socket.getInetAddress());
                 socket.receive(packet);
+                System.out.println("Data:" + Arrays.toString(packet.getData()));
             } catch (IOException e) {
                 e.printStackTrace();
             }

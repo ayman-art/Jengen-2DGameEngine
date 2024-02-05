@@ -1,4 +1,4 @@
-package com.ayman.fightEnemies.network;
+package com.ayman.fightEnemies.network.client;
 
 import com.ayman.fightEnemies.Game;
 
@@ -111,13 +111,21 @@ public class Login extends JFrame {
 
         game.requestFocus(); //request focus for the game
 
+
     }
 
     private void sendConnectionPacket(String name, String address, int port, DatagramSocket socket) {
 
         DatagramPacket packet = null;
 
-        int attempts = 1000000;
+        int attempts = 100;
+        try {
+            GameClient  cl = new GameClient(InetAddress.getLocalHost(), 8081, "sasa");
+            System.out.println("sasa");
+            cl.start();
+        } catch (UnknownHostException e) {
+            throw new RuntimeException(e);
+        }
         while (attempts-- > 0) {
             try {
                 String connectionMessage = "C" + name;
@@ -131,7 +139,10 @@ public class Login extends JFrame {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+
         }
+
+
 
 
     }

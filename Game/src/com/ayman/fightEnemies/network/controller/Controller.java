@@ -1,15 +1,14 @@
 package com.ayman.fightEnemies.network.controller;
 
-import com.ayman.fightEnemies.network.GameServer;
-import com.ayman.fightEnemies.network.commands.Command;
-import com.ayman.fightEnemies.network.commands.CommandInvoker;
-import com.ayman.fightEnemies.network.commands.ConnectCommand;
-import com.ayman.fightEnemies.network.commands.DisconnectCommand;
+import com.ayman.fightEnemies.network.server.GameServer;
+import com.ayman.fightEnemies.network.server.commands.Command;
+import com.ayman.fightEnemies.network.server.commands.CommandInvoker;
+import com.ayman.fightEnemies.network.server.commands.ConnectCommand;
+import com.ayman.fightEnemies.network.server.commands.DisconnectCommand;
 
 import java.net.DatagramPacket;
 import java.net.InetAddress;
 import java.util.Arrays;
-import java.util.List;
 import java.util.UUID;
 
 /**

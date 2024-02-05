@@ -1,14 +1,14 @@
-package com.ayman.fightEnemies.network.commands;
+package com.ayman.fightEnemies.network.server.commands;
 
-import com.ayman.fightEnemies.network.GameServer;
+import com.ayman.fightEnemies.network.server.GameServer;
 
 import java.util.UUID;
 
 public class DisconnectCommand extends Command{
 
-    private GameServer server;
+    private final GameServer server;
 
-    private UUID clientID;
+    private final UUID clientID;
 
     public DisconnectCommand(GameServer server, UUID clientID) {
         this.server = server;

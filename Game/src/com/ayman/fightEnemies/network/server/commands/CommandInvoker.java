@@ -1,4 +1,4 @@
-package com.ayman.fightEnemies.network.commands;
+package com.ayman.fightEnemies.network.server.commands;
 
 public class CommandInvoker {
 

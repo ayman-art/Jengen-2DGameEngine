@@ -1,4 +1,4 @@
-package com.ayman.fightEnemies.network;
+package com.ayman.fightEnemies.network.server;
 
 
 import com.ayman.fightEnemies.network.controller.Controller;
@@ -13,7 +13,7 @@ public class GameServer extends Thread {
 
         private int port;
         private DatagramSocket socket;
-        private final List<GameClient> clients = new ArrayList<>();
+        private final List<ServerClient> clients = new ArrayList<>();
 
         public final int MAX_CLIENTS = 4;
 
@@ -41,13 +41,13 @@ public class GameServer extends Thread {
                 }
         }
 
-        public List<GameClient> getClients() {
+        public List<ServerClient> getClients() {
                 return clients;
         }
 
-        public void send(String message, GameClient gameClient){
+        public void send(String message, ServerClient serverClient){
                 try {
-                        socket.send(new DatagramPacket(message.getBytes(), message.length(), gameClient.getIpAddress(), gameClient.getPort()));
+                        socket.send(new DatagramPacket(message.getBytes(), message.length(), serverClient.getClientIp(), serverClient.getClientPort()));
                 } catch (Exception e) {
                         e.printStackTrace();
                 }
@@ -59,8 +59,8 @@ public class GameServer extends Thread {
 
 
         public void shutdown(){
-                for(GameClient client : clients){
-                        send("D" + client.getId(), client);
+                for(ServerClient client : clients){
+                        send("D" + client.getClientIp(), client);
                 }
                 socket.close();
         }
