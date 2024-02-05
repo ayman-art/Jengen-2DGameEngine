@@ -22,12 +22,15 @@ public class ConnectCommand extends Command{
 
     @Override
     public void execute() {
+
         if(server != null){
             System.out.println("Connecting to server");
             synchronized (server.getClients()){
                 List<GameClient> clients = server.getClients();
                 if(clients.size() < server.MAX_CLIENTS) {
                     GameClient client = new GameClient(ip, port);
+                    clients.add(client);
+                    System.out.println("the size of the clients is " + clients.size());
                     server.send("c" + UUID.randomUUID(), client);
                 } else {
                     System.out.println("Server is full");
