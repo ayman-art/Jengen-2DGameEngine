@@ -2,6 +2,7 @@ package com.ayman.fightEnemies.network.controller;
 
 import com.ayman.fightEnemies.network.GameServer;
 import com.ayman.fightEnemies.network.commands.Command;
+import com.ayman.fightEnemies.network.commands.CommandInvoker;
 import com.ayman.fightEnemies.network.commands.ConnectCommand;
 import com.ayman.fightEnemies.network.commands.DisconnectCommand;
 
@@ -15,6 +16,12 @@ public class Controller {
 
 
     GameServer server;
+    CommandInvoker invoker;
+
+    public Controller(GameServer server){
+        this.server = server;
+        invoker = new CommandInvoker();
+    }
     public Command getCommand(DatagramPacket packet){
 
 
@@ -24,7 +31,8 @@ public class Controller {
         switch (commandType){
             case "D"-> {
                 String[] commandArgs = commandString.substring(1).split(" ");
-                return new DisconnectCommand(server, UUID.fromString(commandArgs[0]));
+                UUID clientID = UUID.fromString(commandArgs[0]);
+                return new DisconnectCommand(server, clientID);
             } case "C" -> {
                 String[] commandArgs = commandString.substring(1).split(" ");
                 InetAddress ip = packet.getAddress();
@@ -38,4 +46,22 @@ public class Controller {
     }
 
 
+    public void start() {
+        CommandInvoker invoker = new CommandInvoker();
+        while(true){
+            byte[] data = new byte[1024];
+            DatagramPacket packet = new DatagramPacket(data, data.length);
+            try {
+                server.getSocket().receive(packet);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            Command command = this.getCommand(packet);
+            if(command != null){
+                invoker.setCommand(command);
+                invoker.executeCommand();
+            }
+
+        }
+    }
 }

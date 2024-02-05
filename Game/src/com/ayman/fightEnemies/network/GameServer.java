@@ -1,6 +1,10 @@
 package com.ayman.fightEnemies.network;
 
 
+import com.ayman.fightEnemies.network.commands.Command;
+import com.ayman.fightEnemies.network.commands.CommandInvoker;
+import com.ayman.fightEnemies.network.controller.Controller;
+
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
@@ -51,11 +55,17 @@ public class GameServer extends Thread {
                 }
         }
 
+        public DatagramSocket getSocket() {
+                return socket;
+        }
+
         public static void main(String[] args) {
                 Scanner scanner = new Scanner(System.in);
                 System.out.println("Enter port number: ");
                 int port = scanner.nextInt();
-                new GameServer(port).start();
+                GameServer server = new GameServer(port);
+                Controller controller = new Controller(server);
+                controller.start();
         }
 
 
