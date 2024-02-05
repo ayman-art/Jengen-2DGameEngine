@@ -58,11 +58,15 @@ public class GameClient extends Thread{
     }
 
 
-    public UUID getUUID() {
-        return id;
+    public  UUID getUUID() {
+        synchronized (this) {
+            return id;
+        }
     }
     public void setUUID(UUID id) {
-        this.id = id;
+        synchronized (this) {
+            this.id = id;
+        }
     }
 
     public InetAddress getIpAddress() {

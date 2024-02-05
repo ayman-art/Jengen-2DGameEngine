@@ -47,6 +47,7 @@ public class ClientController extends Thread {
 
 
     public void run() {
+        System.out.println("trying to connect");
         connectToServer();
         while (true) {
             byte[] data = new byte[1024];
@@ -65,9 +66,15 @@ public class ClientController extends Thread {
 
 
     public void connectToServer() {
-        gameClient.sendData("C" + gameClient.getName());
+        Thread connectThread = new Thread(() -> {
+            System.out.println(gameClient.getUUID() + "uuid");
+            while (gameClient.getUUID() == null) {
+                gameClient.sendData("C" + gameClient.getName());
+            }
+            System.out.println("Connected to server" + gameClient.getUUID());
+        });
+        connectThread.start();
     }
-
 
 
 
