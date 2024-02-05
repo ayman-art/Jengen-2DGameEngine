@@ -1,6 +1,8 @@
 package com.ayman.fightEnemies.network.client;
 
 import com.ayman.fightEnemies.Game;
+import com.ayman.fightEnemies.network.client.controller.ClientController;
+import com.ayman.fightEnemies.network.server.controller.Controller;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -93,12 +95,22 @@ public class Login extends JFrame {
 
     private void login(String name, String address, int port) {
         dispose();
+
+        DatagramSocket socket = null;
         try {
-            DatagramSocket socket = new DatagramSocket();
-            sendConnectionPacket(name, address, port, socket);
+            socket = new DatagramSocket();
         } catch (SocketException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            GameClient gameClient = new GameClient(InetAddress.getByName(address), port, name);
+            ClientController controller = new ClientController(gameClient);
+            controller.start();
+        } catch (UnknownHostException e) {
             throw new RuntimeException(e);
         }
+
         Game game = new Game(txtName.getText());
         game.jFrame.setResizable(false);
         game.jFrame.setTitle("FightEnemies - " + name);

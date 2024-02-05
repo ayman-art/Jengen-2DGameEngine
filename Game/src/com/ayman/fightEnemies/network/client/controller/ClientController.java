@@ -13,7 +13,7 @@ import java.util.UUID;
 /**
  *  responsible for controlling the client and handling the commands
  */
-public class ClientController {
+public class ClientController extends Thread {
 
     private final GameClient gameClient;
     private final ClientCommandInvoker commandInvoker;
@@ -30,6 +30,7 @@ public class ClientController {
             case "I" -> {
                 String[] commandArgs = commandString.substring(1).split(" ");
                 String id = commandArgs[0];
+                System.out.println("ID: " + id);
                 return new SetIdCommand(gameClient, UUID.fromString(id));
             }
             case "A" -> {
@@ -45,7 +46,8 @@ public class ClientController {
     }
 
 
-    public void start() {
+    public void run() {
+        connectToServer();
         while (true) {
             byte[] data = new byte[1024];
             DatagramPacket packet = new DatagramPacket(data, data.length);
@@ -62,6 +64,9 @@ public class ClientController {
     }
 
 
+    public void connectToServer() {
+        gameClient.sendData("C" + gameClient.getName());
+    }
 
 
 

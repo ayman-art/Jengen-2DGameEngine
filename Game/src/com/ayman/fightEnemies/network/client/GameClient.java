@@ -12,8 +12,8 @@ public class GameClient extends Thread{
 
 
     private DatagramSocket socket;
-    private InetAddress ipAddress;
-    private int port;
+    private final InetAddress ipAddress;
+    private final int port;
 
     private final String clientName;
     private UUID id;
@@ -27,13 +27,14 @@ public class GameClient extends Thread{
     public GameClient(InetAddress ipAddress, int port, String clientName) {
          this.port = port;
         this.clientName = clientName;
+        this.ipAddress = ipAddress;
         this.game = new Game(getName());
         try {
             this.socket = new DatagramSocket();
-             this.ipAddress = ipAddress;
         } catch (SocketException e) {
             e.printStackTrace();
         }
+        System.out.println("Forming GameClient with fields: " + ipAddress + " " + port + " " + clientName);
 
     }
 
@@ -74,5 +75,15 @@ public class GameClient extends Thread{
         return socket;
     }
 
+
+    public void sendData(String data){
+        byte[] dataBytes = data.getBytes();
+        DatagramPacket packet = new DatagramPacket(dataBytes, dataBytes.length, ipAddress, port);
+        try {
+            socket.send(packet);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 }

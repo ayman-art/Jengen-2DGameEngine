@@ -22,5 +22,6 @@ public class SetIdCommand extends ClientCommand {
     @Override
     public void execute() {
         gameClient.setUUID(id);
+        System.out.println("Setting my id to: " + id);
     }
 }
