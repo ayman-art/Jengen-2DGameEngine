@@ -35,7 +35,8 @@ public class ConnectCommand extends Command{
                     System.out.println("connecting" + clientName);
                 while(true){
                     server.send("C" + client.getUUID(), client);
-                    System.out.println(client.getClientIp() + " + " + client.getClientPort());
+                    System.out.println();
+//                    System.out.println(client.getClientIp() + " + " + client.getClientPort());
                 }
 //                System.out.println("the counter is " + counter++);
             }

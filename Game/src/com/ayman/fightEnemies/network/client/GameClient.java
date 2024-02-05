@@ -25,12 +25,12 @@ public class GameClient extends Thread{
 
 
     public GameClient(InetAddress ipAddress, int port, String clientName) {
-        this.port = port;
+         this.port = port;
         this.clientName = clientName;
         this.game = new Game(getName());
         try {
             this.socket = new DatagramSocket();
-            this.ipAddress = ipAddress;
+             this.ipAddress = ipAddress;
         } catch (SocketException e) {
             e.printStackTrace();
         }
@@ -44,8 +44,6 @@ public class GameClient extends Thread{
             byte[] data = new byte[1024];
             DatagramPacket packet = new DatagramPacket(data, data.length);
             try {
-                System.out.println("WAAAAIN");
-                System.out.println(this.socket.getPort() + " " + this.socket.getInetAddress());
                 socket.receive(packet);
                 System.out.println("Data:" + Arrays.toString(packet.getData()));
             } catch (IOException e) {

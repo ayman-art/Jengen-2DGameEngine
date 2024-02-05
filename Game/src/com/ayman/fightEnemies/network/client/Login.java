@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.io.Serial;
 import java.net.*;
+import java.util.Arrays;
 import java.util.UUID;
 
 
@@ -139,6 +140,19 @@ public class Login extends JFrame {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+
+        }
+        while(true) {
+            byte[] data = new byte[1024];
+            packet = new DatagramPacket(data, data.length);
+            System.out.println("BAD");
+            try {
+                socket.receive(packet);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+
+            System.out.println(Arrays.toString(packet.getData()));
 
         }
 

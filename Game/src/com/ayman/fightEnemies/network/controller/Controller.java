@@ -49,6 +49,7 @@ public class Controller {
                 String clientName = commandArgs[0];
                 InetAddress ip = packet.getAddress();
                 int port = packet.getPort();
+                System.out.println("IHOPE" + port);
                 return new ConnectCommand(server, ip, port, clientName);
             } default -> {
                 return null;

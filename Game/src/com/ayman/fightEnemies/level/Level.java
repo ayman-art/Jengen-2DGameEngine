@@ -236,8 +236,6 @@ public class Level {
             boolean bad = false;
             if(visited.contains(current.tileCoordinate)) System.out.println("what");
             for(var v: visited) {
-                if(v.equals(current.tileCoordinate))
-                    System.out.print("fuck");
                 if(v.getX() == current.getTileCoordinate().getX() && v.getY() == current.getTileCoordinate().getY()) {
                     System.out.println("no");
                     bad = true;
@@ -302,7 +300,7 @@ public class Level {
             Node current = frontier.poll();
             boolean bad = false;
             for(var v: visited) {
-                if(v.equals(current.tileCoordinate))
+                assert current != null;
                 if(v.getX() == current.getTileCoordinate().getX() && v.getY() == current.getTileCoordinate().getY()) {
 
                     bad = true;
@@ -310,6 +308,7 @@ public class Level {
                 }
             }
             if(bad) continue;
+            assert current != null;
             visited.add(current.tileCoordinate);
 
 
