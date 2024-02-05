@@ -29,16 +29,11 @@ public class ConnectCommand extends Command{
         if(server != null){
             System.out.println("Connecting to server");
             synchronized (server.getClients()){
-                List<ServerClient> clients = server.getClients();
-                    ServerClient client = new ServerClient(clientName, clientIp, clientPort, UUID.randomUUID());
-                    System.out.println("the size of the clients is " + clients.size());
-                    System.out.println("connecting" + clientName);
-                while(true){
-                    server.send("C" + client.getUUID(), client);
-                    System.out.println();
-//                    System.out.println(client.getClientIp() + " + " + client.getClientPort());
-                }
-//                System.out.println("the counter is " + counter++);
+                ServerClient client = new ServerClient(clientName, clientIp, clientPort, UUID.randomUUID());
+                server.addClient(client);
+//                System.out.println("the size of the clients is " + clients.size());
+                System.out.println("connecting" + clientName);
+                server.send("C" + client.getUUID(), client);
             }
         }
     }

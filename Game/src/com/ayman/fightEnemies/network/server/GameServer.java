@@ -11,7 +11,7 @@ import java.util.Scanner;
 
 public class GameServer extends Thread {
 
-        private int port;
+        private final int port;
         private DatagramSocket socket;
         private final List<ServerClient> clients = new ArrayList<>();
 
@@ -52,6 +52,9 @@ public class GameServer extends Thread {
                         e.printStackTrace();
                 }
         }
+        public synchronized void addClient(ServerClient serverClient) {
+                this.clients.add(serverClient);
+        }
 
         public DatagramSocket getSocket() {
                 return socket;
@@ -72,6 +75,7 @@ public class GameServer extends Thread {
                 Controller controller = new Controller(server);
                 controller.start();
         }
+
 
 
 }

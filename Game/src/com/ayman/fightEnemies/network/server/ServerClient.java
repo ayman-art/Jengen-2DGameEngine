@@ -4,11 +4,11 @@ import java.net.InetAddress;
 import java.util.UUID;
 
 public class ServerClient {
-    private String name;
+    private final String name;
     private final InetAddress clientIp;
     private final int clientPort;
 
-    private UUID uuid;
+    private final UUID uuid;
 
     public ServerClient(String name, InetAddress clientIp, int clientPort, UUID uuid) {
         this.name = name;
