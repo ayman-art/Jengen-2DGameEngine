@@ -8,6 +8,7 @@ import com.ayman.fightEnemies.network.controller.Controller;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -15,7 +16,7 @@ public class GameServer extends Thread {
 
         private int port;
         private DatagramSocket socket;
-        private List<GameClient> clients;
+        private final List<GameClient> clients = new ArrayList<>();
 
         public final int MAX_CLIENTS = 4;
 

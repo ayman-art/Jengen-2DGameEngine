@@ -8,6 +8,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.Serial;
+import java.net.*;
 
 
 public class Login extends JFrame {
@@ -88,6 +89,12 @@ public class Login extends JFrame {
 
     private void login(String name, String address, int port) {
         dispose();
+        try {
+            DatagramSocket socket = new DatagramSocket();
+            sendConnectionPacket(name, address, port, socket);
+        } catch (SocketException e) {
+            throw new RuntimeException(e);
+        }
         Game game = new Game(txtName.getText());
         game.jFrame.setResizable(false);
         game.jFrame.setTitle("FightEnemies - " + name);
@@ -101,6 +108,22 @@ public class Login extends JFrame {
 
         game.requestFocus(); //request focus for the game
 
+    }
+
+    private void sendConnectionPacket(String name, String address, int port, DatagramSocket socket) {
+
+        DatagramPacket packet = null;
+        try {
+            packet = new DatagramPacket(("C" + name).getBytes(), ("C" + name).getBytes().length, InetAddress.getLocalHost(), port);
+        } catch (UnknownHostException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            System.out.println("Sending connection packet to " + address + ":" + port);
+            socket.send(packet);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public static void main(String[] args) {

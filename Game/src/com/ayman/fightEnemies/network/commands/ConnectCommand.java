@@ -23,6 +23,7 @@ public class ConnectCommand extends Command{
     @Override
     public void execute() {
         if(server != null){
+            System.out.println("Connecting to server");
             synchronized (server.getClients()){
                 List<GameClient> clients = server.getClients();
                 if(clients.size() < server.MAX_CLIENTS) {
