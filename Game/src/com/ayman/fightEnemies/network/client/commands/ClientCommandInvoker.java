@@ -7,7 +7,7 @@ public class ClientCommandInvoker {
         this.currentCommand = command;
     }
 
-    public void executeCommand() {
+    public void executeClientCommand() {
         this.currentCommand.execute();
     }
 }

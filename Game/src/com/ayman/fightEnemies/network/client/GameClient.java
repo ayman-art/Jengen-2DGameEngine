@@ -70,6 +70,9 @@ public class GameClient extends Thread{
     public int getPort() {
         return port;
     }
+    public DatagramSocket getSocket() {
+        return socket;
+    }
 
 
 }

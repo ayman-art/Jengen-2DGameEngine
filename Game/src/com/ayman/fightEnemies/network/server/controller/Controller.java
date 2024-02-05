@@ -60,7 +60,6 @@ public class Controller {
 
 
     public void start() {
-        CommandInvoker invoker = new CommandInvoker();
         while(true){
             byte[] data = new byte[1024];
             DatagramPacket packet = new DatagramPacket(data, data.length);
