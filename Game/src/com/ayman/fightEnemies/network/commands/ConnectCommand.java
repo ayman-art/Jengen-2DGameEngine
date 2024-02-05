@@ -8,15 +8,18 @@ import java.util.List;
 import java.util.UUID;
 
 public class ConnectCommand extends Command{
+    static int counter = 0;
 
     private final GameServer server;
-    private InetAddress ip;
-    private int port;
+    private final InetAddress ip;
+    private final int port;
+    private final String clientName;
 
-    public ConnectCommand(GameServer server, InetAddress ip, int port) {
+    public ConnectCommand(GameServer server, InetAddress ip, int port, String clientName) {
         this.server = server;
         this.ip = ip;
         this.port = port;
+        this.clientName = clientName;
     }
 
 
@@ -27,15 +30,13 @@ public class ConnectCommand extends Command{
             System.out.println("Connecting to server");
             synchronized (server.getClients()){
                 List<GameClient> clients = server.getClients();
-                if(clients.size() < server.MAX_CLIENTS) {
-                    GameClient client = new GameClient(ip, port);
-                    clients.add(client);
+                    GameClient client = new GameClient(ip, port, clientName);
                     System.out.println("the size of the clients is " + clients.size());
+                    System.out.println("connecting" + clientName);
                     server.send("c" + UUID.randomUUID(), client);
-                } else {
-                    System.out.println("Server is full");
-                }
+                System.out.println("the counter is " + counter++);
             }
         }
     }
 }
+//20162

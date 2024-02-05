@@ -14,6 +14,7 @@ public class GameClient extends Thread{
     private InetAddress ipAddress;
     private int port;
 
+    private final String clientName;
     private UUID id;
 
 
@@ -22,9 +23,10 @@ public class GameClient extends Thread{
 
 
 
-    public GameClient(InetAddress ipAddress, int port) {
+    public GameClient(InetAddress ipAddress, int port, String clientName) {
         this.port = port;
-        this.game = new Game("Fight Enemies");
+        this.clientName = clientName;
+        this.game = new Game(getName());
         try {
             this.socket = new DatagramSocket();
             this.ipAddress = ipAddress;

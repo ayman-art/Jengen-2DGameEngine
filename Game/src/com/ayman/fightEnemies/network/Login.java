@@ -7,8 +7,10 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.io.Serial;
 import java.net.*;
+import java.util.UUID;
 
 
 public class Login extends JFrame {
@@ -54,6 +56,7 @@ public class Login extends JFrame {
         txtAddress.setBounds(67, 116, 165, 28);
         contentPanel.add(txtAddress);
         txtAddress.setColumns(10);
+        txtAddress.setText("localhost");
 
         JLabel lblAddressDesc = new JLabel("(eg. 192.168.1.2)");
         lblAddressDesc.setBounds(100, 142, 112, 16);
@@ -113,13 +116,35 @@ public class Login extends JFrame {
     private void sendConnectionPacket(String name, String address, int port, DatagramSocket socket) {
 
         DatagramPacket packet = null;
+
+        int attempts = 1000000;
+        while (attempts-- > 0) {
+            try {
+                String connectionMessage = "C" + name;
+                packet = new DatagramPacket(connectionMessage.getBytes(), (connectionMessage).getBytes().length, InetAddress.getByName(address), port);
+            } catch (UnknownHostException e) {
+                throw new RuntimeException(e);
+            }
+            try {
+                System.out.println("Sending connection packet to " + address + ":" + port);
+                socket.send(packet);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+
+    }
+    private void sendDisconnectionPacket(String name, String address, int port, DatagramSocket socket) {
+        DatagramPacket packet = null;
         try {
-            packet = new DatagramPacket(("C" + name).getBytes(), ("C" + name).getBytes().length, InetAddress.getLocalHost(), port);
+            String disconnectionMessage = "D" + UUID.randomUUID().toString();
+            packet = new DatagramPacket(disconnectionMessage.getBytes(), (disconnectionMessage).getBytes().length, InetAddress.getByName(address), port);
         } catch (UnknownHostException e) {
             throw new RuntimeException(e);
         }
         try {
-            System.out.println("Sending connection packet to " + address + ":" + port);
+            System.out.println("Sending disconnection packet to " + address + ":" + port);
             socket.send(packet);
         } catch (Exception e) {
             e.printStackTrace();
