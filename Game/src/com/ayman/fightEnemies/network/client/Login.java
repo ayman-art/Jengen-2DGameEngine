@@ -152,7 +152,7 @@ public class Login extends JFrame {
                 throw new RuntimeException(e);
             }
 
-            System.out.println(Arrays.toString(packet.getData()));
+            System.out.println(new String(packet.getData()));
 
         }
 

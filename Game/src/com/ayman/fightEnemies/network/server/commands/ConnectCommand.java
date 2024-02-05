@@ -30,10 +30,12 @@ public class ConnectCommand extends Command{
             System.out.println("Connecting to server");
             synchronized (server.getClients()){
                 ServerClient client = new ServerClient(clientName, clientIp, clientPort, UUID.randomUUID());
+
                 server.addClient(client);
 //                System.out.println("the size of the clients is " + clients.size());
                 System.out.println("connecting" + clientName);
                 server.send("C" + client.getUUID(), client);
+                System.out.println("Now the size of the clients is " + server.getClients().size());
             }
         }
     }

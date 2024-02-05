@@ -45,11 +45,10 @@ public class GameClient extends Thread{
             DatagramPacket packet = new DatagramPacket(data, data.length);
             try {
                 socket.receive(packet);
-                System.out.println("Data:" + Arrays.toString(packet.getData()));
+                System.out.println(new String(packet.getData()));
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            this.parsePacket(packet.getData(), packet.getAddress(), packet.getPort());
         }
 
 
@@ -57,9 +56,6 @@ public class GameClient extends Thread{
 
     }
 
-    private void parsePacket(byte[] data, InetAddress address, int port) {
-
-    }
 
     public UUID getUUID() {
         return id;

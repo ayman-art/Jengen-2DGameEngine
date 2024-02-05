@@ -31,4 +31,12 @@ public class ServerClient {
     public UUID getUUID() {
         return this.uuid;
     }
+
+    @Override
+    public boolean equals(Object object) {
+        if(!(object instanceof ServerClient client)) {
+            return false;
+        }
+        return clientIp == client.clientIp && clientPort == client.getClientPort();
+    }
 }

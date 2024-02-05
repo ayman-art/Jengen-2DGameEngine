@@ -1,7 +1,7 @@
 package com.ayman.fightEnemies.network.server;
 
 
-import com.ayman.fightEnemies.network.controller.Controller;
+import com.ayman.fightEnemies.network.server.controller.Controller;
 
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;

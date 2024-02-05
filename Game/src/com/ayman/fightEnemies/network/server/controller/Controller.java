@@ -1,4 +1,4 @@
-package com.ayman.fightEnemies.network.controller;
+package com.ayman.fightEnemies.network.server.controller;
 
 import com.ayman.fightEnemies.network.server.GameServer;
 import com.ayman.fightEnemies.network.server.commands.Command;
