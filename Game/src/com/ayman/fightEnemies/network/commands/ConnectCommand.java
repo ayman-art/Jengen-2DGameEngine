@@ -3,13 +3,21 @@ package com.ayman.fightEnemies.network.commands;
 import com.ayman.fightEnemies.network.GameClient;
 import com.ayman.fightEnemies.network.GameServer;
 
+import java.net.InetAddress;
 import java.util.List;
 import java.util.UUID;
 
 public class ConnectCommand extends Command{
 
-    private GameServer server;
-    private GameClient client;
+    private final GameServer server;
+    private InetAddress ip;
+    private int port;
+
+    public ConnectCommand(GameServer server, InetAddress ip, int port) {
+        this.server = server;
+        this.ip = ip;
+        this.port = port;
+    }
 
 
     @Override
@@ -18,7 +26,7 @@ public class ConnectCommand extends Command{
             synchronized (server.getClients()){
                 List<GameClient> clients = server.getClients();
                 if(clients.size() < server.MAX_CLIENTS) {
-                    clients.add(client);
+                    GameClient client = new GameClient(ip, port);
                     server.send("c" + UUID.randomUUID(), client);
                 } else {
                     System.out.println("Server is full");
