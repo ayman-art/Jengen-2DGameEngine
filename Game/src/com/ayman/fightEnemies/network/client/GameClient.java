@@ -65,7 +65,10 @@ public class GameClient extends Thread{
     }
     public void setUUID(UUID id) {
         synchronized (this) {
-            this.id = id;
+            if(this.id == null) {
+                this.id = id;
+                System.out.println("IDincl: " + id);
+            }
         }
     }
 

@@ -68,10 +68,13 @@ public class ClientController extends Thread {
     public void connectToServer() {
         Thread connectThread = new Thread(() -> {
             System.out.println(gameClient.getUUID() + "uuid");
+            int count = 0;
             while (gameClient.getUUID() == null) {
                 gameClient.sendData("C" + gameClient.getName());
+                count++;
             }
-            System.out.println("Connected to server" + gameClient.getUUID());
+
+            System.out.println("Connected to server" + gameClient.getUUID() + " with " + count + " attempts");
         });
         connectThread.start();
     }

@@ -31,6 +31,10 @@ public class ConnectCommand extends Command{
             synchronized (server.getClients()){
                 ServerClient client = new ServerClient(clientName, clientIp, clientPort, UUID.randomUUID());
 
+                if(server.getClients().contains(client)){
+                    System.out.println("Client already exists");
+                    return;
+                }
                 server.addClient(client);
 //                System.out.println("the size of the clients is " + clients.size());
                 System.out.println("connecting" + clientName);
