@@ -19,9 +19,15 @@ public class DisconnectCommand extends Command{
     public void execute() {
         System.out.println("Disconnecting client Command");
         synchronized (server.getClients()) {
+
             for (int i = 0; i < server.getClients().size(); i++) {
-                server.getClients().removeIf(client -> client.getUUID().equals(clientID));
+                if (server.getClients().get(i).getUUID().equals(clientID)) {
+                    server.getClients().remove(i);
+                    System.out.println("Client disconnected with id " + clientID);
+                    return;
+                }
             }
+            System.out.println("Client not found");
         }
     }
 }

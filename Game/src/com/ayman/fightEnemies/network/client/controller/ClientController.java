@@ -47,6 +47,7 @@ public class ClientController extends Thread {
 
 
     public void run() {
+        listenForClose();
         System.out.println("trying to connect");
         connectToServer();
         while (true) {
@@ -62,6 +63,16 @@ public class ClientController extends Thread {
                 e.printStackTrace();
             }
         }
+    }
+
+    private void listenForClose() {
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            System.out.println("Shutting down");
+            int attempts = 1000;
+            while (attempts-- > 0) {
+                gameClient.sendData("D" + gameClient.getUUID());
+            }
+        }));
     }
 
 
