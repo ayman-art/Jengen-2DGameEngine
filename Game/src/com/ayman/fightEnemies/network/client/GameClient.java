@@ -20,7 +20,7 @@ public class GameClient extends Thread{
 
 
 
-    private final Game game;
+//    private final Game game;
 
 
 
@@ -28,7 +28,7 @@ public class GameClient extends Thread{
          this.port = port;
         this.clientName = clientName;
         this.ipAddress = ipAddress;
-        this.game = new Game(clientName);
+//        this.game = new Game(clientName);
         try {
             this.socket = new DatagramSocket();
         } catch (SocketException e) {
