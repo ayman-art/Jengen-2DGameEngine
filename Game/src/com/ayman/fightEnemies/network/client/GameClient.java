@@ -28,7 +28,7 @@ public class GameClient extends Thread{
          this.port = port;
         this.clientName = clientName;
         this.ipAddress = ipAddress;
-        this.game = new Game(getName());
+        this.game = new Game(clientName);
         try {
             this.socket = new DatagramSocket();
         } catch (SocketException e) {
@@ -80,6 +80,10 @@ public class GameClient extends Thread{
     }
     public DatagramSocket getSocket() {
         return socket;
+    }
+
+    public String getClientName() {
+        return clientName;
     }
 
 
