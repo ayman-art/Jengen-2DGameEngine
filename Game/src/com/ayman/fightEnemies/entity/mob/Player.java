@@ -11,6 +11,9 @@ import com.ayman.fightEnemies.entity.projectile.WizardProjectile;
 
 public class Player extends Mob {
 
+
+    private String name;
+
     private Keyboard input;
 
     private Projectile projectile;
@@ -33,6 +36,11 @@ public class Player extends Mob {
         this.currentAnimatedSprite = down;
 
         fireInterval = WizardProjectile.FIRE_INTERVAL;
+    }
+
+    public Player(String name, int x, int y, Keyboard input) {
+        this(x, y, input);
+        this.name = name;
     }
 
 
