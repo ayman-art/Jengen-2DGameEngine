@@ -101,4 +101,7 @@ public class GameClient extends Thread{
         }
     }
 
+    public Game getGame() {
+        return game;
+    }
 }

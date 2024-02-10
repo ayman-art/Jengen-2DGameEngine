@@ -1,6 +1,7 @@
 package com.ayman.fightEnemies.network.client.controller;
 
 import com.ayman.fightEnemies.network.client.GameClient;
+import com.ayman.fightEnemies.network.client.commands.AddMulPlayerCommand;
 import com.ayman.fightEnemies.network.client.commands.ClientCommand;
 import com.ayman.fightEnemies.network.client.commands.ClientCommandInvoker;
 import com.ayman.fightEnemies.network.client.commands.SetIdCommand;
@@ -34,9 +35,8 @@ public class ClientController extends Thread {
             }
             case "A" -> {
                 String[] commandArgs = commandString.substring(1).split(" ");
-//                String clientName = commandArgs[0];
-//                return new AddMPlayerCommand(
-                return null;
+                String clientName = commandArgs[0];
+                return new AddMulPlayerCommand(this.gameClient, clientName);
             }
             default -> {
                 return null;
@@ -89,10 +89,10 @@ public class ClientController extends Thread {
             int attemps = 0;
             while (gameClient.getUUID() == null) {
                 count++;
-                if(count % 1000 == 0) {
+                if(count % 10000 == 0) {
                     System.out.println("Trying to connect to server from" + gameClient.getName());
                 }
-                if(count % 1000 != 0) {
+                if(count % 10000 != 0) {
                     continue;
                 }
                 gameClient.sendData("C" + gameClient.getClientName());
@@ -104,6 +104,9 @@ public class ClientController extends Thread {
         });
         connectThread.start();
     }
+
+
+
 
 
 
