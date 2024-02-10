@@ -67,10 +67,17 @@ public class ClientController extends Thread {
     private void listenForClose() {
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             System.out.println("Shutting down");
-            int attempts = 1000;
-            while (attempts-- > 0) {
+            int counts  = 0, attemps = 10;
+            while (attemps > 0) {
+                counts++;
+                if(counts % 10000 != 0) {
+                    continue;
+                }
+                System.out.println("Trying to disconnect from server" + gameClient.getUUID() + " with " + attemps + " attempts");
                 gameClient.sendData("D" + gameClient.getUUID());
+                attemps--;
             }
+            System.out.println("Disconnected from server" + gameClient.getUUID() + " with " + attemps + " attempts");
         }));
     }
 
@@ -79,12 +86,21 @@ public class ClientController extends Thread {
         Thread connectThread = new Thread(() -> {
             System.out.println(gameClient.getUUID() + "uuid");
             int count = 0;
+            int attemps = 0;
             while (gameClient.getUUID() == null) {
-                gameClient.sendData("C" + gameClient.getClientName());
                 count++;
+                if(count % 1000 == 0) {
+                    System.out.println("Trying to connect to server from" + gameClient.getName());
+                }
+                if(count % 1000 != 0) {
+                    continue;
+                }
+                gameClient.sendData("C" + gameClient.getClientName());
+                attemps++;
+
             }
 
-            System.out.println("Connected to server" + gameClient.getUUID() + " with " + count + " attempts");
+            System.out.println("Connected to server" + gameClient.getUUID() + " with " + attemps + " attempts");
         });
         connectThread.start();
     }

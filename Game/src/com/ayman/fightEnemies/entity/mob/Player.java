@@ -38,6 +38,8 @@ public class Player extends Mob {
         fireInterval = WizardProjectile.FIRE_INTERVAL;
     }
 
+
+
     public Player(String name, int x, int y, Keyboard input) {
         this(x, y, input);
         this.name = name;
