@@ -8,6 +8,8 @@ import java.net.DatagramSocket;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.concurrent.locks.Condition;
+import java.util.function.BooleanSupplier;
 
 public class GameServer extends Thread {
 
@@ -77,5 +79,26 @@ public class GameServer extends Thread {
         }
 
 
+    public void sendToAll(String s) {
+                synchronized (clients) {
+                        for (ServerClient client : clients) {
+                                send(s, client);
+                        }
+                }
+    }
+
+
+
+
+        public void sendUntil(String message, ServerClient serverClient, BooleanSupplier function) {
+                while (!function.getAsBoolean()) {
+                        send(message, serverClient);
+                    try {
+                        sleep(100);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+        }
 
 }

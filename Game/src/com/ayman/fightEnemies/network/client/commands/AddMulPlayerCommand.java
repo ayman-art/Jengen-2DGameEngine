@@ -15,6 +15,6 @@ public class AddMulPlayerCommand extends ClientCommand{
     }
     @Override
     public void execute() {
-        this.gameClient.getGame().getLevel().add(new Player(name, 3, 10, null));
+        this.gameClient.getGame().getLevel().add(new Player(name, 3 * 16, 10 * 16, null));
     }
 }

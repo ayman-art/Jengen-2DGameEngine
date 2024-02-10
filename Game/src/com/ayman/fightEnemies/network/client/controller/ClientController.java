@@ -87,14 +87,16 @@ public class ClientController extends Thread {
             System.out.println(gameClient.getUUID() + "uuid");
             int count = 0;
             int attemps = 0;
+            long now = System.nanoTime();
+            long lastTime = now;
             while (gameClient.getUUID() == null) {
-                count++;
-                if(count % 10000 == 0) {
-                    System.out.println("Trying to connect to server from" + gameClient.getName());
-                }
-                if(count % 10000 != 0) {
+                now = System.nanoTime();
+                long tenthOfSecond = 100000000;
+                if(System.nanoTime() - lastTime < tenthOfSecond) {
                     continue;
                 }
+                lastTime = now;
+
                 gameClient.sendData("C" + gameClient.getClientName());
                 attemps++;
 

@@ -40,7 +40,7 @@ public class ConnectCommand extends Command{
                 System.out.println("connecting" + clientName);
                 server.send("I" + client.getUUID(), client);
                 System.out.println("Now the size of the clients is " + server.getClients().size());
-                server.send("A" + clientName, client);
+                server.sendToAll("A" + clientName);
             }
         }
     }

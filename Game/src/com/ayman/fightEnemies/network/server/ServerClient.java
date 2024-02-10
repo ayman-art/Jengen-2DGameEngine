@@ -1,12 +1,16 @@
 package com.ayman.fightEnemies.network.server;
 
 import java.net.InetAddress;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 public class ServerClient {
     private final String name;
     private final InetAddress clientIp;
     private final int clientPort;
+
+    private final List<String> otherPlayers = new ArrayList<>();
 
     private final UUID uuid;
 
@@ -31,6 +35,28 @@ public class ServerClient {
     public UUID getUUID() {
         return this.uuid;
     }
+
+
+
+    public int getNumberOfPlayers() {
+        synchronized (otherPlayers) {
+            return otherPlayers.size();
+        }
+    }
+
+    public void addPlayer(String name) {
+        synchronized (otherPlayers) {
+            for(String player : otherPlayers) {
+                if(player.equals(name)) {
+                    return;
+                }
+            }
+
+            otherPlayers.add(name);
+        }
+    }
+
+
 
     @Override
     public boolean equals(Object object) {
