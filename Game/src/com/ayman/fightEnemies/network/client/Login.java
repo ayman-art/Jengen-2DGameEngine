@@ -110,19 +110,19 @@ public class Login extends JFrame {
         } catch (UnknownHostException e) {
             throw new RuntimeException(e);
         }
-
-        Game game = new Game(txtName.getText());
-        game.jFrame.setResizable(false);
-        game.jFrame.setTitle("FightEnemies - " + name);
-        game.jFrame.add(game);
-        game.jFrame.pack();
-        game.jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        game.jFrame.setLocationRelativeTo(null);
-        game.jFrame.setVisible(true);
-
-        game.start();
-
-        game.requestFocus(); //request focus for the game
+//
+//        Game game = new Game(txtName.getText());
+//        game.jFrame.setResizable(false);
+//        game.jFrame.setTitle("FightEnemies - " + name);
+//        game.jFrame.add(game);
+//        game.jFrame.pack();
+//        game.jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        game.jFrame.setLocationRelativeTo(null);
+//        game.jFrame.setVisible(true);
+//
+//        game.start();
+//
+//        game.requestFocus(); //request focus for the game
 
 
     }

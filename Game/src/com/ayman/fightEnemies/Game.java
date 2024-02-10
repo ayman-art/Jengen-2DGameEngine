@@ -17,6 +17,7 @@ import java.awt.*;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
+import java.util.List;
 import java.util.Random;
 
 public class Game extends Canvas implements Runnable{
@@ -45,9 +46,9 @@ public class Game extends Canvas implements Runnable{
     private Thread thread;
     public JFrame jFrame;
 
-    Level level;
+    private Level level;
 
-    Player player;
+    private List<Player> players;
 
 
 
@@ -73,9 +74,22 @@ public class Game extends Canvas implements Runnable{
         level = Level.spawn;
 
         TileCoordinate playerSpawn = new TileCoordinate(3, 9);
-        player = new Player(playerSpawn.x(), playerSpawn.y(), keyboard);
+        Player player = new Player(playerSpawn.x(), playerSpawn.y(), keyboard);
         level.add(player);
 
+        Game game = this;
+        game.jFrame.setResizable(false);
+        game.jFrame.setTitle("FightEnemies");
+        game.jFrame.add(game);
+        game.jFrame.pack();
+        game.jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        game.jFrame.setLocationRelativeTo(null);
+        game.jFrame.setVisible(true);
+
+
+        game.requestFocus(); //request focus for the game
+
+        game.start();
 
         setFocusable(true);
     }
@@ -152,6 +166,8 @@ public class Game extends Canvas implements Runnable{
 
     public void render() {
 
+        Player player = level.getPlayer();
+
         BufferStrategy bufferStrategy = getBufferStrategy();
         if(bufferStrategy == null) {
             createBufferStrategy(3); //triple buffering for faster rendering
@@ -188,17 +204,5 @@ public class Game extends Canvas implements Runnable{
 
     public static void main(String[] args) {
         Game game = new Game("SASA");
-        game.jFrame.setResizable(false);
-        game.jFrame.setTitle("FightEnemies");
-        game.jFrame.add(game);
-        game.jFrame.pack();
-        game.jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        game.jFrame.setLocationRelativeTo(null);
-        game.jFrame.setVisible(true);
-
-
-        game.requestFocus(); //request focus for the game
-
-        game.start();
     }
 }

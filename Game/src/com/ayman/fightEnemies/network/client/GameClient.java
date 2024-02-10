@@ -2,6 +2,7 @@ package com.ayman.fightEnemies.network.client;
 
 import com.ayman.fightEnemies.Game;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.net.*;
 import java.util.Arrays;
@@ -20,7 +21,7 @@ public class GameClient extends Thread{
 
 
 
-//    private final Game game;
+    private final Game game;
 
 
 
@@ -35,6 +36,9 @@ public class GameClient extends Thread{
             e.printStackTrace();
         }
         System.out.println("Forming GameClient with fields: " + ipAddress + " " + port + " " + clientName);
+
+        game = new Game(clientName);
+
 
     }
 
