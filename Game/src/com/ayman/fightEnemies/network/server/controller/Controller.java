@@ -1,10 +1,7 @@
 package com.ayman.fightEnemies.network.server.controller;
 
 import com.ayman.fightEnemies.network.server.GameServer;
-import com.ayman.fightEnemies.network.server.commands.Command;
-import com.ayman.fightEnemies.network.server.commands.CommandInvoker;
-import com.ayman.fightEnemies.network.server.commands.ConnectCommand;
-import com.ayman.fightEnemies.network.server.commands.DisconnectCommand;
+import com.ayman.fightEnemies.network.server.commands.*;
 
 import java.net.DatagramPacket;
 import java.net.InetAddress;
@@ -51,7 +48,14 @@ public class Controller {
                 int port = packet.getPort();
                 System.out.println("IHOPE" + port);
                 return new ConnectCommand(server, ip, port, clientName);
-            } default -> {
+            } case "A" -> {
+                String[] commandArgs = commandString.substring(1).split(" ");
+                String clientID = commandArgs[0];
+                String playerName = commandArgs[1];
+                return new AcknowledgeCommand(server, UUID.fromString(clientID), playerName);
+
+            }
+            default -> {
                 return null;
             }
 
@@ -78,6 +82,7 @@ public class Controller {
             } else {
                 System.out.println("Command is null");
                 System.out.printf("Packet: %s%n", Arrays.toString(packet.getData()));
+                System.exit(344);
             }
 
         }

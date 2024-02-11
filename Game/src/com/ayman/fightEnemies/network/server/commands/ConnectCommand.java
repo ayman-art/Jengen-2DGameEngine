@@ -4,7 +4,6 @@ import com.ayman.fightEnemies.network.server.GameServer;
 import com.ayman.fightEnemies.network.server.ServerClient;
 
 import java.net.InetAddress;
-import java.util.List;
 import java.util.UUID;
 
 public class ConnectCommand extends Command{
@@ -33,14 +32,20 @@ public class ConnectCommand extends Command{
 
                 if(server.getClients().contains(client)){
                     System.out.println("Client already exists");
-                    return;
-                }
-                server.addClient(client);
+                    client = server.getClients().get(server.getClients().indexOf(client));
+                } else {
+                    server.addClient(client);
 //                System.out.println("the size of the clients is " + clients.size());
+                }
                 System.out.println("connecting" + clientName);
                 server.send("I" + client.getUUID(), client);
                 System.out.println("Now the size of the clients is " + server.getClients().size());
-                server.sendToAll("A" + clientName);
+                ServerClient finalClient = client;
+                for(ServerClient c : server.getClients()){
+                    if(c.getUUID() != client.getUUID()){
+                        server.sendUntil("A" + clientName, c, () -> c.containsPlayer(clientName));
+                    }
+                }
             }
         }
     }

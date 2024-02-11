@@ -8,6 +8,7 @@ import java.net.DatagramSocket;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.UUID;
 import java.util.concurrent.locks.Condition;
 import java.util.function.BooleanSupplier;
 
@@ -49,6 +50,7 @@ public class GameServer extends Thread {
 
         public void send(String message, ServerClient serverClient){
                 try {
+                        System.out.println("Sending: " + message + " to " + serverClient.getClientIp() + " " + serverClient.getClientPort());
                         socket.send(new DatagramPacket(message.getBytes(), message.length(), serverClient.getClientIp(), serverClient.getClientPort()));
                 } catch (Exception e) {
                         e.printStackTrace();
@@ -91,14 +93,40 @@ public class GameServer extends Thread {
 
 
         public void sendUntil(String message, ServerClient serverClient, BooleanSupplier function) {
-                while (!function.getAsBoolean()) {
-                        send(message, serverClient);
-                    try {
-                        sleep(100);
-                    } catch (InterruptedException e) {
-                        throw new RuntimeException(e);
-                    }
+                Thread thread = new Thread(() -> {
+                        while (!function.getAsBoolean()) {
+                                send(message, serverClient);
+                                try {
+                                        sleep(100);
+                                } catch (InterruptedException e) {
+                                        throw new RuntimeException(e);
+                                }
+                        }
+                });
+                thread.start();
+        }
+
+
+        public ServerClient getClient(UUID uuid) {
+                synchronized (clients) {
+                        for (ServerClient client : clients) {
+                                if (client.getUUID().equals(uuid)) {
+                                        return client;
+                                }
+                        }
                 }
+                return null;
+        }
+
+        public ServerClient getClient(String name) {
+                synchronized (clients) {
+                        for(ServerClient client : clients) {
+                                if(client.getName().equals(name)) {
+                                        return client;
+                                }
+                        }
+                }
+                return null;
         }
 
 }

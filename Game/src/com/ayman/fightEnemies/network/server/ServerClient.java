@@ -4,6 +4,7 @@ import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.function.BooleanSupplier;
 
 public class ServerClient {
     private final String name;
@@ -63,6 +64,18 @@ public class ServerClient {
         if(!(object instanceof ServerClient client)) {
             return false;
         }
-        return clientIp == client.clientIp && clientPort == client.getClientPort();
+        return clientIp == client.getClientIp() && clientPort == client.getClientPort();
+    }
+
+    public boolean containsPlayer(String name) {
+        synchronized (otherPlayers) {
+            for(String player : otherPlayers) {
+                if(player.equals(name)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+
     }
 }

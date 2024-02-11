@@ -67,15 +67,17 @@ public class ClientController extends Thread {
     private void listenForClose() {
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             System.out.println("Shutting down");
-            int counts  = 0, attemps = 10;
+            long lastTime = System.nanoTime();
+            int attemps = 10;
             while (attemps > 0) {
-                counts++;
-                if(counts % 10000 != 0) {
+
+                if(System.nanoTime() - lastTime < 100000000) {
                     continue;
                 }
+                lastTime = System.nanoTime();
+                attemps--;
                 System.out.println("Trying to disconnect from server" + gameClient.getUUID() + " with " + attemps + " attempts");
                 gameClient.sendData("D" + gameClient.getUUID());
-                attemps--;
             }
             System.out.println("Disconnected from server" + gameClient.getUUID() + " with " + attemps + " attempts");
         }));

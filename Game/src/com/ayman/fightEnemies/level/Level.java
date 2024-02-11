@@ -177,7 +177,7 @@ public class Level {
         this.projectiles.add(projectile);
     }
 
-    public Player getPlayer() {
+    public synchronized Player getPlayer() {
         for(int i = 0; i < mobs.size(); i++) {
             if(mobs.get(i) instanceof Player) return (Player) mobs.get(i);
         }

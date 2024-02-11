@@ -2,10 +2,8 @@ package com.ayman.fightEnemies.network.client;
 
 import com.ayman.fightEnemies.Game;
 
-import javax.swing.*;
 import java.io.IOException;
 import java.net.*;
-import java.util.Arrays;
 import java.util.UUID;
 
 public class GameClient extends Thread{
@@ -95,6 +93,7 @@ public class GameClient extends Thread{
         byte[] dataBytes = data.getBytes();
         DatagramPacket packet = new DatagramPacket(dataBytes, dataBytes.length, ipAddress, port);
         try {
+            System.out.println("Sending: " + data + " to " + ipAddress + " " + port);
             socket.send(packet);
         } catch (IOException e) {
             e.printStackTrace();
