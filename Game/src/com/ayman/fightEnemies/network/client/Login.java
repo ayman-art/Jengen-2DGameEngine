@@ -105,7 +105,7 @@ public class Login extends JFrame {
 
         try {
             GameClient gameClient = new GameClient(InetAddress.getByName(address), port, name);
-            ClientController controller = new ClientController(gameClient);
+            ClientController controller = ClientController.init(gameClient);
             controller.start();
         } catch (UnknownHostException e) {
             throw new RuntimeException(e);

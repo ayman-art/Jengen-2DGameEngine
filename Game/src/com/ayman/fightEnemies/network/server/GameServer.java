@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.UUID;
-import java.util.concurrent.locks.Condition;
 import java.util.function.BooleanSupplier;
 
 public class GameServer extends Thread {

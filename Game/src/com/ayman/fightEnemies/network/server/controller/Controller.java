@@ -54,6 +54,12 @@ public class Controller {
                 String playerName = commandArgs[1];
                 return new AcknowledgeCommand(server, UUID.fromString(clientID), playerName);
 
+            } case "U" -> {
+                String[] commandArgs = commandString.substring(1).split(" ");
+                String clientID = commandArgs[0];
+                int x = Integer.parseInt(commandArgs[1]);
+                int y = Integer.parseInt(commandArgs[2]);
+                return new UpdateMulPlayerCommand(server, server.getClient(UUID.fromString(clientID)), x, y);
             }
             default -> {
                 return null;

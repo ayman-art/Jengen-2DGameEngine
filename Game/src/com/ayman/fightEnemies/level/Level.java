@@ -183,6 +183,18 @@ public class Level {
         }
         return null;
     }
+    public synchronized Player getPlayer(String name) {
+        for(int i = 0; i < mobs.size(); i++) {
+            if(mobs.get(i) instanceof Player player) {
+                if(player.getName().equals(name)) return player;
+            }
+        }
+        return null;
+    }
+
+
+
+
 
 
     public List<Mob> getMobs(Mob mob, int radius) {

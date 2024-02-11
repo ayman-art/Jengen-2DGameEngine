@@ -188,4 +188,8 @@ public class Player extends Mob {
         screen.renderMob(x , y, this, false);
     }
 
+    public String getName() {
+        return name;
+    }
+
 }

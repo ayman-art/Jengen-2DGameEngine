@@ -8,6 +8,7 @@ import com.ayman.fightEnemies.entity.spawner.ParticleSpawner;
 import com.ayman.fightEnemies.entity.spawner.Spawner;
 import com.ayman.fightEnemies.entity.projectile.Projectile;
 import com.ayman.fightEnemies.entity.projectile.WizardProjectile;
+import com.ayman.fightEnemies.network.client.controller.ClientController;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +35,9 @@ public abstract class Mob extends Entity {
         if(!collision(xa, ya)) {
             x += xa;
             y += ya;
+
+            ClientController.getInstance().sendPlayerPosition(x, y);
+
         } else {
             ParticleSpawner particleSpawner = new ParticleSpawner(x,y, 20, 1, level);
 
@@ -97,4 +101,17 @@ public abstract class Mob extends Entity {
         return y;
     }
 
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
+
+    public void setXY(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
 }

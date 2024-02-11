@@ -1,12 +1,10 @@
 package com.ayman.fightEnemies.network.client.controller;
 
 import com.ayman.fightEnemies.network.client.GameClient;
-import com.ayman.fightEnemies.network.client.commands.AddMulPlayerCommand;
-import com.ayman.fightEnemies.network.client.commands.ClientCommand;
-import com.ayman.fightEnemies.network.client.commands.ClientCommandInvoker;
-import com.ayman.fightEnemies.network.client.commands.SetIdCommand;
+import com.ayman.fightEnemies.network.client.commands.*;
 
 import java.net.DatagramPacket;
+import java.util.Arrays;
 import java.util.UUID;
 
 
@@ -15,13 +13,31 @@ import java.util.UUID;
  */
 public class ClientController extends Thread {
 
+    private static ClientController instance;
+
     private final GameClient gameClient;
     private final ClientCommandInvoker commandInvoker;
 
-    public ClientController(GameClient gameClient){
+    private ClientController(GameClient gameClient){
         this.gameClient = gameClient;
         this.commandInvoker = new ClientCommandInvoker();
     }
+
+    public synchronized static ClientController getInstance() {
+        if (instance == null) {
+            throw new IllegalStateException("ClientController has not been initialized yet");
+        }
+        return instance;
+    }
+
+    public synchronized static ClientController init(GameClient gameClient) {
+        if (instance != null) {
+            throw new IllegalStateException("ClientController has already been initialized");
+        }
+        instance = new ClientController(gameClient);
+        return instance;
+    }
+
 
     public ClientCommand getClientCommand(DatagramPacket packet) {
         String commandString = new String(packet.getData()).trim();
@@ -37,6 +53,12 @@ public class ClientController extends Thread {
                 String[] commandArgs = commandString.substring(1).split(" ");
                 String clientName = commandArgs[0];
                 return new AddMulPlayerCommand(this.gameClient, clientName);
+            } case "U" -> {
+                String[] commandArgs = commandString.substring(1).split(" ");
+                String clientName = commandArgs[0];
+                int x = Integer.parseInt(commandArgs[1]);
+                int y = Integer.parseInt(commandArgs[2]);
+                return new UpdateMulPlayerClientCommand(this.gameClient, clientName, x, y);
             }
             default -> {
                 return null;
@@ -110,8 +132,7 @@ public class ClientController extends Thread {
     }
 
 
-
-
-
-
+    public void sendPlayerPosition(int x, int y) {
+        gameClient.sendData("U" + gameClient.getUUID() + " " + x + " " + y);
+    }
 }
