@@ -44,6 +44,12 @@ public class ConnectCommand extends Command{
                 for(ServerClient c : server.getClients()){
                     if(c.getUUID() != client.getUUID()){
                         server.sendUntil("A" + clientName, c, () -> c.containsPlayer(clientName));
+                    } else {
+                        for(ServerClient c2 : server.getClients()){
+                            if(c2.getUUID() != client.getUUID()){
+                                server.sendUntil("A" + c2.getName(), finalClient, () -> finalClient.containsPlayer(c2.getName()));
+                            }
+                        }
                     }
                 }
             }
