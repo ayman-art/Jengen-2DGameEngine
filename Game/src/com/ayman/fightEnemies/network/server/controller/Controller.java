@@ -60,6 +60,13 @@ public class Controller {
                 int x = Integer.parseInt(commandArgs[1]);
                 int y = Integer.parseInt(commandArgs[2]);
                 return new UpdateMulPlayerCommand(server, server.getClient(UUID.fromString(clientID)), x, y);
+            } case "S" -> {
+                String[] commandArgs = commandString.substring(1).split(" ");
+                String clientID = commandArgs[0];
+                int x = Integer.parseInt(commandArgs[1]);
+                int y = Integer.parseInt(commandArgs[2]);
+                double angle = Double.parseDouble(commandArgs[3]);
+                return new ShootCommand(server, UUID.fromString(clientID), x, y, angle);
             }
             default -> {
                 return null;
@@ -87,7 +94,7 @@ public class Controller {
                 invoker.executeCommand();
             } else {
                 System.out.println("Command is null");
-                System.out.printf("Packet: %s%n", Arrays.toString(packet.getData()));
+                System.out.println(packet.getData().toString());
                 System.exit(344);
             }
 

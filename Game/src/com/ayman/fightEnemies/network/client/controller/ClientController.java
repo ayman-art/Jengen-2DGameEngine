@@ -4,7 +4,6 @@ import com.ayman.fightEnemies.network.client.GameClient;
 import com.ayman.fightEnemies.network.client.commands.*;
 
 import java.net.DatagramPacket;
-import java.util.Arrays;
 import java.util.UUID;
 
 
@@ -59,6 +58,13 @@ public class ClientController extends Thread {
                 int x = Integer.parseInt(commandArgs[1]);
                 int y = Integer.parseInt(commandArgs[2]);
                 return new UpdateMulPlayerClientCommand(this.gameClient, clientName, x, y);
+            } case "S" -> {
+                String[] commandArgs = commandString.substring(1).split(" ");
+                String clientName = commandArgs[0];
+                int x = Integer.parseInt(commandArgs[1]);
+                int y = Integer.parseInt(commandArgs[2]);
+                double angle = Double.parseDouble(commandArgs[3]);
+                return new ShootclientCommand(this.gameClient, clientName, x, y, angle);
             }
             default -> {
                 return null;
@@ -134,5 +140,9 @@ public class ClientController extends Thread {
 
     public void sendPlayerPosition(int x, int y) {
         gameClient.sendData("U" + gameClient.getUUID() + " " + x + " " + y);
+    }
+
+    public void sendPlayerShoot(int x, int y, double dir) {
+        gameClient.sendData("S" + gameClient.getUUID() + " " + x + " " + y + " " + dir);
     }
 }

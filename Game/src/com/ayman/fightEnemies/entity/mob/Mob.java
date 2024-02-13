@@ -21,11 +21,11 @@ public abstract class Mob extends Entity {
     protected List<Projectile> projectiles = new ArrayList<>(); // To keep track of projectiles fired by a specific mob
     public void move(int xa, int ya) {
 
-        if(xa != 0 && ya != 0) {
-            move(xa, 0);
-            move(0, ya);
-            return;
-        }
+//        if(xa != 0 && ya != 0) {
+//            move(xa, 0);
+//            move(0, ya);
+//            return;
+//        }
 
         if(xa > 0) dir = 1; //east
         if(xa < 0) dir = 3; //west
@@ -81,11 +81,13 @@ public abstract class Mob extends Entity {
         return false;
     }
 
-    protected void shoot(int x, int y, double dir) {
+    public void shoot(int x, int y, double dir) {
 
         Projectile projectile = new WizardProjectile(x, y, dir, level);
         projectiles.add(projectile);
         level.addProjectile(projectile);
+
+        ClientController.getInstance().sendPlayerShoot(x, y, dir);
     }
 
     public Sprite getSprite() {
