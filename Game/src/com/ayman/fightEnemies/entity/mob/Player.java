@@ -8,6 +8,9 @@ import com.ayman.fightEnemies.Input.Keyboard;
 import com.ayman.fightEnemies.Input.Mouse;
 import com.ayman.fightEnemies.entity.projectile.Projectile;
 import com.ayman.fightEnemies.entity.projectile.WizardProjectile;
+import com.ayman.fightEnemies.level.tile.Tile;
+import com.ayman.fightEnemies.network.client.GameClient;
+import com.ayman.fightEnemies.network.client.controller.ClientController;
 
 public class Player extends Mob {
 
@@ -144,6 +147,26 @@ public class Player extends Mob {
             shoot(x, y, dir);
 
 
+        }
+
+        for(Mob mob : level.getMobs()) {
+            for(Projectile projectile : mob.projectiles) {
+                for(Mob otherMob : level.getMobs()) {
+                    if(mob != otherMob) {
+                        int xProjectile = projectile.getX();
+                        int yProjectile = projectile.getY();
+                        if(xProjectile >= otherMob.getX() && xProjectile <= otherMob.getX() + 16
+                                && yProjectile >= otherMob.getY() && yProjectile <= otherMob.getY() + 16) {
+                            otherMob.remove();
+                            projectile.remove();
+                            if(((Player)otherMob).getName().equals(name)) {
+                                System.exit(3);
+                            }
+                            break;
+                        }
+                    }
+                }
+            }
         }
 
         fireInterval += WizardProjectile.FIRE_INTERVAL;

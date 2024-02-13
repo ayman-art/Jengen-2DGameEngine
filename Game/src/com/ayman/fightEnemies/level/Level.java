@@ -126,9 +126,6 @@ public class Level {
             if(getTile((int)xt, (int)yt).isSolid()) solid = true;
         }
         return solid;
-
-
-
     }
 
     public Tile getTile(int x, int y) {
@@ -360,6 +357,13 @@ public class Level {
 
 
 
+    public List<Mob> getMobs() {
+        List<Mob> result = new ArrayList<>();
+        for (Entity mob : mobs) {
+            if (mob instanceof Mob toMob) result.add(toMob);
+        }
+        return result;
+    }
 
 
 
