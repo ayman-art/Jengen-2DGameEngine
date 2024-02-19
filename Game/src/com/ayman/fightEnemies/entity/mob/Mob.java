@@ -36,7 +36,7 @@ public abstract class Mob extends Entity {
             x += xa;
             y += ya;
 
-            ClientController.getInstance().sendPlayerPosition(x, y);
+//            ClientController.getInstance().sendPlayerPosition(x, y);
 
         } else {
             ParticleSpawner particleSpawner = new ParticleSpawner(x,y, 20, 1, level);
@@ -87,7 +87,7 @@ public abstract class Mob extends Entity {
         projectiles.add(projectile);
         level.addProjectile(projectile);
 
-        ClientController.getInstance().sendPlayerShoot(x, y, dir);
+//        ClientController.getInstance().sendPlayerShoot(x, y, dir);
     }
 
     public Sprite getSprite() {

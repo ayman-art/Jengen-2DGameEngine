@@ -17,16 +17,16 @@ public class Player extends Mob {
 
     private String name;
 
-    private Keyboard input;
+    private final Keyboard input;
 
     private Projectile projectile;
     private int fireInterval = 0;
 
     private boolean moving = false;
-    private AnimatedSprite down = new AnimatedSprite(SpriteSheet.player_down, 3);
-    private AnimatedSprite up = new AnimatedSprite(SpriteSheet.player_up, 3);
-    private AnimatedSprite left = new AnimatedSprite(SpriteSheet.player_left, 3);
-    private AnimatedSprite right = new AnimatedSprite(SpriteSheet.player_right, 3);
+    private final AnimatedSprite down = new AnimatedSprite(SpriteSheet.player_down, 3);
+    private final AnimatedSprite up = new AnimatedSprite(SpriteSheet.player_up, 3);
+    private final AnimatedSprite left = new AnimatedSprite(SpriteSheet.player_left, 3);
+    private final AnimatedSprite right = new AnimatedSprite(SpriteSheet.player_right, 3);
 
 
     public Player(Keyboard input) {
@@ -139,8 +139,8 @@ public class Player extends Mob {
         }
 
         if(Mouse.getButton() == 1) {
-            double dx = Mouse.getX() - (Game.width * Game.scaleFactor) / 2;
-            double dy = Mouse.getY() - (Game.height * Game.scaleFactor)/ 2;
+            double dx = Mouse.getX() - (double) (Game.width * Game.scaleFactor) / 2;
+            double dy = Mouse.getY() - (double) (Game.height * Game.scaleFactor) / 2;
 
 //            System.out.println("dx: " + dx + ", dy: " + dy);
             double dir = Math.atan2(dy, dx);

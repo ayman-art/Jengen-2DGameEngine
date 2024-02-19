@@ -17,7 +17,7 @@ public class GameServer extends Thread {
         private DatagramSocket socket;
         private final List<ServerClient> clients = new ArrayList<>();
 
-        public final int MAX_CLIENTS = 4;
+        public final int MAX_CLIENTS = 5;
 
         public GameServer(int port) {
                 this.port = port;
