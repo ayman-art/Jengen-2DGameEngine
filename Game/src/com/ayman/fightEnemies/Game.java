@@ -7,6 +7,7 @@ import com.ayman.fightEnemies.Graphics.SpriteSheet;
 import com.ayman.fightEnemies.Input.Keyboard;
 import com.ayman.fightEnemies.Input.Mouse;
 import com.ayman.fightEnemies.entity.mob.Player;
+import com.ayman.fightEnemies.entity.projectile.Projectile;
 import com.ayman.fightEnemies.level.Level;
 import com.ayman.fightEnemies.level.RandomLevel;
 import com.ayman.fightEnemies.level.SpawnLevel;
@@ -54,6 +55,7 @@ public class Game extends Canvas implements Runnable{
 
     final String playerName;
     public Game(String playerName, JFrame jFrame) {
+        Projectile.init();
         this.playerName = playerName;
 
         Dimension size = new Dimension(width * scaleFactor, height * scaleFactor);

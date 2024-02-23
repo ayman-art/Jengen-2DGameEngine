@@ -11,7 +11,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.IOException;
 import java.util.Objects;
 
-public abstract class Projectile extends Entity {
+public  class Projectile extends Entity {
 
         protected final int xOrigin, yOrigin;
         protected double angle;
@@ -26,15 +26,15 @@ public abstract class Projectile extends Entity {
         public static Clip fireClip;
         protected Clip clip;
 
-
-        static {
+        public static void init() {
             gunClip = loadSound("/sounds/gun01.wav");
 //            fireClip = loadSound("/sounds/fire01.wav");
         }
 
-        private static Clip loadSound(String resourcePath) {
+        public static Clip loadSound(String resourcePath) {
             Clip clip;
             try {
+                System.out.println("Loading sound");
                 clip = AudioSystem.getClip();
             } catch (LineUnavailableException e) {
                 throw new RuntimeException(e);
@@ -44,6 +44,7 @@ public abstract class Projectile extends Entity {
             } catch (LineUnavailableException | UnsupportedAudioFileException | IOException e) {
                 throw new RuntimeException(e);
             }
+            System.out.println("Done");
             return clip;
         }
 
