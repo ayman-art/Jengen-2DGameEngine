@@ -22,6 +22,7 @@ public abstract class Projectile extends Entity {
             angle = dir;
             this.x = x;
             this.y = y;
+            playSound();
         }
 
         public void move() {
@@ -48,5 +49,9 @@ public abstract class Projectile extends Entity {
     }
     public int getY() {
         return (int)y;
+    }
+
+    public void playSound() {
+        System.out.println("Playing sound from Projectile");
     }
 }
