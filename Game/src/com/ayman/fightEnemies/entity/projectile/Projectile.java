@@ -84,7 +84,14 @@ public  class Projectile extends Entity {
     }
 
     protected void playSound() {
-        clip.setFramePosition(0);
-        clip.start();
+        Thread musicThread = new Thread(() -> {
+            try {
+                clip.setFramePosition(0);
+                clip.start();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+        musicThread.start();
     }
 }
