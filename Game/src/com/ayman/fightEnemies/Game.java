@@ -46,7 +46,7 @@ public class Game extends Canvas implements Runnable{
     private Thread thread;
     public JFrame jFrame;
 
-    private Level level;
+    public Level level;
 
     private List<Player> players;
 
@@ -210,3 +210,5 @@ public class Game extends Canvas implements Runnable{
         return level;
     }
 }
+
+

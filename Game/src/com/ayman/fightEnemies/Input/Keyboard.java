@@ -2,6 +2,7 @@ package com.ayman.fightEnemies.Input;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.security.Key;
 
 public class Keyboard implements KeyListener {
 
@@ -24,7 +25,7 @@ public class Keyboard implements KeyListener {
     public void keyTyped(KeyEvent e) {
 
         keys[e.getKeyCode()] = true;
-        System.out.println("y");
+//        System.out.println("y");
 
     }
 
@@ -32,6 +33,10 @@ public class Keyboard implements KeyListener {
     public void keyPressed(KeyEvent e) {
 
         keys[e.getKeyCode()] = true;
+        if(e.getKeyCode() == KeyEvent.VK_S) {
+            System.out.print("S");
+        }
+
     }
 
     @Override
