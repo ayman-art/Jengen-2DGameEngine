@@ -25,6 +25,14 @@ public  class Projectile extends Entity {
         public static Clip gunClip;
         public static Clip fireClip;
         protected Clip clip;
+        Thread musicThread = new Thread(() -> {
+            try {
+                clip.setFramePosition(0);
+                clip.start();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
 
         public static void init() {
             gunClip = loadSound("/sounds/gun01.wav");
@@ -84,14 +92,7 @@ public  class Projectile extends Entity {
     }
 
     protected void playSound() {
-        Thread musicThread = new Thread(() -> {
-            try {
-                clip.setFramePosition(0);
-                clip.start();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
+
         musicThread.start();
     }
 }
