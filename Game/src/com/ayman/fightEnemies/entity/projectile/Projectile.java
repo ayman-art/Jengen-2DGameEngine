@@ -4,6 +4,8 @@ import com.ayman.fightEnemies.Graphics.Sprite;
 import com.ayman.fightEnemies.entity.Entity;
 import com.ayman.fightEnemies.level.Level;
 
+import javax.sound.sampled.Clip;
+
 public abstract class Projectile extends Entity {
 
         protected final int xOrigin, yOrigin;
@@ -14,6 +16,8 @@ public abstract class Projectile extends Entity {
         protected double speed, fireInterval, range, damage;
 
         protected Sprite sprite;
+
+        protected static Clip clip;
 
         public Projectile(int x, int y, double dir, Level level) {
             init(level);
@@ -51,7 +55,8 @@ public abstract class Projectile extends Entity {
         return (int)y;
     }
 
-    public void playSound() {
-        System.out.println("Playing sound from Projectile");
+    protected void playSound() {
+        clip.setFramePosition(0);
+        clip.start();
     }
 }
