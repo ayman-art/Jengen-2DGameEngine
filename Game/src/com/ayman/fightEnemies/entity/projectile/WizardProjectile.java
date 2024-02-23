@@ -15,18 +15,8 @@ import java.util.*;
 
 public class WizardProjectile extends Projectile {
 
-    static {
-        try {
-            clip = AudioSystem.getClip();
-        } catch (LineUnavailableException e) {
-            throw new RuntimeException(e);
-        }
-        try {
-            clip.open(AudioSystem.getAudioInputStream(Objects.requireNonNull(WizardProjectile.class.getResource("/sounds/gun01.wav"))));
-        } catch (LineUnavailableException | UnsupportedAudioFileException | IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
+
+
 
     public static final int FIRE_INTERVAL = 4;
     public WizardProjectile(int x, int y, double dir, Level level) {
@@ -34,11 +24,15 @@ public class WizardProjectile extends Projectile {
         range = 1000;
         speed = 2;
 
+
         damage = 20;
         nx = speed * Math.cos(angle);
         ny = speed * Math.sin(angle);
 
         sprite = Sprite.wizardProjectile;
+
+        this.clip = Projectile.gunClip;
+        playSound();
 
     }
 

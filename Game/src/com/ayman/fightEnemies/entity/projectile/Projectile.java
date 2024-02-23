@@ -4,7 +4,12 @@ import com.ayman.fightEnemies.Graphics.Sprite;
 import com.ayman.fightEnemies.entity.Entity;
 import com.ayman.fightEnemies.level.Level;
 
+import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+import java.io.IOException;
+import java.util.Objects;
 
 public abstract class Projectile extends Entity {
 
@@ -17,7 +22,30 @@ public abstract class Projectile extends Entity {
 
         protected Sprite sprite;
 
-        protected static Clip clip;
+        public static Clip gunClip;
+        public static Clip fireClip;
+        protected Clip clip;
+
+
+        static {
+            gunClip = loadSound("/sounds/gun01.wav");
+//            fireClip = loadSound("/sounds/fire01.wav");
+        }
+
+        private static Clip loadSound(String resourcePath) {
+            Clip clip;
+            try {
+                clip = AudioSystem.getClip();
+            } catch (LineUnavailableException e) {
+                throw new RuntimeException(e);
+            }
+            try {
+                clip.open(AudioSystem.getAudioInputStream(Objects.requireNonNull(WizardProjectile.class.getResource(resourcePath))));
+            } catch (LineUnavailableException | UnsupportedAudioFileException | IOException e) {
+                throw new RuntimeException(e);
+            }
+            return clip;
+        }
 
         public Projectile(int x, int y, double dir, Level level) {
             init(level);
@@ -26,7 +54,6 @@ public abstract class Projectile extends Entity {
             angle = dir;
             this.x = x;
             this.y = y;
-            playSound();
         }
 
         public void move() {
