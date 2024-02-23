@@ -13,7 +13,8 @@ public class GameState extends GuiState {
         frame.getContentPane().removeAll();
         frame.getContentPane().repaint();
 
-        frame.add(new Game("Sasa"));
+        frame.dispose();
+        Game game = new Game("Fight Enemies");
 
     }
 }
