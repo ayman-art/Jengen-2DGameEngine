@@ -13,7 +13,7 @@ public class AppFrame extends JFrame {
     public AppFrame() {
         super("Main Menu");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(500, 500);
+        setSize(new java.awt.Dimension(800, 600));
         setLocationRelativeTo(null);
         setVisible(true);
         setLayout(null);

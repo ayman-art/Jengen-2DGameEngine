@@ -53,7 +53,7 @@ public class Game extends Canvas implements Runnable{
 
 
     final String playerName;
-    public Game(String playerName) {
+    public Game(String playerName, JFrame jFrame) {
         this.playerName = playerName;
 
         Dimension size = new Dimension(width * scaleFactor, height * scaleFactor);
@@ -68,7 +68,8 @@ public class Game extends Canvas implements Runnable{
         addMouseListener(mouse); // for mouse pressed and released
         addMouseMotionListener(mouse); // for mouse moved and dragged
 
-        jFrame = new JFrame();
+        this.jFrame = jFrame;
+        jFrame.setLayout(new BorderLayout());
 
 //        level = new RandomLevel(64, 64);
         level = Level.spawn;
@@ -92,6 +93,15 @@ public class Game extends Canvas implements Runnable{
         game.start();
 
         setFocusable(true);
+    }
+
+    public Game() {
+        this("Game", new JFrame());
+    }
+
+
+    public Game(String playerName) {
+        this(playerName, new JFrame());
     }
 
 
@@ -203,7 +213,7 @@ public class Game extends Canvas implements Runnable{
     }
 
     public static void main(String[] args) {
-        Game game = new Game("SASA");
+        Game game = new Game("SASA", new JFrame());
     }
 
     public Level getLevel() {
