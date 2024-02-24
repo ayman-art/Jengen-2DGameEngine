@@ -92,6 +92,15 @@ public class Screen {
         renderSprite(xp, yp, sprite, false);
     }
 
+    public void renderHealthBar(int xp, int yp, int health) {
+        xp -= xOffset;
+        yp -= yOffset;
+        xp += 10;
+        yp += 5;
+        Sprite healthBar = new Sprite(25,3, 0xff00ff00);
+        renderSprite(xp, yp, healthBar, true);
+    }
+
     public void renderProjectile(int x, int y, Projectile projectile) {
 
             x -= xOffset;

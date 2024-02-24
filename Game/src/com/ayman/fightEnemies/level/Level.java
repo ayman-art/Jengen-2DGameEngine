@@ -1,6 +1,7 @@
 package com.ayman.fightEnemies.level;
 
 import com.ayman.fightEnemies.Graphics.Screen;
+import com.ayman.fightEnemies.Graphics.Sprite;
 import com.ayman.fightEnemies.entity.Entity;
 import com.ayman.fightEnemies.entity.mob.Chaser;
 import com.ayman.fightEnemies.entity.mob.Mob;
@@ -100,6 +101,11 @@ public class Level {
                 chaser.renderPath(screen);
             }
         }
+        for(int i = 0; i < mobs.size(); i++) {
+            if(mobs.get(i) instanceof Mob mob) {
+                mob.renderHealth(screen);
+            }
+        }
         for(int i = 0; i < projectiles.size(); i++) {
             projectiles.get(i).render(screen);
         }
@@ -156,8 +162,8 @@ public class Level {
             particles.add((Particle) entity);
         } else if(entity instanceof Projectile) {
             projectiles.add((Projectile) entity);
-        } else {
-            mobs.add(entity);
+        } else  if(entity instanceof Mob){
+            mobs.add((Mob) entity);
         }
     }
 

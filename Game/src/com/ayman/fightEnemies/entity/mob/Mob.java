@@ -19,6 +19,9 @@ public abstract class Mob extends Entity {
     protected boolean moving = false;
 
     protected List<Projectile> projectiles = new ArrayList<>(); // To keep track of projectiles fired by a specific mob
+
+
+    protected int health = 100;
     public void move(int xa, int ya) {
 
 //        if(xa != 0 && ya != 0) {
@@ -47,6 +50,12 @@ public abstract class Mob extends Entity {
     public abstract void update();
 
     public abstract void render(Screen screen);
+
+    public void renderHealth(Screen screen) {
+        int x = this.x - 16;
+        int y = this.y - 16;
+        screen.renderHealthBar(x, y, health);
+    }
 
     protected boolean collision(int xa, int ya) {
         boolean solid = false;
