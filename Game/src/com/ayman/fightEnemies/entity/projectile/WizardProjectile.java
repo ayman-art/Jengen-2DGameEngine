@@ -34,6 +34,7 @@ public class WizardProjectile extends Projectile {
         this.clip = Projectile.gunClip;
         playSound();
 
+        this.damage = 2;
     }
 
     public void update() {

@@ -21,7 +21,7 @@ public abstract class Mob extends Entity {
     protected List<Projectile> projectiles = new ArrayList<>(); // To keep track of projectiles fired by a specific mob
 
 
-    protected int health = 75;
+    protected int health = 100;
     public void move(int xa, int ya) {
 
 //        if(xa != 0 && ya != 0) {
@@ -124,5 +124,13 @@ public abstract class Mob extends Entity {
     public void setXY(int x, int y) {
         this.x = x;
         this.y = y;
+    }
+
+    public void updateHealth(int damage) {
+        this.health -= damage;
+    }
+
+    protected int getHealth() {
+        return health;
     }
 }

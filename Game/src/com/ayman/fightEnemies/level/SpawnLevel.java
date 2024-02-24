@@ -33,6 +33,7 @@ public class SpawnLevel extends Level{
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        add(new Chaser(3,3));
 
         //for(int i = 0; i < 1; i++)add(new Chaser(3,3+i));
     }

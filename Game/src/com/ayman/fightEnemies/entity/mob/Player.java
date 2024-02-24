@@ -157,10 +157,17 @@ public class Player extends Mob {
                         int yProjectile = projectile.getY();
                         if(xProjectile >= otherMob.getX() && xProjectile <= otherMob.getX() + 16
                                 && yProjectile >= otherMob.getY() && yProjectile <= otherMob.getY() + 16) {
-                            otherMob.remove();
-                            projectile.remove();
+//                            otherMob.remove();
+
+
+//                            projectile.remove();
+                            level.removeProjectile(projectile);
+
                             if(((Player)otherMob).getName().equals(name)) {
-                                System.exit(3);
+                                ((Player)otherMob).updateHealth(projectile.getDamage());
+                                if(((Player)otherMob).getHealth() <= 0) {
+                                    System.exit(11);
+                                }
                             }
                             break;
                         }

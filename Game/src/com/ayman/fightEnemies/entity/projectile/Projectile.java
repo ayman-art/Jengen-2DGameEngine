@@ -95,4 +95,8 @@ public  class Projectile extends Entity {
 
         musicThread.start();
     }
+
+    public int getDamage() {
+        return (int)damage;
+    }
 }
