@@ -4,6 +4,7 @@ import com.ayman.fightEnemies.entity.mob.Mob;
 import com.ayman.fightEnemies.entity.projectile.Projectile;
 import com.ayman.fightEnemies.level.tile.Tile;
 
+import java.awt.*;
 import java.util.Random;
 
 public class Screen {
@@ -97,7 +98,10 @@ public class Screen {
         yp -= yOffset;
         xp += 10;
         yp += 5;
-        Sprite healthBar = new Sprite(25,3, 0xff00ff00);
+        Sprite entireBar = new Sprite(25,3, Color.red.getRGB());
+        renderSprite(xp, yp, entireBar, true);
+        int healthWidth = (int) (health * 0.25);
+        Sprite healthBar = new Sprite(healthWidth, 3, Color.green.getRGB());
         renderSprite(xp, yp, healthBar, true);
     }
 
