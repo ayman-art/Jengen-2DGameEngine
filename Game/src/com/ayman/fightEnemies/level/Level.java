@@ -372,5 +372,7 @@ public class Level {
     }
 
 
-
+    public void removeMob(Mob mob) {
+        this.mobs.remove(mob);
+    }
 }

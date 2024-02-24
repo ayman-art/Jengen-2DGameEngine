@@ -163,10 +163,16 @@ public class Player extends Mob {
 //                            projectile.remove();
                             level.removeProjectile(projectile);
 
-                            if(((Player)otherMob).getName().equals(name)) {
-                                ((Player)otherMob).updateHealth(projectile.getDamage());
-                                if(((Player)otherMob).getHealth() <= 0) {
+                            if(otherMob instanceof Player player) {
+                                player.updateHealth(projectile.getDamage());
+                                if(player.getHealth() <= 0) {
                                     System.exit(11);
+                                }
+                            }
+                            else {
+                                otherMob.updateHealth(projectile.getDamage());
+                                if(otherMob.getHealth() <= 0) {
+                                    level.removeMob(otherMob);
                                 }
                             }
                             break;
