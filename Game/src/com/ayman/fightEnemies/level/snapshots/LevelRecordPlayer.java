@@ -25,4 +25,10 @@ public class LevelRecordPlayer {
             level.render(xScroll, yScroll, screen);
         }
     }
+
+    public void quitRecording() {
+        level.restoreSnapshot(
+                levelCareTaker.getSnapshot(levelCareTaker.getNumberOfSnapshots() - 1)
+        );
+    }
 }
