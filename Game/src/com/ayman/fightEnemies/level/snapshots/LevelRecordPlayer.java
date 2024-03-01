@@ -1,6 +1,7 @@
 package com.ayman.fightEnemies.level.snapshots;
 
 import com.ayman.fightEnemies.Graphics.Screen;
+import com.ayman.fightEnemies.entity.mob.Player;
 import com.ayman.fightEnemies.level.Level;
 
 public class LevelRecordPlayer {
@@ -16,9 +17,12 @@ public class LevelRecordPlayer {
     }
 
     public void playRecord() {
+        Player player = level.getPlayer();
+        int xScroll = player.x - screen.width / 2;
+        int yScroll = player.y - screen.height / 2;
         for (int i = 0; i < levelCareTaker.getNumberOfSnapshots(); i++) {
             level.restoreSnapshot(levelCareTaker.getSnapshot(i));
-            level.render(level.getPlayer().x, level.getPlayer().y, screen);
+            level.render(xScroll, yScroll, screen);
         }
     }
 }
