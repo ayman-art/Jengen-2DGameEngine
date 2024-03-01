@@ -6,6 +6,7 @@ import com.ayman.fightEnemies.Graphics.Screen;
 import com.ayman.fightEnemies.Graphics.SpriteSheet;
 import com.ayman.fightEnemies.Input.Keyboard;
 import com.ayman.fightEnemies.Input.Mouse;
+import com.ayman.fightEnemies.entity.Entity;
 import com.ayman.fightEnemies.entity.projectile.Projectile;
 import com.ayman.fightEnemies.entity.projectile.WizardProjectile;
 import com.ayman.fightEnemies.level.tile.Tile;

@@ -1,11 +1,9 @@
 package com.ayman.fightEnemies.entity.mob;
 
-import com.ayman.fightEnemies.Game;
 import com.ayman.fightEnemies.Graphics.AnimatedSprite;
 import com.ayman.fightEnemies.Graphics.Screen;
 import com.ayman.fightEnemies.Graphics.SpriteSheet;
-import com.ayman.fightEnemies.Input.Mouse;
-import com.ayman.fightEnemies.entity.projectile.Projectile;
+import com.ayman.fightEnemies.entity.Entity;
 import com.ayman.fightEnemies.entity.projectile.WizardProjectile;
 import com.ayman.fightEnemies.level.Node;
 import com.ayman.fightEnemies.level.tile.Tile;
@@ -169,6 +167,15 @@ public class Chaser extends Mob{
             for(Vector2i v : visited) {
                 screen.renderTile(v.getX() << 4, v.getY() << 4, Tile.voidTile);}
         }
+    }
+
+
+    @Override
+    public Entity clone() {
+        super.init(level);
+        Chaser chaser = new Chaser(x >> 4, y >> 4);
+        chaser.setXY(x, y);
+        return chaser;
     }
 
 

@@ -5,15 +5,13 @@ import com.ayman.fightEnemies.Graphics.Screen;
 import com.ayman.fightEnemies.Graphics.Sprite;
 import com.ayman.fightEnemies.entity.Entity;
 import com.ayman.fightEnemies.entity.spawner.ParticleSpawner;
-import com.ayman.fightEnemies.entity.spawner.Spawner;
 import com.ayman.fightEnemies.entity.projectile.Projectile;
 import com.ayman.fightEnemies.entity.projectile.WizardProjectile;
-import com.ayman.fightEnemies.network.client.controller.ClientController;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class Mob extends Entity {
+public abstract class Mob extends Entity implements Cloneable {
     protected AnimatedSprite currentAnimatedSprite;
     protected int dir = 0; //direction of the mob, popular convention :(0 = north, 1 = east, 2 = south, 3 = west)
     protected boolean moving = false;
@@ -133,4 +131,11 @@ public abstract class Mob extends Entity {
     protected int getHealth() {
         return health;
     }
+
+
+    @Override
+    public Entity clone() throws CloneNotSupportedException {
+        return super.clone();
+    }
+
 }

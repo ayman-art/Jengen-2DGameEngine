@@ -1,10 +1,15 @@
 package com.ayman.fightEnemies.level.snapshots;
 
+import com.ayman.fightEnemies.Game;
 import com.ayman.fightEnemies.Graphics.Screen;
 import com.ayman.fightEnemies.entity.mob.Player;
 import com.ayman.fightEnemies.level.Level;
 
+import static java.lang.Thread.sleep;
+
 public class LevelRecordPlayer {
+
+    private Game game;
     private Level level;
     private Screen screen;
     private LevelCareTaker levelCareTaker;
@@ -17,12 +22,14 @@ public class LevelRecordPlayer {
     }
 
     public void playRecord() {
-        Player player = level.getPlayer();
-        int xScroll = player.x - screen.width / 2;
-        int yScroll = player.y - screen.height / 2;
+
         for (int i = 0; i < levelCareTaker.getNumberOfSnapshots(); i++) {
             level.restoreSnapshot(levelCareTaker.getSnapshot(i));
-            level.render(xScroll, yScroll, screen);
+            try {
+                sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
 

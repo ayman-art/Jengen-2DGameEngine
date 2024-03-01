@@ -12,6 +12,8 @@ import com.ayman.fightEnemies.level.Level;
 import com.ayman.fightEnemies.level.RandomLevel;
 import com.ayman.fightEnemies.level.SpawnLevel;
 import com.ayman.fightEnemies.level.TileCoordinate;
+import com.ayman.fightEnemies.level.snapshots.LevelCareTaker;
+import com.ayman.fightEnemies.level.snapshots.LevelRecordPlayer;
 
 import javax.swing.*;
 import java.awt.*;
@@ -56,6 +58,8 @@ public class Game extends Canvas implements Runnable{
 
 
     final String playerName;
+
+    private LevelCareTaker levelCareTaker = new LevelCareTaker();
     public Game(String playerName, JFrame jFrame) {
         Projectile.init();
         this.playerName = playerName;
@@ -147,6 +151,8 @@ public class Game extends Canvas implements Runnable{
                 update();
                 updates++;
                 delta--;
+
+                levelCareTaker.addSnapshot(level.takeSnapshot());
             }
 
             //render limit without limit
@@ -155,6 +161,19 @@ public class Game extends Canvas implements Runnable{
 
             if(System.currentTimeMillis() - timer > 1000) {     // Update the title every second
                 timer += 1000;
+
+                if(timer > 10 * 1000) {
+                    for(int i = 0; i < levelCareTaker.getNumberOfSnapshots(); i++) {
+                        level.restoreSnapshot(levelCareTaker.getSnapshot(i));
+                        try {
+                            Thread.sleep(1000 / 60);
+                            System.out.println("Playing back the recording" + i);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        render();
+                    }
+                }
                 jFrame.setTitle("FightEnemies | " + updates + " ups, " + frames + " fps - " + playerName);
 
                 //reset the updates and frames
