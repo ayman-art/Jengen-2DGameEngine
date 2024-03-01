@@ -1,13 +1,13 @@
 package com.ayman.fightEnemies.level;
 
 import com.ayman.fightEnemies.Graphics.Screen;
-import com.ayman.fightEnemies.Graphics.Sprite;
 import com.ayman.fightEnemies.entity.Entity;
 import com.ayman.fightEnemies.entity.mob.Chaser;
 import com.ayman.fightEnemies.entity.mob.Mob;
 import com.ayman.fightEnemies.entity.mob.Player;
 import com.ayman.fightEnemies.entity.particle.Particle;
 import com.ayman.fightEnemies.entity.projectile.Projectile;
+import com.ayman.fightEnemies.level.snapshots.LevelSnapshot;
 import com.ayman.fightEnemies.level.tile.Tile;
 import com.ayman.fightEnemies.util.Vector2i;
 
@@ -100,8 +100,6 @@ public class Level {
                 Chaser chaser = (Chaser) mobs.get(i);
                 chaser.renderPath(screen);
             }
-        }
-        for(int i = 0; i < mobs.size(); i++) {
             if(mobs.get(i) instanceof Mob mob) {
                 mob.renderHealth(screen);
             }
@@ -374,5 +372,15 @@ public class Level {
 
     public void removeMob(Mob mob) {
         this.mobs.remove(mob);
+    }
+
+    public LevelSnapshot takeSnapshot() {
+        return new LevelSnapshot(mobs, projectiles, particles);
+    }
+
+    public void restoreSnapshot(LevelSnapshot snapshot) {
+        mobs = snapshot.mobs();
+        projectiles = snapshot.projectiles();
+        particles = snapshot.particles();
     }
 }

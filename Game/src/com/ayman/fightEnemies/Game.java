@@ -51,6 +51,8 @@ public class Game extends Canvas implements Runnable{
 
     private List<Player> players;
 
+    public static boolean paused = false;
+
 
 
     final String playerName;
@@ -168,6 +170,7 @@ public class Game extends Canvas implements Runnable{
     }
 
     public void update() {
+        if(paused) return;
 
         level.update();
 

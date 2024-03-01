@@ -1,5 +1,7 @@
 package com.ayman.fightEnemies.Input;
 
+import com.ayman.fightEnemies.Game;
+
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.security.Key;
@@ -35,6 +37,8 @@ public class Keyboard implements KeyListener {
         keys[e.getKeyCode()] = true;
         if(e.getKeyCode() == KeyEvent.VK_S) {
             System.out.print("S");
+            Game.paused = !Game.paused;
+
         }
 
     }

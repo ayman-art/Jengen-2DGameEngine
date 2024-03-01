@@ -18,9 +18,9 @@ public class Player extends Mob {
     private String name;
 
     private final Keyboard input;
-
     private Projectile projectile;
     private int fireInterval = 0;
+    private int coins = 0;
 
     private boolean moving = false;
     private final AnimatedSprite down = new AnimatedSprite(SpriteSheet.player_down, 3);
