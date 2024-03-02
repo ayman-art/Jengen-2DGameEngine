@@ -62,10 +62,7 @@ public class AnimatedSprite implements Cloneable{
     }
 
     public AnimatedSprite(AnimatedSprite animatedSprite) { // copy constructor to avoid copying thr Shared Sprite array
-        this.sprites = new Sprite[animatedSprite.sprites.length];
-        for(int i = 0; i < animatedSprite.sprites.length; i++) {
-            this.sprites[i] = animatedSprite.sprites[i];
-        }
+        this.sprites = animatedSprite.sprites.clone();
         this.rate = animatedSprite.rate;
         this.time = animatedSprite.time;
         this.frame = animatedSprite.frame;
