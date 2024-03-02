@@ -1,8 +1,11 @@
 package com.ayman.fightEnemies.level;
 
+import com.ayman.fightEnemies.Game;
 import com.ayman.fightEnemies.Graphics.Sprite;
 import com.ayman.fightEnemies.entity.mob.Chaser;
 import com.ayman.fightEnemies.level.tile.Tile;
+import com.ayman.fightEnemies.util.AdjacentCheckGenerator;
+import com.ayman.fightEnemies.util.DSU;
 import com.ayman.fightEnemies.util.Vector2i;
 
 import java.util.*;
@@ -11,7 +14,7 @@ public class RandomLevel extends Level {
 
     private static final Random random = new Random();
     int attempts = 0;
-
+    private static DSU dsu = new DSU(64 * 64 );
     public RandomLevel(int width, int height) {
         super(width, height);
 
@@ -19,6 +22,10 @@ public class RandomLevel extends Level {
     }
 
     protected void generateLevel() {
+        {
+            generateLevel2();
+            if(true) return;
+        }
         attempts++;
 //        System.out.println("Random Level");
 
@@ -110,13 +117,73 @@ public class RandomLevel extends Level {
 
 
     protected void generateLevel2() {
-        attempts++;
 
-        Set<Vector2i> freeTiles = new TreeSet<>((v1, v2) -> {
-            if (v1.getX() == v2.getX()) return v1.getY() - v2.getY();
-            return v1.getX() - v2.getX();
-        });
 
+
+        for(int x = 0; x < width; x++) {
+            int y1 = 0, y2 = height - 1;
+            tiles[x + y1 * width] = Tile.brickColor;
+            tiles[x + y2 * width] = Tile.brickColor;
+
+            dsu.union(x + y1 * width, 0);
+            dsu.union(x + y2 * width, 0);
+
+        }
+
+        for(int y = 0; y < height; y++) {
+            int x1 = 0, x2 = width - 1;
+            tiles[x1 + y * width] = Tile.brickColor;
+            tiles[x2 + y * width] = Tile.brickColor;
+
+            dsu.union(x1 + y * width, 0);
+            dsu.union(x2 + y * width, 0);
+        }
+
+        for(int _i = 0; _i < width * height *10; _i++) {
+            int x = 1 + random.nextInt(width - 2);
+            int y = 1 + random.nextInt(height - 2);
+
+            if(tiles[x + y * width] == Tile.brickColor) continue;
+
+            boolean ok = true;
+            for(Vector2i vector2i[] : AdjacentCheckGenerator.vectors) {
+                Vector2i current = new Vector2i(x, y);  current = current.add(vector2i[0]);
+
+                Vector2i adjacent = new Vector2i(x, y); adjacent = adjacent.add(vector2i[1]);
+
+                int p = current.getX() + current.getY() * width;
+                int q = adjacent.getX() + adjacent.getY() * width;
+
+                if(p < 0 || p >= width * height || q < 0 || q >= width * height) {
+                    System.out.println("Current: " + current + ", Adjacent: " + adjacent);
+                    System.out.println("p: " + p + ", q: " + q);
+                    System.out.println("X: " + x + ", Y: " + y);
+
+                }
+                if(dsu.connected(p, q)) {
+                    System.out.println("V1 " + current + ", V2 " + adjacent);
+                    System.out.println("p: " + p + ", q: " + q);
+                    System.out.println("rootP: " + dsu.find(p) + ", rootQ: " + dsu.find(q));
+                    ok = false;
+                    break;
+                }
+            }
+
+            if(ok) {
+                tiles[x + y * width] = Tile.rockColor;
+                for(int i = -1; i <= 1; i++) {
+                    for(int j = -1; j <= 1; j++) {
+                        int p = (x + i) + (y + j) * width;
+                        if(getTile(x+i, (y+j) * width).isSolid()) {
+                            dsu.union(p, x + y * width);
+                        }
+                    }
+                }
+
+            }
+        }
+
+        return;
 
     }
 

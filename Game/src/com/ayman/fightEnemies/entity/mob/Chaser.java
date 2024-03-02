@@ -163,7 +163,7 @@ public class Chaser extends Mob{
         if(visited == null) {
             return;
         } else {
-            System.out.println("working");
+//            System.out.println("working");
             for(Vector2i v : visited) {
                 screen.renderTile(v.getX() << 4, v.getY() << 4, Tile.voidTile);}
         }

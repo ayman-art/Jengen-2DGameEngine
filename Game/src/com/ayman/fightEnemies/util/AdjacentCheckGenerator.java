@@ -38,4 +38,10 @@ public class AdjacentCheckGenerator {
     public static boolean adjacent(Vector2i v1, Vector2i v2) {
         return Math.abs(v1.getX() - v2.getX()) <= 1 && Math.abs(v1.getY() - v2.getY()) <= 1;
     }
+
+    public static void main(String[] args) {
+        for(Vector2i[] vector : vectors) {
+            System.out.println(vector[0] + " " + vector[1]);
+        }
+    }
 }

@@ -293,7 +293,7 @@ public class Level {
 
 
         Collections.reverse(path);
-        System.out.println("counter" + counter);
+//        System.out.println("counter" + counter);
         return path;
     }
     public Set<Vector2i> findVis(Vector2i start, Vector2i goal) {

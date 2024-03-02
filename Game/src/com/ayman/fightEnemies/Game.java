@@ -152,7 +152,7 @@ public class Game extends Canvas implements Runnable{
 
 
                 levelCareTaker.addSnapshot(level.takeSnapshot());
-                boolean recording = true;
+                boolean recording = false;
                 if(counter % 600 == 0 && recording) {
                     int a= 4;
                     for(int i = 0; i < levelCareTaker.getNumberOfSnapshots(); i++) {
@@ -229,7 +229,7 @@ public class Game extends Canvas implements Runnable{
         graphics.drawImage(image, 0, 0, getWidth(), getHeight(), null);
         graphics.setColor(Color.black);
         graphics.setFont(new Font("Verdana", Font.PLAIN, 50));
-        graphics.drawString("X: " + player.x + ", Y: " + player.y, 450, 450);
+        graphics.drawString("X: " + player.x/16 + ", Y: " + player.y/16, 450, 450);
         graphics.drawString(Mouse.getButton() + "", 80, 80);
 
 
