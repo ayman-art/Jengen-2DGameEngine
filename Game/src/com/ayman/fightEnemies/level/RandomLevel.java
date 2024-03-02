@@ -1,6 +1,7 @@
 package com.ayman.fightEnemies.level;
 
 import com.ayman.fightEnemies.Graphics.Sprite;
+import com.ayman.fightEnemies.entity.mob.Chaser;
 import com.ayman.fightEnemies.level.tile.Tile;
 import com.ayman.fightEnemies.util.Vector2i;
 
@@ -13,6 +14,8 @@ public class RandomLevel extends Level {
 
     public RandomLevel(int width, int height) {
         super(width, height);
+
+        add(new Chaser(3,3));
     }
 
     protected void generateLevel() {
@@ -48,6 +51,7 @@ public class RandomLevel extends Level {
 //                System.out.println("Invalid Level, Generating new level");
                 generateLevel();
             }
+
     }
 
 
