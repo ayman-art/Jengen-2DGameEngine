@@ -32,12 +32,15 @@ public class RandomLevel extends Level {
                 for(int x = 0; x < width; x++) {
 
 
-                    if(random.nextInt(5) == 0)tiles[x + y * width] = SolidTilesColors[random.nextInt(SolidTilesColors.length)];
-                    else {
-                        tiles[x + y * width] = nonSolidTilesColors[random.nextInt(nonSolidTilesColors.length)];
-                        freeTiles.add(new Vector2i(x, y));
-                    }
                     if(x == 0 || y == 0 || x == width - 1 || y == height - 1) tiles[x + y * width] = Tile.brickColor;
+                    else {
+                        if (random.nextInt(5) == 0)
+                            tiles[x + y * width] = SolidTilesColors[random.nextInt(SolidTilesColors.length)];
+                        else {
+                            tiles[x + y * width] = nonSolidTilesColors[random.nextInt(nonSolidTilesColors.length)];
+                            freeTiles.add(new Vector2i(x, y));
+                        }
+                    }
                 }
             }
 
@@ -45,7 +48,6 @@ public class RandomLevel extends Level {
 //                System.out.println("Invalid Level, Generating new level");
                 generateLevel();
             }
-        System.out.println("Attempts: " + attempts);
     }
 
 
@@ -92,7 +94,10 @@ public class RandomLevel extends Level {
         if (visited.size() == freeTiles.size() - 1) {
             for(Vector2i freeTile : freeTiles) {
                 if(!visited.contains(freeTile)) System.out.println(freeTile);
+                else tiles[freeTile.getX() + freeTile.getY() * width] = Tile.skyColor;
             }
+
+            System.out.println("Attempts: " + attempts);
             return true;
         }
         return false;
