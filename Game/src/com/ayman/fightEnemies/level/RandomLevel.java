@@ -16,20 +16,16 @@ public class RandomLevel extends Level {
     protected void generateLevel() {
         System.out.println("Random Level");
 
-        int[] colors = new int[]{
-                Tile.birdColor,
-                Tile.grassColor,
-                Tile.flowerColor,
-                Tile.rockColor,
-                Tile.waterColor
-        };
+        int[] SolidTilesColors = {Tile.brickColor, Tile.rockColor};
+        int[] nonSolidTilesColors = {Tile.waterColor, Tile.flowerColor, Tile.grassColor, Tile.woodColor};
 
 
             for(int y = 0; y < height; y++) {
                 for(int x = 0; x < width; x++) {
 
 
-                    tiles[x + y * width] = colors[random.nextInt(5)];
+                    tiles[x + y * width] = nonSolidTilesColors[random.nextInt(nonSolidTilesColors.length)];
+                    if(random.nextInt(5) == 0)tiles[x + y * width] = SolidTilesColors[random.nextInt(SolidTilesColors.length)];
                     if(x == 0 || y == 0 || x == width - 1 || y == height - 1) tiles[x + y * width] = Tile.brickColor;
                 }
             }
