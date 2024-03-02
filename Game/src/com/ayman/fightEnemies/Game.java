@@ -2,14 +2,11 @@ package com.ayman.fightEnemies;
 
 
 import com.ayman.fightEnemies.Graphics.Screen;
-import com.ayman.fightEnemies.Graphics.Sprite;
-import com.ayman.fightEnemies.Graphics.SpriteSheet;
 import com.ayman.fightEnemies.Input.Keyboard;
 import com.ayman.fightEnemies.Input.Mouse;
 import com.ayman.fightEnemies.entity.mob.Player;
 import com.ayman.fightEnemies.entity.projectile.Projectile;
 import com.ayman.fightEnemies.level.Level;
-import com.ayman.fightEnemies.level.RandomLevel;
 import com.ayman.fightEnemies.level.SpawnLevel;
 import com.ayman.fightEnemies.level.TileCoordinate;
 import com.ayman.fightEnemies.level.snapshots.LevelCareTaker;
@@ -79,7 +76,7 @@ public class Game extends Canvas implements Runnable{
         jFrame.setLayout(new BorderLayout());
 
 //        level = new RandomLevel(64, 64);
-        level = Level.spawn;
+        level = new SpawnLevel("/textures/levels/spawn.png");
 
         TileCoordinate playerSpawn = new TileCoordinate(3, 9);
         Player player = new Player(playerName ,playerSpawn.x(), playerSpawn.y(), keyboard);
