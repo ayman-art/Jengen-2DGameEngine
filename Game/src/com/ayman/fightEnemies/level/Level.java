@@ -30,6 +30,7 @@ public class Level {
         this.width = width;
         this.height = height;
         tilesInt = new int[width * height];
+        tiles = new int[width * height];
         generateLevel();
     }
     public Level(String path){
@@ -43,6 +44,7 @@ public class Level {
     }
 
     protected void generateLevel() {
+        System.out.println("calling generateLevel from Level");
     }
 
     protected void loadLevel(String path) {

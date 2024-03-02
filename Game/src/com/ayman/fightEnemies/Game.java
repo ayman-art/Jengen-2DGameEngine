@@ -7,7 +7,7 @@ import com.ayman.fightEnemies.Input.Mouse;
 import com.ayman.fightEnemies.entity.mob.Player;
 import com.ayman.fightEnemies.entity.projectile.Projectile;
 import com.ayman.fightEnemies.level.Level;
-import com.ayman.fightEnemies.level.SpawnLevel;
+import com.ayman.fightEnemies.level.RandomLevel;
 import com.ayman.fightEnemies.level.TileCoordinate;
 import com.ayman.fightEnemies.level.snapshots.LevelCareTaker;
 
@@ -76,7 +76,7 @@ public class Game extends Canvas implements Runnable{
         jFrame.setLayout(new BorderLayout());
 
 //        level = new RandomLevel(64, 64);
-        level = new SpawnLevel("/textures/levels/spawn.png");
+        level = new RandomLevel(64, 64);
 
         TileCoordinate playerSpawn = new TileCoordinate(3, 9);
         Player player = new Player(playerName ,playerSpawn.x(), playerSpawn.y(), keyboard);
@@ -152,7 +152,8 @@ public class Game extends Canvas implements Runnable{
 
 
                 levelCareTaker.addSnapshot(level.takeSnapshot());
-                if(counter % 600 == 0) {
+                boolean recording = false;
+                if(counter % 600 == 0 && recording) {
                     int a= 4;
                     for(int i = 0; i < levelCareTaker.getNumberOfSnapshots(); i++) {
                         level.restoreSnapshot(levelCareTaker.getSnapshot(i));
