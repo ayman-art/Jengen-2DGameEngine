@@ -1,6 +1,6 @@
 package com.ayman.fightEnemies.Graphics;
 
-public class AnimatedSprite {
+public class AnimatedSprite implements Cloneable{
 
 
     private int frame = 0; //the current frame of the animation
@@ -54,5 +54,20 @@ public class AnimatedSprite {
 
     public void setFrameRate(int frames) {
         rate = frames;
+    }
+
+    public AnimatedSprite clone() throws CloneNotSupportedException {
+        AnimatedSprite clone = new AnimatedSprite(this);
+        return clone;
+    }
+
+    public AnimatedSprite(AnimatedSprite animatedSprite) { // copy constructor to avoid copying thr Shared Sprite array
+        this.sprites = new Sprite[animatedSprite.sprites.length];
+        for(int i = 0; i < animatedSprite.sprites.length; i++) {
+            this.sprites[i] = animatedSprite.sprites[i];
+        }
+        this.rate = animatedSprite.rate;
+        this.time = animatedSprite.time;
+        this.frame = animatedSprite.frame;
     }
 }

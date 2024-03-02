@@ -135,7 +135,9 @@ public abstract class Mob extends Entity implements Cloneable {
 
     @Override
     public Entity clone() throws CloneNotSupportedException {
-        return super.clone();
+        Mob ret = (Mob) super.clone();
+        ret.currentAnimatedSprite = currentAnimatedSprite.clone(); //deep copy
+        return ret;
     }
 
 }
