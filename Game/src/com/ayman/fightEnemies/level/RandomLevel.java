@@ -30,6 +30,7 @@ public class RandomLevel extends Level {
 
 
                     tiles[x + y * width] = colors[random.nextInt(5)];
+                    if(x == 0 || y == 0 || x == width - 1 || y == height - 1) tiles[x + y * width] = Tile.brickColor;
                 }
             }
     }
