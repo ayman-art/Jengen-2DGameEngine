@@ -172,8 +172,8 @@ public class Chaser extends Mob{
 
     @Override
     public Entity clone() {
-        super.init(level);
         Chaser chaser = new Chaser(x >> 4, y >> 4);
+        chaser.init(level);
         chaser.setXY(x, y);
         return chaser;
     }

@@ -18,4 +18,8 @@ public class LevelCareTaker {
     public int getNumberOfSnapshots() {
         return levelSnapshots.size();
     }
+
+    public void reset() {
+        levelSnapshots.clear();
+    }
 }

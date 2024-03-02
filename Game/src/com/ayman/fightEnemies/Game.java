@@ -13,7 +13,6 @@ import com.ayman.fightEnemies.level.RandomLevel;
 import com.ayman.fightEnemies.level.SpawnLevel;
 import com.ayman.fightEnemies.level.TileCoordinate;
 import com.ayman.fightEnemies.level.snapshots.LevelCareTaker;
-import com.ayman.fightEnemies.level.snapshots.LevelRecordPlayer;
 
 import javax.swing.*;
 import java.awt.*;
@@ -137,6 +136,7 @@ public class Game extends Canvas implements Runnable{
 
         long lastTime = System.nanoTime();
         long timer = System.currentTimeMillis();
+        long counter = 0;
         final double ns = 1000000000.0 / 60.0; //for converting to one of sixty part of second
         double delta = 0 / ns;
         int frames = 0;
@@ -148,21 +148,15 @@ public class Game extends Canvas implements Runnable{
             lastTime = now;
 
             while(delta >= 1) {
+                counter++;
                 update();
                 updates++;
                 delta--;
 
+
                 levelCareTaker.addSnapshot(level.takeSnapshot());
-            }
-
-            //render limit without limit
-            render();
-            frames++;
-
-            if(System.currentTimeMillis() - timer > 1000) {     // Update the title every second
-                timer += 1000;
-
-                if(timer > 10 * 1000) {
+                if(counter % 600 == 0) {
+                    int a= 4;
                     for(int i = 0; i < levelCareTaker.getNumberOfSnapshots(); i++) {
                         level.restoreSnapshot(levelCareTaker.getSnapshot(i));
                         try {
@@ -172,8 +166,22 @@ public class Game extends Canvas implements Runnable{
                             e.printStackTrace();
                         }
                         render();
+                        lastTime = System.nanoTime(); // To avoid the huge delta time update
                     }
+
+                    levelCareTaker.reset();
+                    counter = 1;
                 }
+            }
+
+            //render limit without limit
+            render();
+            frames++;
+
+            if(System.currentTimeMillis() - timer > 1000) {     // Update the title every second
+                timer += 1000;
+
+
                 jFrame.setTitle("FightEnemies | " + updates + " ups, " + frames + " fps - " + playerName);
 
                 //reset the updates and frames
