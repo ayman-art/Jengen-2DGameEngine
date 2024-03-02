@@ -44,6 +44,10 @@ public class DSU {
         return count;
     }
 
+    public int[] getParent() {
+        return parent;
+    }
+
 
 
 
