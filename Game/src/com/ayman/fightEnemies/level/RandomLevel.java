@@ -16,6 +16,7 @@ public class RandomLevel extends Level {
         super(width, height);
 
         add(new Chaser(3,3));
+        tiles[3 + 9 * width] = Tile.brickColor;
     }
 
     protected void generateLevel() {

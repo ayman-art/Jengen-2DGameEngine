@@ -227,40 +227,43 @@ public class Level {
 
     );
     public List<Node> findPath(Vector2i start, Vector2i goal) {
+        int counter = 0;
 
         List<Node> path = new ArrayList<>();
         PriorityQueue<Node> frontier = new PriorityQueue<>(Comparator.comparingDouble(Node::getF));
         Set<Vector2i> visited = new TreeSet<>(Comparator.comparing(Vector2i::getX).thenComparing(Vector2i::getY));
         Map<Vector2i, Integer> costSoFar = new TreeMap<>(Comparator.comparing(Vector2i::getX).thenComparing(Vector2i::getY));
-        if(costSoFar.size() > 20000) System.out.println("holl fuck");
         //init
         Node startNode = new Node(start, null, 0, start.distanceTo(goal));
         frontier.add(startNode);
         costSoFar.put(startNode.tileCoordinate, 0);
 
         while(!frontier.isEmpty()) {
+            counter++;
             if(frontier.size() > 10000) System.out.println("Wrong work with queue");
             if(visited.size() > 1000) {
-                System.out.println("Wrong work with visiting");
+//                System.out.println("Wrong work with visiting");
             }
 
 
             Node current = frontier.poll();
             boolean bad = false;
-            if(visited.contains(current.tileCoordinate)) System.out.println("what");
-            for(var v: visited) {
-                if(v.getX() == current.getTileCoordinate().getX() && v.getY() == current.getTileCoordinate().getY()) {
-                    System.out.println("no");
-                    bad = true;
-                    break;
-                }
-            }
+//            if(visited.contains(current.tileCoordinate)) System.out.println("what");
+//            for(var v: visited) {
+//                counter++;
+//                if(v.getX() == current.getTileCoordinate().getX() && v.getY() == current.getTileCoordinate().getY()) {
+////                    System.out.println("no");
+//                    bad = true;
+//                    break;
+//                }
+//            }
             if(bad) continue;
             visited.add(current.tileCoordinate);
 
 
             if(current.getTileCoordinate().equals(goal)) {
                 while(current.parent != null) {
+
                     path.add(current);
                     current = current.parent;
                 }
@@ -268,6 +271,7 @@ public class Level {
             }
 
             for(Vector2i direction : DIRECTIONS) {
+
                 Vector2i next = current.tileCoordinate.add(direction);
                 if(getTile(next.getX(), next.getY()).isSolid()) continue;
                 if(direction.getX()!=0 && direction.getY()!=0) {
@@ -289,6 +293,7 @@ public class Level {
 
 
         Collections.reverse(path);
+        System.out.println("counter" + counter);
         return path;
     }
     public Set<Vector2i> findVis(Vector2i start, Vector2i goal) {
@@ -305,7 +310,7 @@ public class Level {
 
         while(!frontier.isEmpty()) {
             if(frontier.size() > 10000) System.out.println("Wrong work with queue");
-            if(visited.size() > 1000) {
+            if(visited.size() > 4100) {
                 System.out.println("Wrong work with visiting");
             }
 

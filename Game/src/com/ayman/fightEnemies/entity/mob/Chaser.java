@@ -58,25 +58,25 @@ public class Chaser extends Mob{
             if(y > vec.getY() * 16) ya--;
 
         }
-        else {
+        else if(time % 60 == 0){
             path =
                     level.findPath(new Vector2i(x >> 4, y >> 4),
                             new Vector2i(level.getPlayer().getX() >> 4, level.getPlayer().getY() >> 4));
-//            visited = level.findVis(new Vector2i(x >> 4, y >> 4),
-//                    new Vector2i(level.getPlayer().getX() >> 4, level.getPlayer().getY() >> 4));
+            visited = level.findVis(new Vector2i(x >> 4, y >> 4),
+                    new Vector2i(level.getPlayer().getX() >> 4, level.getPlayer().getY() >> 4));
 
-            if (path != null) {
-                if (path.size() >   1) {
+            if (path != null && !path.isEmpty()) {
+
                     vec = path.get(0).tileCoordinate;
 
                     if (x / 16 < vec.getX()) xa++;
                     if (x / 16 > vec.getX()) xa--;
                     if (y / 16 < vec.getY()) ya++;
                     if (y / 16 > vec.getY()) ya--;
-                }
-                else System.exit(0);
+
             }
         }
+
 
 
 
@@ -158,19 +158,18 @@ public class Chaser extends Mob{
         screen.renderMob(x, y, this, false);
     }
     public void renderPath(Screen screen) {
+//        if(1 == 1) return ;
         if(visited == null) {
             return;
         } else {
             System.out.println("working");
-            Set<Vector2i> visited = level.findVis(new Vector2i(x >> 4, y >> 4),
-                    new Vector2i(level.getPlayer().getX() >> 4, level.getPlayer().getY() >> 4));
             for(Vector2i v : visited) {
                 screen.renderTile(v.getX() << 4, v.getY() << 4, Tile.voidTile);}
         }
-    }
 
 
 
 
 
-}
+
+}}
