@@ -76,7 +76,7 @@ public class Game extends Canvas implements Runnable{
         jFrame.setLayout(new BorderLayout());
 
 //        level = new RandomLevel(64, 64);
-        level = new RandomLevel(54, 64);
+        level = new RandomLevel(64, 64);
 
         TileCoordinate playerSpawn = new TileCoordinate(3, 9);
         Player player = new Player(playerName ,playerSpawn.x(), playerSpawn.y(), keyboard);
