@@ -58,7 +58,8 @@ public class Chaser extends Mob{
             if(y > vec.getY() * 16) ya--;
 
         }
-        else if(time % 60 == 0){
+        else// if(time % 60 == 0)
+        {
             path =
                     level.findPath(new Vector2i(x >> 4, y >> 4),
                             new Vector2i(level.getPlayer().getX() >> 4, level.getPlayer().getY() >> 4));

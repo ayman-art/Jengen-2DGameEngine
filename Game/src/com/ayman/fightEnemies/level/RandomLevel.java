@@ -16,7 +16,6 @@ public class RandomLevel extends Level {
         super(width, height);
 
         add(new Chaser(3,3));
-        tiles[3 + 9 * width] = Tile.brickColor;
     }
 
     protected void generateLevel() {
@@ -106,6 +105,19 @@ public class RandomLevel extends Level {
             return true;
         }
         return false;
+    }
+
+
+
+    protected void generateLevel2() {
+        attempts++;
+
+        Set<Vector2i> freeTiles = new TreeSet<>((v1, v2) -> {
+            if (v1.getX() == v2.getX()) return v1.getY() - v2.getY();
+            return v1.getX() - v2.getX();
+        });
+
+
     }
 
 

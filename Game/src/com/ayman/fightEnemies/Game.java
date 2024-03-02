@@ -152,7 +152,7 @@ public class Game extends Canvas implements Runnable{
 
 
                 levelCareTaker.addSnapshot(level.takeSnapshot());
-                boolean recording = false;
+                boolean recording = true;
                 if(counter % 600 == 0 && recording) {
                     int a= 4;
                     for(int i = 0; i < levelCareTaker.getNumberOfSnapshots(); i++) {
