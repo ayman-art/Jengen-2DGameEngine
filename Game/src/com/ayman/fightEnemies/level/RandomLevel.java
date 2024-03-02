@@ -9,22 +9,23 @@ import java.util.*;
 public class RandomLevel extends Level {
 
     private static final Random random = new Random();
+    int attempts = 0;
 
     public RandomLevel(int width, int height) {
         super(width, height);
-        generateLevel();
     }
 
     protected void generateLevel() {
-        System.out.println("Random Level");
+        attempts++;
+//        System.out.println("Random Level");
 
         Set<Vector2i> freeTiles = new TreeSet<>( (v1, v2) -> {
             if(v1.getX() == v2.getX()) return v1.getY() - v2.getY();
             return v1.getX() - v2.getX();
         });
 
-        int[] SolidTilesColors = {Tile.brickColor, Tile.rockColor};
-        int[] nonSolidTilesColors = {Tile.waterColor, Tile.flowerColor, Tile.grassColor, Tile.woodColor};
+        int[] SolidTilesColors = {Tile.brickColor};
+        int[] nonSolidTilesColors = {Tile.grassColor};
 
 
             for(int y = 0; y < height; y++) {
@@ -41,9 +42,10 @@ public class RandomLevel extends Level {
             }
 
             if(!isValidLevel(freeTiles)) {
-                System.out.println("Invalid Level, Generating new level");
+//                System.out.println("Invalid Level, Generating new level");
                 generateLevel();
             }
+        System.out.println("Attempts: " + attempts);
     }
 
 
@@ -51,6 +53,7 @@ public class RandomLevel extends Level {
     private boolean isValidLevel(Set<Vector2i> freeTiles) {
 
         Vector2i start = new Vector2i(1,1);
+        if(!freeTiles.contains(start)) return false;
         Set<Vector2i> visited = new TreeSet<>( (v1, v2) -> {
             if(v1.getX() == v2.getX()) return v1.getY() - v2.getY();
             return v1.getX() - v2.getX();
@@ -61,7 +64,7 @@ public class RandomLevel extends Level {
         visited.add(start);
 
         while(!queue.isEmpty()) {
-            System.out.println("Generating Level");
+//            System.out.println("Generating Level");
             Vector2i current = queue.poll();
             int x = current.getX();
             int y = current.getY();
@@ -84,7 +87,15 @@ public class RandomLevel extends Level {
 
 
         }
-        return visited.size() == freeTiles.size();
+
+
+        if (visited.size() == freeTiles.size() - 1) {
+            for(Vector2i freeTile : freeTiles) {
+                if(!visited.contains(freeTile)) System.out.println(freeTile);
+            }
+            return true;
+        }
+        return false;
     }
 
 
