@@ -19,7 +19,6 @@ public class Level {
 
     protected int width, height;
     protected int[] tiles;
-    protected int[] tilesInt;
     public static Level spawn = new SpawnLevel("resources\\Sheets\\level1.png");
     private List<Entity> mobs = new ArrayList<>();
     private List<Projectile> projectiles = new ArrayList<>();
@@ -29,7 +28,6 @@ public class Level {
 
         this.width = width;
         this.height = height;
-        tilesInt = new int[width * height];
         tiles = new int[width * height];
         generateLevel();
     }
