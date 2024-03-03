@@ -133,6 +133,9 @@ public class Level {
     }
 
     public Tile getTile(int x, int y) {
+        return this.getTile(x, y, this.tiles);
+    }
+    public Tile getTile(int x, int y, int[] tiles) {
         if(x < 0 || y < 0 || x >= width || y >= height) return Tile.voidTile;
 
        // System.out.println(tiles[x + y * width]);
