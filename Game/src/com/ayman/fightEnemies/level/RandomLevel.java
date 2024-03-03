@@ -14,7 +14,8 @@ public class RandomLevel extends Level {
 
     private static final Random random = new Random();
     int attempts = 0;
-    private static DSU dsu = new DSU(64 * 64 );
+    public static DSU dsu = new DSU(64 * 64 );
+    int counter = 1;
     public RandomLevel(int width, int height) {
         super(width, height);
 
@@ -139,7 +140,7 @@ public class RandomLevel extends Level {
             dsu.union(x2 + y * width, 0);
         }
 
-        for(int _i = 0; _i < width * height *10; _i++) {
+        for(int _i = 0; _i < width * height *100; _i++) {
             int x = 1 + random.nextInt(width - 2);
             int y = 1 + random.nextInt(height - 2);
 
@@ -155,15 +156,15 @@ public class RandomLevel extends Level {
                 int q = adjacent.getX() + adjacent.getY() * width;
 
                 if(p < 0 || p >= width * height || q < 0 || q >= width * height) {
-                    System.out.println("Current: " + current + ", Adjacent: " + adjacent);
-                    System.out.println("p: " + p + ", q: " + q);
-                    System.out.println("X: " + x + ", Y: " + y);
+//                    System.out.println("Current: " + current + ", Adjacent: " + adjacent);
+//                    System.out.println("p: " + p + ", q: " + q);
+//                    System.out.println("X: " + x + ", Y: " + y);
 
                 }
                 if(dsu.connected(p, q)) {
-                    System.out.println("V1 " + current + ", V2 " + adjacent);
-                    System.out.println("p: " + p + ", q: " + q);
-                    System.out.println("rootP: " + dsu.find(p) + ", rootQ: " + dsu.find(q));
+//                    System.out.println("V1 " + current + ", V2 " + adjacent);
+//                    System.out.println("p: " + p + ", q: " + q);
+//                    System.out.println("rootP: " + dsu.find(p) + ", rootQ: " + dsu.find(q));
                     ok = false;
                     break;
                 }
@@ -174,7 +175,9 @@ public class RandomLevel extends Level {
                 for(int i = -1; i <= 1; i++) {
                     for(int j = -1; j <= 1; j++) {
                         int p = (x + i) + (y + j) * width;
-                        if(getTile(x+i, (y+j) * width).isSolid()) {
+                        System.out.println("p: " + p + ", x: " + x + ", y: " + y + ", i: " + i + ", j: " + j);
+                        if(getTile(x+i, (y+j)).isSolid()) {
+                            System.out.println("cnnctng");
                             dsu.union(p, x + y * width);
                         }
                     }
