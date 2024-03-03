@@ -140,13 +140,21 @@ public class RandomLevel extends Level {
             dsu.union(x2 + y * width, 0);
         }
 
-        for(int _i = 0; _i < width * height *100; _i++) {
+        for(int _i = 0; _i < width * height; _i++) {
             int x = 1 + random.nextInt(width - 2);
             int y = 1 + random.nextInt(height - 2);
+
+
 
             if(tiles[x + y * width] == Tile.brickColor) continue;
 
             boolean ok = true;
+
+            for(int i : new int[] {-1, 1}) {
+                for(int j : new int[] {-1, 1}) {
+                    if(getTile(x + i, y + j).isSolid()) ok = false;
+                }
+            }
             for(Vector2i vector2i[] : AdjacentCheckGenerator.vectors) {
                 Vector2i current = new Vector2i(x, y);  current = current.add(vector2i[0]);
 
