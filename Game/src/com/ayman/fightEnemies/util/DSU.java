@@ -34,6 +34,8 @@ public class DSU {
             rank[rootP]++;
         }
         count--;
+
+        update();
     }
 
     public boolean connected(int p, int q) {
@@ -46,6 +48,12 @@ public class DSU {
 
     public int[] getParent() {
         return parent;
+    }
+
+    public void update() {
+        for(int i = 0; i < parent.length; i++) {
+            parent[i] = find(i);
+        }
     }
 
 
