@@ -254,7 +254,7 @@ public class Game extends Canvas implements Runnable{
                 graphics.setFont(newFont); // Set the graphics object's font to the new font
 
 // Now draw the string with the new font size
-                graphics.drawString(RandomLevel.dsu.getParent()[x + y * 64] + "", xp, yp);
+                if(RandomLevel.dsu != null)graphics.drawString(RandomLevel.dsu.getParent()[x + y * 64] + "", xp, yp);
 
 // Optionally, set the font back to the original size after drawing the string
                 graphics.setFont(currentFont); // Set the graphics object's font back to the original font

@@ -10,11 +10,15 @@ import com.ayman.fightEnemies.util.Vector2i;
 
 import java.util.*;
 
+import static java.lang.Thread.sleep;
+
 public class RandomLevel extends Level {
+
+    private volatile boolean generatingDone = false;
 
     private static final Random random = new Random();
     int attempts = 0;
-    public static DSU dsu = new DSU(64 * 64 );
+    public volatile static DSU dsu;
     int counter = 1;
     public RandomLevel(int width, int height) {
         super(width, height);
@@ -24,7 +28,32 @@ public class RandomLevel extends Level {
 
     protected void generateLevel() {
         {
-            generateLevel2();
+
+            Thread thread1 = new Thread(() -> {
+                generateLevel2();
+                if(!generatingDone) {
+                    generatingDone = true;
+                    System.out.println("Generating Done by Thread 1");
+                }
+
+            });
+            Thread thread2 = new Thread(() -> {
+                generateLevel2();
+                if(!generatingDone) {
+                    generatingDone = true;
+                    System.out.println("Generating Done by Thread 2");
+                }
+
+                generatingDone = true;
+            });
+            thread1.start();
+            try {
+                sleep(100);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            thread2.start();
+
             if(true) return;
         }
         attempts++;
@@ -118,6 +147,8 @@ public class RandomLevel extends Level {
 
 
     protected void generateLevel2() {
+        DSU dsu = new DSU(width * height);
+        int[] tiles = new int[width * height];
 
 
 
@@ -139,8 +170,8 @@ public class RandomLevel extends Level {
             dsu.union(x1 + y * width, 0);
             dsu.union(x2 + y * width, 0);
         }
-
-        for(int _i = 0; _i < width * height; _i++) {
+        int _i = 0;
+        for( _i = 0; _i < width * height && !generatingDone; _i++) {
             int x = 1 + random.nextInt(width - 2);
             int y = 1 + random.nextInt(height - 2);
 
@@ -194,7 +225,12 @@ public class RandomLevel extends Level {
             }
         }
 
-        return;
+        System.out.println("i: " + _i +"from Thread: " + Thread.currentThread().getName());
+        synchronized (RandomLevel.class) {
+            if(RandomLevel.dsu != null)
+                RandomLevel.dsu = dsu;
+
+        }
 
     }
 
