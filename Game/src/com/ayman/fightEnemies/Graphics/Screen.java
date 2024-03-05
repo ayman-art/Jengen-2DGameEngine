@@ -168,7 +168,7 @@ public class Screen {
     }
 
     public void renderPixel(int xp, int yp, int color, int size, boolean fixed) {
-        if(fixed) {
+        if(!fixed) {
             xp -= xOffset;
             yp -= yOffset;
         }
