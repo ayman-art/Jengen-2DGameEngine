@@ -18,7 +18,7 @@ public abstract class Mob extends Entity implements Cloneable {
 
     protected List<Projectile> projectiles = new ArrayList<>(); // To keep track of projectiles fired by a specific mob
 
-
+    protected int speed = 1;
     protected int health = 100;
     public void move(int xa, int ya) {
 
@@ -140,4 +140,7 @@ public abstract class Mob extends Entity implements Cloneable {
         return ret;
     }
 
+    public int getSpeed() {
+        return speed;
+    }
 }

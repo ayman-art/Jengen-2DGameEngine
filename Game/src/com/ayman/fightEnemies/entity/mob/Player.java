@@ -31,6 +31,7 @@ public class Player extends Mob {
     public Player(Keyboard input) {
         this.input = input;
     }
+    public Player() {input = null;}
     public Player(int x, int y, Keyboard input) { //if we want to spawn the player at a specific location
         this.x = x;
         this.y = y;
@@ -69,10 +70,10 @@ public class Player extends Mob {
         }
         if(xa != 0 || ya != 0) {
             moving = true;
-            int speed = 2;
             int maxXa = 0, maxYa = 0;
 
             int width = 16, height = 16;
+            speed = getSpeed();
             if (xa != 0) {
                 while(!collision(maxXa + width * xa, 0) && Math.abs(maxXa + width * xa) <= speed)
                     maxXa += width * xa;
