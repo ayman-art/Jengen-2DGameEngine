@@ -10,15 +10,12 @@ import com.ayman.fightEnemies.util.Vector2i;
 
 import java.util.*;
 
-import static java.lang.Thread.sleep;
-
 public class RandomLevel extends Level {
 
-    private volatile boolean generatingDone = false;
-
     private static final Random random = new Random();
+    private static volatile boolean done = false;
     int attempts = 0;
-    public volatile static DSU dsu;
+    public static DSU dsu = new DSU(64 * 64 );
     int counter = 1;
     public RandomLevel(int width, int height) {
         super(width, height);
@@ -28,32 +25,21 @@ public class RandomLevel extends Level {
 
     protected void generateLevel() {
         {
-
             Thread thread1 = new Thread(() -> {
                 generateLevel2();
-                if(!generatingDone) {
-                    generatingDone = true;
-                    System.out.println("Generating Done by Thread 1");
-                }
-
             });
-            Thread thread2 = new Thread(() -> {
-                generateLevel2();
-                if(!generatingDone) {
-                    generatingDone = true;
-                    System.out.println("Generating Done by Thread 2");
-                }
+            Thread thread2 = new Thread(thread1);
 
-                generatingDone = true;
-            });
             thread1.start();
-            try {
-                sleep(100);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
             thread2.start();
 
+            try {
+                thread1.join();
+                thread2.join();
+
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             if(true) return;
         }
         attempts++;
@@ -68,26 +54,26 @@ public class RandomLevel extends Level {
         int[] nonSolidTilesColors = {Tile.grassColor};
 
 
-            for(int y = 0; y < height; y++) {
-                for(int x = 0; x < width; x++) {
+        for(int y = 0; y < height; y++) {
+            for(int x = 0; x < width; x++) {
 
 
-                    if(x == 0 || y == 0 || x == width - 1 || y == height - 1) tiles[x + y * width] = Tile.brickColor;
+                if(x == 0 || y == 0 || x == width - 1 || y == height - 1) tiles[x + y * width] = Tile.brickColor;
+                else {
+                    if (random.nextInt(5) == 0)
+                        tiles[x + y * width] = SolidTilesColors[random.nextInt(SolidTilesColors.length)];
                     else {
-                        if (random.nextInt(5) == 0)
-                            tiles[x + y * width] = SolidTilesColors[random.nextInt(SolidTilesColors.length)];
-                        else {
-                            tiles[x + y * width] = nonSolidTilesColors[random.nextInt(nonSolidTilesColors.length)];
-                            freeTiles.add(new Vector2i(x, y));
-                        }
+                        tiles[x + y * width] = nonSolidTilesColors[random.nextInt(nonSolidTilesColors.length)];
+                        freeTiles.add(new Vector2i(x, y));
                     }
                 }
             }
+        }
 
-            if(!isValidLevel(freeTiles)) {
+        if(!isValidLevel(freeTiles)) {
 //                System.out.println("Invalid Level, Generating new level");
-                generateLevel();
-            }
+            generateLevel();
+        }
 
     }
 
@@ -147,10 +133,10 @@ public class RandomLevel extends Level {
 
 
     protected void generateLevel2() {
-        DSU dsu = new DSU(width * height);
+
+
         int[] tiles = new int[width * height];
-
-
+        DSU dsu = new DSU(width * height);
 
         for(int x = 0; x < width; x++) {
             int y1 = 0, y2 = height - 1;
@@ -171,21 +157,20 @@ public class RandomLevel extends Level {
             dsu.union(x2 + y * width, 0);
         }
         int _i = 0;
-        for( _i = 0; _i < width * height && !generatingDone; _i++) {
+        for(_i = 0; _i < 1500 && !done  ; _i++) {
             int x = 1 + random.nextInt(width - 2);
             int y = 1 + random.nextInt(height - 2);
 
-
-
-            if(tiles[x + y * width] == Tile.brickColor) continue;
+            if(tiles[x + y * width] == Tile.rockColor) {
+                _i--;
+                continue;
+            }
+            if(x == 3 && (y == 3 || y == 9)) {
+                _i--;
+                continue;
+            }
 
             boolean ok = true;
-
-            for(int i : new int[] {-1, 1}) {
-                for(int j : new int[] {-1, 1}) {
-                    if(getTile(x + i, y + j).isSolid()) ok = false;
-                }
-            }
             for(Vector2i vector2i[] : AdjacentCheckGenerator.vectors) {
                 Vector2i current = new Vector2i(x, y);  current = current.add(vector2i[0]);
 
@@ -204,33 +189,46 @@ public class RandomLevel extends Level {
 //                    System.out.println("V1 " + current + ", V2 " + adjacent);
 //                    System.out.println("p: " + p + ", q: " + q);
 //                    System.out.println("rootP: " + dsu.find(p) + ", rootQ: " + dsu.find(q));
+//                    System.out.println("Not Ok");
                     ok = false;
                     break;
                 }
             }
 
             if(ok) {
+                if(tiles[x + y * width] == Tile.rockColor) {
+                    _i--;
+                    System.exit(1234543);
+                    continue;
+                }
                 tiles[x + y * width] = Tile.rockColor;
                 for(int i = -1; i <= 1; i++) {
                     for(int j = -1; j <= 1; j++) {
                         int p = (x + i) + (y + j) * width;
-                        System.out.println("p: " + p + ", x: " + x + ", y: " + y + ", i: " + i + ", j: " + j);
-                        if(getTile(x+i, (y+j)).isSolid()) {
-                            System.out.println("cnnctng");
+//                        System.out.println("p: " + p + ", x: " + x + ", y: " + y + ", i: " + i + ", j: " + j);
+                        if(getTile(x+i, (y+j), tiles).isSolid()) {
+//                            System.out.println("cnnctng");
                             dsu.union(p, x + y * width);
                         }
                     }
                 }
 
+            } else {
+                _i--;
             }
         }
+        System.out.println("_i: " + _i + "From thread" + Thread.currentThread().getName());
 
-        System.out.println("i: " + _i +"from Thread: " + Thread.currentThread().getName());
         synchronized (RandomLevel.class) {
-            if(RandomLevel.dsu != null)
+            if(!done) {
+                done = true;
+                synchronized (this) {
+                    this.tiles = tiles;
+                }
                 RandomLevel.dsu = dsu;
-
+            }
         }
+        return;
 
     }
 
