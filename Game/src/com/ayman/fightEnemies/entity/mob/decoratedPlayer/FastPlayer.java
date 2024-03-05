@@ -11,7 +11,7 @@ public class FastPlayer extends DecoratedPlayer {
 
     @Override
     public int getSpeed() {
-        return speed;
+        return speed * 2;
     }
 
 }
