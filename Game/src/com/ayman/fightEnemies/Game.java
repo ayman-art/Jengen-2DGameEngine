@@ -7,11 +7,13 @@ import com.ayman.fightEnemies.Graphics.SpriteSheet;
 import com.ayman.fightEnemies.Input.Keyboard;
 import com.ayman.fightEnemies.Input.Mouse;
 import com.ayman.fightEnemies.entity.mob.Player;
+import com.ayman.fightEnemies.entity.mob.decoratedPlayer.FastPlayer;
 import com.ayman.fightEnemies.entity.projectile.Projectile;
 import com.ayman.fightEnemies.level.Level;
 import com.ayman.fightEnemies.level.RandomLevel;
 import com.ayman.fightEnemies.level.TileCoordinate;
 import com.ayman.fightEnemies.level.snapshots.LevelCareTaker;
+import com.ayman.fightEnemies.network.server.GameServer;
 import com.ayman.fightEnemies.util.DSU;
 
 import javax.swing.*;
@@ -83,7 +85,7 @@ public class Game extends Canvas implements Runnable{
 
         TileCoordinate playerSpawn = new TileCoordinate(62, 62);
         Player player = new Player(playerName ,playerSpawn.x(), playerSpawn.y(), keyboard);
-        level.add(player);
+        level.add(new FastPlayer(player));
 
         Game game = this;
         game.jFrame.setResizable(false);

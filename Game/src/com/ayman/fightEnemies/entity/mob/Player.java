@@ -31,6 +31,18 @@ public class Player extends Mob {
     public Player(Keyboard input) {
         this.input = input;
     }
+    public Player(Player copy) {
+        this(copy.x, copy.y, copy.input); //call the constructor that takes x, y, and input (Keyboard
+        this.projectile = copy.projectile;
+        this.fireInterval = copy.fireInterval;
+        this.visible = copy.visible;
+        this.coins = copy.coins;
+        this.moving = copy.moving;
+
+        this.currentAnimatedSprite = down;
+
+        fireInterval = WizardProjectile.FIRE_INTERVAL;
+    }
     public Player() {input = null;}
     public Player(int x, int y, Keyboard input) { //if we want to spawn the player at a specific location
         this.x = x;
@@ -73,7 +85,7 @@ public class Player extends Mob {
             int maxXa = 0, maxYa = 0;
 
             int width = 16, height = 16;
-            speed = getSpeed();
+            int speed = getSpeed();
             if (xa != 0) {
                 while(!collision(maxXa + width * xa, 0) && Math.abs(maxXa + width * xa) <= speed)
                     maxXa += width * xa;
@@ -118,7 +130,7 @@ public class Player extends Mob {
         clear();
     }
 
-    private void clear() {
+    protected void clear() {
         for(int i = 0; i < projectiles.size(); i++) {
             if(projectiles.get(i).isRemoved()) {
 
@@ -132,7 +144,7 @@ public class Player extends Mob {
     }
 
 
-    private void updateShoot() {
+    protected void updateShoot() {
 
         if(fireInterval > 0) {
             return;
