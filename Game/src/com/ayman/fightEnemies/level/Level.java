@@ -400,7 +400,7 @@ public class Level {
 
         screen.renderSprite(0, 0, new Sprite(tiles, width, height), true, 100);
         for(int i2 = 0; i2 < mobs.size(); i2++) {
-            screen.renderPixel(mobs.get(i2).x / width, mobs.get(i2).y / height, 0xff0000, 4, true, 100);
+            screen.renderPixel(mobs.get(i2).x / 16, mobs.get(i2).y / 16, 0xff0000, 4, true, 100);
         }
 
     }

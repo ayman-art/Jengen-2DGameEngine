@@ -81,7 +81,7 @@ public class Game extends Canvas implements Runnable{
 //        level = new RandomLevel(64, 64);
         level = new RandomLevel(64, 64);
 
-        TileCoordinate playerSpawn = new TileCoordinate(30, 30);
+        TileCoordinate playerSpawn = new TileCoordinate(62, 62);
         Player player = new Player(playerName ,playerSpawn.x(), playerSpawn.y(), keyboard);
         level.add(player);
 
