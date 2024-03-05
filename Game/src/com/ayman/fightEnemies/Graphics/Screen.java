@@ -69,6 +69,11 @@ public class Screen {
 
     public void renderSprite(int xp, int yp, Sprite sprite, boolean fixed) {
 
+        renderSprite(xp, yp, sprite, fixed, 0xff);
+    }
+
+    public void renderSprite(int xp, int yp, Sprite sprite, boolean fixed, int alpha) {
+
         if(!fixed) {
             xp -= xOffset;
             yp -= yOffset;
@@ -83,6 +88,7 @@ public class Screen {
 
                 int col = sprite.pixels[x + y * sprite.getWidth()];
                 if(col != 0xffff00ff) {
+                    col = blendColors(col, pixels[xa + ya * width], alpha);
                     pixels[xa + ya * width] = col;
                     //System.out.println("xa: " + xa + ", ya: " + ya  );
                 }
@@ -167,7 +173,8 @@ public class Screen {
         this.yOffset = yOffset;
     }
 
-    public void renderPixel(int xp, int yp, int color, int size, boolean fixed) {
+    public void renderPixel(int xp, int yp, int color, int size, boolean fixed, int alpha) {
+        color = blendColors(color, pixels[xp + yp * width], alpha);
         if(!fixed) {
             xp -= xOffset;
             yp -= yOffset;
@@ -180,6 +187,12 @@ public class Screen {
                 pixels[xa + ya * width] = color;
             }
         }
+    }
+    private int blendColors(int foregroundColor, int backgroundColor, int alpha) {
+        int blendedRed = ((foregroundColor >> 16) & 0xFF) * alpha / 255 + ((backgroundColor >> 16) & 0xFF) * (255 - alpha) / 255;
+        int blendedGreen = ((foregroundColor >> 8) & 0xFF) * alpha / 255 + ((backgroundColor >> 8) & 0xFF) * (255 - alpha) / 255;
+        int blendedBlue = (foregroundColor & 0xFF) * alpha / 255 + (backgroundColor & 0xFF) * (255 - alpha) / 255;
+        return (blendedRed << 16) | (blendedGreen << 8) | blendedBlue;
     }
 }
 

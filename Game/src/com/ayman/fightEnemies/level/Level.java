@@ -398,9 +398,9 @@ public class Level {
 
     public void renderMiniMap(Screen screen, int x, int y) {
 
-        screen.renderSprite(0, 0, new Sprite(tiles, width, height), true);
+        screen.renderSprite(0, 0, new Sprite(tiles, width, height), true, 100);
         for(int i2 = 0; i2 < mobs.size(); i2++) {
-            screen.renderPixel(mobs.get(i2).x / width, mobs.get(i2).y / height, 0xff0000, 4, true);
+            screen.renderPixel(mobs.get(i2).x / width, mobs.get(i2).y / height, 0xff0000, 4, true, 100);
         }
 
     }
