@@ -165,7 +165,7 @@ public class RandomLevel extends Level {
                 _i--;
                 continue;
             }
-            if(x == 3 && (y == 3 || y == 9)) {
+            if(x == 3 && (y == 3) || x == 30 &&y == 30) {
                 _i--;
                 continue;
             }

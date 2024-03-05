@@ -38,7 +38,6 @@ public class Level {
 
 
 
-
     }
 
     protected void generateLevel() {

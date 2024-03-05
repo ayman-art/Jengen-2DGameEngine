@@ -63,8 +63,8 @@ public class Chaser extends Mob{
             path =
                     level.findPath(new Vector2i(x >> 4, y >> 4),
                             new Vector2i(level.getPlayer().getX() >> 4, level.getPlayer().getY() >> 4));
-            visited = level.findVis(new Vector2i(x >> 4, y >> 4),
-                    new Vector2i(level.getPlayer().getX() >> 4, level.getPlayer().getY() >> 4));
+//            visited = level.findVis(new Vector2i(x >> 4, y >> 4),
+//                    new Vector2i(level.getPlayer().getX() >> 4, level.getPlayer().getY() >> 4));
 
             if (path != null && !path.isEmpty()) {
 
