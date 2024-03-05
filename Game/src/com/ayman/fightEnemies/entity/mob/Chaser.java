@@ -43,7 +43,7 @@ public class Chaser extends Mob{
 
         int distancePow2 = (int) (Math.pow(level.getPlayer().getX() - x, 2) + Math.pow(level.getPlayer().getY() - y, 2));
         int distance = (int) Math.sqrt(distancePow2);
-        if(this.currentAnimatedSprite.getCurrentSPrite().SIZE > distance || distance > 1000) {
+        if(this.currentAnimatedSprite.getCurrentSPrite().SIZE > distance || distance > 2000) {
             return;
         }
 //        int xa = level.getPlayer().getX() - x;
@@ -58,7 +58,7 @@ public class Chaser extends Mob{
             if(y > vec.getY() * 16) ya--;
 
         }
-        else// if(time % 60 == 0)
+        else if(level.getPlayer().isVisible())// if(time % 60 == 0)
         {
             path =
                     level.findPath(new Vector2i(x >> 4, y >> 4),
@@ -123,6 +123,8 @@ public class Chaser extends Mob{
 
     private void updateShoot() {
         Player p = level.getPlayer();
+        if(!p.isVisible())
+            return;
 
         if(fireInterval > 0) {
             return;

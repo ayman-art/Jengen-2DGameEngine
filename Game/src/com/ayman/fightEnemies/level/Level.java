@@ -397,10 +397,14 @@ public class Level {
     }
 
     public void renderMiniMap(Screen screen, int x, int y) {
+        getPlayer().setVisible(false);
 
         screen.renderSprite(0, 0, new Sprite(tiles, width, height), true, 100);
         for(int i2 = 0; i2 < mobs.size(); i2++) {
             screen.renderPixel(mobs.get(i2).x / 16, mobs.get(i2).y / 16, 0xff0000, 4, true, 100);
+            if(mobs.get(i2) instanceof Player player) {
+                screen.renderPixel(player.x / 16, player.y / 16, 0x00ff00, 4, true, 100);
+            }
         }
 
     }

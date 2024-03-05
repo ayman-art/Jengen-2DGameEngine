@@ -6,12 +6,8 @@ import com.ayman.fightEnemies.Graphics.Screen;
 import com.ayman.fightEnemies.Graphics.SpriteSheet;
 import com.ayman.fightEnemies.Input.Keyboard;
 import com.ayman.fightEnemies.Input.Mouse;
-import com.ayman.fightEnemies.entity.Entity;
 import com.ayman.fightEnemies.entity.projectile.Projectile;
 import com.ayman.fightEnemies.entity.projectile.WizardProjectile;
-import com.ayman.fightEnemies.level.tile.Tile;
-import com.ayman.fightEnemies.network.client.GameClient;
-import com.ayman.fightEnemies.network.client.controller.ClientController;
 
 public class Player extends Mob {
 
@@ -21,6 +17,8 @@ public class Player extends Mob {
     private final Keyboard input;
     private Projectile projectile;
     private int fireInterval = 0;
+
+    private boolean visible = true;
     private int coins = 0;
 
     private boolean moving = false;
@@ -229,4 +227,11 @@ public class Player extends Mob {
         return name;
     }
 
+    public boolean isVisible() {
+        return visible;
+    }
+
+    public void setVisible(boolean visible) {
+        this.visible = visible;
+    }
 }
