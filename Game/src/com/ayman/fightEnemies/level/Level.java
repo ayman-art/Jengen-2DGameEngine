@@ -1,6 +1,7 @@
 package com.ayman.fightEnemies.level;
 
 import com.ayman.fightEnemies.Graphics.Screen;
+import com.ayman.fightEnemies.Graphics.Sprite;
 import com.ayman.fightEnemies.entity.Entity;
 import com.ayman.fightEnemies.entity.mob.Chaser;
 import com.ayman.fightEnemies.entity.mob.Mob;
@@ -389,5 +390,18 @@ public class Level {
         mobs = snapshot.mobs();
         projectiles = snapshot.projectiles();
         particles = snapshot.particles();
+    }
+
+    public int[] getMap() {
+        return tiles;
+    }
+
+    public void renderMiniMap(Screen screen, int x, int y) {
+
+        screen.renderSprite(0, 0, new Sprite(tiles, width, height), true);
+        for(int i2 = 0; i2 < mobs.size(); i2++) {
+            screen.renderPixel(mobs.get(i2).x, mobs.get(i2).y, 0xff0000, 2, true);
+        }
+
     }
 }

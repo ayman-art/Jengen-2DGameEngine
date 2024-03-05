@@ -2,6 +2,8 @@ package com.ayman.fightEnemies;
 
 
 import com.ayman.fightEnemies.Graphics.Screen;
+import com.ayman.fightEnemies.Graphics.Sprite;
+import com.ayman.fightEnemies.Graphics.SpriteSheet;
 import com.ayman.fightEnemies.Input.Keyboard;
 import com.ayman.fightEnemies.Input.Mouse;
 import com.ayman.fightEnemies.entity.mob.Player;
@@ -221,8 +223,7 @@ public class Game extends Canvas implements Runnable{
         int yScroll = player.y - screen.height / 2;
 
         level.render(xScroll + 10, yScroll + 10, screen);
-//        screen.renderSpriteSheet(player.x, player.y, SpriteSheet.tiles, false);
-
+        level.renderMiniMap(screen, 0, 0);
         for(int i = 0; i < pixels.length; i++) {
             this.pixels[i] = screen.pixels[i]; //copy the pixels data from screen to the pixels array of the image object
         }

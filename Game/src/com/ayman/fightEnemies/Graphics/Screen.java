@@ -166,6 +166,21 @@ public class Screen {
         this.xOffset = xOffset;
         this.yOffset = yOffset;
     }
+
+    public void renderPixel(int xp, int yp, int color, int size, boolean fixed) {
+        if(fixed) {
+            xp -= xOffset;
+            yp -= yOffset;
+        }
+        for(int y = 0; y < size; y++) {
+            int ya = yp + y;
+            for(int x = 0; x < size; x++) {
+                int xa = xp + x;
+                if(xa < 0 || xa >= width || ya < 0 || ya >= height) continue;
+                pixels[xa + ya * width] = color;
+            }
+        }
+    }
 }
 
 

@@ -40,6 +40,12 @@ public class RandomLevel extends Level {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+
+            for(int i = 0; i < width * height; i++) {
+                if(tiles[i] == 0) {
+                    tiles[i] = Tile.skyColor;
+                }
+            }
             if(true) return;
         }
         attempts++;
