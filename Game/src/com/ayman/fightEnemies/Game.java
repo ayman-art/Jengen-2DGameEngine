@@ -209,7 +209,9 @@ public class Game extends Canvas implements Runnable{
 
     }
 
-    public void render(  ) {
+    int xDelta = 1, yDelta = 1;
+    int time = 0;
+    public void render(  ) {time+= 2;
 
         Player player = level.getPlayer();
 
@@ -224,7 +226,14 @@ public class Game extends Canvas implements Runnable{
         int xScroll = player.x - screen.width / 2;
         int yScroll = player.y - screen.height / 2;
 
-        level.render(xScroll + 10, yScroll + 10, screen);
+
+        if(time % (60*5) == 0) {
+            xDelta *= -1;
+        }
+        if((time + 30 * 5) % (60 * 5) == 0) {
+            yDelta *= -1;
+        }
+        level.render(xScroll + yDelta , yScroll + xDelta, screen);
         level.renderMiniMap(screen, 0, 0);
         for(int i = 0; i < pixels.length; i++) {
             this.pixels[i] = screen.pixels[i]; //copy the pixels data from screen to the pixels array of the image object
