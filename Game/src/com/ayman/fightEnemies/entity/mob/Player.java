@@ -22,10 +22,10 @@ public class Player extends Mob {
     private int coins = 0;
 
     private boolean moving = false;
-    private final AnimatedSprite down = new AnimatedSprite(SpriteSheet.player_down, 3);
-    private final AnimatedSprite up = new AnimatedSprite(SpriteSheet.player_up, 3);
-    private final AnimatedSprite left = new AnimatedSprite(SpriteSheet.player_left, 3);
-    private final AnimatedSprite right = new AnimatedSprite(SpriteSheet.player_right, 3);
+    private final AnimatedSprite down = new AnimatedSprite(SpriteSheet.player_up, 1);
+    private final AnimatedSprite up = new AnimatedSprite(SpriteSheet.player_up, 1);
+    private final AnimatedSprite left = new AnimatedSprite(SpriteSheet.player_left, 1);
+    private final AnimatedSprite right = new AnimatedSprite(SpriteSheet.player_right, 1);
 
 
     public Player(Keyboard input) {

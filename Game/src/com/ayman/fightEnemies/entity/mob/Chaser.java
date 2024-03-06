@@ -40,11 +40,14 @@ public class Chaser extends Mob{
 
         time++;
 
-
+        Player player = level.getPlayer();
         int distancePow2 = (int) (Math.pow(level.getPlayer().getX() - x, 2) + Math.pow(level.getPlayer().getY() - y, 2));
         int distance = (int) Math.sqrt(distancePow2);
         if(this.currentAnimatedSprite.getCurrentSPrite().SIZE > distance || distance > 2000) {
             return;
+        }
+        else if(Math.abs(player.x - x) <= 16 && Math.abs(player.y - y) <= 16) {
+            player.updateHealth(20);
         }
 //        int xa = level.getPlayer().getX() - x;
 //        int ya = level.getPlayer().getY() - y;
@@ -74,6 +77,93 @@ public class Chaser extends Mob{
                     if (x / 16 > vec.getX()) xa--;
                     if (y / 16 < vec.getY()) ya++;
                     if (y / 16 > vec.getY()) ya--;
+
+            }
+        }
+
+
+
+
+        if(xa < 0) {
+            xa = -1;
+            currentAnimatedSprite = left;
+        } else if(xa > 0) {
+            xa = 1;
+            currentAnimatedSprite = right;
+        }
+        if(ya < 0) {
+            ya = -1;
+            currentAnimatedSprite = up;
+        } else if(ya > 0) {
+            ya = 1;
+            currentAnimatedSprite = down;
+        }
+
+
+        if(xa != 0 || ya != 0){
+            moving = true;
+            move(xa, ya);
+        } else {
+            moving = false;
+            currentAnimatedSprite.restart();
+        }
+
+
+        if(moving) {
+            currentAnimatedSprite.update();
+        } else {
+            currentAnimatedSprite.restart();
+        }
+
+        fireInterval--;
+
+        updateShoot();
+
+        clear();
+//        update2();
+
+    }
+
+    public void update2() {
+        time++;
+
+        Player player = level.getPlayer();
+        int distancePow2 = (int) (Math.pow(level.getPlayer().getX() - x, 2) + Math.pow(level.getPlayer().getY() - y, 2));
+        int distance = (int) Math.sqrt(distancePow2);
+        if(this.currentAnimatedSprite.getCurrentSPrite().SIZE > distance || distance > 2000) {
+            return;
+        }
+        else if(Math.abs(player.x - x) <= 16 && Math.abs(player.y - y) <= 16) {
+            player.updateHealth(20);
+        }
+//        int xa = level.getPlayer().getX() - x;
+//        int ya = level.getPlayer().getY() - y;
+
+        int xa = 0, ya = 0;
+
+        if(x !=vec.getX() * 16 || y != vec.getY() * 16){
+            if(x < vec.getX() * 16) xa++;
+            if(x > vec.getX() * 16) xa--;
+            if(y < vec.getY() * 16) ya++;
+            if(y > vec.getY() * 16) ya--;
+
+        }
+        else if(level.getPlayer().isVisible())// if(time % 60 == 0)
+        {
+            path =
+                    level.findPath(new Vector2i(x >> 4, y >> 4),
+                            new Vector2i(level.getPlayer().getX() >> 4, level.getPlayer().getY() >> 4));
+//            visited = level.findVis(new Vector2i(x >> 4, y >> 4),
+//                    new Vector2i(level.getPlayer().getX() >> 4, level.getPlayer().getY() >> 4));
+
+            if (path != null && !path.isEmpty()) {
+
+                vec = path.get(0).tileCoordinate;
+
+                if (x / 16 < vec.getX()) xa++;
+                if (x / 16 > vec.getX()) xa--;
+                if (y / 16 < vec.getY()) ya++;
+                if (y / 16 > vec.getY()) ya--;
 
             }
         }

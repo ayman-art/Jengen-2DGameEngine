@@ -90,7 +90,7 @@ public abstract class Mob extends Entity implements Cloneable {
 
     public void shoot(int x, int y, double dir) {
 
-        Projectile projectile = new WizardProjectile(x, y, dir, level);
+        Projectile projectile = new WizardProjectile(x + 6, y, dir, level);
         projectiles.add(projectile);
         level.addProjectile(projectile);
 
@@ -125,7 +125,11 @@ public abstract class Mob extends Entity implements Cloneable {
     }
 
     public void updateHealth(int damage) {
-        this.health -= damage;
+        this.health -= Math.min(damage, this.health);
+        if(health == 0) {
+            System.exit(34);
+        }
+
     }
 
     protected int getHealth() {
