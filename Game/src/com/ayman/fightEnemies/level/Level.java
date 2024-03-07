@@ -403,7 +403,7 @@ public class Level {
         for(int i2 = 0; i2 < mobs.size(); i2++) {
             screen.renderPixel(mobs.get(i2).x / 16, mobs.get(i2).y / 16, 0xff0000, 4, true, 100);
             if(mobs.get(i2) instanceof Player player) {
-                screen.renderPixel(player.x / 16, player.y / 16, 0x00ff00, 4, true, 100);
+                screen.renderPixel(player.getX() / 16, player.getY() / 16, 0x00ff00, 4, true, 100);
             }
         }
 

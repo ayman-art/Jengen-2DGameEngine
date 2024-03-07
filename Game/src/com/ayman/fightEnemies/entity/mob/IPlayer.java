@@ -6,7 +6,7 @@ import com.ayman.fightEnemies.Input.Mouse;
 import com.ayman.fightEnemies.entity.projectile.Projectile;
 import com.ayman.fightEnemies.entity.projectile.WizardProjectile;
 
-public interface IPlayer {
+public interface IPlayer extends IMob{
     public void update();
 
     public void render(Screen screen);

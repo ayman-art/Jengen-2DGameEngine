@@ -6,6 +6,7 @@ import com.ayman.fightEnemies.Graphics.Sprite;
 import com.ayman.fightEnemies.Graphics.SpriteSheet;
 import com.ayman.fightEnemies.Input.Keyboard;
 import com.ayman.fightEnemies.Input.Mouse;
+import com.ayman.fightEnemies.entity.mob.IPlayer;
 import com.ayman.fightEnemies.entity.mob.Player;
 import com.ayman.fightEnemies.entity.mob.decoratedPlayer.FastPlayer;
 import com.ayman.fightEnemies.entity.projectile.Projectile;
@@ -52,7 +53,6 @@ public class Game extends Canvas implements Runnable{
 
     public Level level;
 
-    private List<Player> players;
 
     public static boolean paused = false;
 
@@ -85,7 +85,7 @@ public class Game extends Canvas implements Runnable{
 
         TileCoordinate playerSpawn = new TileCoordinate(62, 62);
         Player player = new Player(playerName ,playerSpawn.x(), playerSpawn.y(), keyboard);
-        level.add(new FastPlayer(player));
+        level.add(player);
 
         Game game = this;
         game.jFrame.setResizable(false);
