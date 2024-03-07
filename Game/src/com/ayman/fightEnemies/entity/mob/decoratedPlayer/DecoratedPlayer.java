@@ -14,6 +14,7 @@ public  abstract class DecoratedPlayer implements IPlayer {
 
   IPlayer player;
 
+  int time;
     public DecoratedPlayer(IPlayer player) {
         this.player = player;
     }
@@ -130,5 +131,13 @@ public  abstract class DecoratedPlayer implements IPlayer {
     }
     public void setSpeed(int speed) {
         player.setSpeed(speed);
+    }
+
+    public boolean timeOut() {
+        return time <= 0;
+    }
+
+    public IPlayer restorePlayer() {
+        return player;
     }
 }

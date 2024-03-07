@@ -54,6 +54,13 @@ public class Level {
     public void update() {
         for(int i = 0; i < mobs.size(); i++) {
             mobs.get(i).update();
+            if(mobs.get(i) instanceof DecoratedPlayer decoratedPlayer) {
+                System.out.println(decoratedPlayer.getSpeed());
+                if(decoratedPlayer.timeOut()) {
+                    mobs.set(i, decoratedPlayer.restorePlayer());
+                    System.out.println("restored");
+                }
+            }
         }
         for(int i = 0; i < projectiles.size(); i++) {
             projectiles.get(i).update();
