@@ -3,9 +3,8 @@ package com.ayman.fightEnemies.level;
 import com.ayman.fightEnemies.Graphics.Screen;
 import com.ayman.fightEnemies.Graphics.Sprite;
 import com.ayman.fightEnemies.entity.Entity;
-import com.ayman.fightEnemies.entity.mob.Chaser;
-import com.ayman.fightEnemies.entity.mob.Mob;
-import com.ayman.fightEnemies.entity.mob.Player;
+import com.ayman.fightEnemies.entity.IEntity;
+import com.ayman.fightEnemies.entity.mob.*;
 import com.ayman.fightEnemies.entity.particle.Particle;
 import com.ayman.fightEnemies.entity.projectile.Projectile;
 import com.ayman.fightEnemies.level.snapshots.LevelSnapshot;
@@ -21,7 +20,7 @@ public class Level {
     protected int width, height;
     protected int[] tiles;
     public static Level spawn = new SpawnLevel("resources\\Sheets\\level1.png");
-    private List<Entity> mobs = new ArrayList<>();
+    private List<IEntity> mobs = new ArrayList<>();
     private List<Projectile> projectiles = new ArrayList<>();
     private List<Particle> particles = new ArrayList<>();
 
@@ -100,7 +99,7 @@ public class Level {
                 Chaser chaser = (Chaser) mobs.get(i);
                 chaser.renderPath(screen);
             }
-            if(mobs.get(i) instanceof Mob mob) {
+            if(mobs.get(i) instanceof IMob mob) {
                 mob.renderHealth(screen);
             }
         }
@@ -117,15 +116,15 @@ public class Level {
     public boolean tileCollision(int x, int y, int size, int xOffset, int yOffset) { // universal method for tile collision
 
         boolean solid = false;
-        int width = 4; //the width of the Mob collision box
-        int height = 4; //the height of the Mob collision box
-//        int xOffset = -2; //the offset of the collision box from the Center of the Mob
-//        int yOffset = 4; //the offset of the collision box from the Center of the Mob
+        int width = 4; //the width of the IMob collision box
+        int height = 4; //the height of the IMob collision box
+//        int xOffset = -2; //the offset of the collision box from the Center of the IMob
+//        int yOffset = 4; //the offset of the collision box from the Center of the IMob
         for(int c = 0; c < 4; c++) {
-//            double xt = ((x + xa) + c % 2 * size/5 -5) /16; //the x coordinate of the tile the Mob is colliding with
-//            double xt = ((x + xa) + c % 2 * size/5 -5) /16; //the x coordinate of the tile the Mob is colliding with
-            double xt = ((x) + c % 2 * size + xOffset) /16; //the x coordinate of the tile the Mob is colliding with
-            double yt = ((y) + c / 2 * size + yOffset) / 16; //the y coordinate of the tile the Mob is colliding with
+//            double xt = ((x + xa) + c % 2 * size/5 -5) /16; //the x coordinate of the tile the IMob is colliding with
+//            double xt = ((x + xa) + c % 2 * size/5 -5) /16; //the x coordinate of the tile the IMob is colliding with
+            double xt = ((x) + c % 2 * size + xOffset) /16; //the x coordinate of the tile the IMob is colliding with
+            double yt = ((y) + c / 2 * size + yOffset) / 16; //the y coordinate of the tile the IMob is colliding with
 
             if(getTile((int)xt, (int)yt).isSolid()) solid = true;
         }
@@ -156,15 +155,15 @@ public class Level {
         return Tile.voidTile;
     }
 
-    public void add(Entity entity) {
+    public void add(IEntity entity) {
         entity.init(this);
 
         if(entity instanceof Particle) {
             particles.add((Particle) entity);
         } else if(entity instanceof Projectile) {
             projectiles.add((Projectile) entity);
-        } else  if(entity instanceof Mob){
-            mobs.add((Mob) entity);
+        } else  if(entity instanceof IMob){
+            mobs.add((IMob) entity);
         }
     }
 
@@ -181,15 +180,15 @@ public class Level {
         this.projectiles.add(projectile);
     }
 
-    public synchronized Player getPlayer() {
+    public synchronized IPlayer getPlayer() {
         for(int i = 0; i < mobs.size(); i++) {
-            if(mobs.get(i) instanceof Player player) return player;
+            if(mobs.get(i) instanceof IPlayer player) return player;
         }
         return null;
     }
-    public synchronized Player getPlayer(String name) {
+    public synchronized IPlayer getPlayer(String name) {
         for(int i = 0; i < mobs.size(); i++) {
-            if(mobs.get(i) instanceof Player player) {
+            if(mobs.get(i) instanceof IPlayer player) {
                 if(player.getName().equals(name)) return player;
             }
         }
@@ -201,12 +200,12 @@ public class Level {
 
 
 
-    public List<Mob> getMobs(Mob mob, int radius) {
-        List<Mob> result = new ArrayList<>();
+    public List<IMob> getMobs(IMob mob, int radius) {
+        List<IMob> result = new ArrayList<>();
         int ex = (int)mob.getX();
         int ey = (int)mob.getY();
         for(int i = 0; i < mobs.size(); i++) {
-            Entity entity = mobs.get(i);
+            IEntity entity = mobs.get(i);
             int x = (int)mob.getX();
             int y = (int)mob.getY();
             int dx = Math.abs(x - ex);
@@ -369,16 +368,16 @@ public class Level {
 
 
 
-    public List<Mob> getMobs() {
-        List<Mob> result = new ArrayList<>();
-        for (Entity mob : mobs) {
-            if (mob instanceof Mob toMob) result.add(toMob);
+    public List<IMob> getMobs() {
+        List<IMob> result = new ArrayList<>();
+        for (IEntity mob : mobs) {
+            if (mob instanceof IMob toMob) result.add(toMob);
         }
         return result;
     }
 
 
-    public void removeMob(Mob mob) {
+    public void removeMob(IMob mob) {
         this.mobs.remove(mob);
     }
 
@@ -401,7 +400,7 @@ public class Level {
 
         screen.renderSprite(0, 0, new Sprite(tiles, width, height), true, 100);
         for(int i2 = 0; i2 < mobs.size(); i2++) {
-            screen.renderPixel(mobs.get(i2).x / 16, mobs.get(i2).y / 16, 0xff0000, 4, true, 100);
+            screen.renderPixel(mobs.get(i2).getX() / 16, mobs.get(i2).getY() / 16, 0xff0000, 4, true, 100);
             if(mobs.get(i2) instanceof Player player) {
                 screen.renderPixel(player.getX() / 16, player.getY() / 16, 0x00ff00, 4, true, 100);
             }

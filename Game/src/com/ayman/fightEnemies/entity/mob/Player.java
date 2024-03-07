@@ -161,9 +161,9 @@ public class Player extends Mob implements IPlayer {
 
         }
 
-        for(Mob mob : level.getMobs()) {
-            for(Projectile projectile : mob.projectiles) {
-                for(Mob otherMob : level.getMobs()) {
+        for(IMob mob : level.getMobs()) {
+            for(Projectile projectile : mob.getProjectiles()) {
+                for(IMob otherMob : level.getMobs()) {
                     if(mob != otherMob) {
                         int xProjectile = projectile.getX();
                         int yProjectile = projectile.getY();

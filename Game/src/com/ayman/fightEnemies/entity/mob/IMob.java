@@ -8,6 +8,8 @@ import com.ayman.fightEnemies.entity.projectile.Projectile;
 import com.ayman.fightEnemies.entity.projectile.WizardProjectile;
 import com.ayman.fightEnemies.entity.spawner.ParticleSpawner;
 
+import java.util.List;
+
 public interface IMob extends IEntity {
 
     public void move(int xa, int ya);
@@ -33,4 +35,8 @@ public interface IMob extends IEntity {
     public Entity clone() throws CloneNotSupportedException;
 
     public int getSpeed();
+
+    List<Projectile> getProjectiles();
+
+    int getHealth();
 }

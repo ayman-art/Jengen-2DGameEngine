@@ -38,4 +38,11 @@ public Entity clone() throws CloneNotSupportedException {
         return (Entity) super.clone();
     }
 
+    public int getX() {
+        return x;
+    }
+    public int getY() {
+        return y;
+    }
+
 }

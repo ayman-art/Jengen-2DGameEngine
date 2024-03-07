@@ -132,7 +132,7 @@ public abstract class Mob extends Entity implements IMob, Cloneable {
 
     }
 
-    protected int getHealth() {
+    public int getHealth() {
         return health;
     }
 
@@ -146,5 +146,10 @@ public abstract class Mob extends Entity implements IMob, Cloneable {
 
     public int getSpeed() {
         return speed;
+    }
+
+    @Override
+    public List<Projectile> getProjectiles() {
+        return this.projectiles;
     }
 }

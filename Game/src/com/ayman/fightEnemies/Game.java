@@ -84,8 +84,8 @@ public class Game extends Canvas implements Runnable{
         level = new RandomLevel(64, 64);
 
         TileCoordinate playerSpawn = new TileCoordinate(62, 62);
-        Player player = new Player(playerName ,playerSpawn.x(), playerSpawn.y(), keyboard);
-        level.add(player);
+        IPlayer player = new Player(playerName ,playerSpawn.x(), playerSpawn.y(), keyboard);
+        level.add(new FastPlayer(player));
 
         Game game = this;
         game.jFrame.setResizable(false);
@@ -213,7 +213,7 @@ public class Game extends Canvas implements Runnable{
     int time = 0;
     public void render(  ) {time+= 2;
 
-        Player player = level.getPlayer();
+        IPlayer player = level.getPlayer();
 
         BufferStrategy bufferStrategy = getBufferStrategy();
         if(bufferStrategy == null) {
@@ -223,8 +223,8 @@ public class Game extends Canvas implements Runnable{
 
         screen.clear();
         // Center the screen on the player
-        int xScroll = player.x - screen.width / 2;
-        int yScroll = player.y - screen.height / 2;
+        int xScroll = player.getX() - screen.width / 2;
+        int yScroll = player.getY() - screen.height / 2;
 
 
         if(time % (60*5) == 0) {
@@ -243,7 +243,7 @@ public class Game extends Canvas implements Runnable{
         graphics.drawImage(image, 0, 0, getWidth(), getHeight(), null);
         graphics.setColor(Color.black);
         graphics.setFont(new Font("Verdana", Font.PLAIN, 50));
-        graphics.drawString("X: " + player.x/16 + ", Y: " + player.y/16, 450, 450);
+        graphics.drawString("X: " + player.getX()/16 + ", Y: " + player.getY()/16, 450, 450);
         graphics.drawString(Mouse.getButton() + "", 80, 80);
 
 

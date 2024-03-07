@@ -6,7 +6,10 @@ import com.ayman.fightEnemies.Input.Keyboard;
 import com.ayman.fightEnemies.entity.Entity;
 import com.ayman.fightEnemies.entity.mob.IPlayer;
 import com.ayman.fightEnemies.entity.mob.Player;
+import com.ayman.fightEnemies.entity.projectile.Projectile;
 import com.ayman.fightEnemies.level.Level;
+
+import java.util.List;
 
 public  class DecoratedPlayer implements IPlayer {
 
@@ -116,5 +119,15 @@ public  class DecoratedPlayer implements IPlayer {
     @Override
     public void setVisible(boolean visible) {
         player.setVisible(visible);
+    }
+
+    @Override
+    public int getHealth() {
+        return player.getHealth();
+    }
+
+    @Override
+    public List<Projectile> getProjectiles() {
+        return player.getProjectiles();
     }
 }

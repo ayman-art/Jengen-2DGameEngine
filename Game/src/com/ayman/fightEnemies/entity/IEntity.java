@@ -14,4 +14,8 @@ public interface IEntity {
     public void remove();
     public boolean isRemoved();
     public Entity clone() throws CloneNotSupportedException;
+
+    int getX();
+
+    int getY();
 }

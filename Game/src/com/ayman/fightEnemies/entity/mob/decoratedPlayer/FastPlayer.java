@@ -14,38 +14,6 @@ public class FastPlayer extends DecoratedPlayer {
 
     @Override
     public int getSpeed() {
-        return player.getSpeed() * 5;
-    }
-
-    @Override
-    public void update() {
-        player.update();
-    }
-
-    @Override
-    public void render(Screen screen) {
-        player.render(screen);
-    }
-
-    @Override
-    public void shoot(int x, int y, double dir) {
-        player.shoot(x, y, dir);
-    }
-
-    @Override
-    public void move(int xa, int ya) {
-        player.move(xa, ya);
-    }
-
-
-
-    @Override
-    public String getName() {
-        return player.getName();
-    }
-
-    @Override
-    public void renderHealth(Screen screen) {
-        player.renderHealth(screen);
+        return player.getSpeed() * 4;
     }
 }
