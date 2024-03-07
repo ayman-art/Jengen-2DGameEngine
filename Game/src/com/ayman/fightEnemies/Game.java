@@ -247,33 +247,33 @@ public class Game extends Canvas implements Runnable{
         graphics.drawString(Mouse.getButton() + "", 80, 80);
 
 
-//
-//
-//        graphics.drawString("Health: " , 50, 50);
-//        for(int x = 0; x < 64; x++) {
-//            for(int y = 0; y < 64; y++) {
-//                int xp = x * 16 * 3;
-//                int yp = y * 16 * 3;
-//                xp -= xScroll * 3;
-//                yp -= yScroll * 3;
-//
-//                xp += 12;
-//                yp += 20;
-//
-//// Assuming graphics is your Graphics object
-//                Font currentFont = graphics.getFont(); // Get the current font
-//                int newSize = 10; // Set the new font size
-//                Font newFont = currentFont.deriveFont(Font.PLAIN, newSize); // Create a new font with the desired size
-//                graphics.setFont(newFont); // Set the graphics object's font to the new font
-//
-//// Now draw the string with the new font size
-//                if(RandomLevel.dsu != null)graphics.drawString(RandomLevel.dsu.getParent()[x + y * 64] + "", xp, yp);
-//
-//// Optionally, set the font back to the original size after drawing the string
-//                graphics.setFont(currentFont); // Set the graphics object's font back to the original font
-//
-//            }
-//        }
+
+
+        graphics.drawString("Health: " , 50, 50);
+        for(int x = 0; x < 64; x++) {
+            for(int y = 0; y < 64; y++) {
+                int xp = x * 16 * 3;
+                int yp = y * 16 * 3;
+                xp -= xScroll * 3;
+                yp -= yScroll * 3;
+
+                xp += 12;
+                yp += 20;
+
+// Assuming graphics is your Graphics object
+                Font currentFont = graphics.getFont(); // Get the current font
+                int newSize = 10; // Set the new font size
+                Font newFont = currentFont.deriveFont(Font.PLAIN, newSize); // Create a new font with the desired size
+                graphics.setFont(newFont); // Set the graphics object's font to the new font
+
+// Now draw the string with the new font size
+                if(RandomLevel.dsu != null)graphics.drawString(RandomLevel.dsu.getParent()[x + y * 64] + "", xp, yp);
+
+// Optionally, set the font back to the original size after drawing the string
+                graphics.setFont(currentFont); // Set the graphics object's font back to the original font
+
+            }
+        }
         graphics.fillRect(Mouse.getX() , Mouse.getY(), 8, 8);
         graphics.dispose();
         bufferStrategy.show();

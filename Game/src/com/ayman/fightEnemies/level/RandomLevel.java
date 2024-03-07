@@ -162,12 +162,49 @@ public class RandomLevel extends Level {
             dsu.union(x1 + y * width, 0);
             dsu.union(x2 + y * width, 0);
         }
+
+        for(int i = 1; i < 40; i++) {
+            int x, y;
+            if(random.nextInt(2) == 0) {
+                x = 1;
+            } else {
+                x = width - 2;
+            }
+            y = random.nextInt(height);
+            if(getTile(x, y, tiles).isSolid()) continue;
+            tiles[x + width * y] = Tile.rockColor;
+            for(int xx = x - 1; xx <= x + 1; xx++) {
+                for(int yy = y - 1; yy <= y + 1; yy++) {
+                    if(getTile(xx, yy, tiles).isSolid()) {
+                        dsu.union(xx + yy * width, x + y * width);
+                    }
+                }
+            }
+
+            if(random.nextInt(2) == 0) {
+                y = 1;
+            } else {
+                y = height - 2;
+            }
+            x = random.nextInt(width);
+            if(getTile(x, y, tiles).isSolid()) continue;
+            tiles[x + width * y] = Tile.rockColor;
+            for(int xx = x - 1; xx <= x + 1; xx++) {
+                for(int yy = y - 1; yy <= y + 1; yy++) {
+                    if(getTile(xx, yy, tiles).isSolid()) {
+                        dsu.union(xx + yy * width, x + y * width);
+                    }
+                }
+            }
+
+
+        }
         int _i = 0;
         for(_i = 0; _i < 1500 && !done  ; _i++) {
             int x = 1 + random.nextInt(width - 2);
             int y = 1 + random.nextInt(height - 2);
 
-            if(tiles[x + y * width] == Tile.rockColor) {
+            if(getTile(x, y, tiles).isSolid()) {
                 _i--;
                 continue;
             }
@@ -202,7 +239,7 @@ public class RandomLevel extends Level {
             }
 
             if(ok) {
-                if(tiles[x + y * width] == Tile.rockColor) {
+                if(getTile(x, y, tiles).isSolid()) {
                     _i--;
                     System.exit(1234543);
                     continue;
