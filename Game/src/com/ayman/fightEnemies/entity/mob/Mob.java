@@ -11,7 +11,7 @@ import com.ayman.fightEnemies.entity.projectile.WizardProjectile;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class Mob extends Entity implements Cloneable {
+public abstract class Mob extends Entity implements IMob, Cloneable {
     protected AnimatedSprite currentAnimatedSprite;
     protected int dir = 0; //direction of the mob, popular convention :(0 = north, 1 = east, 2 = south, 3 = west)
     protected boolean moving = false;

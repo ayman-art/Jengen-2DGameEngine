@@ -5,7 +5,7 @@ import com.ayman.fightEnemies.level.Level;
 
 import java.util.Random;
 
-public class Entity implements Cloneable {
+public class Entity implements IEntity, Cloneable {
 
     public int x, y; //if the entity has a sprite
     private boolean removed = false; //if the entity is removed from the level
