@@ -172,6 +172,10 @@ public class RandomLevel extends Level {
             }
             y = random.nextInt(height);
             if(getTile(x, y, tiles).isSolid()) continue;
+            if(x == 3 && (y == 3) || x == width - 2 && y == height - 2) {
+                i--;
+                continue;
+            }
             tiles[x + width * y] = Tile.rockColor;
             for(int xx = x - 1; xx <= x + 1; xx++) {
                 for(int yy = y - 1; yy <= y + 1; yy++) {
@@ -188,6 +192,10 @@ public class RandomLevel extends Level {
             }
             x = random.nextInt(width);
             if(getTile(x, y, tiles).isSolid()) continue;
+            if(x == 3 && (y == 3) || x == width - 2 && y == height - 2) {
+                i--;
+                continue;
+            }
             tiles[x + width * y] = Tile.rockColor;
             for(int xx = x - 1; xx <= x + 1; xx++) {
                 for(int yy = y - 1; yy <= y + 1; yy++) {
@@ -208,7 +216,7 @@ public class RandomLevel extends Level {
                 _i--;
                 continue;
             }
-            if(x == 3 && (y == 3) || x == 30 &&y == 30) {
+            if(x == 3 && (y == 3) || x == width - 2 && y == height - 2) {
                 _i--;
                 continue;
             }
