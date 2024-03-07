@@ -9,7 +9,7 @@ import com.ayman.fightEnemies.Input.Mouse;
 import com.ayman.fightEnemies.entity.projectile.Projectile;
 import com.ayman.fightEnemies.entity.projectile.WizardProjectile;
 
-public class Player extends Mob {
+public class Player extends Mob implements IPlayer {
 
 
     private String name;
