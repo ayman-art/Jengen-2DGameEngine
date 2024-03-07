@@ -10,10 +10,7 @@ public class FastPlayer extends DecoratedPlayer {
 
     public FastPlayer(IPlayer player) {
         super(player);
+        player.setSpeed(2 * player.getSpeed());
     }
 
-    @Override
-    public int getSpeed() {
-        return player.getSpeed() * 4;
-    }
 }

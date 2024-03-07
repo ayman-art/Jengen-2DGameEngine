@@ -5,11 +5,14 @@ import com.ayman.fightEnemies.Graphics.Sprite;
 import com.ayman.fightEnemies.entity.Entity;
 import com.ayman.fightEnemies.entity.IEntity;
 import com.ayman.fightEnemies.entity.mob.*;
+import com.ayman.fightEnemies.entity.mob.decoratedPlayer.DecoratedPlayer;
+import com.ayman.fightEnemies.entity.mob.decoratedPlayer.FastPlayer;
 import com.ayman.fightEnemies.entity.particle.Particle;
 import com.ayman.fightEnemies.entity.projectile.Projectile;
 import com.ayman.fightEnemies.level.snapshots.LevelSnapshot;
 import com.ayman.fightEnemies.level.tile.Tile;
 import com.ayman.fightEnemies.util.Vector2i;
+import org.junit.jupiter.params.shadow.com.univocity.parsers.common.DefaultContext;
 
 import java.util.*;
 
@@ -162,8 +165,8 @@ public class Level {
             particles.add((Particle) entity);
         } else if(entity instanceof Projectile) {
             projectiles.add((Projectile) entity);
-        } else  if(entity instanceof IMob){
-            mobs.add((IMob) entity);
+        } else  if(entity instanceof IMob) {
+            mobs.add(entity);
         }
     }
 

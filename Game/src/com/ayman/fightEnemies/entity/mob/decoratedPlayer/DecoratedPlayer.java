@@ -2,16 +2,14 @@ package com.ayman.fightEnemies.entity.mob.decoratedPlayer;
 
 import com.ayman.fightEnemies.Graphics.Screen;
 import com.ayman.fightEnemies.Graphics.Sprite;
-import com.ayman.fightEnemies.Input.Keyboard;
 import com.ayman.fightEnemies.entity.Entity;
 import com.ayman.fightEnemies.entity.mob.IPlayer;
-import com.ayman.fightEnemies.entity.mob.Player;
 import com.ayman.fightEnemies.entity.projectile.Projectile;
 import com.ayman.fightEnemies.level.Level;
 
 import java.util.List;
 
-public  class DecoratedPlayer implements IPlayer {
+public  abstract class DecoratedPlayer implements IPlayer {
 
 
   IPlayer player;
@@ -129,5 +127,8 @@ public  class DecoratedPlayer implements IPlayer {
     @Override
     public List<Projectile> getProjectiles() {
         return player.getProjectiles();
+    }
+    public void setSpeed(int speed) {
+        player.setSpeed(speed);
     }
 }

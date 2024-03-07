@@ -143,7 +143,7 @@ public abstract class Mob extends Entity implements IMob, Cloneable {
         ret.currentAnimatedSprite = currentAnimatedSprite.clone(); //deep copy
         return ret;
     }
-
+    @Override
     public int getSpeed() {
         return speed;
     }
@@ -151,5 +151,9 @@ public abstract class Mob extends Entity implements IMob, Cloneable {
     @Override
     public List<Projectile> getProjectiles() {
         return this.projectiles;
+    }
+
+    public void setSpeed(int speed) {
+        this.speed = speed;
     }
 }

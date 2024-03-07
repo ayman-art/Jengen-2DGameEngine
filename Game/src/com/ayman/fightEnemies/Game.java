@@ -8,6 +8,7 @@ import com.ayman.fightEnemies.Input.Keyboard;
 import com.ayman.fightEnemies.Input.Mouse;
 import com.ayman.fightEnemies.entity.mob.IPlayer;
 import com.ayman.fightEnemies.entity.mob.Player;
+import com.ayman.fightEnemies.entity.mob.decoratedPlayer.DecoratedPlayer;
 import com.ayman.fightEnemies.entity.mob.decoratedPlayer.FastPlayer;
 import com.ayman.fightEnemies.entity.projectile.Projectile;
 import com.ayman.fightEnemies.level.Level;
@@ -84,8 +85,8 @@ public class Game extends Canvas implements Runnable{
         level = new RandomLevel(64, 64);
 
         TileCoordinate playerSpawn = new TileCoordinate(62, 62);
-        IPlayer player = new Player(playerName ,playerSpawn.x(), playerSpawn.y(), keyboard);
-        level.add(new FastPlayer(player));
+        FastPlayer player = new FastPlayer(new Player(playerName ,playerSpawn.x(), playerSpawn.y(), keyboard));
+        level.add(player);
 
         Game game = this;
         game.jFrame.setResizable(false);
