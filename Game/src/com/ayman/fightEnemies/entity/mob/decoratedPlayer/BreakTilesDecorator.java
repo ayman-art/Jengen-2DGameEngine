@@ -11,21 +11,23 @@ public class BreakTilesDecorator extends DecoratedPlayer{
 
     @Override
     public void update() {
-        if(timeOut()) {
+        if (!isStillDecorated()) {
             player.update();
             return;
         }
 
 
-
         player.update();
-        if(player.collision(player.getX() - 3, player.getY() - 3)) {
+        if (player.collision(player.getX() - 3, player.getY() - 3)) {
             System.out.println("Breaking Tiles");
         }
         System.out.println("BreakTilesDecorator");
+
         time--;
-
-
+        if (time == 0) {
+            removeDecoration();
+            setStillDecorated(false);
+        }
     }
 
 

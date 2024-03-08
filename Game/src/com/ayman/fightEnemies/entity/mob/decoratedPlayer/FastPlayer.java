@@ -19,7 +19,7 @@ public class FastPlayer extends DecoratedPlayer {
 
     @Override
     public void update() {
-        if(timeOut()) {
+        if(!isStillDecorated()) {
             player.update();
             return;
         }
