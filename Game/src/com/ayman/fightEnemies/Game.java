@@ -2,30 +2,24 @@ package com.ayman.fightEnemies;
 
 
 import com.ayman.fightEnemies.Graphics.Screen;
-import com.ayman.fightEnemies.Graphics.Sprite;
-import com.ayman.fightEnemies.Graphics.SpriteSheet;
 import com.ayman.fightEnemies.Input.Keyboard;
 import com.ayman.fightEnemies.Input.Mouse;
-import com.ayman.fightEnemies.entity.mob.Chaser;
-import com.ayman.fightEnemies.entity.mob.Helper;
 import com.ayman.fightEnemies.entity.mob.IPlayer;
 import com.ayman.fightEnemies.entity.mob.Player;
-import com.ayman.fightEnemies.entity.mob.decoratedPlayer.*;
+import com.ayman.fightEnemies.entity.mob.decoratedPlayer.FastPlayer;
+import com.ayman.fightEnemies.entity.mob.decoratedPlayer.HelperFighterDecorator;
+import com.ayman.fightEnemies.entity.mob.decoratedPlayer.InvisibilityDecorator;
 import com.ayman.fightEnemies.entity.projectile.Projectile;
 import com.ayman.fightEnemies.level.Level;
 import com.ayman.fightEnemies.level.RandomLevel;
 import com.ayman.fightEnemies.level.TileCoordinate;
 import com.ayman.fightEnemies.level.snapshots.LevelCareTaker;
-import com.ayman.fightEnemies.network.server.GameServer;
-import com.ayman.fightEnemies.util.DSU;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
-import java.util.List;
-import java.util.Random;
 
 public class Game extends Canvas implements Runnable{
 

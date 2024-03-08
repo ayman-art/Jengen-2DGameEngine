@@ -1,9 +1,7 @@
 package com.ayman.fightEnemies.entity.mob.decoratedPlayer;
 
 import com.ayman.fightEnemies.entity.mob.Helper;
-import com.ayman.fightEnemies.entity.mob.IMob;
 import com.ayman.fightEnemies.entity.mob.IPlayer;
-import com.ayman.fightEnemies.level.Level;
 
 public class HelperFighterDecorator extends DecoratedPlayer {
     Helper helper;
