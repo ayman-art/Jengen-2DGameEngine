@@ -29,10 +29,18 @@ public class FastPlayer extends DecoratedPlayer {
 
         time--;
         if(time == 0) {
-            player.setSpeed(initialSpeed);
+            removeDecoration();
+            setStillDecorated(false);
         }
 
     }
+
+    @Override
+    public void removeDecoration() {
+        player.setSpeed(initialSpeed);
+    }
+
+
 
 
 

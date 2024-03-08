@@ -13,10 +13,12 @@ public  abstract class DecoratedPlayer implements IPlayer {
 
 
   IPlayer player;
-
   int time;
+
+  boolean stillDecorated;
     public DecoratedPlayer(IPlayer player) {
         this.player = player;
+        stillDecorated = true;
     }
 
     @Override
@@ -137,10 +139,11 @@ public  abstract class DecoratedPlayer implements IPlayer {
         return time <= 0;
     }
 
-    public IPlayer restorePlayer() {
 
-        if(!timeOut())
-            return this;
+    public IPlayer restorePlayer() {
+        if(!isStillDecorated()) {
+            removeDecoration();
+        }
         if(player instanceof DecoratedPlayer decoratedPlayer) {
             return decoratedPlayer.restorePlayer();
         }
@@ -151,4 +154,13 @@ public  abstract class DecoratedPlayer implements IPlayer {
     public boolean collision(int xa, int ya) {
         return player.collision(xa, ya);
     }
+
+    public boolean isStillDecorated(){
+        return stillDecorated;
+    }
+    public void setStillDecorated(boolean stillDecorated){
+        this.stillDecorated = stillDecorated;
+    }
+
+    public void removeDecoration(){};
 }
