@@ -163,4 +163,9 @@ public  abstract class DecoratedPlayer implements IPlayer {
     }
 
     public void removeDecoration(){};
+
+    @Override
+    public Level getLevel() {
+        return player.getLevel();
+    }
 }
