@@ -139,10 +139,12 @@ public  abstract class DecoratedPlayer implements IPlayer {
 
     public IPlayer restorePlayer() {
 
-        while(this.player instanceof DecoratedPlayer decoratedPlayer && decoratedPlayer.timeOut()) {
-            this.player = decoratedPlayer.restorePlayer();
+        if(!timeOut())
+            return this;
+        if(player instanceof DecoratedPlayer decoratedPlayer) {
+            return decoratedPlayer.restorePlayer();
         }
-        return this.player;
+        return player;
     }
 
     @Override
