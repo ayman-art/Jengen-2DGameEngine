@@ -130,7 +130,7 @@ public class Chaser extends Mob{
         IPlayer player = level.getPlayer();
         int distancePow2 = (int) (Math.pow(level.getPlayer().getX() - x, 2) + Math.pow(level.getPlayer().getY() - y, 2));
         int distance = (int) Math.sqrt(distancePow2);
-        if(this.currentAnimatedSprite.getCurrentSPrite().SIZE > distance || distance > 2000) {
+        if(this.currentAnimatedSprite.getCurrentSPrite().SIZE > distance || distance > 2000 || !player.isVisible()) {
             return;
         }
         else if(Math.abs(player.getX() - x) <= 16 && Math.abs(player.getY() - y) <= 16) {

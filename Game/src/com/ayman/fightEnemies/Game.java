@@ -11,6 +11,7 @@ import com.ayman.fightEnemies.entity.mob.Player;
 import com.ayman.fightEnemies.entity.mob.decoratedPlayer.BreakTilesDecorator;
 import com.ayman.fightEnemies.entity.mob.decoratedPlayer.DecoratedPlayer;
 import com.ayman.fightEnemies.entity.mob.decoratedPlayer.FastPlayer;
+import com.ayman.fightEnemies.entity.mob.decoratedPlayer.InvisibilityDecorator;
 import com.ayman.fightEnemies.entity.projectile.Projectile;
 import com.ayman.fightEnemies.level.Level;
 import com.ayman.fightEnemies.level.RandomLevel;
@@ -86,7 +87,7 @@ public class Game extends Canvas implements Runnable{
         level = new RandomLevel(64, 64);
 
         TileCoordinate playerSpawn = new TileCoordinate(62, 62);
-        IPlayer player = new FastPlayer(new FastPlayer(new Player(playerName ,playerSpawn.x(), playerSpawn.y(), keyboard)));
+        IPlayer player = new InvisibilityDecorator(new FastPlayer(new Player(playerName ,playerSpawn.x(), playerSpawn.y(), keyboard)));
         level.add(player);
 
         Game game = this;

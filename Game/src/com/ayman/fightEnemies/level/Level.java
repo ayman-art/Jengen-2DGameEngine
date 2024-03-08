@@ -406,7 +406,7 @@ public class Level {
     }
 
     public void renderMiniMap(Screen screen, int x, int y) {
-        getPlayer().setVisible(true);
+
 
         screen.renderSprite(0, 0, new Sprite(tiles, width, height), true, 100);
         for(int i2 = 0; i2 < mobs.size(); i2++) {
