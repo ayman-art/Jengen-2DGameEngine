@@ -38,4 +38,6 @@ public interface IMob extends IEntity {
     List<Projectile> getProjectiles();
 
     int getHealth();
+
+    boolean collision(int xa, int ya);
 }

@@ -55,7 +55,7 @@ public abstract class Mob extends Entity implements IMob, Cloneable {
         screen.renderHealthBar(x, y, health);
     }
 
-    protected boolean collision(int xa, int ya) {
+    public boolean collision(int xa, int ya) {
         boolean solid = false;
         int width = 16; //the width of the Mob collision box
         int height = 16; //the height of the Mob collision box

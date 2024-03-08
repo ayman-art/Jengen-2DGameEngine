@@ -138,6 +138,15 @@ public  abstract class DecoratedPlayer implements IPlayer {
     }
 
     public IPlayer restorePlayer() {
-        return player;
+
+        while(this.player instanceof DecoratedPlayer decoratedPlayer && decoratedPlayer.timeOut()) {
+            this.player = decoratedPlayer.restorePlayer();
+        }
+        return this.player;
+    }
+
+    @Override
+    public boolean collision(int xa, int ya) {
+        return player.collision(xa, ya);
     }
 }

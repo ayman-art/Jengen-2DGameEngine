@@ -20,21 +20,20 @@ public class FastPlayer extends DecoratedPlayer {
     @Override
     public void update() {
         if(timeOut()) {
+            player.update();
             return;
-        }
-        else {
-            time--;
         }
 
         player.update();
         System.out.println("FastPlayer");
+
+        time--;
+        if(time == 0) {
+            player.setSpeed(initialSpeed);
+        }
+
     }
 
-    @Override
-    public IPlayer restorePlayer() {
-        player.setSpeed(initialSpeed);
-        return player;
-    }
 
 
 
