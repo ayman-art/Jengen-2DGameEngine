@@ -94,6 +94,18 @@ public class Sprite {
             pixels[i] = spritePixels[i];
         }
     }
+    public Sprite(Sprite sprite, int x, int y, int width, int height) {
+
+        SIZE = (width == height) ? width : -1;
+        this.width = width;
+        this.height = height;
+        pixels = new int[width * height];
+        for(int y0 = 0; y0 < height; y0++) {
+            for(int x0 = 0; x0 < width; x0++) {
+                pixels[x0 + y0 * width] = sprite.pixels[(x + x0) + (y + y0) * sprite.width];
+            }
+        }
+    }
 
     private void setColor(int color) {
 
