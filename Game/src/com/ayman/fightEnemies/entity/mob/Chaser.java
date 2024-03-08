@@ -14,19 +14,21 @@ import java.util.Set;
 
 public class Chaser extends Mob{
 
-    private AnimatedSprite up = new AnimatedSprite(SpriteSheet.player_up, 3);
-    private AnimatedSprite down = new AnimatedSprite(SpriteSheet.player_down, 3);
-    private AnimatedSprite left = new AnimatedSprite(SpriteSheet.player_left, 3);
-    private AnimatedSprite right = new AnimatedSprite(SpriteSheet.player_right, 3);
+    protected AnimatedSprite up = new AnimatedSprite(SpriteSheet.player_up, 3);
+    protected AnimatedSprite down = new AnimatedSprite(SpriteSheet.player_down, 3);
+    protected AnimatedSprite left = new AnimatedSprite(SpriteSheet.player_left, 3);
+    protected AnimatedSprite right = new AnimatedSprite(SpriteSheet.player_right, 3);
 
-    private int fireInterval = WizardProjectile.FIRE_INTERVAL;
+    protected int fireInterval = WizardProjectile.FIRE_INTERVAL;
+
+    protected IMob currentEnemy;
 
 
     List<Node> path = null;
     Set<Vector2i> visited = null;
-    private int time = 0;
+    protected int time = 0;
 
-    private Vector2i vec;
+    protected Vector2i vec;
 
     public Chaser(int x, int y) {
         init(level);
@@ -37,6 +39,7 @@ public class Chaser extends Mob{
     }
 
     public void update() {
+
 
         time++;
 
@@ -211,9 +214,13 @@ public class Chaser extends Mob{
     }
 
 
-    private void updateShoot() {
-        IPlayer p = level.getPlayer();
-        if(!p.isVisible())
+    protected void updateShoot() {
+        if(this.currentEnemy == null) {
+            return;
+
+        }
+
+        if(this.currentEnemy instanceof IPlayer p &&  !p.isVisible())
             return;
 
         if(fireInterval > 0) {
@@ -222,8 +229,8 @@ public class Chaser extends Mob{
 
 
 
-            double dx = level.getPlayer().getX() - this.x;
-            double dy = level.getPlayer().getY() - this.y;
+            double dx = currentEnemy.getX() - this.x;
+            double dy = currentEnemy.getY() - this.y;
 
             if(dx*dx + dy*dy > 100*100) return;
 //            System.out.println("dx: " + dx + ", dy: " + dy);
