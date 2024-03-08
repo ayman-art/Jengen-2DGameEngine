@@ -6,12 +6,11 @@ import com.ayman.fightEnemies.Graphics.Sprite;
 import com.ayman.fightEnemies.Graphics.SpriteSheet;
 import com.ayman.fightEnemies.Input.Keyboard;
 import com.ayman.fightEnemies.Input.Mouse;
+import com.ayman.fightEnemies.entity.mob.Chaser;
+import com.ayman.fightEnemies.entity.mob.Helper;
 import com.ayman.fightEnemies.entity.mob.IPlayer;
 import com.ayman.fightEnemies.entity.mob.Player;
-import com.ayman.fightEnemies.entity.mob.decoratedPlayer.BreakTilesDecorator;
-import com.ayman.fightEnemies.entity.mob.decoratedPlayer.DecoratedPlayer;
-import com.ayman.fightEnemies.entity.mob.decoratedPlayer.FastPlayer;
-import com.ayman.fightEnemies.entity.mob.decoratedPlayer.InvisibilityDecorator;
+import com.ayman.fightEnemies.entity.mob.decoratedPlayer.*;
 import com.ayman.fightEnemies.entity.projectile.Projectile;
 import com.ayman.fightEnemies.level.Level;
 import com.ayman.fightEnemies.level.RandomLevel;
@@ -88,7 +87,8 @@ public class Game extends Canvas implements Runnable{
 
         TileCoordinate playerSpawn = new TileCoordinate(62, 62);
         IPlayer player = new InvisibilityDecorator(new FastPlayer(new Player(playerName ,playerSpawn.x(), playerSpawn.y(), keyboard)));
-        level.add(player);
+
+        level.add(new HelperFighterDecorator(player));
 
         Game game = this;
         game.jFrame.setResizable(false);

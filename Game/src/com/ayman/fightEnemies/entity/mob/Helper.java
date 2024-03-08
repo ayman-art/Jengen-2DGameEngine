@@ -18,6 +18,7 @@ public class Helper extends Chaser {
 
     @Override
     public void update() {
+        System.out.println("Update from Helper");
         if(currentEnemy == null) {
 
             if((level.getMobs().size() > 2))

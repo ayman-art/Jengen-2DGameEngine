@@ -45,4 +45,8 @@ public Entity clone() throws CloneNotSupportedException {
         return y;
     }
 
+    public Level getLevel() {
+        return level;
+    }
+
 }

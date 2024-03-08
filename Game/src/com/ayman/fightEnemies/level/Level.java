@@ -172,7 +172,10 @@ public class Level {
             particles.add((Particle) entity);
         } else if(entity instanceof Projectile) {
             projectiles.add((Projectile) entity);
-        } else  if(entity instanceof IMob) {
+        } else if(entity instanceof IPlayer) {
+            mobs.add(0,entity);
+        }
+        else  if(entity instanceof IMob) {
             mobs.add(entity);
         }
     }
