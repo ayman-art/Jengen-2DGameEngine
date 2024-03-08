@@ -6,7 +6,7 @@ public class Sprite {
 
     public final int SIZE;
     private int width, height;
-    private int x, y;
+    public int x, y;
     public int[] pixels;
 
     protected SpriteSheet sheet; //The sheet that contains the sprite
