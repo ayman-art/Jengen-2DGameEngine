@@ -1,5 +1,7 @@
 package com.ayman.fightEnemies.Graphics;
 
+import com.ayman.fightEnemies.entity.mob.IMob;
+import com.ayman.fightEnemies.entity.mob.IPlayer;
 import com.ayman.fightEnemies.entity.mob.Mob;
 import com.ayman.fightEnemies.entity.projectile.Projectile;
 import com.ayman.fightEnemies.level.tile.Tile;
@@ -149,7 +151,7 @@ public class Screen {
         }
     }
 
-    public void renderMob(int xp, int yp, Mob mob, boolean flip) {
+    public void renderMob(int xp, int yp, IMob mob, boolean flip) {
 
         xp -= xOffset;
         yp -= yOffset;
@@ -162,6 +164,9 @@ public class Screen {
                 if(xa < 0 || xa >= width || ya < 0 || ya >= height) continue;
 
                 int col = mob.getSprite().pixels[x + y * 16];
+                if(mob instanceof IPlayer player && !player.isVisible()) {
+                    col = blendColors(col, pixels[xa + ya * width], 200);
+                }
                 if(col != 0xffff00ff) pixels[xa + ya * width] = col;
             }
         }
