@@ -11,10 +11,10 @@ import java.util.List;
 public class Particle extends Entity {
 
     Sprite sprite;
-    private int life;
-    private int time = 0;
-    private double xDouble, yDouble, zDouble;
-    private double xVel, yVel, zVel;
+    protected int life;
+    protected int time = 0;
+    protected double xDouble, yDouble, zDouble;
+    protected double xVel, yVel, zVel;
     private boolean collide = false;
 
 
@@ -51,7 +51,7 @@ public class Particle extends Entity {
 
     }
 
-    private void move(double x, double y) {
+    protected void move(double x, double y) {
         if(!collide && collision(x, y)) {
             collide = false;
             this.xVel *= -0.5;

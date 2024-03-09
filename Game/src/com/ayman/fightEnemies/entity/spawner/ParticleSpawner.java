@@ -2,6 +2,7 @@ package com.ayman.fightEnemies.entity.spawner;
 
 import com.ayman.fightEnemies.entity.particle.Particle;
 import com.ayman.fightEnemies.level.Level;
+import com.ayman.fightEnemies.level.tile.Tile;
 
 public class ParticleSpawner extends Spawner{
 
