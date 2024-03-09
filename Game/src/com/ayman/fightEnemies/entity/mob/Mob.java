@@ -67,6 +67,7 @@ public abstract class Mob extends Entity implements IMob, Cloneable {
                 solid = true;
                 if(Math.abs(xa)<= 1 && Math.abs(ya) <= 1)
                     new ParticleSpawner(x, y, 4, 1, level, level.getTile(xt, yt));
+                level.removeTile(xt, yt);
             }
         }
         return solid;

@@ -420,4 +420,10 @@ public class Level {
         }
 
     }
+
+    public void removeTile(int xt, int yt) {
+        int x = xt / 16;
+        int y = yt / 16;
+        this.tiles[xt + yt * width] = Tile.grassColor;
+    }
 }
