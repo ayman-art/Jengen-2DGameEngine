@@ -41,7 +41,7 @@ public abstract class Mob extends Entity implements IMob, Cloneable {
 
         } else {
 //            new ParticleSpawner(x,y, 20, 1, level);
-            new ParticleSpawner(x, y, 5, 1, level, level.getTile(x /16, y /16));
+//            new ParticleSpawner(x, y, 5, 1, level, level.getTile(x /16, y /16));
         }
     }
     public abstract void update();
@@ -63,7 +63,11 @@ public abstract class Mob extends Entity implements IMob, Cloneable {
         for(int c = 0; c < 4; c++) {
             int xt = ((x + xa) + c % 2 * (width-1) + offSetX) >> 4; //the x coordinate of the tile the Mob is colliding with
             int yt = ((y + ya) + c / 2 * (height-1) + offSetY) >> 4; //the y coordinate of the tile the Mob is colliding with
-            if(level.getTile(xt, yt).isSolid()) solid = true;
+            if(level.getTile(xt, yt).isSolid()) {
+                solid = true;
+                if(Math.abs(xa)<= 1 && Math.abs(ya) <= 1)
+                    new ParticleSpawner(x, y, 4, 1, level, level.getTile(xt, yt));
+            }
         }
         return solid;
     }
