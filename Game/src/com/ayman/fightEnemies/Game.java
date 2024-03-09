@@ -8,6 +8,7 @@ import com.ayman.fightEnemies.Input.Keyboard;
 import com.ayman.fightEnemies.Input.Mouse;
 import com.ayman.fightEnemies.entity.mob.IPlayer;
 import com.ayman.fightEnemies.entity.mob.Player;
+import com.ayman.fightEnemies.entity.mob.decoratedPlayer.BreakTilesDecorator;
 import com.ayman.fightEnemies.entity.mob.decoratedPlayer.FastPlayer;
 import com.ayman.fightEnemies.entity.mob.decoratedPlayer.HelperFighterDecorator;
 import com.ayman.fightEnemies.entity.mob.decoratedPlayer.InvisibilityDecorator;
@@ -83,7 +84,7 @@ public class Game extends Canvas implements Runnable{
 
         TileCoordinate playerSpawn = new TileCoordinate(62, 62);
         IPlayer player = new InvisibilityDecorator(new FastPlayer(new Player(playerName ,playerSpawn.x(), playerSpawn.y(), keyboard)));
-
+        player = new BreakTilesDecorator(player);
         level.add(new HelperFighterDecorator(player));
 
         Game game = this;
