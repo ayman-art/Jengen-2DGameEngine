@@ -22,10 +22,10 @@ public class ParticleSpawner extends Spawner{
     public ParticleSpawner(int x, int y, int life, int amount, Level level, Tile tile) {
         super(x, y, Type.PARTICLE, amount, level);
 
-        level.add(new ExplosionParticle(x, y, life, 1, 1, new Sprite(tile.sprite, 8, 0, 8, 8)));
-        level.add(new ExplosionParticle(x, y, life, -1, 1,  new Sprite(tile.sprite, 0, 0, 8, 8)));
-        level.add(new ExplosionParticle(x, y, life, 1, -1,  new Sprite(tile.sprite, 8, 8, 8, 8)));
-        level.add(new ExplosionParticle(x, y, life, -1, -1,  new Sprite(tile.sprite, 8, 0, 8, 8)));
+        level.add(new ExplosionParticle(x, y, life, -1, -1, new Sprite(tile.sprite, 0, 0, 8, 8)));
+        level.add(new ExplosionParticle(x, y, life, 1, -1,  new Sprite(tile.sprite, 8, 0, 8, 8)));
+        level.add(new ExplosionParticle(x, y, life, -1, 1,  new Sprite(tile.sprite, 0, 8, 8, 8)));
+        level.add(new ExplosionParticle(x, y, life, 1, 1,  new Sprite(tile.sprite, 8, 8, 8, 8)));
 
 
 
