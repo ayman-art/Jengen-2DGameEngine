@@ -6,8 +6,9 @@ public class ExplosionParticle extends Particle{
     public ExplosionParticle(int x, int y, int life, int xVel, int yVel, Sprite sprite) {
         super(x, y, life);
         this.sprite = sprite;
-        this.xVel= xVel;
-        this.yVel = yVel;
+        this.xVel= (double)xVel / 2;
+        this.yVel = (double)yVel / 2;
+        this.life = 20;
     }
 
     @Override
