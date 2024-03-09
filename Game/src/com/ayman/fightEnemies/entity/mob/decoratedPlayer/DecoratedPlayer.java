@@ -155,6 +155,15 @@ public  abstract class DecoratedPlayer implements IPlayer {
         return player.collision(xa, ya);
     }
 
+    @Override
+    public boolean isTileBreaker() {
+        return player.isTileBreaker();
+    }
+    @Override
+    public void setTileBreaker(boolean tileBreaker) {
+        player.setTileBreaker(tileBreaker);
+    }
+
     public boolean isStillDecorated(){
         return stillDecorated;
     }

@@ -65,9 +65,13 @@ public abstract class Mob extends Entity implements IMob, Cloneable {
             int yt = ((y + ya) + c / 2 * (height-1) + offSetY) >> 4; //the y coordinate of the tile the Mob is colliding with
             if(level.getTile(xt, yt).isSolid()) {
                 solid = true;
-                if(Math.abs(xa)<= 1 && Math.abs(ya) <= 1) {
-                    solid = true;
-                    new ParticleSpawner(x, y, 1, 1, level);
+                if(this instanceof IPlayer player && player.isTileBreaker()) {
+                    if(Math.abs(xa)<= 1 && Math.abs(ya) <= 1) {
+                        new ParticleSpawner(getX(), getY(), 1, 1, getLevel(), getLevel().getTile(xt, yt));
+                        getLevel().removeTile(xt, yt);
+                    }
+                } else {
+
                 }
             }
         }

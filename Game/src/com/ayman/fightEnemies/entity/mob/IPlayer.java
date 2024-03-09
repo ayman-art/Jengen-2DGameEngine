@@ -6,4 +6,7 @@ public interface IPlayer extends IMob{
     public String getName();
     public boolean isVisible();
     public void setVisible(boolean visible);
+
+    boolean isTileBreaker();
+    void setTileBreaker(boolean tileBreaker);
 }

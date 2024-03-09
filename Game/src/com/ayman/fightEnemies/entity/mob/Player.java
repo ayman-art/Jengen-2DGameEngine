@@ -19,6 +19,8 @@ public class Player extends Mob implements IPlayer {
     private int fireInterval = 0;
 
     private boolean visible = true;
+
+    private boolean tileBreaker = false;
     private int coins = 0;
 
     private boolean moving = false;
@@ -246,5 +248,11 @@ public class Player extends Mob implements IPlayer {
 
     public void setVisible(boolean visible) {
         this.visible = visible;
+    }
+    public boolean isTileBreaker() {
+        return this.tileBreaker;
+    }
+    public void setTileBreaker(boolean tileBreaker) {
+        this.tileBreaker = tileBreaker;
     }
 }
