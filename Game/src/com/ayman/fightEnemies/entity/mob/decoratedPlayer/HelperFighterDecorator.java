@@ -7,7 +7,7 @@ public class HelperFighterDecorator extends DecoratedPlayer {
     Helper helper;
     public HelperFighterDecorator(IPlayer player) {
         super(player);
-        time = 20;
+        time = 2000;
         System.out.println("HelperFighterDecorator1");
 
 

@@ -6,7 +6,7 @@ import com.ayman.fightEnemies.entity.spawner.ParticleSpawner;
 public class BreakTilesDecorator extends DecoratedPlayer{
     public BreakTilesDecorator(IPlayer player) {
         super(player);
-        time = 50;
+        time = 1500;
         System.out.println("BreakTilesDecorator1");
         player.setTileBreaker(true);
     }

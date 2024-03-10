@@ -8,6 +8,7 @@ import com.ayman.fightEnemies.entity.spawner.ParticleSpawner;
 import com.ayman.fightEnemies.entity.projectile.Projectile;
 import com.ayman.fightEnemies.entity.projectile.WizardProjectile;
 
+import javax.sound.sampled.Clip;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -69,6 +70,14 @@ public abstract class Mob extends Entity implements IMob, Cloneable {
                     if(Math.abs(xa)<= 1 && Math.abs(ya) <= 1) {
                         new ParticleSpawner(getX(), getY(), 1, 1, getLevel(), getLevel().getTile(xt, yt));
                         getLevel().removeTile(xt, yt);
+                        try {
+                            Clip clip = Projectile.break_tileClip;
+
+                            clip.setFramePosition(0);
+                            clip.start();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
                 } else {
 

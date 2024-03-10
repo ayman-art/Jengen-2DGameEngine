@@ -23,6 +23,7 @@ public  class Projectile extends Entity {
         protected Sprite sprite;
 
         public static Clip gunClip;
+        public static Clip break_tileClip;
         public static Clip fireClip;
         protected Clip clip;
         Thread musicThread = new Thread(() -> {
@@ -36,6 +37,7 @@ public  class Projectile extends Entity {
 
         public static void init() {
             gunClip = loadSound("/sounds/gun01.wav");
+            break_tileClip = loadSound("/sounds/break_tile.wav");
 //            fireClip = loadSound("/sounds/fire01.wav");
         }
 
