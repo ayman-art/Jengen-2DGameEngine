@@ -135,6 +135,10 @@ public class Sprite {
         }
     }
 
+    public Sprite rotatedSPrite() {
+        return null;
+    }
+
 
 
 
