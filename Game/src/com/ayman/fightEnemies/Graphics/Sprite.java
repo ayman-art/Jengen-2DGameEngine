@@ -1,6 +1,7 @@
 package com.ayman.fightEnemies.Graphics;
 
 import java.awt.*;
+import java.util.Arrays;
 
 public class Sprite {
 
@@ -135,8 +136,23 @@ public class Sprite {
         }
     }
 
-    public Sprite rotatedSPrite() {
-        return null;
+    public Sprite rotatedSPrite(double angle) {
+        int[] newPixels = new int[pixels.length];
+        Arrays.fill(newPixels, pixels[0]);
+        for(int y = 0; y < SIZE; y++) {
+            for(int x = 0; x < SIZE; x++) {
+                if(pixels[x + y * SIZE] == 0xffff00ff) continue;
+                double radius = Math.sqrt((x - SIZE / 2) * (x - SIZE / 2) + (y - SIZE / 2) * (y - SIZE / 2));
+                double theta = Math.atan2(y - SIZE / 2, x - SIZE / 2);
+
+                int xx = (int) (radius * Math.cos(theta + angle) + SIZE / 2);
+                int yy = (int) (radius * Math.sin(theta + angle) + SIZE / 2);
+
+                if(xx < 0 || xx >= SIZE || yy < 0 || yy >= SIZE) continue;
+                newPixels[x + y * SIZE] = pixels[xx + yy * SIZE];
+            }
+        }
+        return new Sprite(newPixels, SIZE, SIZE);
     }
 
 

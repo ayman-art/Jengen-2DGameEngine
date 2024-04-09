@@ -45,6 +45,8 @@ public abstract class Mob extends Entity implements IMob, Cloneable {
 //            new ParticleSpawner(x, y, 5, 1, level, level.getTile(x /16, y /16));
         }
     }
+
+
     public abstract void update();
 
     public abstract void render(Screen screen);
