@@ -3,6 +3,7 @@ package com.ayman.fightEnemies.gui.states;
 import com.ayman.fightEnemies.gui.AppFrame;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class MainMenuState extends GuiState {
 
@@ -18,10 +19,15 @@ public class MainMenuState extends GuiState {
         aboutButton = new JButton("About");
         exitButton = new JButton("Exit");
 
-        playButton.setBounds(100, 100, 100, 100);
-        settingsButton.setBounds(100, 200, 100, 100);
-        aboutButton.setBounds(100, 300, 100, 100);
-        exitButton.setBounds(100, 400, 100, 100);
+        JButton[] buttons = {playButton, settingsButton, aboutButton, exitButton};
+        Color[] colors = {Color.GREEN, Color.BLUE, Color.MAGENTA, Color.RED};
+
+
+        for (int i = 0; i < buttons.length; i++) {
+            buttons[i].setBounds(100, 100 + i * 100, 400, 100);
+            buttons[i].setBackground(colors[i]);
+            buttons[i].setFont(new Font("Trebuchet MS", Font.BOLD | Font.ITALIC, 40));
+        }
 
 
 
