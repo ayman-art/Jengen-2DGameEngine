@@ -29,7 +29,7 @@ public class WizardProjectile extends Projectile {
         nx = speed * Math.cos(angle);
         ny = speed * Math.sin(angle);
 
-        sprite = Sprite.wizardProjectile;
+        sprite = Sprite.wizardProjectile.rotatedSPrite(angle);
 
         this.clip = Projectile.gunClip;
         playSound();
