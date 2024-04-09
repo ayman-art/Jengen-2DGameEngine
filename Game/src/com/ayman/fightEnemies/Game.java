@@ -47,6 +47,8 @@ public class Game extends Canvas implements Runnable{
 
     private Thread thread;
     public JFrame jFrame;
+    public JButton pauseButton;
+
 
     public Level level;
 
@@ -89,6 +91,16 @@ public class Game extends Canvas implements Runnable{
         game.jFrame.setResizable(false);
         game.jFrame.setTitle("FightEnemies");
         game.jFrame.add(game);
+        pauseButton = new JButton("Pause");
+        pauseButton.addActionListener(e -> {
+            paused = !paused;
+            if(paused) {
+                pauseButton.setText("Resume");
+            } else {
+                pauseButton.setText("Pause");
+            }
+        });
+        game.jFrame.add(pauseButton, BorderLayout.SOUTH);
         game.jFrame.pack();
         game.jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         game.jFrame.setLocationRelativeTo(null);
