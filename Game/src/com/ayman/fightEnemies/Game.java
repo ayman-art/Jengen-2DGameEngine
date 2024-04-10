@@ -22,6 +22,7 @@ import java.awt.*;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
+import java.security.Key;
 
 public class Game extends Canvas implements Runnable{
 
@@ -98,6 +99,7 @@ public class Game extends Canvas implements Runnable{
             if(paused) {
                 pauseButton.setText("Resume");
             } else {
+                game.requestFocus();
                 pauseButton.setText("Pause");
             }
         });

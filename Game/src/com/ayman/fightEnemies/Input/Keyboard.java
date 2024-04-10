@@ -13,6 +13,12 @@ public class Keyboard implements KeyListener {
     public boolean up, down, left, right; //States of the keys
     public boolean s;
 
+    public  void releaseAll() {
+        for(int i = 0; i < 200; i++) {
+            keys[i] = false;
+        }
+    }
+
     public void update() {
 
         up = keys[KeyEvent.VK_UP] ;
