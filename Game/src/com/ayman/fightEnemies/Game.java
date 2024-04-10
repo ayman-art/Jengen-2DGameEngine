@@ -103,7 +103,12 @@ public class Game extends Canvas implements Runnable{
         });
         mainMenuButton.addActionListener(e -> {
             //relaunch the game
-            new AppFrame();
+            try {
+                stop();
+            } catch (InterruptedException ex) {
+                throw new RuntimeException(ex);
+            }
+            AppFrame.getInstance().setGuiState(new com.ayman.fightEnemies.gui.states.MainMenuState());
 
         });
         JPanel jPanel = new JPanel();
@@ -211,11 +216,7 @@ public class Game extends Canvas implements Runnable{
                 frames = 0;
             }
         }
-        try {
-            stop();
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+        thread.interrupt();
     }
 
     public void update() {

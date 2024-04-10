@@ -7,10 +7,11 @@ import javax.swing.*;
 
 public class AppFrame extends JFrame {
 
+    private static AppFrame instance; // Singleton instance
     private GuiState currentState;
 
-
-    public AppFrame() {
+    // Private constructor to prevent external instantiation
+    private AppFrame() {
         super("Main Menu");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(new java.awt.Dimension(800, 600));
@@ -21,17 +22,23 @@ public class AppFrame extends JFrame {
         setGuiState(new MainMenuState());
     }
 
-    public void setGuiState(GuiState state) {
+    // Method to get the singleton instance
+    public static synchronized AppFrame getInstance() {
+        if (instance == null) {
+            instance = new AppFrame();
+        }
+        return instance;
+    }
 
+    public void setGuiState(GuiState state) {
         this.currentState = state;
         state.update(this);
-
     }
 }
 
-
 class RunningApp {
     public static void main(String[] args) {
-        new AppFrame();
+        // Use the singleton instance
+        AppFrame.getInstance();
     }
 }
