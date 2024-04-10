@@ -11,6 +11,7 @@ import com.ayman.fightEnemies.entity.mob.decoratedPlayer.FastPlayer;
 import com.ayman.fightEnemies.entity.mob.decoratedPlayer.HelperFighterDecorator;
 import com.ayman.fightEnemies.entity.mob.decoratedPlayer.InvisibilityDecorator;
 import com.ayman.fightEnemies.entity.projectile.Projectile;
+import com.ayman.fightEnemies.gui.AppFrame;
 import com.ayman.fightEnemies.level.Level;
 import com.ayman.fightEnemies.level.RandomLevel;
 import com.ayman.fightEnemies.level.TileCoordinate;
@@ -30,8 +31,6 @@ public class Game extends Canvas implements Runnable{
     public static final int width = 300;
     public static final int height = width / 12 * 8;
     public static final int scaleFactor = 3;
-
-
     private boolean running = false;
 
 
@@ -48,6 +47,7 @@ public class Game extends Canvas implements Runnable{
     private Thread thread;
     public JFrame jFrame;
     public JButton pauseButton;
+    public JButton mainMenuButton;
 
 
     public Level level;
@@ -92,6 +92,7 @@ public class Game extends Canvas implements Runnable{
         game.jFrame.setTitle("FightEnemies");
         game.jFrame.add(game);
         pauseButton = new JButton("Pause");
+        mainMenuButton = new JButton("Main Menu");
         pauseButton.addActionListener(e -> {
             paused = !paused;
             if(paused) {
@@ -100,7 +101,15 @@ public class Game extends Canvas implements Runnable{
                 pauseButton.setText("Pause");
             }
         });
-        game.jFrame.add(pauseButton, BorderLayout.SOUTH);
+        mainMenuButton.addActionListener(e -> {
+            //relaunch the game
+            new AppFrame();
+
+        });
+        JPanel jPanel = new JPanel();
+        jPanel.add(pauseButton);
+        jPanel.add(mainMenuButton);
+        game.jFrame.add(jPanel, BorderLayout.SOUTH);
         game.jFrame.pack();
         game.jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         game.jFrame.setLocationRelativeTo(null);
@@ -278,8 +287,8 @@ public class Game extends Canvas implements Runnable{
                 Font newFont = currentFont.deriveFont(Font.PLAIN, newSize); // Create a new font with the desired size
                 graphics.setFont(newFont); // Set the graphics object's font to the new font
 
-// Now draw the string with the new font size
-                if(RandomLevel.dsu != null)graphics.drawString(RandomLevel.dsu.getParent()[x + y * 64] + "", xp, yp);
+//// Now draw the string with the new font size
+//                if(RandomLevel.dsu != null)graphics.drawString(RandomLevel.dsu.getParent()[x + y * 64] + "", xp, yp);
 
 // Optionally, set the font back to the original size after drawing the string
                 graphics.setFont(currentFont); // Set the graphics object's font back to the original font

@@ -13,9 +13,9 @@ import java.util.*;
 public class RandomLevel extends Level {
 
     private static final Random random = new Random();
-    private static volatile boolean done = false;
+    private volatile boolean done = false;
     int attempts = 0;
-    public static DSU dsu = new DSU(64 * 64 );
+    public DSU dsu = new DSU(64 * 64 );
     int counter = 1;
     public RandomLevel(int width, int height) {
         super(width, height);
@@ -276,7 +276,7 @@ public class RandomLevel extends Level {
                 synchronized (this) {
                     this.tiles = tiles;
                 }
-                RandomLevel.dsu = dsu;
+
             }
         }
         return;
