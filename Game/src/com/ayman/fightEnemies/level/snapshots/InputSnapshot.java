@@ -1,5 +1,8 @@
 package com.ayman.fightEnemies.level.snapshots;
 
+import com.ayman.fightEnemies.Input.Keyboard;
+import com.ayman.fightEnemies.Input.Mouse;
+
 import java.util.Optional;
 
 public class InputSnapshot {

@@ -15,6 +15,8 @@ import com.ayman.fightEnemies.gui.AppFrame;
 import com.ayman.fightEnemies.level.Level;
 import com.ayman.fightEnemies.level.RandomLevel;
 import com.ayman.fightEnemies.level.TileCoordinate;
+import com.ayman.fightEnemies.level.snapshots.InputCareTaker;
+import com.ayman.fightEnemies.level.snapshots.InputSnapshot;
 import com.ayman.fightEnemies.level.snapshots.LevelCareTaker;
 
 import javax.swing.*;
@@ -64,6 +66,7 @@ public class Game extends Canvas implements Runnable{
     final String playerName;
 
     private LevelCareTaker levelCareTaker = new LevelCareTaker();
+    private InputCareTaker inputCareTaker = new InputCareTaker();
     private Mouse mouse;
 
     public Game(String playerName, JFrame jFrame) {
@@ -130,15 +133,24 @@ public class Game extends Canvas implements Runnable{
 
         if(playingRecording) {
             showRecordingButton.setText("Stop Playing");
+            mouse.responsive = false;
+            keyboard.resposive = false;
+            synchronized (level) {
+                level.restoreSnapshot(levelCareTaker.getNextSnapshot());
+                int a = 43;
+            }
 
         } else {
             showRecordingButton.setText("Play Recording");
-            level.restoreSnapshot(levelCareTaker.getLastSnapshot());
-            levelCareTaker.reset();
+//            level.restoreSnapshot(levelCareTaker.getLastSnapshot());
+//            levelCareTaker.reset();
             paused = false;
 
             keyboard.releaseAll();
             game.requestFocus(); //request focus for the game
+
+            mouse.responsive = true;
+            keyboard.resposive = true;
         }
     });
 
@@ -212,6 +224,7 @@ public class Game extends Canvas implements Runnable{
 
                 if(!playingRecording) {
                     levelCareTaker.addSnapshot(level.takeSnapshot());
+                    inputCareTaker.addSnapshot(new InputSnapshot(mouse.takeSnapshot(), keyboard.takeSnapshot()));
                 } else {
                     playRecording();
                 }
@@ -243,8 +256,11 @@ public class Game extends Canvas implements Runnable{
 
     private void playRecording() {
 
-        if(levelCareTaker.hasNext()) {
-            level.restoreSnapshot(levelCareTaker.getNextSnapshot());
+
+        if(inputCareTaker.hasNext()) {
+InputSnapshot inputSnapshot = inputCareTaker.getNextSnapshot();
+            mouse.restoreSnapshot(inputSnapshot.mouseSnapshot);
+            keyboard.restoreSnapshot(inputSnapshot.keyboardSnapshot);
 //                        System.out.println("restoring");
         } else {
 

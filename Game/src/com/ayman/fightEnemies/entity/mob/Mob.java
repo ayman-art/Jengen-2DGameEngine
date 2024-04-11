@@ -74,6 +74,7 @@ public abstract class Mob extends Entity implements IMob, Cloneable {
                         getLevel().removeTile(xt, yt);
                         try {
                             Clip clip = Projectile.break_tileClip;
+                            System.out.println("Playgin sound");
 
                             clip.setFramePosition(0);
                             clip.start();

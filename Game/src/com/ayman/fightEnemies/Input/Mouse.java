@@ -76,4 +76,8 @@ public class Mouse implements MouseListener, MouseMotionListener {
         mouseY = snapshot.y();
         mouseButton = snapshot.button();
     }
+
+    public InputSnapshot.MouseSnapshot takeSnapshot() {
+        return new InputSnapshot.MouseSnapshot(mouseX, mouseY, mouseButton);
+    }
 }

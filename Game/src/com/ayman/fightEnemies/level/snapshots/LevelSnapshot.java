@@ -1,6 +1,5 @@
 package com.ayman.fightEnemies.level.snapshots;
 
-import com.ayman.fightEnemies.entity.Entity;
 import com.ayman.fightEnemies.entity.IEntity;
 import com.ayman.fightEnemies.entity.particle.Particle;
 import com.ayman.fightEnemies.entity.projectile.Projectile;
@@ -8,8 +7,9 @@ import com.ayman.fightEnemies.entity.projectile.Projectile;
 import java.util.ArrayList;
 import java.util.List;
 
-public record LevelSnapshot(List<IEntity> mobs, List<Projectile> projectiles, List<Particle> particles) {
-    public LevelSnapshot(List<IEntity> mobs, List<Projectile> projectiles, List<Particle> particles) {
+public record LevelSnapshot(int[] tiles, List<IEntity> mobs, List<Projectile> projectiles, List<Particle> particles) {
+    public LevelSnapshot(int[] tiles, List<IEntity> mobs, List<Projectile> projectiles, List<Particle> particles) {
+        this.tiles = tiles.clone();
         this.mobs = new ArrayList<>();
         for (IEntity mob : mobs) {
             try {

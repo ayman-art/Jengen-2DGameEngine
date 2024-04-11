@@ -395,10 +395,11 @@ public class Level {
     }
 
     public LevelSnapshot takeSnapshot() {
-        return new LevelSnapshot(mobs, projectiles, particles);
+        return new LevelSnapshot(tiles, mobs, projectiles, particles);
     }
 
     public void restoreSnapshot(LevelSnapshot snapshot) {
+        tiles = snapshot.tiles();
         mobs = snapshot.mobs();
         projectiles = snapshot.projectiles();
         particles = snapshot.particles();

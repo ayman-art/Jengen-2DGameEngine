@@ -14,6 +14,8 @@ public class Keyboard implements KeyListener {
     public boolean up, down, left, right; //States of the keys
     public boolean s;
 
+    public boolean resposive = true;
+
     public  void releaseAll() {
         for(int i = 0; i < 200; i++) {
             keys[i] = false;
@@ -21,6 +23,9 @@ public class Keyboard implements KeyListener {
     }
 
     public void update() {
+        if(!resposive) {
+            return;
+        }
 
         up = keys[KeyEvent.VK_UP] ;
         down = keys[KeyEvent.VK_DOWN] ;
@@ -64,4 +69,9 @@ public class Keyboard implements KeyListener {
         this.right = snapshot.right();
         this.s = snapshot.s();
     }
+
+    public InputSnapshot.KeyboardSnapshot takeSnapshot() {
+        return new InputSnapshot.KeyboardSnapshot(up, down, left, right, s);
+    }
+
 }

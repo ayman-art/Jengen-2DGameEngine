@@ -10,9 +10,9 @@ public class InputCareTaker {
 
 
     public void addSnapshot(InputSnapshot snapshot) {
-        if (inputSnapshots.size() >= MAX_SIZE) {
-            inputSnapshots.poll();
-        }
+//        if (inputSnapshots.size() >= MAX_SIZE) {
+//            inputSnapshots.poll();
+//        }
         inputSnapshots.add(snapshot);
     }
 

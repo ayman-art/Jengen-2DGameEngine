@@ -12,7 +12,7 @@ public class FastPlayer extends DecoratedPlayer {
 
     public FastPlayer(IPlayer player) {
         super(player);
-        this.time = 100;
+        this.time = 0;
         this.initialSpeed = player.getSpeed();
         player.setSpeed(4 * player.getSpeed());
     }
