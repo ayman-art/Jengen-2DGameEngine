@@ -156,6 +156,21 @@ public class Sprite {
 
 
 
+    public Sprite shift(int x, int y) {
+        int[] newPixels = new int[pixels.length];
+        Arrays.fill(newPixels, pixels[0]);
+        for(int yy = 0; yy < SIZE; yy++) {
+            for(int xx = 0; xx < SIZE; xx++) {
+                int x0 = xx - x;
+                int y0 = yy - y;
+                if(x0 < 0 || x0 >= SIZE || y0 < 0 || y0 >= SIZE) continue;
+                newPixels[xx + yy * SIZE] = pixels[x0 + y0 * SIZE];
+            }
+        }
+        return new Sprite(newPixels, SIZE, SIZE);
+    }
+
+
 
 
 }

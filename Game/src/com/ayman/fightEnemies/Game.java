@@ -98,7 +98,7 @@ public class Game extends Canvas implements Runnable{
         player = new BreakTilesDecorator(player);
         level.add(new HelperFighterDecorator(player));
         level.add(new Chaser(1, 1));
-        level.addEffect(new Effect(new Vector2i(2 * 16, 2* 16), new AnimatedSprite(SpriteSheet.coin, 1)));
+        level.addEffect(new Effect(new Vector2i(2 * 16, 2* 16), Effect.coinAnimatedSprite));
 
 
         Game game = this;
@@ -315,10 +315,10 @@ InputSnapshot inputSnapshot = inputCareTaker.getNextSnapshot();
         int yScroll = player.getY() - screen.height / 2;
 
 
-        if(time % (60*5) == 0) {
+        if(time % (60*50) == 0) {
             xDelta *= -1;
         }
-        if((time + 30 * 5) % (60 * 5) == 0) {
+        if((time + 30 * 50) % (60 * 50) == 0) {
             yDelta *= -1;
         }
         level.render(xScroll + yDelta , yScroll + xDelta, screen);

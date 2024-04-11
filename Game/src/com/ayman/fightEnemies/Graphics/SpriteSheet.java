@@ -39,6 +39,8 @@ public class SpriteSheet {
             coin = new SpriteSheet(tiles,0, 1, 1, 1, 16);
 
 
+
+
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

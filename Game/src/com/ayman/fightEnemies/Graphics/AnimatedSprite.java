@@ -18,6 +18,10 @@ public class AnimatedSprite implements Cloneable{
             }
     }
 
+    public AnimatedSprite(Sprite[] sprites) {
+        this.sprites = sprites;
+    }
+
    private void loadHorizontal(SpriteSheet sheet, int numSprites) {
         sprites = new Sprite[numSprites];
 
@@ -66,5 +70,9 @@ public class AnimatedSprite implements Cloneable{
         this.rate = animatedSprite.rate;
         this.time = animatedSprite.time;
         this.frame = animatedSprite.frame;
+    }
+
+    public void setRate(int rate) {
+        this.rate = rate;
     }
 }
