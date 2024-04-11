@@ -2,10 +2,10 @@ package com.ayman.fightEnemies.level.snapshots;
 
 import java.util.Optional;
 
-public record  InputSnapShot(int[] keys, Optional<Double> mouseCoords) {
+public record InputSnapshot(int[] keys, Optional<Double> mouseCoords) {
 
 
-    public InputSnapShot(int[] keys) {
+    public InputSnapshot(int[] keys) {
         this(keys, Optional.empty());
     }
 
