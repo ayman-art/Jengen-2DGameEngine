@@ -22,4 +22,19 @@ public class LevelCareTaker {
     public void reset() {
         levelSnapshots.clear();
     }
+
+    public boolean hasNext() {
+        return !levelSnapshots.isEmpty();
+    }
+
+    public LevelSnapshot getNextSnapshot() {
+        LevelSnapshot ret = levelSnapshots.get(0);
+        levelSnapshots.remove(0);
+        return ret;
+
+    }
+
+    public LevelSnapshot getLastSnapshot() {
+        return levelSnapshots.get(levelSnapshots.size() - 1);
+    }
 }

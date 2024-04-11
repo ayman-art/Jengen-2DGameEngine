@@ -32,6 +32,7 @@ public class Game extends Canvas implements Runnable{
     public static final int width = 300;
     public static final int height = width / 12 * 8;
     public static final int scaleFactor = 3;
+    private  boolean playingRecording = false;
     private boolean running = false;
 
 
@@ -42,6 +43,7 @@ public class Game extends Canvas implements Runnable{
 
     private Screen screen;
     public Keyboard keyboard;
+    public long lastTime = 0;
 
 
 
@@ -49,6 +51,7 @@ public class Game extends Canvas implements Runnable{
     public JFrame jFrame;
     public JButton pauseButton;
     public JButton mainMenuButton;
+    public JButton showRecordingButton;
 
 
     public Level level;
@@ -92,9 +95,12 @@ public class Game extends Canvas implements Runnable{
         game.jFrame.setResizable(false);
         game.jFrame.setTitle("FightEnemies");
         game.jFrame.add(game);
+        showRecordingButton = new JButton("Play Recording");
         pauseButton = new JButton("Pause");
         mainMenuButton = new JButton("Main Menu");
+
         pauseButton.addActionListener(e -> {
+            playingRecording = false;
             paused = !paused;
             if(paused) {
                 pauseButton.setText("Resume");
@@ -106,6 +112,7 @@ public class Game extends Canvas implements Runnable{
         mainMenuButton.addActionListener(e -> {
             //relaunch the game
             try {
+                playingRecording = false;
                 stop();
             } catch (InterruptedException ex) {
                 throw new RuntimeException(ex);
@@ -113,7 +120,29 @@ public class Game extends Canvas implements Runnable{
             AppFrame.getInstance().setGuiState(new com.ayman.fightEnemies.gui.states.MainMenuState());
 
         });
+
+
+    showRecordingButton.addActionListener(e -> {
+        playingRecording = !playingRecording;
+
+        if(playingRecording) {
+            showRecordingButton.setText("Stop Playing");
+
+        } else {
+            showRecordingButton.setText("Play Recording");
+            level.restoreSnapshot(levelCareTaker.getLastSnapshot());
+            levelCareTaker.reset();
+            paused = false;
+
+            game.requestFocus(); //request focus for the game
+        }
+    });
+
+
+
+
         JPanel jPanel = new JPanel();
+        jPanel.add(showRecordingButton);
         jPanel.add(pauseButton);
         jPanel.add(mainMenuButton);
         game.jFrame.add(jPanel, BorderLayout.SOUTH);
@@ -162,7 +191,7 @@ public class Game extends Canvas implements Runnable{
 
         running = true;
 
-        long lastTime = System.nanoTime();
+        lastTime = System.nanoTime();
         long timer = System.currentTimeMillis();
         long counter = 0;
         final double ns = 1000000000.0 / 60.0; //for converting to one of sixty part of second
@@ -176,31 +205,28 @@ public class Game extends Canvas implements Runnable{
             lastTime = now;
 
             while(delta >= 1) {
+
+                if(!playingRecording) {
+
+                    levelCareTaker.addSnapshot(level.takeSnapshot());
+
+
+                } else {
+                    if(levelCareTaker.hasNext()) {
+                        level.restoreSnapshot(levelCareTaker.getNextSnapshot());
+//                        System.out.println("restoring");
+                    } else {
+                        playingRecording = false;
+                        paused = false;
+                        showRecordingButton.setText("Play Recording");
+                    }
+                }
                 counter++;
                 update();
                 updates++;
                 delta--;
 
 
-                levelCareTaker.addSnapshot(level.takeSnapshot());
-                boolean recording = false;
-                if(counter % 600 == 0 && recording) {
-                    int a= 4;
-                    for(int i = 0; i < levelCareTaker.getNumberOfSnapshots(); i++) {
-                        level.restoreSnapshot(levelCareTaker.getSnapshot(i));
-                        try {
-                            Thread.sleep(1000 / 60);
-                            System.out.println("Playing back the recording" + i);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                        render();
-                        lastTime = System.nanoTime(); // To avoid the huge delta time update
-                    }
-
-                    levelCareTaker.reset();
-                    counter = 1;
-                }
             }
 
             //render limit without limit
