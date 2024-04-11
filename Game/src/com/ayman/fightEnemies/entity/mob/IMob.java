@@ -2,7 +2,6 @@ package com.ayman.fightEnemies.entity.mob;
 
 import com.ayman.fightEnemies.Graphics.Screen;
 import com.ayman.fightEnemies.Graphics.Sprite;
-import com.ayman.fightEnemies.entity.Entity;
 import com.ayman.fightEnemies.entity.IEntity;
 import com.ayman.fightEnemies.entity.projectile.Projectile;
 
@@ -30,7 +29,7 @@ public interface IMob extends IEntity {
 
 
     @Override
-    public Entity clone() throws CloneNotSupportedException;
+    public IMob clone() throws CloneNotSupportedException;
 
     int getSpeed();
     void setSpeed(int speed);

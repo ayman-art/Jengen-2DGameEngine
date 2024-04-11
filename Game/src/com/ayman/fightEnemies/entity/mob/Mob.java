@@ -4,6 +4,7 @@ import com.ayman.fightEnemies.Graphics.AnimatedSprite;
 import com.ayman.fightEnemies.Graphics.Screen;
 import com.ayman.fightEnemies.Graphics.Sprite;
 import com.ayman.fightEnemies.entity.Entity;
+import com.ayman.fightEnemies.entity.IEntity;
 import com.ayman.fightEnemies.entity.spawner.ParticleSpawner;
 import com.ayman.fightEnemies.entity.projectile.Projectile;
 import com.ayman.fightEnemies.entity.projectile.WizardProjectile;
@@ -159,7 +160,7 @@ public abstract class Mob extends Entity implements IMob, Cloneable {
 
 
     @Override
-    public Entity clone() throws CloneNotSupportedException {
+    public IMob clone() throws CloneNotSupportedException {
         Mob ret = (Mob) super.clone();
         ret.currentAnimatedSprite = currentAnimatedSprite.clone(); //deep copy
         return ret;

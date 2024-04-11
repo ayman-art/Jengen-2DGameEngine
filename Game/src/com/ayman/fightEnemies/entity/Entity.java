@@ -34,7 +34,7 @@ public abstract class Entity implements IEntity, Cloneable {
         return removed;
     }
 
-public Entity clone() throws CloneNotSupportedException {
+public IEntity clone() throws CloneNotSupportedException {
         return (Entity) super.clone();
     }
 
