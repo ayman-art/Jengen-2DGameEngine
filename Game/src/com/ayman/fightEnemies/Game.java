@@ -104,12 +104,12 @@ public class Game extends Canvas implements Runnable{
         mainMenuButton = new JButton("Main Menu");
 
         pauseButton.addActionListener(e -> {
-            playingRecording = false;
             paused = !paused;
             if(paused) {
                 pauseButton.setText("Resume");
             } else {
                 game.requestFocus();
+                keyboard.releaseAll();
                 pauseButton.setText("Pause");
             }
         });
@@ -222,7 +222,7 @@ public class Game extends Canvas implements Runnable{
 
             while(delta >= 1) {
 
-                if(!playingRecording) {
+                if(!playingRecording && !paused) {
                     levelCareTaker.addSnapshot(level.takeSnapshot());
                     inputCareTaker.addSnapshot(new InputSnapshot(mouse.takeSnapshot(), keyboard.takeSnapshot()));
                 } else {
@@ -255,6 +255,7 @@ public class Game extends Canvas implements Runnable{
     }
 
     private void playRecording() {
+        if(paused) return;
 
 
         if(inputCareTaker.hasNext()) {
