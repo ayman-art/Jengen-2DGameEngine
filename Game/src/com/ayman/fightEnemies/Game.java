@@ -14,6 +14,7 @@ import com.ayman.fightEnemies.entity.projectile.Projectile;
 import com.ayman.fightEnemies.gui.AppFrame;
 import com.ayman.fightEnemies.level.Level;
 import com.ayman.fightEnemies.level.RandomLevel;
+import com.ayman.fightEnemies.level.SpawnLevel;
 import com.ayman.fightEnemies.level.TileCoordinate;
 import com.ayman.fightEnemies.level.snapshots.InputCareTaker;
 import com.ayman.fightEnemies.level.snapshots.InputSnapshot;
@@ -88,9 +89,10 @@ public class Game extends Canvas implements Runnable{
         jFrame.setLayout(new BorderLayout());
 
 //        level = new RandomLevel(64, 64);
-        level = new RandomLevel(64, 64);
-
-        TileCoordinate playerSpawn = new TileCoordinate(62, 62);
+//        level = new RandomLevel(64, 64);
+        level = new SpawnLevel("C:\\Projects\\JavaGames\\Fight-Enemies\\level11.txt");
+        ((SpawnLevel) level).writeToFile("level11.txt");
+        TileCoordinate playerSpawn = new TileCoordinate(level.getWidth()-2, level.getHeight()-2);
         IPlayer player = new InvisibilityDecorator(new FastPlayer(new Player(playerName ,playerSpawn.x(), playerSpawn.y(), keyboard, mouse)));
         player = new BreakTilesDecorator(player);
         level.add(new HelperFighterDecorator(player));

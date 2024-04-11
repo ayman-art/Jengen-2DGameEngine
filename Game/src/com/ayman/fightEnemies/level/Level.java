@@ -22,7 +22,7 @@ public class Level {
 
     protected int width, height;
     protected int[] tiles;
-    public static Level spawn = new SpawnLevel("resources\\Sheets\\level1.png");
+//    public static Level spawn = new SpawnLevel("resources\\Sheets\\level1.png");
     private List<IEntity> mobs = new ArrayList<>();
     private List<Projectile> projectiles = new ArrayList<>();
     private List<Particle> particles = new ArrayList<>();
@@ -426,5 +426,13 @@ public class Level {
         int x = xt / 16;
         int y = yt / 16;
         this.tiles[xt + yt * width] = Tile.grassColor;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
     }
 }
