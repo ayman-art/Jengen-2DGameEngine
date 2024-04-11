@@ -64,6 +64,8 @@ public class Game extends Canvas implements Runnable{
     final String playerName;
 
     private LevelCareTaker levelCareTaker = new LevelCareTaker();
+    private Mouse mouse;
+
     public Game(String playerName, JFrame jFrame) {
         Projectile.init();
         this.playerName = playerName;
@@ -74,6 +76,7 @@ public class Game extends Canvas implements Runnable{
 
         screen = new Screen(width, height);
         keyboard = new Keyboard();
+        mouse = new Mouse();
         addKeyListener(keyboard);
 
         Mouse mouse = new Mouse();
@@ -87,7 +90,7 @@ public class Game extends Canvas implements Runnable{
         level = new RandomLevel(64, 64);
 
         TileCoordinate playerSpawn = new TileCoordinate(62, 62);
-        IPlayer player = new InvisibilityDecorator(new FastPlayer(new Player(playerName ,playerSpawn.x(), playerSpawn.y(), keyboard)));
+        IPlayer player = new InvisibilityDecorator(new FastPlayer(new Player(playerName ,playerSpawn.x(), playerSpawn.y(), keyboard, mouse)));
         player = new BreakTilesDecorator(player);
         level.add(new HelperFighterDecorator(player));
 
@@ -208,26 +211,9 @@ public class Game extends Canvas implements Runnable{
             while(delta >= 1) {
 
                 if(!playingRecording) {
-
                     levelCareTaker.addSnapshot(level.takeSnapshot());
-
-
                 } else {
-                    if(levelCareTaker.hasNext()) {
-                        level.restoreSnapshot(levelCareTaker.getNextSnapshot());
-//                        System.out.println("restoring");
-                    } else {
-
-
-                        showRecordingButton.setText("Play Recording");
-//                        level.restoreSnapshot(levelCareTaker.getLastSnapshot());
-//                        levelCareTaker.reset();
-                        paused = false;
-                        playingRecording = false;
-
-                        keyboard.releaseAll();
-                        this.requestFocus(); //request focus for the game
-                    }
+                    playRecording();
                 }
                 counter++;
                 update();
@@ -255,12 +241,30 @@ public class Game extends Canvas implements Runnable{
         thread.interrupt();
     }
 
+    private void playRecording() {
+
+        if(levelCareTaker.hasNext()) {
+            level.restoreSnapshot(levelCareTaker.getNextSnapshot());
+//                        System.out.println("restoring");
+        } else {
+
+
+            showRecordingButton.setText("Play Recording");
+            levelCareTaker.reset();
+            paused = false;
+            playingRecording = false;
+
+            keyboard.releaseAll();
+            this.requestFocus(); //request focus for the game
+        }
+    }
     public void update() {
         if(paused) return;
 
+        keyboard.update();
+        mouse.update();
         level.update();
 
-        keyboard.update();
 
 
     }
@@ -302,7 +306,7 @@ public class Game extends Canvas implements Runnable{
         graphics.setColor(Color.black);
         graphics.setFont(new Font("Verdana", Font.PLAIN, 50));
         graphics.drawString("X: " + player.getX()/16 + ", Y: " + player.getY()/16, 450, 450);
-        graphics.drawString(Mouse.getButton() + "", 80, 80);
+        graphics.drawString(mouse.getButton() + "", 80, 80);
 
 
 
@@ -332,7 +336,7 @@ public class Game extends Canvas implements Runnable{
 
             }
         }
-        graphics.fillRect(Mouse.getX() , Mouse.getY(), 8, 8);
+        graphics.fillRect(mouse.getX() , mouse.getY(), 8, 8);
         graphics.dispose();
         bufferStrategy.show();
 

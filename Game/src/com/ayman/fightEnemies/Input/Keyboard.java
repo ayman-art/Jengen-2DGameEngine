@@ -1,6 +1,7 @@
 package com.ayman.fightEnemies.Input;
 
 import com.ayman.fightEnemies.Game;
+import com.ayman.fightEnemies.level.snapshots.InputSnapshot;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -26,8 +27,6 @@ public class Keyboard implements KeyListener {
         left = keys[KeyEvent.VK_LEFT] ;
         right = keys[KeyEvent.VK_RIGHT] ;
         s = keys[KeyEvent.VK_S] ;
-
-        System.out.println("up: " + up + " down: " + down + " left: " + left + " right: " + right + " s: " + s);
 
 
     }
@@ -56,5 +55,13 @@ public class Keyboard implements KeyListener {
     public void keyReleased(KeyEvent e) {
 
         keys[e.getKeyCode()] = false;
+    }
+
+    public void restoreSnapshot(InputSnapshot.KeyboardSnapshot snapshot) {
+        this.up = snapshot.up();
+        this.down = snapshot.down();
+        this.left = snapshot.left();
+        this.right = snapshot.right();
+        this.s = snapshot.s();
     }
 }

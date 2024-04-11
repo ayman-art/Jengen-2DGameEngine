@@ -1,5 +1,8 @@
 package com.ayman.fightEnemies.Input;
 
+import com.ayman.fightEnemies.level.snapshots.InputCareTaker;
+import com.ayman.fightEnemies.level.snapshots.InputSnapshot;
+
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -7,19 +10,20 @@ import java.awt.event.MouseMotionListener;
 public class Mouse implements MouseListener, MouseMotionListener {
 
 
-    private static int mouseX = -1;
-    private static int mouseY = -1;
-    private static int mouseButton = -1;
+    private int mouseX = -1;
+    private int mouseY = -1;
+    private int mouseButton = -1;
+    public boolean responsive = true;
 
-    public static int getX() {
+    public int getX() {
         return mouseX;
     }
 
-    public static int getY() {
+    public int getY() {
         return mouseY;
     }
 
-    public static int getButton() {
+    public int getButton() {
         return mouseButton;
     }
 
@@ -30,12 +34,12 @@ public class Mouse implements MouseListener, MouseMotionListener {
 
     @Override
     public void mousePressed(MouseEvent e) {
-            mouseButton = e.getButton();
+        mouseButton = e.getButton();
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-            mouseButton = -1;
+        mouseButton = -1;
     }
 
     @Override
@@ -50,13 +54,26 @@ public class Mouse implements MouseListener, MouseMotionListener {
 
     @Override
     public void mouseDragged(MouseEvent e) {
-        mouseX = e.getX();
-        mouseY = e.getY();
+        if (responsive) {
+            mouseX = e.getX();
+            mouseY = e.getY();
+        }
     }
 
     @Override
     public void mouseMoved(MouseEvent e) {
-        mouseX = e.getX();
-        mouseY = e.getY();
+        if (responsive) {
+            mouseX = e.getX();
+            mouseY = e.getY();
+        }
+    }
+
+    public void update() {
+    }
+
+    public void restoreSnapshot(InputSnapshot.MouseSnapshot snapshot) {
+        mouseX = snapshot.x();
+        mouseY = snapshot.y();
+        mouseButton = snapshot.button();
     }
 }

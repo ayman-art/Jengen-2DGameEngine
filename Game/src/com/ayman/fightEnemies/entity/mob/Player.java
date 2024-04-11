@@ -14,7 +14,8 @@ public class Player extends Mob implements IPlayer {
 
     private String name;
 
-    private final Keyboard input;
+    private final Keyboard keyboard;
+    private final Mouse mouse;
     private Projectile projectile;
     private int fireInterval = 0;
 
@@ -30,11 +31,12 @@ public class Player extends Mob implements IPlayer {
     private final AnimatedSprite right = new AnimatedSprite(SpriteSheet.player_right, 1);
 
 
-    public Player(Keyboard input) {
-        this.input = input;
+    public Player(Keyboard keyboard, Mouse mouse) {
+        this.keyboard = keyboard;
+        this.mouse = mouse;
     }
     public Player(Player copy) {
-        this(copy.x, copy.y, copy.input); //call the constructor that takes x, y, and input (Keyboard
+        this(copy.x, copy.y, copy.keyboard, copy.mouse); //call the constructor that takes x, y, and input (Keyboard
         this.projectile = copy.projectile;
         this.fireInterval = copy.fireInterval;
         this.visible = copy.visible;
@@ -45,11 +47,15 @@ public class Player extends Mob implements IPlayer {
 
         fireInterval = WizardProjectile.FIRE_INTERVAL;
     }
-    public Player() {input = null;}
-    public Player(int x, int y, Keyboard input) { //if we want to spawn the player at a specific location
+    public Player() {
+        keyboard = null;
+        mouse = null;
+    }
+    public Player(int x, int y, Keyboard keyboard, Mouse mouse) { //if we want to spawn the player at a specific location
         this.x = x;
         this.y = y;
-        this.input = input;
+        this.keyboard = keyboard;
+        this.mouse = mouse;
         this.currentAnimatedSprite = down;
 
         fireInterval = WizardProjectile.FIRE_INTERVAL;
@@ -57,28 +63,28 @@ public class Player extends Mob implements IPlayer {
 
 
 
-    public Player(String name, int x, int y, Keyboard input) {
-        this(x, y, input);
+    public Player(String name, int x, int y, Keyboard keyboard, Mouse mouse) {
+        this(x, y, keyboard, mouse);
         this.name = name;
     }
 
 
     public void update() {
-        if(input == null) return;
+        if(keyboard == null) return;
         int xa = 0, ya = 0;
-        if(input.up) {
+        if(keyboard.up) {
             ya--;
             currentAnimatedSprite = up;
         }
-        if(input.down) {
+        if(keyboard.down) {
             ya++;
             currentAnimatedSprite = down;
         }
-        if(input.left) {
+        if(keyboard.left) {
             xa--;
             currentAnimatedSprite = left;
         }
-        if(input.right) {
+        if(keyboard.right) {
             xa++;
             currentAnimatedSprite = right;
         }
@@ -152,9 +158,10 @@ public class Player extends Mob implements IPlayer {
             return;
         }
 
-        if(Mouse.getButton() == 1) {
-            double dx = Mouse.getX() - (double) (Game.width * Game.scaleFactor) / 2;
-            double dy = Mouse.getY() - (double) (Game.height * Game.scaleFactor) / 2;
+        assert mouse != null;
+        if(mouse.getButton() == 1) {
+            double dx = mouse.getX() - (double) (Game.width * Game.scaleFactor) / 2;
+            double dy = mouse.getY() - (double) (Game.height * Game.scaleFactor) / 2;
 
 //            System.out.println("dx: " + dx + ", dy: " + dy);
             double dir = Math.atan2(dy, dx);

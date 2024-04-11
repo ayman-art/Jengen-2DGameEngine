@@ -8,6 +8,7 @@ public class InputCareTaker {
     private final Queue<InputSnapshot> inputSnapshots = new LinkedList<>();
     private static int MAX_SIZE = 1000;
 
+
     public void addSnapshot(InputSnapshot snapshot) {
         if (inputSnapshots.size() >= MAX_SIZE) {
             inputSnapshots.poll();
