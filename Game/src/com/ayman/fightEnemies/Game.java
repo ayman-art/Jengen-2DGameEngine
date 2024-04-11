@@ -55,7 +55,7 @@ public class Game extends Canvas implements Runnable{
     public JButton showRecordingButton;
 
 
-    public Level level;
+    public final Level level;
 
 
     public static boolean paused = false;
@@ -135,7 +135,6 @@ public class Game extends Canvas implements Runnable{
             keyboard.responsive = false;
             synchronized (level) {
                 level.restoreSnapshot(levelCareTaker.getNextSnapshot());
-                int a = 43;
             }
 
         } else {
@@ -143,6 +142,9 @@ public class Game extends Canvas implements Runnable{
 //            level.restoreSnapshot(levelCareTaker.getLastSnapshot());
 //            levelCareTaker.reset();
             paused = false;
+            level.restoreSnapshot(levelCareTaker.getLastSnapshot());
+            levelCareTaker.reset();
+            inputCareTaker.reset();
 
             keyboard.releaseAll();
             game.requestFocus(); //request focus for the game

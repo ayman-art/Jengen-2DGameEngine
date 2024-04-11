@@ -44,8 +44,8 @@ public class HelperFighterDecorator extends DecoratedPlayer {
     @Override
     public IPlayer clone() throws CloneNotSupportedException {
         var ret = new HelperFighterDecorator((IPlayer) player.clone());
-        ret.time = time;
         ret.player = (IPlayer) player.clone();
+        ret.time = time;
         ret.helper = helper;
         return ret;
     }
