@@ -31,4 +31,12 @@ public class InvisibilityDecorator extends DecoratedPlayer {
     public void removeDecoration() {
         player.setVisible(true);
     }
+
+    @Override
+    public IPlayer clone() throws CloneNotSupportedException {
+        var ret = new InvisibilityDecorator((IPlayer) player.clone());
+        ret.player = (IPlayer) player.clone();
+        ret.time = time;
+        return ret;
+    }
 }

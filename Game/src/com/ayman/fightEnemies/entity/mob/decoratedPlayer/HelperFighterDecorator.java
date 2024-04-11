@@ -7,7 +7,7 @@ public class HelperFighterDecorator extends DecoratedPlayer {
     Helper helper;
     public HelperFighterDecorator(IPlayer player) {
         super(player);
-        time = 2000;
+        time = 200;
         System.out.println("HelperFighterDecorator1");
 
 
@@ -40,5 +40,13 @@ public class HelperFighterDecorator extends DecoratedPlayer {
         System.out.println("Removing the helper");
         helper.remove();
 
+    }
+    @Override
+    public IPlayer clone() throws CloneNotSupportedException {
+        var ret = new HelperFighterDecorator((IPlayer) player.clone());
+        ret.time = time;
+        ret.player = (IPlayer) player.clone();
+        ret.helper = helper;
+        return ret;
     }
 }

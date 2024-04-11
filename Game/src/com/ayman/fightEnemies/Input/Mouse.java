@@ -9,11 +9,10 @@ import java.awt.event.MouseMotionListener;
 
 public class Mouse implements MouseListener, MouseMotionListener {
 
-
     private int mouseX = -1;
     private int mouseY = -1;
     private int mouseButton = -1;
-    public boolean responsive = true;
+    public volatile boolean  responsive = true;
 
     public int getX() {
         return mouseX;
@@ -34,12 +33,12 @@ public class Mouse implements MouseListener, MouseMotionListener {
 
     @Override
     public void mousePressed(MouseEvent e) {
-        mouseButton = e.getButton();
+        if(responsive)mouseButton = e.getButton();
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        mouseButton = -1;
+        if(responsive)mouseButton = -1;
     }
 
     @Override
@@ -62,13 +61,16 @@ public class Mouse implements MouseListener, MouseMotionListener {
 
     @Override
     public void mouseMoved(MouseEvent e) {
+        System.out.println("Mouse moved_________________________________________________________________________");
         if (responsive) {
+            System.out.println("Mouse moved|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
             mouseX = e.getX();
             mouseY = e.getY();
         }
     }
 
     public void update() {
+        System.out.println(responsive);
     }
 
     public void restoreSnapshot(InputSnapshot.MouseSnapshot snapshot) {
@@ -78,6 +80,7 @@ public class Mouse implements MouseListener, MouseMotionListener {
     }
 
     public InputSnapshot.MouseSnapshot takeSnapshot() {
+        System.out.println("Mouse snapshot taken   ________________________________________________________");
         return new InputSnapshot.MouseSnapshot(mouseX, mouseY, mouseButton);
     }
 }

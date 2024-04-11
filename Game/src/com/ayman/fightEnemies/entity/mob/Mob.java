@@ -102,7 +102,7 @@ public abstract class Mob extends Entity implements IMob, Cloneable {
             int xc = x + corner[0] + xa;
             int yc = y + corner[1] + ya;
             System.out.println((xc >> 4) + ", " + (yc >> 4));
-            System.out.println(level.getTile(xc >> 4, yc >> 4));
+//            System.out.println(level.getTile(xc >> 4, yc >> 4));
             if (level.getTile(xc >> 4, yc >> 4).isSolid()) {
                 return true;
             }
@@ -113,6 +113,7 @@ public abstract class Mob extends Entity implements IMob, Cloneable {
     public void shoot(int x, int y, double dir) {
 
         Projectile projectile = new WizardProjectile(x + 6, y, dir, level);
+        System.out.println("||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
         projectiles.add(projectile);
         level.addProjectile(projectile);
 

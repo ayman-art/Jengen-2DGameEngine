@@ -26,7 +26,7 @@ public class FastPlayer extends DecoratedPlayer {
         }
 
         player.update();
-        System.out.println("FastPlayer");
+//        System.out.println("FastPlayer");
 
         time--;
         if(time == 0) {

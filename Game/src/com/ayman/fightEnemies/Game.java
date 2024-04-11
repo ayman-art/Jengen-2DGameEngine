@@ -24,7 +24,6 @@ import java.awt.*;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
-import java.security.Key;
 
 public class Game extends Canvas implements Runnable{
 
@@ -82,7 +81,6 @@ public class Game extends Canvas implements Runnable{
         mouse = new Mouse();
         addKeyListener(keyboard);
 
-        Mouse mouse = new Mouse();
         addMouseListener(mouse); // for mouse pressed and released
         addMouseMotionListener(mouse); // for mouse moved and dragged
 
@@ -134,7 +132,7 @@ public class Game extends Canvas implements Runnable{
         if(playingRecording) {
             showRecordingButton.setText("Stop Playing");
             mouse.responsive = false;
-            keyboard.resposive = false;
+            keyboard.responsive = false;
             synchronized (level) {
                 level.restoreSnapshot(levelCareTaker.getNextSnapshot());
                 int a = 43;
@@ -150,7 +148,7 @@ public class Game extends Canvas implements Runnable{
             game.requestFocus(); //request focus for the game
 
             mouse.responsive = true;
-            keyboard.resposive = true;
+            keyboard.responsive = true;
         }
     });
 
@@ -266,9 +264,14 @@ InputSnapshot inputSnapshot = inputCareTaker.getNextSnapshot();
 
 
             showRecordingButton.setText("Play Recording");
+            level.restoreSnapshot(levelCareTaker.getLastSnapshot());
             levelCareTaker.reset();
+            inputCareTaker.reset();
             paused = false;
             playingRecording = false;
+            mouse.responsive = true;
+            keyboard.responsive = true;
+
 
             keyboard.releaseAll();
             this.requestFocus(); //request focus for the game

@@ -232,7 +232,7 @@ public class Chaser extends Mob{
             double dx = currentEnemy.getX() - this.x;
             double dy = currentEnemy.getY() - this.y;
 
-            if(dx*dx + dy*dy > 100*100) return;
+//            if(dx*dx + dy*dy > 100*100) return;
 //            System.out.println("dx: " + dx + ", dy: " + dy);
             double dir = Math.atan2(dy, dx);
             shoot(x, y, dir);

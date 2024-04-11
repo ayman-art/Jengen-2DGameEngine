@@ -26,7 +26,7 @@ public class Helper extends Chaser {
             if(currentEnemy == this || currentEnemy == player) {
                 currentEnemy = null;
             }
-            System.out.println(currentEnemy);
+//            System.out.println(currentEnemy);
             return;
         }
         time++;

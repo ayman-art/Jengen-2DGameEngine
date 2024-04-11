@@ -126,7 +126,8 @@ public class RandomLevel extends Level {
 
         if (visited.size() == freeTiles.size() - 1) {
             for(Vector2i freeTile : freeTiles) {
-                if(!visited.contains(freeTile)) System.out.println(freeTile);
+                if(!visited.contains(freeTile)) ;
+//                    System.out.println(freeTile);
                 else tiles[freeTile.getX() + freeTile.getY() * width] = Tile.skyColor;
             }
 

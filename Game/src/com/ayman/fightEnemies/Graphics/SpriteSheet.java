@@ -112,7 +112,7 @@ public class SpriteSheet {
 
 
         BufferedImage image = ImageIO.read(getClass().getResource("/Sheets/spritesheet.png"));
-        System.out.println(path);
+//        System.out.println(path);
 
         int w = image.getWidth();
         int h = image.getHeight();

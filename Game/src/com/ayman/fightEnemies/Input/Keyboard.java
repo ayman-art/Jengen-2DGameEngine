@@ -5,7 +5,6 @@ import com.ayman.fightEnemies.level.snapshots.InputSnapshot;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.security.Key;
 
 public class Keyboard implements KeyListener {
 
@@ -14,7 +13,7 @@ public class Keyboard implements KeyListener {
     public boolean up, down, left, right; //States of the keys
     public boolean s;
 
-    public boolean resposive = true;
+    public boolean responsive = true;
 
     public  void releaseAll() {
         for(int i = 0; i < 200; i++) {
@@ -23,7 +22,7 @@ public class Keyboard implements KeyListener {
     }
 
     public void update() {
-        if(!resposive) {
+        if(!responsive) {
             return;
         }
 
