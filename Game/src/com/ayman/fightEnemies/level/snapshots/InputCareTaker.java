@@ -15,7 +15,7 @@ public class InputCareTaker {
         inputSnapshots.add(snapshot);
     }
 
-    public InputSnapshot getSnapshot() {
+    public InputSnapshot getNextSnapshot() {
         return inputSnapshots.poll();
     }
 

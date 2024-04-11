@@ -27,6 +27,8 @@ public class Keyboard implements KeyListener {
         right = keys[KeyEvent.VK_RIGHT] ;
         s = keys[KeyEvent.VK_S] ;
 
+        System.out.println("up: " + up + " down: " + down + " left: " + left + " right: " + right + " s: " + s);
+
 
     }
     @Override
@@ -46,6 +48,7 @@ public class Keyboard implements KeyListener {
             Game.paused = !Game.paused;
 
         }
+        System.out.println("key pressed" + e.getKeyCode());
 
     }
 

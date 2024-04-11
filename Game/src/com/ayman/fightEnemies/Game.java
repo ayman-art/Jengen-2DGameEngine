@@ -134,6 +134,7 @@ public class Game extends Canvas implements Runnable{
             levelCareTaker.reset();
             paused = false;
 
+            keyboard.releaseAll();
             game.requestFocus(); //request focus for the game
         }
     });
@@ -216,9 +217,16 @@ public class Game extends Canvas implements Runnable{
                         level.restoreSnapshot(levelCareTaker.getNextSnapshot());
 //                        System.out.println("restoring");
                     } else {
-                        playingRecording = false;
-                        paused = false;
+
+
                         showRecordingButton.setText("Play Recording");
+//                        level.restoreSnapshot(levelCareTaker.getLastSnapshot());
+//                        levelCareTaker.reset();
+                        paused = false;
+                        playingRecording = false;
+
+                        keyboard.releaseAll();
+                        this.requestFocus(); //request focus for the game
                     }
                 }
                 counter++;
