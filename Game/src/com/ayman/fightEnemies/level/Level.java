@@ -27,6 +27,8 @@ public class Level {
     private List<Projectile> projectiles = new ArrayList<>();
     private List<Particle> particles = new ArrayList<>();
 
+    private List<Effect> effects = new ArrayList<>();
+
     public Level(int width, int height) {
 
         this.width = width;
@@ -68,6 +70,9 @@ public class Level {
         for(int i = 0; i < particles.size(); i++) {
             particles.get(i).update();
         }
+        for(int i = 0; i < effects.size(); i++) {
+            effects.get(i).update();
+        }
 
         clean();
     }
@@ -81,6 +86,9 @@ public class Level {
         }
         for(int i = 0; i < particles.size(); i++) {
             if(particles.get(i).isRemoved()) particles.remove(i);
+        }
+        for(int i = 0; i < effects.size(); i++) {
+            if(effects.get(i).isRemoved()) effects.remove(i);
         }
     }
 
@@ -118,6 +126,10 @@ public class Level {
         }
         for(int i = 0; i < particles.size(); i++) {
             particles.get(i).render(screen);
+        }
+
+        for(int i = 0; i < effects.size(); i++) {
+            effects.get(i).render(screen);
         }
 
 
@@ -434,5 +446,13 @@ public class Level {
 
     public int getHeight() {
         return height;
+    }
+
+    public void addEffect(Effect effect) {
+        this.effects.add(effect);
+    }
+
+    public void removeEffect(Effect effect) {
+        this.effects.remove(effect);
     }
 }

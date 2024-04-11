@@ -1,9 +1,12 @@
 package com.ayman.fightEnemies;
 
 
+import com.ayman.fightEnemies.Graphics.AnimatedSprite;
 import com.ayman.fightEnemies.Graphics.Screen;
+import com.ayman.fightEnemies.Graphics.SpriteSheet;
 import com.ayman.fightEnemies.Input.Keyboard;
 import com.ayman.fightEnemies.Input.Mouse;
+import com.ayman.fightEnemies.entity.mob.Chaser;
 import com.ayman.fightEnemies.entity.mob.IPlayer;
 import com.ayman.fightEnemies.entity.mob.Player;
 import com.ayman.fightEnemies.entity.mob.decoratedPlayer.BreakTilesDecorator;
@@ -12,13 +15,11 @@ import com.ayman.fightEnemies.entity.mob.decoratedPlayer.HelperFighterDecorator;
 import com.ayman.fightEnemies.entity.mob.decoratedPlayer.InvisibilityDecorator;
 import com.ayman.fightEnemies.entity.projectile.Projectile;
 import com.ayman.fightEnemies.gui.AppFrame;
-import com.ayman.fightEnemies.level.Level;
-import com.ayman.fightEnemies.level.RandomLevel;
-import com.ayman.fightEnemies.level.SpawnLevel;
-import com.ayman.fightEnemies.level.TileCoordinate;
+import com.ayman.fightEnemies.level.*;
 import com.ayman.fightEnemies.level.snapshots.InputCareTaker;
 import com.ayman.fightEnemies.level.snapshots.InputSnapshot;
 import com.ayman.fightEnemies.level.snapshots.LevelCareTaker;
+import com.ayman.fightEnemies.util.Vector2i;
 
 import javax.swing.*;
 import java.awt.*;
@@ -96,6 +97,9 @@ public class Game extends Canvas implements Runnable{
         IPlayer player = new InvisibilityDecorator(new FastPlayer(new Player(playerName ,playerSpawn.x(), playerSpawn.y(), keyboard, mouse)));
         player = new BreakTilesDecorator(player);
         level.add(new HelperFighterDecorator(player));
+        level.add(new Chaser(1, 1));
+        level.addEffect(new Effect(new Vector2i(2 * 16, 2* 16), new AnimatedSprite(SpriteSheet.coin, 1)));
+
 
         Game game = this;
         game.jFrame.setResizable(false);

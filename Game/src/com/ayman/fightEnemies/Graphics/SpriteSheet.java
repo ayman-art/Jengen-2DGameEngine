@@ -21,6 +21,8 @@ public class SpriteSheet {
     public static SpriteSheet player_left;
     public static SpriteSheet player_right;
 
+    public static SpriteSheet coin;
+
 
 
     static {
@@ -33,6 +35,8 @@ public class SpriteSheet {
             player_right = new SpriteSheet(player, 1, 0, 1, 3, 16);
             player_left = player_right.flippedCopy();
             player_down = new SpriteSheet(player, 2, 0, 1, 3, 16);
+
+            coin = new SpriteSheet(tiles,0, 1, 1, 1, 16);
 
 
         } catch (IOException e) {
