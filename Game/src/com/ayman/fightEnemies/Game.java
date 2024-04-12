@@ -107,7 +107,7 @@ public class Game extends Canvas implements Runnable{
             level.add(new Chaser(1, 1));
             level.addEffect(new CoinEffect(new Vector2i(2, 2)));
             level.addEffect(new SpeedEffect(new Vector2i(level.getWidth()-4, level.getHeight()-4)));
-            level.addEffect(new HelperFighterEffect(new Vector2i(4, 4)));
+            level.addEffect(new HelperFighterEffect(new Vector2i(level.getWidth() - 3, level.getHeight() - 3)));
             level.addEffect(new HealthEffect(new Vector2i(5, 5), 10));
             level.addEffect(new BreakTilesEffect(new Vector2i(4, 4)));
 

@@ -10,7 +10,7 @@ import com.ayman.fightEnemies.util.Vector2i;
 
 public class HelperFighterEffect extends Effect {
     public HelperFighterEffect(Vector2i position) {
-        super(position, coinAnimatedSprite);
+        super(position, helperFighterAnimatedSprite);
     }
 
     @Override
