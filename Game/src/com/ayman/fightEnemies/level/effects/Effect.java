@@ -8,20 +8,34 @@ import com.ayman.fightEnemies.level.Level;
 import com.ayman.fightEnemies.util.Vector2i;
 
 public abstract class Effect extends Entity {
-    private Vector2i position;
-    private AnimatedSprite sprite;
+    protected Vector2i position;
+    protected AnimatedSprite sprite;
 
     public static AnimatedSprite coinAnimatedSprite;
+    public static AnimatedSprite healthAnimatedSprite;
+    public static AnimatedSprite speedAnimatedSprite;
+
+    public static AnimatedSprite tileBreakerAnimatedSprite;
 
 
     static {
-        Sprite coinSprite = new Sprite(16, 0, 1, SpriteSheet.tiles);
-        Sprite coinSprite2 = coinSprite.shift(0, 2);
-        Sprite coinSprite3 = coinSprite.shift(0, 0);
-        Sprite coinSprite4 = coinSprite.shift(0, -2);
-        coinAnimatedSprite = new AnimatedSprite(new Sprite[]{coinSprite, coinSprite2, coinSprite3, coinSprite4});
-        coinAnimatedSprite.setRate(10);
+        coinAnimatedSprite = loadAnimations(0, 1);
+        healthAnimatedSprite = loadAnimations(1, 1);
+        speedAnimatedSprite = loadAnimations(2, 1);
+        tileBreakerAnimatedSprite = loadAnimations(3, 1);
+
     }
+
+    static AnimatedSprite loadAnimations(int x, int y) {
+        Sprite s1 = new Sprite(16, x, y, SpriteSheet.tiles);
+        Sprite s2 = s1.shift(0, 2);
+        Sprite s3 = s1.shift(0, 0);
+        Sprite s4 = s1.shift(0, -2);
+        AnimatedSprite sprite = new AnimatedSprite(new Sprite[]{s1, s2, s3, s4});
+        sprite.setRate(10);
+        return sprite;
+    }
+
 
     public Effect(Vector2i position, AnimatedSprite sprite) {
         this.position = position;

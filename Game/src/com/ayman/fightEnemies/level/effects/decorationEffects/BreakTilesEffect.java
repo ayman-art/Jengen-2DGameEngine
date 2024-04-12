@@ -12,8 +12,8 @@ import com.ayman.fightEnemies.level.effects.Effect;
 import com.ayman.fightEnemies.util.Vector2i;
 
 public class BreakTilesEffect extends Effect {
-    public BreakTilesEffect(Vector2i position, AnimatedSprite sprite) {
-        super(position, sprite);
+    public BreakTilesEffect(Vector2i position) {
+        super(position, tileBreakerAnimatedSprite);
     }
 
     @Override

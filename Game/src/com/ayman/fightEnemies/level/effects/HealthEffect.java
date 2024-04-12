@@ -7,8 +7,6 @@ import com.ayman.fightEnemies.level.Level;
 import com.ayman.fightEnemies.util.Vector2i;
 
 public class HealthEffect extends Effect{
-
-    private static AnimatedSprite healthAnimatedSprite;
     int health;
 
     public HealthEffect(Vector2i position, int health) {
@@ -19,6 +17,6 @@ public class HealthEffect extends Effect{
 
 
     public void applyEffect(Level level, Player player) {
-        if(!isRemoved())        player.updateHealth(player.getHealth() - health);
+        if(!isRemoved())        player.updateHealth(-health);
     }
 }

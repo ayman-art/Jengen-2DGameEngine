@@ -14,7 +14,7 @@ public class SpeedEffect extends Effect {
         int speed;
 
         public SpeedEffect(Vector2i position) {
-            super(position, coinAnimatedSprite);
+            super(position, speedAnimatedSprite);
         }
 
 
