@@ -25,10 +25,10 @@ public class Player extends Mob implements IPlayer {
     private int coins = 0;
 
     private boolean moving = false;
-    private final AnimatedSprite down = new AnimatedSprite(SpriteSheet.player_up, 1);
-    private final AnimatedSprite up = new AnimatedSprite(SpriteSheet.player_up, 1);
-    private final AnimatedSprite left = new AnimatedSprite(SpriteSheet.player_left, 1);
-    private final AnimatedSprite right = new AnimatedSprite(SpriteSheet.player_right, 1);
+    private final AnimatedSprite down = new AnimatedSprite(SpriteSheet.player_down, 3);
+    private final AnimatedSprite up = new AnimatedSprite(SpriteSheet.player_up, 3);
+    private final AnimatedSprite left = new AnimatedSprite(SpriteSheet.player_left, 3);
+    private final AnimatedSprite right = new AnimatedSprite(SpriteSheet.player_right, 3);
 
 
     public Player(Keyboard keyboard, Mouse mouse) {

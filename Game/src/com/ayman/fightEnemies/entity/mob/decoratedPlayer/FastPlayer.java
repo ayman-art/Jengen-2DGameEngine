@@ -8,13 +8,12 @@ import com.ayman.fightEnemies.entity.mob.Player;
 
 public class FastPlayer extends DecoratedPlayer {
 
-    int initialSpeed;
+
 
 
     public FastPlayer(IPlayer player) {
         super(player);
         this.time = 100;
-        this.initialSpeed = player.getSpeed();
         player.setSpeed(4 * player.getSpeed());
     }
 
@@ -38,7 +37,7 @@ public class FastPlayer extends DecoratedPlayer {
 
     @Override
     public void removeDecoration() {
-        player.setSpeed(initialSpeed);
+        player.setSpeed(player.getSpeed() / 4);
     }
 
 
@@ -47,7 +46,6 @@ public class FastPlayer extends DecoratedPlayer {
         var ret = new FastPlayer((IPlayer) player.clone());
         ret.player = (IPlayer) player.clone();
         ret.time = time;
-        ret.initialSpeed = initialSpeed;
         return ret;
     }
 
