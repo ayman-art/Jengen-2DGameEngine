@@ -16,6 +16,8 @@ import com.ayman.fightEnemies.gui.AppFrame;
 import com.ayman.fightEnemies.level.*;
 import com.ayman.fightEnemies.level.effects.CoinEffect;
 import com.ayman.fightEnemies.level.effects.Effect;
+import com.ayman.fightEnemies.level.effects.HealthEffect;
+import com.ayman.fightEnemies.level.effects.decorationEffects.HelperFighterEffect;
 import com.ayman.fightEnemies.level.effects.decorationEffects.SpeedEffect;
 import com.ayman.fightEnemies.level.snapshots.InputCareTaker;
 import com.ayman.fightEnemies.level.snapshots.InputSnapshot;
@@ -101,6 +103,7 @@ public class Game extends Canvas implements Runnable{
         level.add(new Chaser(1, 1));
         level.addEffect(new CoinEffect(new Vector2i(2, 2)));
         level.addEffect(new SpeedEffect(new Vector2i(3, 3)));
+        level.addEffect(new HelperFighterEffect(new Vector2i(4, 4)));
 
         Game game = this;
         game.jFrame.setResizable(false);

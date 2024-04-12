@@ -9,15 +9,16 @@ import com.ayman.fightEnemies.level.effects.Effect;
 import com.ayman.fightEnemies.util.Vector2i;
 
 public class HelperFighterEffect extends Effect {
-    public HelperFighterEffect(Vector2i position, AnimatedSprite sprite) {
-        super(position, sprite);
+    public HelperFighterEffect(Vector2i position) {
+        super(position, coinAnimatedSprite);
     }
 
     @Override
     public void applyEffect(Level level, Player player) {
-
-    }
-
-    public void applyEffect(Level level, IPlayer player) {
+        if(!isRemoved()) {
+            int index = level.getPlayerIndex(player);
+            HelperFighterDecorator decoratedPlayer = new HelperFighterDecorator(player);
+            level.setPlayer(index, decoratedPlayer);
+        }
     }
 }

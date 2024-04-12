@@ -15,5 +15,10 @@ public class InvisibilityEffect extends Effect {
 
     @Override
     public void applyEffect(Level level, Player player) {
+        if(!isRemoved()) {
+            int index = level.getPlayerIndex(player);
+            InvisibilityDecorator decoratedPlayer = new InvisibilityDecorator(player);
+            level.setPlayer(index, decoratedPlayer);
+        }
     }
 }

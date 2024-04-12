@@ -26,7 +26,7 @@ public class SpeedEffect extends Effect {
                 int index = level.getPlayerIndex(player);
                 DecoratedPlayer decoratedPlayer = new FastPlayer(player);
                 level.setPlayer(index, decoratedPlayer);
-        }
+            }
 
     }
 }
