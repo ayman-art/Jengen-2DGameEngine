@@ -262,4 +262,14 @@ public class Player extends Mob implements IPlayer {
     public void setTileBreaker(boolean tileBreaker) {
         this.tileBreaker = tileBreaker;
     }
+
+    @Override
+    public void addCoins(int coins) {
+        this.coins += coins;
+    }
+
+    @Override
+    public int getCoins() {
+        return coins;
+    }
 }

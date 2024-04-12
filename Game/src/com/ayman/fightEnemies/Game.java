@@ -1,9 +1,7 @@
 package com.ayman.fightEnemies;
 
 
-import com.ayman.fightEnemies.Graphics.AnimatedSprite;
 import com.ayman.fightEnemies.Graphics.Screen;
-import com.ayman.fightEnemies.Graphics.SpriteSheet;
 import com.ayman.fightEnemies.Input.Keyboard;
 import com.ayman.fightEnemies.Input.Mouse;
 import com.ayman.fightEnemies.entity.mob.Chaser;
@@ -16,6 +14,8 @@ import com.ayman.fightEnemies.entity.mob.decoratedPlayer.InvisibilityDecorator;
 import com.ayman.fightEnemies.entity.projectile.Projectile;
 import com.ayman.fightEnemies.gui.AppFrame;
 import com.ayman.fightEnemies.level.*;
+import com.ayman.fightEnemies.level.effects.CoinEffect;
+import com.ayman.fightEnemies.level.effects.Effect;
 import com.ayman.fightEnemies.level.snapshots.InputCareTaker;
 import com.ayman.fightEnemies.level.snapshots.InputSnapshot;
 import com.ayman.fightEnemies.level.snapshots.LevelCareTaker;
@@ -98,7 +98,7 @@ public class Game extends Canvas implements Runnable{
         player = new BreakTilesDecorator(player);
         level.add(new HelperFighterDecorator(player));
         level.add(new Chaser(1, 1));
-        level.addEffect(new Effect(new Vector2i(2, 2), Effect.coinAnimatedSprite));
+        level.addEffect(new CoinEffect(new Vector2i(2, 2)));
 
 
         Game game = this;
@@ -250,7 +250,8 @@ public class Game extends Canvas implements Runnable{
                 timer += 1000;
 
 
-                jFrame.setTitle("FightEnemies | " + updates + " ups, " + frames + " fps - " + playerName);
+                jFrame.setTitle("FightEnemies | " + updates + " ups, " + frames + " fps - " + playerName + " | " + level.getPlayer().getCoins() + " coins");
+
 
                 //reset the updates and frames
                 updates = 0;

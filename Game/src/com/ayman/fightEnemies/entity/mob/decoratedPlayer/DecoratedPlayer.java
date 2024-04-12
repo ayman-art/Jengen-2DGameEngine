@@ -177,4 +177,14 @@ public  abstract class DecoratedPlayer implements IPlayer {
     public Level getLevel() {
         return player.getLevel();
     }
+
+    @Override
+    public void addCoins(int coins) {
+        player.addCoins(coins);
+    }
+
+    @Override
+    public int getCoins() {
+        return player.getCoins();
+    }
 }

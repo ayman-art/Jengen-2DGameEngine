@@ -9,4 +9,8 @@ public interface IPlayer extends IMob{
 
     boolean isTileBreaker();
     void setTileBreaker(boolean tileBreaker);
+
+    void addCoins(int coins);
+
+    int getCoins();
 }

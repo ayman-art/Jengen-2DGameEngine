@@ -4,11 +4,10 @@ import com.ayman.fightEnemies.Graphics.AnimatedSprite;
 import com.ayman.fightEnemies.Graphics.Screen;
 import com.ayman.fightEnemies.Graphics.Sprite;
 import com.ayman.fightEnemies.entity.Entity;
-import com.ayman.fightEnemies.entity.IEntity;
 import com.ayman.fightEnemies.entity.spawner.ParticleSpawner;
 import com.ayman.fightEnemies.entity.projectile.Projectile;
 import com.ayman.fightEnemies.entity.projectile.WizardProjectile;
-import com.ayman.fightEnemies.level.Effect;
+import com.ayman.fightEnemies.level.effects.Effect;
 
 import javax.sound.sampled.Clip;
 import java.util.ArrayList;
@@ -90,9 +89,8 @@ public abstract class Mob extends Entity implements IMob, Cloneable {
                 if(Math.abs(xa)<= 1 && Math.abs(ya) <= 1) {
                     System.out.println("Effect found");
                     Effect effect = level.getEffect(xt, yt);
-                    if (effect != null) {
-                        effect.remove();
-                    }
+                    effect.applyEffect(level, (IPlayer) this);
+                    effect.remove();
                 }
             }
         }
@@ -157,9 +155,15 @@ public abstract class Mob extends Entity implements IMob, Cloneable {
     }
 
     public void updateHealth(int damage) {
-        this.health -= Math.min(damage, this.health);
+        health -= damage;
+        if(health <= 0) {
+            health = 0;
+        } else if(health >= 100) {
+            health = 100;
+        }
+
         if(health == 0) {
-            System.exit(34);
+            System.exit(11);
         }
 
     }

@@ -2,17 +2,15 @@ package com.ayman.fightEnemies.level;
 
 import com.ayman.fightEnemies.Graphics.Screen;
 import com.ayman.fightEnemies.Graphics.Sprite;
-import com.ayman.fightEnemies.entity.Entity;
 import com.ayman.fightEnemies.entity.IEntity;
 import com.ayman.fightEnemies.entity.mob.*;
 import com.ayman.fightEnemies.entity.mob.decoratedPlayer.DecoratedPlayer;
-import com.ayman.fightEnemies.entity.mob.decoratedPlayer.FastPlayer;
 import com.ayman.fightEnemies.entity.particle.Particle;
 import com.ayman.fightEnemies.entity.projectile.Projectile;
+import com.ayman.fightEnemies.level.effects.Effect;
 import com.ayman.fightEnemies.level.snapshots.LevelSnapshot;
 import com.ayman.fightEnemies.level.tile.Tile;
 import com.ayman.fightEnemies.util.Vector2i;
-import org.junit.jupiter.params.shadow.com.univocity.parsers.common.DefaultContext;
 
 import java.util.*;
 
@@ -469,5 +467,15 @@ public class Level {
 
     public Effect getEffect(int i, int i1) {
         return effects.get(new Vector2i(i, i1));
+    }
+
+
+    public void setPlayer(IPlayer player, DecoratedPlayer decoratedPlayer) {
+        for(int i = 0; i < mobs.size(); i++) {
+            if(mobs.get(i) == player) {
+                mobs.set(i, decoratedPlayer);
+                return;
+            }
+        }
     }
 }

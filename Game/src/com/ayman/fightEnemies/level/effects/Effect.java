@@ -1,14 +1,17 @@
-package com.ayman.fightEnemies.level;
+package com.ayman.fightEnemies.level.effects;
 
 import com.ayman.fightEnemies.Graphics.*;
 import com.ayman.fightEnemies.entity.Entity;
+import com.ayman.fightEnemies.entity.mob.IPlayer;
+import com.ayman.fightEnemies.level.Level;
 import com.ayman.fightEnemies.util.Vector2i;
 
-public class Effect extends Entity {
+public abstract class Effect extends Entity {
     private Vector2i position;
     private AnimatedSprite sprite;
 
     public static AnimatedSprite coinAnimatedSprite;
+
 
     static {
         Sprite coinSprite = new Sprite(16, 0, 1, SpriteSheet.tiles);
@@ -35,4 +38,6 @@ public class Effect extends Entity {
     public Vector2i getPosition() {
         return position;
     }
+
+    public abstract void applyEffect(Level level, IPlayer player);
 }
