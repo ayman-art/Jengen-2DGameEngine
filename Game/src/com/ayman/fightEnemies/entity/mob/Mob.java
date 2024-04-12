@@ -8,6 +8,7 @@ import com.ayman.fightEnemies.entity.spawner.ParticleSpawner;
 import com.ayman.fightEnemies.entity.projectile.Projectile;
 import com.ayman.fightEnemies.entity.projectile.WizardProjectile;
 import com.ayman.fightEnemies.level.effects.Effect;
+import com.ayman.fightEnemies.network.client.controller.ClientController;
 
 import javax.sound.sampled.Clip;
 import java.util.ArrayList;
@@ -39,7 +40,7 @@ public abstract class Mob extends Entity implements IMob, Cloneable {
             x += xa;
             y += ya;
 
-//            ClientController.getInstance().sendPlayerPosition(x, y);
+            if(ClientController.isOn())ClientController.getInstance().sendPlayerPosition(x, y);
 
         } else {
 //            new ParticleSpawner(x,y, 20, 1, level);
@@ -124,7 +125,7 @@ public abstract class Mob extends Entity implements IMob, Cloneable {
         projectiles.add(projectile);
         level.addProjectile(projectile);
 
-//        ClientController.getInstance().sendPlayerShoot(x, y, dir);
+        if(ClientController.isOn())ClientController.getInstance().sendPlayerShoot(x, y, dir);
     }
 
     public Sprite getSprite() {

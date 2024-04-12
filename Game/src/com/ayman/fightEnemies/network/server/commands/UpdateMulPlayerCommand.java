@@ -18,6 +18,9 @@ public class UpdateMulPlayerCommand extends Command{
     }
 
     public void execute() {
+
+        System.out.println("Updating player " + this.serverClient.getName() + " to " + x + " " + y);
+
         synchronized (this.gameServer.getClients()) {
             for (int i = 0; i < this.gameServer.getClients().size(); i++) {
                 gameServer.sendToAll("U" + this.serverClient.getName() + " " + x + " " + y);

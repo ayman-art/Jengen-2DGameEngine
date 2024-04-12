@@ -22,6 +22,7 @@ import com.ayman.fightEnemies.level.effects.decorationEffects.SpeedEffect;
 import com.ayman.fightEnemies.level.snapshots.InputCareTaker;
 import com.ayman.fightEnemies.level.snapshots.InputSnapshot;
 import com.ayman.fightEnemies.level.snapshots.LevelCareTaker;
+import com.ayman.fightEnemies.network.client.controller.ClientController;
 import com.ayman.fightEnemies.util.Vector2i;
 
 import javax.swing.*;
@@ -97,13 +98,16 @@ public class Game extends Canvas implements Runnable{
         level = new SpawnLevel("C:\\Projects\\JavaGames\\Fight-Enemies\\level11.txt");
         ((SpawnLevel) level).writeToFile("level11.txt");
         TileCoordinate playerSpawn = new TileCoordinate(level.getWidth()-2, level.getHeight()-2);
-        IPlayer player = new InvisibilityDecorator((new Player(playerName ,playerSpawn.x(), playerSpawn.y(), keyboard, mouse)));
-        player = new BreakTilesDecorator(player);
-        level.add(new HelperFighterDecorator(player));
-        level.add(new Chaser(1, 1));
-        level.addEffect(new CoinEffect(new Vector2i(2, 2)));
-        level.addEffect(new SpeedEffect(new Vector2i(3, 3)));
-        level.addEffect(new HelperFighterEffect(new Vector2i(4, 4)));
+        level.add(new Player(playerName, playerSpawn.x(), playerSpawn.y(), keyboard, mouse));
+        if(!ClientController.isOn()){
+            IPlayer player = new InvisibilityDecorator((new Player(playerName, playerSpawn.x(), playerSpawn.y(), keyboard, mouse)));
+            player = new BreakTilesDecorator(player);
+//        level.add(new HelperFighterDecorator(player));
+            level.add(new Chaser(1, 1));
+            level.addEffect(new CoinEffect(new Vector2i(2, 2)));
+            level.addEffect(new SpeedEffect(new Vector2i(3, 3)));
+            level.addEffect(new HelperFighterEffect(new Vector2i(4, 4)));
+        }
 
         Game game = this;
         game.jFrame.setResizable(false);

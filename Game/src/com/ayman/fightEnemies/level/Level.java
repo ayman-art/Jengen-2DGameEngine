@@ -209,7 +209,7 @@ public class Level {
     }
 
     public synchronized IPlayer getPlayer() {
-        for(int i = 0; i < mobs.size(); i++) {
+        for(int i = mobs.size() - 1; i >= 0; i--) {
             if(mobs.get(i) instanceof IPlayer player) return player;
         }
         return null;

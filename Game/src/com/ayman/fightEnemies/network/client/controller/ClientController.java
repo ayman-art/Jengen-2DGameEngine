@@ -29,6 +29,10 @@ public class ClientController extends Thread {
         return instance;
     }
 
+    public static synchronized boolean isOn() {
+        return instance != null;
+    }
+
     public synchronized static ClientController init(GameClient gameClient) {
         if (instance != null) {
             throw new IllegalStateException("ClientController has already been initialized");
