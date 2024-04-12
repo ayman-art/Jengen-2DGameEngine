@@ -2,6 +2,7 @@ package com.ayman.fightEnemies.level.effects.decorationEffects;
 
 import com.ayman.fightEnemies.Graphics.AnimatedSprite;
 import com.ayman.fightEnemies.entity.mob.IPlayer;
+import com.ayman.fightEnemies.entity.mob.Player;
 import com.ayman.fightEnemies.entity.mob.decoratedPlayer.InvisibilityDecorator;
 import com.ayman.fightEnemies.level.Level;
 import com.ayman.fightEnemies.level.effects.Effect;
@@ -13,7 +14,6 @@ public class InvisibilityEffect extends Effect {
     }
 
     @Override
-    public void applyEffect(Level level, IPlayer player) {
-        if(!isRemoved())level.setPlayer(player, new InvisibilityDecorator(player));
+    public void applyEffect(Level level, Player player) {
     }
 }

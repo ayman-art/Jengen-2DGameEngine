@@ -2,6 +2,8 @@ package com.ayman.fightEnemies.level.effects.decorationEffects;
 
 import com.ayman.fightEnemies.Graphics.AnimatedSprite;
 import com.ayman.fightEnemies.entity.mob.IPlayer;
+import com.ayman.fightEnemies.entity.mob.Player;
+import com.ayman.fightEnemies.entity.mob.decoratedPlayer.DecoratedPlayer;
 import com.ayman.fightEnemies.entity.mob.decoratedPlayer.FastPlayer;
 import com.ayman.fightEnemies.level.Level;
 import com.ayman.fightEnemies.level.effects.Effect;
@@ -11,13 +13,20 @@ public class SpeedEffect extends Effect {
 
         int speed;
 
-        public SpeedEffect(Vector2i position, AnimatedSprite sprite, int speed) {
-            super(position, sprite);
-            this.speed = speed;
+        public SpeedEffect(Vector2i position) {
+            super(position, coinAnimatedSprite);
         }
 
+
+
+
     @Override
-    public void applyEffect(Level level, IPlayer player) {
-        if(!isRemoved())level.setPlayer(player, new FastPlayer(player));
+    public void applyEffect(Level level, Player player) {
+            if(!isRemoved()) {
+                int index = level.getPlayerIndex(player);
+                DecoratedPlayer decoratedPlayer = new FastPlayer(player);
+                level.setPlayer(index, decoratedPlayer);
+        }
+
     }
 }

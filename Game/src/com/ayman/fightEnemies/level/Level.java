@@ -55,6 +55,7 @@ public class Level {
         for(int i = 0; i < mobs.size(); i++) {
             mobs.get(i).update();
             if(mobs.get(i) instanceof DecoratedPlayer decoratedPlayer) {
+                System.out.println("TYPE: " + decoratedPlayer.getClass());
 //                System.out.println(decoratedPlayer.getSpeed());
                 if(decoratedPlayer.timeOut()) {
                     mobs.set(i, decoratedPlayer.restorePlayer());
@@ -470,12 +471,19 @@ public class Level {
     }
 
 
-    public void setPlayer(IPlayer player, DecoratedPlayer decoratedPlayer) {
+    public void setPlayer(int i, IPlayer iPlayer) {
+        mobs.set(i, iPlayer);
+    }
+    public int getPlayerIndex(Player player) {
         for(int i = 0; i < mobs.size(); i++) {
-            if(mobs.get(i) == player) {
-                mobs.set(i, decoratedPlayer);
-                return;
+            if(!(mobs.get(i) instanceof IPlayer))continue;
+            IPlayer p = (IPlayer) mobs.get(i);
+            while(p instanceof DecoratedPlayer decoratedPlayer) {
+                p = decoratedPlayer.getPlayer();
             }
+            if(p == player) return i;
+
         }
+        return -1;
     }
 }

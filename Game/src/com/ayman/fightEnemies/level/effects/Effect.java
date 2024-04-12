@@ -3,6 +3,7 @@ package com.ayman.fightEnemies.level.effects;
 import com.ayman.fightEnemies.Graphics.*;
 import com.ayman.fightEnemies.entity.Entity;
 import com.ayman.fightEnemies.entity.mob.IPlayer;
+import com.ayman.fightEnemies.entity.mob.Player;
 import com.ayman.fightEnemies.level.Level;
 import com.ayman.fightEnemies.util.Vector2i;
 
@@ -39,5 +40,5 @@ public abstract class Effect extends Entity {
         return position;
     }
 
-    public abstract void applyEffect(Level level, IPlayer player);
+    public abstract void applyEffect(Level level, Player player);
 }

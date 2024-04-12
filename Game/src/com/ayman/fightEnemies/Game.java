@@ -16,6 +16,7 @@ import com.ayman.fightEnemies.gui.AppFrame;
 import com.ayman.fightEnemies.level.*;
 import com.ayman.fightEnemies.level.effects.CoinEffect;
 import com.ayman.fightEnemies.level.effects.Effect;
+import com.ayman.fightEnemies.level.effects.decorationEffects.SpeedEffect;
 import com.ayman.fightEnemies.level.snapshots.InputCareTaker;
 import com.ayman.fightEnemies.level.snapshots.InputSnapshot;
 import com.ayman.fightEnemies.level.snapshots.LevelCareTaker;
@@ -94,12 +95,12 @@ public class Game extends Canvas implements Runnable{
         level = new SpawnLevel("C:\\Projects\\JavaGames\\Fight-Enemies\\level11.txt");
         ((SpawnLevel) level).writeToFile("level11.txt");
         TileCoordinate playerSpawn = new TileCoordinate(level.getWidth()-2, level.getHeight()-2);
-        IPlayer player = new InvisibilityDecorator(new FastPlayer(new Player(playerName ,playerSpawn.x(), playerSpawn.y(), keyboard, mouse)));
+        IPlayer player = new InvisibilityDecorator((new Player(playerName ,playerSpawn.x(), playerSpawn.y(), keyboard, mouse)));
         player = new BreakTilesDecorator(player);
         level.add(new HelperFighterDecorator(player));
         level.add(new Chaser(1, 1));
         level.addEffect(new CoinEffect(new Vector2i(2, 2)));
-
+        level.addEffect(new SpeedEffect(new Vector2i(3, 3)));
 
         Game game = this;
         game.jFrame.setResizable(false);

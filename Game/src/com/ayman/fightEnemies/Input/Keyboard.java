@@ -51,7 +51,7 @@ public class Keyboard implements KeyListener {
             Game.paused = !Game.paused;
 
         }
-        System.out.println("key pressed" + e.getKeyCode());
+//        System.out.println("key pressed" + e.getKeyCode());
 
     }
 

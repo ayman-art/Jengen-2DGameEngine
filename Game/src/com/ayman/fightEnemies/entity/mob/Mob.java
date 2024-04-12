@@ -75,7 +75,7 @@ public abstract class Mob extends Entity implements IMob, Cloneable {
                         getLevel().removeTile(xt, yt);
                         try {
                             Clip clip = Projectile.break_tileClip;
-                            System.out.println("Playing sound");
+//                            System.out.println("Playing sound");
 
                             clip.setFramePosition(0);
                             clip.start();
@@ -89,7 +89,7 @@ public abstract class Mob extends Entity implements IMob, Cloneable {
                 if(Math.abs(xa)<= 1 && Math.abs(ya) <= 1) {
                     System.out.println("Effect found");
                     Effect effect = level.getEffect(xt, yt);
-                    effect.applyEffect(level, (IPlayer) this);
+                    effect.applyEffect(level, (Player) this);
                     effect.remove();
                 }
             }

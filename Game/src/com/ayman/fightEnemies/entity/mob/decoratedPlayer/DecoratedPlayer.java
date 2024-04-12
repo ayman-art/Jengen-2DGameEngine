@@ -149,6 +149,9 @@ public  abstract class DecoratedPlayer implements IPlayer {
 //        }
         return player;
     }
+    public IPlayer getPlayer() {
+        return player;
+    }
 
     @Override
     public boolean collision(int xa, int ya) {

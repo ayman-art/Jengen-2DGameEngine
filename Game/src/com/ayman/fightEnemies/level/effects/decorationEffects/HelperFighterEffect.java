@@ -2,6 +2,7 @@ package com.ayman.fightEnemies.level.effects.decorationEffects;
 
 import com.ayman.fightEnemies.Graphics.AnimatedSprite;
 import com.ayman.fightEnemies.entity.mob.IPlayer;
+import com.ayman.fightEnemies.entity.mob.Player;
 import com.ayman.fightEnemies.entity.mob.decoratedPlayer.HelperFighterDecorator;
 import com.ayman.fightEnemies.level.Level;
 import com.ayman.fightEnemies.level.effects.Effect;
@@ -13,8 +14,10 @@ public class HelperFighterEffect extends Effect {
     }
 
     @Override
+    public void applyEffect(Level level, Player player) {
+
+    }
+
     public void applyEffect(Level level, IPlayer player) {
-        if(!isRemoved())
-            level.setPlayer(player, new HelperFighterDecorator(player));
     }
 }
