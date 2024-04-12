@@ -8,6 +8,7 @@ import com.ayman.fightEnemies.entity.IEntity;
 import com.ayman.fightEnemies.entity.spawner.ParticleSpawner;
 import com.ayman.fightEnemies.entity.projectile.Projectile;
 import com.ayman.fightEnemies.entity.projectile.WizardProjectile;
+import com.ayman.fightEnemies.level.Effect;
 
 import javax.sound.sampled.Clip;
 import java.util.ArrayList;
@@ -75,7 +76,7 @@ public abstract class Mob extends Entity implements IMob, Cloneable {
                         getLevel().removeTile(xt, yt);
                         try {
                             Clip clip = Projectile.break_tileClip;
-                            System.out.println("Playgin sound");
+                            System.out.println("Playing sound");
 
                             clip.setFramePosition(0);
                             clip.start();
@@ -83,13 +84,21 @@ public abstract class Mob extends Entity implements IMob, Cloneable {
                             e.printStackTrace();
                         }
                     }
-                } else {
-
+                }
+            } else if(this instanceof IPlayer && level.hasEffect(xt, yt)) {
+//                System.exit(222);
+                if(Math.abs(xa)<= 1 && Math.abs(ya) <= 1) {
+                    System.out.println("Effect found");
+                    Effect effect = level.getEffect(xt, yt);
+                    if (effect != null) {
+                        effect.remove();
+                    }
                 }
             }
         }
         return solid;
     }
+
 
 
     private boolean collisionEntire(int xa, int ya) {
@@ -113,7 +122,7 @@ public abstract class Mob extends Entity implements IMob, Cloneable {
     public void shoot(int x, int y, double dir) {
 
         Projectile projectile = new WizardProjectile(x + 6, y, dir, level);
-        System.out.println("||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
+//        System.out.println("||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
         projectiles.add(projectile);
         level.addProjectile(projectile);
 

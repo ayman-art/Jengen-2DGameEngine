@@ -29,6 +29,10 @@ public class Effect extends Entity {
     }
 
     public void render(Screen screen) {
-        screen.renderSprite(position.getX(), position.getY(), sprite.getCurrentSPrite(), false);
+        screen.renderSprite(position.getX() * 16, position.getY() * 16, sprite.getCurrentSPrite(), false);
+    }
+
+    public Vector2i getPosition() {
+        return position;
     }
 }

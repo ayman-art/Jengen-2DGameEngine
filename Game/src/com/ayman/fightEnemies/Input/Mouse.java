@@ -61,16 +61,16 @@ public class Mouse implements MouseListener, MouseMotionListener {
 
     @Override
     public void mouseMoved(MouseEvent e) {
-        System.out.println("Mouse moved_________________________________________________________________________");
+//        System.out.println("Mouse moved_________________________________________________________________________");
         if (responsive) {
-            System.out.println("Mouse moved|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
+//            System.out.println("Mouse moved|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
             mouseX = e.getX();
             mouseY = e.getY();
         }
     }
 
     public void update() {
-        System.out.println(responsive);
+//        System.out.println(responsive);
     }
 
     public void restoreSnapshot(InputSnapshot.MouseSnapshot snapshot) {
@@ -80,7 +80,7 @@ public class Mouse implements MouseListener, MouseMotionListener {
     }
 
     public InputSnapshot.MouseSnapshot takeSnapshot() {
-        System.out.println("Mouse snapshot taken   ________________________________________________________");
+//        System.out.println("Mouse snapshot taken   ________________________________________________________");
         return new InputSnapshot.MouseSnapshot(mouseX, mouseY, mouseButton);
     }
 }

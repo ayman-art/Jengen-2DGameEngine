@@ -6,7 +6,7 @@ public class InvisibilityDecorator extends DecoratedPlayer {
     public InvisibilityDecorator(IPlayer player) {
         super(player);
         time = 500;
-        System.out.println("InvisibilityDecorator1");
+//        System.out.println("InvisibilityDecorator1");
         player.setVisible(false);
     }
 
@@ -18,7 +18,7 @@ public class InvisibilityDecorator extends DecoratedPlayer {
         }
 
         player.update();
-        System.out.println("InvisibilityDecorator");
+//        System.out.println("InvisibilityDecorator");
 
         time--;
         if (time == 0) {

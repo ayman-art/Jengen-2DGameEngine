@@ -27,7 +27,7 @@ public class Level {
     private List<Projectile> projectiles = new ArrayList<>();
     private List<Particle> particles = new ArrayList<>();
 
-    private List<Effect> effects = new ArrayList<>();
+    private Map<Vector2i, Effect> effects = new TreeMap<>(Comparator.comparing(Vector2i::getX).thenComparing(Vector2i::getY));
 
     public Level(int width, int height) {
 
@@ -64,14 +64,14 @@ public class Level {
                 }
             }
         }
-        for(int i = 0; i < projectiles.size(); i++) {
-            projectiles.get(i).update();
+        for (Projectile projectile : projectiles) {
+            projectile.update();
         }
-        for(int i = 0; i < particles.size(); i++) {
-            particles.get(i).update();
+        for (Particle particle : particles) {
+            particle.update();
         }
-        for(int i = 0; i < effects.size(); i++) {
-            effects.get(i).update();
+        for(Effect effect : effects.values()) {
+            effect.update();
         }
 
         clean();
@@ -87,8 +87,13 @@ public class Level {
         for(int i = 0; i < particles.size(); i++) {
             if(particles.get(i).isRemoved()) particles.remove(i);
         }
-        for(int i = 0; i < effects.size(); i++) {
-            if(effects.get(i).isRemoved()) effects.remove(i);
+
+        Map<Vector2i, Effect> toRemove = new HashMap<>();
+        for(Effect effect : effects.values()) {
+            if(effect.isRemoved()) toRemove.put(effect.getPosition(), effect);
+        }
+        for(Vector2i position : toRemove.keySet()) {
+            effects.remove(position);
         }
     }
 
@@ -113,8 +118,7 @@ public class Level {
 
         for(int i = 0; i < mobs.size(); i++) {
             mobs.get(i).render(screen);
-            if(mobs.get(i) instanceof Chaser) {
-                Chaser chaser = (Chaser) mobs.get(i);
+            if(mobs.get(i) instanceof Chaser chaser) {
                 chaser.renderPath(screen);
             }
             if(mobs.get(i) instanceof IMob mob) {
@@ -128,8 +132,8 @@ public class Level {
             particles.get(i).render(screen);
         }
 
-        for(int i = 0; i < effects.size(); i++) {
-            effects.get(i).render(screen);
+        for(Effect effect : effects.values()) {
+            effect.render(screen);
         }
 
 
@@ -449,10 +453,21 @@ public class Level {
     }
 
     public void addEffect(Effect effect) {
-        this.effects.add(effect);
+        this.effects.put(effect.getPosition(), effect);
     }
 
     public void removeEffect(Effect effect) {
         this.effects.remove(effect);
+    }
+
+    public boolean hasEffect(int xt, int yt) {
+        if(xt == 2 && yt == 2) {
+            int as = 43;
+        }
+        return effects.containsKey(new Vector2i(xt, yt));
+    }
+
+    public Effect getEffect(int i, int i1) {
+        return effects.get(new Vector2i(i, i1));
     }
 }
