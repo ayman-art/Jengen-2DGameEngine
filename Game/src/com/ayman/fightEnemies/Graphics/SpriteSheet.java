@@ -30,7 +30,7 @@ public class SpriteSheet {
             tiles = new SpriteSheet("/Sheets/spritesheet.png", 256);
             currentLevel = new SpriteSheet("/Sheets/level1.png", 256);
 
-            player = new SpriteSheet(tiles, 0, 1, 3, 3, 16);
+            player = new SpriteSheet(tiles, 0, 2, 3, 3, 16);
             player_up = new SpriteSheet(player, 0, 0, 1, 3, 16);
             player_right = new SpriteSheet(player, 1, 0, 1, 3, 16);
             player_left = player_right.flippedCopy();

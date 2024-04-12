@@ -19,6 +19,7 @@ import com.ayman.fightEnemies.level.effects.Effect;
 import com.ayman.fightEnemies.level.effects.HealthEffect;
 import com.ayman.fightEnemies.level.effects.decorationEffects.BreakTilesEffect;
 import com.ayman.fightEnemies.level.effects.decorationEffects.HelperFighterEffect;
+import com.ayman.fightEnemies.level.effects.decorationEffects.InvisibilityEffect;
 import com.ayman.fightEnemies.level.effects.decorationEffects.SpeedEffect;
 import com.ayman.fightEnemies.level.snapshots.InputCareTaker;
 import com.ayman.fightEnemies.level.snapshots.InputSnapshot;
@@ -110,6 +111,8 @@ public class Game extends Canvas implements Runnable{
             level.addEffect(new HelperFighterEffect(new Vector2i(level.getWidth() - 3, level.getHeight() - 3)));
             level.addEffect(new HealthEffect(new Vector2i(5, 5), 10));
             level.addEffect(new BreakTilesEffect(new Vector2i(4, 4)));
+            level.addEffect(new InvisibilityEffect(new Vector2i(level.getWidth()-5, level.getHeight()-5)));
+
 
         }
 

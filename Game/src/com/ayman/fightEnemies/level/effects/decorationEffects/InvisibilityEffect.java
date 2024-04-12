@@ -9,15 +9,15 @@ import com.ayman.fightEnemies.level.effects.Effect;
 import com.ayman.fightEnemies.util.Vector2i;
 
 public class InvisibilityEffect extends Effect {
-    public InvisibilityEffect(Vector2i position, AnimatedSprite sprite) {
-        super(position, sprite);
+    public InvisibilityEffect(Vector2i position) {
+        super(position, invisibilityAnimatedSprite);
     }
 
     @Override
     public void applyEffect(Level level, Player player) {
         if(!isRemoved()) {
             int index = level.getPlayerIndex(player);
-            InvisibilityDecorator decoratedPlayer = new InvisibilityDecorator(player);
+            InvisibilityDecorator decoratedPlayer = new InvisibilityDecorator(level.getPlayer(index));
             level.setPlayer(index, decoratedPlayer);
         }
     }

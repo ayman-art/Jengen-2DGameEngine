@@ -16,6 +16,7 @@ public abstract class Effect extends Entity {
     public static AnimatedSprite speedAnimatedSprite;
     public static AnimatedSprite tileBreakerAnimatedSprite;
     public static AnimatedSprite helperFighterAnimatedSprite;
+    public static AnimatedSprite invisibilityAnimatedSprite;
 
 
     static {
@@ -24,6 +25,7 @@ public abstract class Effect extends Entity {
         speedAnimatedSprite = loadAnimations(2, 1);
         tileBreakerAnimatedSprite = loadAnimations(3, 1);
         helperFighterAnimatedSprite = loadAnimations(4, 1);
+        invisibilityAnimatedSprite = loadAnimations(5, 1);
     }
 
     static AnimatedSprite loadAnimations(int x, int y) {

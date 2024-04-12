@@ -24,7 +24,7 @@ public class SpeedEffect extends Effect {
     public void applyEffect(Level level, Player player) {
             if(!isRemoved()) {
                 int index = level.getPlayerIndex(player);
-                DecoratedPlayer decoratedPlayer = new FastPlayer(player);
+                DecoratedPlayer decoratedPlayer = new FastPlayer(level.getPlayer(index));
                 level.setPlayer(index, decoratedPlayer);
             }
 

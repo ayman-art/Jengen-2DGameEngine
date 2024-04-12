@@ -45,7 +45,7 @@ public class FastPlayer extends DecoratedPlayer {
     @Override
     public IMob clone() throws CloneNotSupportedException {
         var ret = new FastPlayer((IPlayer) player.clone());
-        ret.player = (Player) player.clone();
+        ret.player = (IPlayer) player.clone();
         ret.time = time;
         ret.initialSpeed = initialSpeed;
         return ret;

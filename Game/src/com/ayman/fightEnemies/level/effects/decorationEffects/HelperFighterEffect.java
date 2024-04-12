@@ -17,7 +17,7 @@ public class HelperFighterEffect extends Effect {
     public void applyEffect(Level level, Player player) {
         if(!isRemoved()) {
             int index = level.getPlayerIndex(player);
-            HelperFighterDecorator decoratedPlayer = new HelperFighterDecorator(player);
+            HelperFighterDecorator decoratedPlayer = new HelperFighterDecorator(level.getPlayer(index));
             level.setPlayer(index, decoratedPlayer);
         }
     }

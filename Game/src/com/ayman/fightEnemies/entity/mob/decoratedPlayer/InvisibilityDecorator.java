@@ -5,7 +5,7 @@ import com.ayman.fightEnemies.entity.mob.IPlayer;
 public class InvisibilityDecorator extends DecoratedPlayer {
     public InvisibilityDecorator(IPlayer player) {
         super(player);
-        time = 500;
+        time = 100;
 //        System.out.println("InvisibilityDecorator1");
         player.setVisible(false);
     }

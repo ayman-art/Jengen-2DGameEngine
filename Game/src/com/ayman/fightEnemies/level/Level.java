@@ -58,8 +58,8 @@ public class Level {
                 System.out.println("TYPE: " + decoratedPlayer.getClass());
 //                System.out.println(decoratedPlayer.getSpeed());
                 if(decoratedPlayer.timeOut()) {
+                    System.out.println("restored from " + decoratedPlayer.getClass());
                     mobs.set(i, decoratedPlayer.restorePlayer());
-                    System.out.println("restored");
                 }
             }
         }
@@ -485,5 +485,9 @@ public class Level {
 
         }
         return -1;
+    }
+
+    public IPlayer getPlayer(int i) {
+        return (IPlayer) mobs.get(i);
     }
 }
