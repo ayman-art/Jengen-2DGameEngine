@@ -1,8 +1,6 @@
 package com.ayman.fightEnemies.network.client;
 
-import com.ayman.fightEnemies.Game;
 import com.ayman.fightEnemies.network.client.controller.ClientController;
-import com.ayman.fightEnemies.network.server.controller.Controller;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -12,7 +10,6 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.io.Serial;
 import java.net.*;
-import java.util.Arrays;
 import java.util.UUID;
 
 
@@ -51,7 +48,7 @@ public class Login extends JFrame {
         txtName.setColumns(10);
 
 
-        JLabel lblIpAddress = new JLabel("IP Address of the Game Server you want to connect to:");
+        JLabel lblIpAddress = new JLabel("IP Address of the GameController Server you want to connect to:");
         lblIpAddress.setBounds(20, 96, 300, 16);
         contentPanel.add(lblIpAddress);
 
@@ -111,7 +108,7 @@ public class Login extends JFrame {
             throw new RuntimeException(e);
         }
 //
-//        Game game = new Game(txtName.getText());
+//        GameController game = new GameController(txtName.getText());
 //        game.jFrame.setResizable(false);
 //        game.jFrame.setTitle("FightEnemies - " + name);
 //        game.jFrame.add(game);

@@ -9,13 +9,12 @@ import com.ayman.fightEnemies.entity.mob.IPlayer;
 import com.ayman.fightEnemies.entity.mob.Player;
 import com.ayman.fightEnemies.entity.mob.decoratedPlayer.BreakTilesDecorator;
 import com.ayman.fightEnemies.entity.mob.decoratedPlayer.FastPlayer;
-import com.ayman.fightEnemies.entity.mob.decoratedPlayer.HelperFighterDecorator;
 import com.ayman.fightEnemies.entity.mob.decoratedPlayer.InvisibilityDecorator;
 import com.ayman.fightEnemies.entity.projectile.Projectile;
+import com.ayman.fightEnemies.game.contexts.AIContext;
 import com.ayman.fightEnemies.gui.AppFrame;
 import com.ayman.fightEnemies.level.*;
 import com.ayman.fightEnemies.level.effects.CoinEffect;
-import com.ayman.fightEnemies.level.effects.Effect;
 import com.ayman.fightEnemies.level.effects.HealthEffect;
 import com.ayman.fightEnemies.level.effects.decorationEffects.BreakTilesEffect;
 import com.ayman.fightEnemies.level.effects.decorationEffects.HelperFighterEffect;
@@ -33,14 +32,14 @@ import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
 
-public class Game extends Canvas implements Runnable{
+public class GameController extends Canvas implements Runnable{
 
 
 
 
-    public static final int width = 300;
-    public static final int height = width / 12 * 8;
-    public static final int scaleFactor = 3;
+    public static int width = 300;
+    public static int height = width / 12 * 8;
+    public static int scaleFactor = 3;
     private  boolean playingRecording = false;
     private boolean running = false;
 
@@ -50,7 +49,7 @@ public class Game extends Canvas implements Runnable{
 
 
 
-    private Screen screen;
+    private final Screen screen;
     public Keyboard keyboard;
     public long lastTime = 0;
 
@@ -63,22 +62,31 @@ public class Game extends Canvas implements Runnable{
     public JButton showRecordingButton;
 
 
-    public final Level level;
+    public final Level[] levels = new Level[2];
+    public Level level;
 
 
     public static boolean paused = false;
 
 
 
-    final String playerName;
+
+
+    public static String playerName ;
+    public static AIContext.AIType aiType = AIContext.AIType.Dijkstra;
 
     private LevelCareTaker levelCareTaker = new LevelCareTaker();
     private InputCareTaker inputCareTaker = new InputCareTaker();
     private Mouse mouse;
 
-    public Game(String playerName, JFrame jFrame) {
+
+    public GameController(com.ayman.fightEnemies.game.Game game) {
+        this(game.getPlayerContext().getName(), new JFrame());
+    }
+
+    public GameController(String playerName, JFrame jFrame) {
         Projectile.init();
-        this.playerName = playerName;
+        GameController.playerName = playerName;
 
         Dimension size = new Dimension(width * scaleFactor, height * scaleFactor);
         setPreferredSize(size);
@@ -97,29 +105,33 @@ public class Game extends Canvas implements Runnable{
 
 //        level = new RandomLevel(64, 64);
 //        level = new RandomLevel(64, 64);
-        level = new SpawnLevel("C:\\Projects\\JavaGames\\Fight-Enemies\\level11.txt");
-        ((SpawnLevel) level).writeToFile("level11.txt");
+        level = new RandomLevel();
+//        ((SpawnLevel) level).writeToFile("level11.txt");
         TileCoordinate playerSpawn = new TileCoordinate(level.getWidth()-2, level.getHeight()-2);
         level.add(new Player(playerName, playerSpawn.x(), playerSpawn.y(), keyboard, mouse));
         if(!ClientController.isOn()){
             IPlayer player = new InvisibilityDecorator((new Player(playerName, playerSpawn.x(), playerSpawn.y(), keyboard, mouse)));
             player = new BreakTilesDecorator(player);
 //        level.add(new HelperFighterDecorator(player));
-            level.add(new Chaser(1, 1));
-            level.addEffect(new CoinEffect(new Vector2i(2, 2)));
-            level.addEffect(new SpeedEffect(new Vector2i(level.getWidth()-4, level.getHeight()-4)));
-            level.addEffect(new SpeedEffect(new Vector2i(level.getWidth() - 3, level.getHeight() - 3)));
-            level.addEffect(new HealthEffect(new Vector2i(5, 5), 10));
-            level.addEffect(new BreakTilesEffect(new Vector2i(4, 4)));
-            level.addEffect(new InvisibilityEffect(new Vector2i(level.getWidth()-5, level.getHeight()-5)));
+//            level.add(new Chaser(1, 1));
+            level.add(new CoinEffect(new Vector2i(2, 2)));
+            level.add(new SpeedEffect(new Vector2i(level.getWidth()-4, level.getHeight()-4)));
+            level.add(new SpeedEffect(new Vector2i(level.getWidth() - 3, level.getHeight() - 3)));
+            level.add(new HealthEffect(new Vector2i(5, 5), 10));
+            level.add(new BreakTilesEffect(new Vector2i(4, 4)));
+            level.add(new HelperFighterEffect(new Vector2i(level.getWidth()-6, level.getHeight()-5)));
+            level.add(new HelperFighterEffect(new Vector2i(level.getWidth()-4, level.getHeight()-5)));
+            level.add(new HelperFighterEffect(new Vector2i(level.getWidth()-4, level.getHeight()-4)));
+            level.add(new HelperFighterEffect(new Vector2i(level.getWidth()-5, level.getHeight()-4)));
+
 
 
         }
 
-        Game game = this;
-        game.jFrame.setResizable(false);
-        game.jFrame.setTitle("FightEnemies");
-        game.jFrame.add(game);
+        GameController Game = this;
+        Game.jFrame.setResizable(false);
+        Game.jFrame.setTitle("FightEnemies");
+        Game.jFrame.add(Game);
         showRecordingButton = new JButton("Play Recording");
         pauseButton = new JButton("Pause");
         mainMenuButton = new JButton("Main Menu");
@@ -129,7 +141,7 @@ public class Game extends Canvas implements Runnable{
             if(paused) {
                 pauseButton.setText("Resume");
             } else {
-                game.requestFocus();
+                Game.requestFocus();
                 keyboard.releaseAll();
                 pauseButton.setText("Pause");
             }
@@ -168,7 +180,7 @@ public class Game extends Canvas implements Runnable{
             inputCareTaker.reset();
 
             keyboard.releaseAll();
-            game.requestFocus(); //request focus for the game
+            Game.requestFocus(); //request focus for the game
 
             mouse.responsive = true;
             keyboard.responsive = true;
@@ -182,26 +194,26 @@ public class Game extends Canvas implements Runnable{
         jPanel.add(showRecordingButton);
         jPanel.add(pauseButton);
         jPanel.add(mainMenuButton);
-        game.jFrame.add(jPanel, BorderLayout.SOUTH);
-        game.jFrame.pack();
-        game.jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        game.jFrame.setLocationRelativeTo(null);
-        game.jFrame.setVisible(true);
+        Game.jFrame.add(jPanel, BorderLayout.SOUTH);
+        Game.jFrame.pack();
+        Game.jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        Game.jFrame.setLocationRelativeTo(null);
+        Game.jFrame.setVisible(true);
 
 
-        game.requestFocus(); //request focus for the game
+        Game.requestFocus(); //request focus for the game
 
-        game.start();
+        Game.start();
 
         setFocusable(true);
     }
 
-    public Game() {
-        this("Game", new JFrame());
+    public GameController() {
+        this("GameController", new JFrame());
     }
 
 
-    public Game(String playerName) {
+    public GameController(String playerName) {
         this(playerName, new JFrame());
     }
 
@@ -212,7 +224,7 @@ public class Game extends Canvas implements Runnable{
     public synchronized void start() {
 
         running = true;
-        thread = new Thread(this, "Game");
+        thread = new Thread(this, "GameController");
         thread.start();
     }
 
@@ -390,7 +402,7 @@ InputSnapshot inputSnapshot = inputCareTaker.getNextSnapshot();
     }
 
     public static void main(String[] args) {
-        Game game = new Game("SASA", new JFrame());
+        GameController Game = new GameController("SASA", new JFrame());
     }
 
     public Level getLevel() {

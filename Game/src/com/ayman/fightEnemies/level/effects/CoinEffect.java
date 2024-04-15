@@ -7,7 +7,8 @@ import com.ayman.fightEnemies.util.Vector2i;
 
 public class CoinEffect extends Effect{
 
-    private int coins = 5;
+    public static int COIN_VALUE = 5;
+    private int coins = COIN_VALUE;
 
     public CoinEffect(Vector2i position) {
         super(position, coinAnimatedSprite);

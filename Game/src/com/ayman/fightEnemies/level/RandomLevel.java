@@ -1,7 +1,5 @@
 package com.ayman.fightEnemies.level;
 
-import com.ayman.fightEnemies.Game;
-import com.ayman.fightEnemies.Graphics.Sprite;
 import com.ayman.fightEnemies.entity.mob.Chaser;
 import com.ayman.fightEnemies.level.tile.Tile;
 import com.ayman.fightEnemies.util.AdjacentCheckGenerator;
@@ -14,13 +12,20 @@ public class RandomLevel extends Level {
 
     private static final Random random = new Random();
     private volatile boolean done = false;
+
+    static public int WIDTH = 64;
+    static public int HEIGHT = 64;
     int attempts = 0;
-    public DSU dsu = new DSU(64 * 64 );
+    public DSU dsu = new DSU(width * height);
     int counter = 1;
     public RandomLevel(int width, int height) {
         super(width, height);
 
         add(new Chaser(3,3));
+    }
+
+    public RandomLevel() {
+        super(WIDTH, HEIGHT);
     }
 
     protected void generateLevel() {

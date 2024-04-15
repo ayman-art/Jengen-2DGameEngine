@@ -1,6 +1,6 @@
 package com.ayman.fightEnemies.network.client;
 
-import com.ayman.fightEnemies.Game;
+import com.ayman.fightEnemies.GameController;
 
 import java.io.IOException;
 import java.net.*;
@@ -19,7 +19,7 @@ public class GameClient extends Thread{
 
 
 
-    private final Game game;
+    private final GameController Game;
 
 
 
@@ -27,7 +27,7 @@ public class GameClient extends Thread{
          this.port = port;
         this.clientName = clientName;
         this.ipAddress = ipAddress;
-//        this.game = new Game(clientName);
+//        this.game = new GameController(clientName);
         try {
             this.socket = new DatagramSocket();
         } catch (SocketException e) {
@@ -35,7 +35,7 @@ public class GameClient extends Thread{
         }
         System.out.println("Forming GameClient with fields: " + ipAddress + " " + port + " " + clientName);
 
-        game = new Game(clientName);
+        Game = new GameController(clientName);
 
 
     }
@@ -100,7 +100,7 @@ public class GameClient extends Thread{
         }
     }
 
-    public Game getGame() {
-        return game;
+    public GameController getGame() {
+        return Game;
     }
 }

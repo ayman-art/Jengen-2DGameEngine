@@ -34,6 +34,9 @@ public class MainMenuState extends GuiState {
 
 
 
+
+
+
     }
 
     @Override
@@ -46,6 +49,19 @@ public class MainMenuState extends GuiState {
         frame.add(aboutButton);
         frame.add(exitButton);
 
+        JLabel label = new JLabel("Powered By");
+        label.setBounds(640, 480, 400, 100);
+        label.setFont(new Font("Trebuchet MS", Font.BOLD | Font.ITALIC, 15));
+        label.setForeground(Color.green);
+        frame.add(label);
+        JLabel label2 = new JLabel("Jengen");
+        label2.setBounds(650, 500, 400, 100);
+        label2.setFont(new Font("Trebuchet MS", Font.BOLD | Font.ITALIC, 15));
+        label2.setForeground(Color.RED);
+        frame.add(label2);
+
+
+        frame.getContentPane().setBackground(Color.YELLOW);
 
         playButton.addActionListener(e -> {
             frame.setGuiState(new GameState());

@@ -15,13 +15,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Mob extends Entity implements IMob, Cloneable {
+
+
+    public static int CHASING_RANGE = 600;
+    public static int SHOOTING_RANGE = 200;
+    public static int ORIGINAL_SPEED = 1;
     protected AnimatedSprite currentAnimatedSprite;
     protected int dir = 0; //direction of the mob, popular convention :(0 = north, 1 = east, 2 = south, 3 = west)
     protected boolean moving = false;
 
     protected List<Projectile> projectiles = new ArrayList<>(); // To keep track of projectiles fired by a specific mob
 
-    protected int speed = 1;
+    protected int speed = ORIGINAL_SPEED;
     protected int health = 100;
     public void move(int xa, int ya) {
 

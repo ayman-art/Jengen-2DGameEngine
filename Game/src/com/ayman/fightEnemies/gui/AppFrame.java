@@ -11,7 +11,7 @@ public class AppFrame extends JFrame {
     private GuiState currentState;
 
     // Private constructor to prevent external instantiation
-    private AppFrame() {
+    public AppFrame() {
         super("Main Menu");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(new java.awt.Dimension(800, 600));

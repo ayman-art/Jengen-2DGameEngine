@@ -1,6 +1,6 @@
 package com.ayman.fightEnemies.gui.states;
 
-import com.ayman.fightEnemies.Game;
+import com.ayman.fightEnemies.GameController;
 import com.ayman.fightEnemies.gui.AppFrame;
 
 import javax.swing.*;
@@ -16,7 +16,7 @@ public class GameState extends GuiState {
         frame.getContentPane().repaint();
 
 
-        Game game = new Game("Fight Enemies", frame);
+        GameController Game = new GameController("Fight Enemies", frame);
 
     }
 }
@@ -37,6 +37,6 @@ class Main {
 //        frame.getContentPane().repaint();
 //
 //        frame.setSize(800,600);
-        new Game("P", frame);
+        new GameController("P", frame);
     }
 }

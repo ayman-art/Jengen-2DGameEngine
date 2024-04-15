@@ -1,10 +1,12 @@
 package com.ayman.fightEnemies.entity.mob.decoratedPlayer;
 
+import com.ayman.fightEnemies.GameController;
 import com.ayman.fightEnemies.Graphics.Screen;
 import com.ayman.fightEnemies.Input.Keyboard;
 import com.ayman.fightEnemies.entity.mob.IMob;
 import com.ayman.fightEnemies.entity.mob.IPlayer;
 import com.ayman.fightEnemies.entity.mob.Player;
+import com.ayman.fightEnemies.level.effects.Effect;
 
 public class FastPlayer extends DecoratedPlayer {
 
@@ -13,7 +15,7 @@ public class FastPlayer extends DecoratedPlayer {
 
     public FastPlayer(IPlayer player) {
         super(player);
-        this.time = 100;
+        this.time = Effect.EFFECT_TIME;
         player.setSpeed(4 * player.getSpeed());
     }
 

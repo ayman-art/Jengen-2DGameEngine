@@ -1,5 +1,6 @@
 package com.ayman.fightEnemies.level;
 
+import com.ayman.fightEnemies.GameController;
 import com.ayman.fightEnemies.Graphics.Screen;
 import com.ayman.fightEnemies.Graphics.Sprite;
 import com.ayman.fightEnemies.entity.IEntity;
@@ -192,6 +193,8 @@ public class Level {
         }
         else  if(entity instanceof IMob) {
             mobs.add(entity);
+        } else if(entity instanceof Effect effect) {
+            effects.put(effect.getPosition(), effect);
         }
     }
 
@@ -260,9 +263,14 @@ public class Level {
         int counter = 0;
 
         List<Node> path = new ArrayList<>();
-        PriorityQueue<Node> frontier = new PriorityQueue<>(Comparator.comparingDouble(Node::getF));
         Set<Vector2i> visited = new TreeSet<>(Comparator.comparing(Vector2i::getX).thenComparing(Vector2i::getY));
         Map<Vector2i, Integer> costSoFar = new TreeMap<>(Comparator.comparing(Vector2i::getX).thenComparing(Vector2i::getY));
+
+        PriorityQueue<Node> frontier = switch (GameController.aiType) {
+            case AStar -> new PriorityQueue<>(Comparator.comparingDouble(Node::getF));
+            case Dijkstra -> new PriorityQueue<>(Comparator.comparingDouble(Node::getG));
+            case DStar -> new PriorityQueue<>(Comparator.comparingDouble(Node::getH));
+        };
         //init
         Node startNode = new Node(start, null, 0, start.distanceTo(goal));
         frontier.add(startNode);
@@ -278,15 +286,7 @@ public class Level {
 
             Node current = frontier.poll();
             boolean bad = false;
-//            if(visited.contains(current.tileCoordinate)) System.out.println("what");
-//            for(var v: visited) {
-//                counter++;
-//                if(v.getX() == current.getTileCoordinate().getX() && v.getY() == current.getTileCoordinate().getY()) {
-////                    System.out.println("no");
-//                    bad = true;
-//                    break;
-//                }
-//            }
+
             if(bad) continue;
             visited.add(current.tileCoordinate);
 
@@ -410,7 +410,7 @@ public class Level {
     }
 
     public LevelSnapshot takeSnapshot() {
-        return new LevelSnapshot(tiles, mobs, projectiles, particles);
+        return new LevelSnapshot(tiles, mobs, projectiles, particles, effects);
     }
 
     public void restoreSnapshot(LevelSnapshot snapshot) {
@@ -418,6 +418,7 @@ public class Level {
         mobs = snapshot.mobs();
         projectiles = snapshot.projectiles();
         particles = snapshot.particles();
+        effects = snapshot.effects();
     }
 
     public int[] getMap() {

@@ -1,11 +1,13 @@
 package com.ayman.fightEnemies.entity.mob.decoratedPlayer;
 
+import com.ayman.fightEnemies.GameController;
 import com.ayman.fightEnemies.entity.mob.IPlayer;
+import com.ayman.fightEnemies.level.effects.Effect;
 
 public class InvisibilityDecorator extends DecoratedPlayer {
     public InvisibilityDecorator(IPlayer player) {
         super(player);
-        time = 100;
+        time = Effect.EFFECT_TIME;
 //        System.out.println("InvisibilityDecorator1");
         player.setVisible(false);
     }

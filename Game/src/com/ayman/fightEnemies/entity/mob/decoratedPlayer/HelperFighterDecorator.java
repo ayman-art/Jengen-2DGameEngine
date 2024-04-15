@@ -2,12 +2,13 @@ package com.ayman.fightEnemies.entity.mob.decoratedPlayer;
 
 import com.ayman.fightEnemies.entity.mob.Helper;
 import com.ayman.fightEnemies.entity.mob.IPlayer;
+import com.ayman.fightEnemies.level.effects.Effect;
 
 public class HelperFighterDecorator extends DecoratedPlayer {
     Helper helper;
     public HelperFighterDecorator(IPlayer player) {
         super(player);
-        time = 200;
+        time = Effect.EFFECT_TIME;
         System.out.println("HelperFighterDecorator1");
 
 
@@ -21,7 +22,7 @@ public class HelperFighterDecorator extends DecoratedPlayer {
         }
 
         if(player.getLevel() != null && helper == null) {
-            helper = new Helper(player);
+            helper = new Helper(getInnerMostPlayer());
             player.getLevel().add(helper);
         }
         player.update();

@@ -18,14 +18,17 @@ public class WizardProjectile extends Projectile {
 
 
 
-    public static final int FIRE_INTERVAL = 4;
+    public static int FIRE_INTERVAL = 4;
+    public static int RANGE = 1000;
+    public static int SPEED = 2;
+    public static int DAMAGE = 20;
+
     public WizardProjectile(int x, int y, double dir, Level level) {
         super(x, y, dir, level);
-        range = 1000;
-        speed = 2;
+        range = RANGE;
+        speed = SPEED;
+        damage = DAMAGE;
 
-
-        damage = 20;
         nx = speed * Math.cos(angle);
         ny = speed * Math.sin(angle);
 
@@ -33,8 +36,7 @@ public class WizardProjectile extends Projectile {
 
         this.clip = Projectile.gunClip;
         playSound();
-
-        this.damage = 2;
+;
     }
 
     public void update() {

@@ -165,7 +165,7 @@ public class Screen {
 
                 int col = mob.getSprite().pixels[x + y * 16];
                 if(mob instanceof IPlayer player && !player.isVisible()) {
-                    col = blendColors(col, pixels[xa + ya * width], 200);
+                    col = blendColors(col, pixels[xa + ya * width], 75);
                 }
                 if(col != 0xffff00ff) pixels[xa + ya * width] = col;
             }

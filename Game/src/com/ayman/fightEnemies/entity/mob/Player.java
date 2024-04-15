@@ -1,6 +1,6 @@
 package com.ayman.fightEnemies.entity.mob;
 
-import com.ayman.fightEnemies.Game;
+import com.ayman.fightEnemies.GameController;
 import com.ayman.fightEnemies.Graphics.AnimatedSprite;
 import com.ayman.fightEnemies.Graphics.Screen;
 import com.ayman.fightEnemies.Graphics.SpriteSheet;
@@ -36,16 +36,14 @@ public class Player extends Mob implements IPlayer {
         this.mouse = mouse;
     }
     public Player(Player copy) {
-        this(copy.x, copy.y, copy.keyboard, copy.mouse); //call the constructor that takes x, y, and input (Keyboard
+        this(copy.x, copy.y, copy.keyboard, copy.mouse); //call the constructor that takes x, y, and input (Keyboard, Mouse)
         this.projectile = copy.projectile;
         this.fireInterval = copy.fireInterval;
         this.visible = copy.visible;
         this.coins = copy.coins;
         this.moving = copy.moving;
-
         this.currentAnimatedSprite = down;
 
-        fireInterval = WizardProjectile.FIRE_INTERVAL;
     }
     public Player() {
         keyboard = null;
@@ -145,7 +143,7 @@ public class Player extends Mob implements IPlayer {
                 var del = projectiles.get(i);
                 projectiles.remove(del);
                 level.removeProjectile(del);
-                i--; //to avoid skipping the next projectile in the list
+                i--; //to avoid skipping the next projectile in the same loop
             }
         }
 
@@ -160,8 +158,8 @@ public class Player extends Mob implements IPlayer {
 
         assert mouse != null;
         if(mouse.getButton() == 1) {
-            double dx = mouse.getX() - (double) (Game.width * Game.scaleFactor) / 2;
-            double dy = mouse.getY() - (double) (Game.height * Game.scaleFactor) / 2;
+            double dx = mouse.getX() - (double) (GameController.width * GameController.scaleFactor) / 2;
+            double dy = mouse.getY() - (double) (GameController.height * GameController.scaleFactor) / 2;
 
 //            System.out.println("dx: " + dx + ", dy: " + dy);
             double dir = Math.atan2(dy, dx);

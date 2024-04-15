@@ -8,6 +8,7 @@ import com.ayman.fightEnemies.level.Level;
 import com.ayman.fightEnemies.util.Vector2i;
 
 public abstract class Effect extends Entity {
+    public static int EFFECT_TIME = 200;
     protected Vector2i position;
     protected AnimatedSprite sprite;
 

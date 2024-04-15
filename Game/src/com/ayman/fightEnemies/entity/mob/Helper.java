@@ -1,14 +1,14 @@
 package com.ayman.fightEnemies.entity.mob;
 
+import com.ayman.fightEnemies.entity.mob.decoratedPlayer.DecoratedPlayer;
 import com.ayman.fightEnemies.util.Vector2i;
 
 public class Helper extends Chaser {
 
-    private IPlayer player;
-    private IMob currentEnemy;
+    private Player player;
 
 
-    public Helper(IPlayer player) {
+    public Helper(Player player) {
         super(player.getX() / 16, player.getY() / 16);
         this.player = player;
 
@@ -18,7 +18,21 @@ public class Helper extends Chaser {
 
     @Override
     public void update() {
+
 //        System.out.println("Update from Helper");
+        if(player.isRemoved()) {
+            remove();
+            return;
+        }
+
+        // Preventing Multiple helpers from attacking each other.
+        if(currentEnemy != null && currentEnemy instanceof Helper h) {
+            if(h.player == this.player) {
+                currentEnemy = null;
+            }
+        }
+
+
         if(currentEnemy == null) {
 
             if((level.getMobs().size() > 2))
@@ -33,7 +47,7 @@ public class Helper extends Chaser {
 
         int distancePow2 = (int) (Math.pow(currentEnemy.getX() - x, 2) + Math.pow(currentEnemy.getY() - y, 2));
         int distance = (int) Math.sqrt(distancePow2);
-        if(this.currentAnimatedSprite.getCurrentSPrite().SIZE > distance || distance > 2000) {
+        if(this.currentAnimatedSprite.getCurrentSPrite().SIZE > distance || distance > CHASING_RANGE) {
             return;
         }
         else if(Math.abs(currentEnemy.getX() - x) <= 16 && Math.abs(currentEnemy.getY() - y) <= 16) {
@@ -115,4 +129,7 @@ public class Helper extends Chaser {
 
         clear();
     }
+
+
+
 }

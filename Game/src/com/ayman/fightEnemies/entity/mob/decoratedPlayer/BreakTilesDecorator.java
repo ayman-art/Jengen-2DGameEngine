@@ -1,13 +1,12 @@
 package com.ayman.fightEnemies.entity.mob.decoratedPlayer;
 
 import com.ayman.fightEnemies.entity.mob.IPlayer;
-import com.ayman.fightEnemies.entity.spawner.ParticleSpawner;
+import com.ayman.fightEnemies.level.effects.Effect;
 
 public class BreakTilesDecorator extends DecoratedPlayer{
     public BreakTilesDecorator(IPlayer player) {
         super(player);
-        time = 100;
-//        System.out.println("BreakTilesDecorator1");
+        time = Effect.EFFECT_TIME;
         player.setTileBreaker(true);
     }
 

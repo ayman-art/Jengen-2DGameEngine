@@ -1,6 +1,5 @@
 package com.ayman.fightEnemies.network.client.commands;
 
-import com.ayman.fightEnemies.Game;
 import com.ayman.fightEnemies.entity.mob.Player;
 import com.ayman.fightEnemies.network.client.GameClient;
 

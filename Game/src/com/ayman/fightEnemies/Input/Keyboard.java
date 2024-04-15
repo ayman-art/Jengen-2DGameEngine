@@ -1,6 +1,6 @@
 package com.ayman.fightEnemies.Input;
 
-import com.ayman.fightEnemies.Game;
+import com.ayman.fightEnemies.GameController;
 import com.ayman.fightEnemies.level.snapshots.InputSnapshot;
 
 import java.awt.event.KeyEvent;
@@ -9,7 +9,7 @@ import java.awt.event.KeyListener;
 public class Keyboard implements KeyListener {
 
 
-    private boolean[] keys = new boolean[200];
+    private final boolean[] keys = new boolean[200];
     public boolean up, down, left, right; //States of the keys
     public boolean s;
 
@@ -48,7 +48,7 @@ public class Keyboard implements KeyListener {
         keys[e.getKeyCode()] = true;
         if(e.getKeyCode() == KeyEvent.VK_S) {
             System.out.print("S");
-            Game.paused = !Game.paused;
+            GameController.paused = !GameController.paused;
 
         }
 //        System.out.println("key pressed" + e.getKeyCode());

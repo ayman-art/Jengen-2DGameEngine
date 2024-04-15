@@ -4,6 +4,7 @@ import com.ayman.fightEnemies.Graphics.Screen;
 import com.ayman.fightEnemies.Graphics.Sprite;
 import com.ayman.fightEnemies.entity.mob.IMob;
 import com.ayman.fightEnemies.entity.mob.IPlayer;
+import com.ayman.fightEnemies.entity.mob.Player;
 import com.ayman.fightEnemies.entity.projectile.Projectile;
 import com.ayman.fightEnemies.level.Level;
 
@@ -151,6 +152,12 @@ public  abstract class DecoratedPlayer implements IPlayer {
     }
     public IPlayer getPlayer() {
         return player;
+    }
+    public Player getInnerMostPlayer() {
+        if(player instanceof DecoratedPlayer decoratedPlayer) {
+            return decoratedPlayer.getInnerMostPlayer();
+        }
+        return (Player) player;
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.ayman.fightEnemies.entity.mob;
 
+import com.ayman.fightEnemies.GameController;
 import com.ayman.fightEnemies.Graphics.AnimatedSprite;
 import com.ayman.fightEnemies.Graphics.Screen;
 import com.ayman.fightEnemies.Graphics.SpriteSheet;
@@ -42,11 +43,15 @@ public class Chaser extends Mob{
 
 
         time++;
+        if(currentEnemy == null) {
+            currentEnemy = level.getPlayer();
+        }
 
-        IPlayer player = level.getPlayer();
+
+        IPlayer player = (IPlayer) currentEnemy;
         int distancePow2 = (int) (Math.pow(level.getPlayer().getX() - x, 2) + Math.pow(level.getPlayer().getY() - y, 2));
         int distance = (int) Math.sqrt(distancePow2);
-        if(this.currentAnimatedSprite.getCurrentSPrite().SIZE > distance || distance > 2000) {
+        if(this.currentAnimatedSprite.getCurrentSPrite().SIZE > distance || distance > CHASING_RANGE) {
             return;
         }
         else if(Math.abs(player.getX() - x) <= 16 && Math.abs(player.getY() - y) <= 16) {
@@ -133,7 +138,7 @@ public class Chaser extends Mob{
         IPlayer player = level.getPlayer();
         int distancePow2 = (int) (Math.pow(level.getPlayer().getX() - x, 2) + Math.pow(level.getPlayer().getY() - y, 2));
         int distance = (int) Math.sqrt(distancePow2);
-        if(this.currentAnimatedSprite.getCurrentSPrite().SIZE > distance || distance > 2000 || !player.isVisible()) {
+        if(this.currentAnimatedSprite.getCurrentSPrite().SIZE > distance || distance > CHASING_RANGE || !player.isVisible()) {
             return;
         }
         else if(Math.abs(player.getX() - x) <= 16 && Math.abs(player.getY() - y) <= 16) {
@@ -217,11 +222,15 @@ public class Chaser extends Mob{
     protected void updateShoot() {
         if(this.currentEnemy == null) {
             return;
-
         }
-
+        if(this.currentEnemy.isRemoved()) {
+            this.currentEnemy = null;
+            return;
+        }
         if(this.currentEnemy instanceof IPlayer p &&  !p.isVisible())
             return;
+
+
 
         if(fireInterval > 0) {
             return;
@@ -229,10 +238,11 @@ public class Chaser extends Mob{
 
 
 
+
             double dx = currentEnemy.getX() - this.x;
             double dy = currentEnemy.getY() - this.y;
 
-//            if(dx*dx + dy*dy > 100*100) return;
+            if(dx*dx + dy*dy > Mob.SHOOTING_RANGE * Mob.SHOOTING_RANGE) return;
 //            System.out.println("dx: " + dx + ", dy: " + dy);
             double dir = Math.atan2(dy, dx);
             shoot(x, y, dir);
@@ -240,7 +250,7 @@ public class Chaser extends Mob{
 
 
 
-        fireInterval += WizardProjectile.FIRE_INTERVAL;
+        fireInterval += WizardProjectile.FIRE_INTERVAL * random.nextInt(3) + 2;
     }
 
     void clear() {
