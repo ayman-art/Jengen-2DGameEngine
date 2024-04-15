@@ -32,4 +32,9 @@ public class InputCareTaker {
         return inputSnapshots.size();
     }
 
+    public void removeOldSnapshots(int i) {
+        for (int j = 0; j < i; j++) {
+            inputSnapshots.poll();
+        }
+    }
 }

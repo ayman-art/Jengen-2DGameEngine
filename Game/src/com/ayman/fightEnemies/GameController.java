@@ -238,6 +238,7 @@ public class GameController extends Canvas implements Runnable{
         int frames = 0;
         int updates = 0;
         while(running) {
+            if ((levelCareTaker.getNumberOfSnapshots() > 2)) throw new AssertionError();
             long now = System.nanoTime();
 
             delta += (now - lastTime) / ns; // number of "Updates" we need to do
@@ -246,10 +247,23 @@ public class GameController extends Canvas implements Runnable{
             while(delta >= 1) {
 
                 if(!playingRecording && !paused) {
-                    if(recordingTimer % 600 == 0) {
-                        inputCareTaker.reset();
-                        levelCareTaker.reset();
-                        levelCareTaker.addSnapshot(level.takeSnapshot());
+                    if(recordingTimer % 300 == 0) {
+                        recordingTimer = 0;
+                        if(levelCareTaker.getNumberOfSnapshots() < 2) {
+                            synchronized (levelCareTaker) {
+                                levelCareTaker.addSnapshot(level.takeSnapshot());
+                            }
+                        } else {
+                            synchronized (levelCareTaker) {
+                                levelCareTaker.removeOldSnapshot();
+                                levelCareTaker.addSnapshot(level.takeSnapshot());
+                                if (inputCareTaker.getNumberOfSnapshots() != 600) {
+                                    System.out.println("You are not a genius the number of snapshots is " + inputCareTaker.getNumberOfSnapshots() );
+                                }
+                                else System.out.println("You are just a genius");
+                                inputCareTaker.removeOldSnapshots(300);
+                            }
+                        }
 
                     }
                     inputCareTaker.addSnapshot(new InputSnapshot(mouse.takeSnapshot(), keyboard.takeSnapshot()));

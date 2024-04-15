@@ -37,4 +37,8 @@ public class LevelCareTaker {
     public LevelSnapshot getLastSnapshot() {
         return levelSnapshots.get(levelSnapshots.size() - 1);
     }
+
+    public void removeOldSnapshot() {
+        levelSnapshots.remove(0);
+    }
 }
