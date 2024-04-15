@@ -2,22 +2,21 @@ package com.ayman.fightEnemies.entity.mob;
 
 import com.ayman.fightEnemies.Graphics.AnimatedSprite;
 import com.ayman.fightEnemies.Graphics.Screen;
-import com.ayman.fightEnemies.Graphics.Sprite;
 import com.ayman.fightEnemies.Graphics.SpriteSheet;
 
 import java.util.Random;
 
 public class Dummy extends Mob{
 
-    private AnimatedSprite up = new AnimatedSprite(SpriteSheet.player_up, 3);
-    private AnimatedSprite down = new AnimatedSprite(SpriteSheet.player_down, 3);
-    private AnimatedSprite left = new AnimatedSprite(SpriteSheet.player_left, 3);
-    private AnimatedSprite right = new AnimatedSprite(SpriteSheet.player_right, 3);
+    private final AnimatedSprite up = new AnimatedSprite(SpriteSheet.player_up, 3);
+    private final AnimatedSprite down = new AnimatedSprite(SpriteSheet.player_down, 3);
+    private final AnimatedSprite left = new AnimatedSprite(SpriteSheet.player_left, 3);
+    private final AnimatedSprite right = new AnimatedSprite(SpriteSheet.player_right, 3);
 
 
-    private Random random = new Random();
+    private final Random random = new Random();
     private int time = 0;
-    private enum Direction {
+    protected enum Direction {
         UP, DOWN, LEFT, RIGHT, NONE
     }
     protected Direction direction = Direction.DOWN;

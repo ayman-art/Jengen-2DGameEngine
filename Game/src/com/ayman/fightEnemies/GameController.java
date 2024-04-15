@@ -4,21 +4,20 @@ package com.ayman.fightEnemies;
 import com.ayman.fightEnemies.Graphics.Screen;
 import com.ayman.fightEnemies.Input.Keyboard;
 import com.ayman.fightEnemies.Input.Mouse;
-import com.ayman.fightEnemies.entity.mob.Chaser;
 import com.ayman.fightEnemies.entity.mob.IPlayer;
 import com.ayman.fightEnemies.entity.mob.Player;
 import com.ayman.fightEnemies.entity.mob.decoratedPlayer.BreakTilesDecorator;
-import com.ayman.fightEnemies.entity.mob.decoratedPlayer.FastPlayer;
 import com.ayman.fightEnemies.entity.mob.decoratedPlayer.InvisibilityDecorator;
 import com.ayman.fightEnemies.entity.projectile.Projectile;
 import com.ayman.fightEnemies.game.contexts.AIContext;
 import com.ayman.fightEnemies.gui.AppFrame;
-import com.ayman.fightEnemies.level.*;
+import com.ayman.fightEnemies.level.Level;
+import com.ayman.fightEnemies.level.RandomLevel;
+import com.ayman.fightEnemies.level.TileCoordinate;
 import com.ayman.fightEnemies.level.effects.CoinEffect;
 import com.ayman.fightEnemies.level.effects.HealthEffect;
 import com.ayman.fightEnemies.level.effects.decorationEffects.BreakTilesEffect;
 import com.ayman.fightEnemies.level.effects.decorationEffects.HelperFighterEffect;
-import com.ayman.fightEnemies.level.effects.decorationEffects.InvisibilityEffect;
 import com.ayman.fightEnemies.level.effects.decorationEffects.SpeedEffect;
 import com.ayman.fightEnemies.level.snapshots.InputCareTaker;
 import com.ayman.fightEnemies.level.snapshots.InputSnapshot;
@@ -63,7 +62,7 @@ public class GameController extends Canvas implements Runnable{
 
 
     public final Level[] levels = new Level[2];
-    public Level level;
+    public final Level level;
 
 
     public static boolean paused = false;
@@ -75,8 +74,8 @@ public class GameController extends Canvas implements Runnable{
     public static String playerName ;
     public static AIContext.AIType aiType = AIContext.AIType.Dijkstra;
 
-    private LevelCareTaker levelCareTaker = new LevelCareTaker();
-    private InputCareTaker inputCareTaker = new InputCareTaker();
+    private final LevelCareTaker levelCareTaker = new LevelCareTaker();
+    private final InputCareTaker inputCareTaker = new InputCareTaker();
     private Mouse mouse;
 
 
@@ -116,12 +115,12 @@ public class GameController extends Canvas implements Runnable{
 //            level.add(new Chaser(1, 1));
             level.add(new CoinEffect(new Vector2i(2, 2)));
             level.add(new SpeedEffect(new Vector2i(level.getWidth()-4, level.getHeight()-4)));
-            level.add(new SpeedEffect(new Vector2i(level.getWidth() - 3, level.getHeight() - 3)));
+//            level.add(new SpeedEffect(new Vector2i(level.getWidth() - 3, level.getHeight() - 3)));
             level.add(new HealthEffect(new Vector2i(5, 5), 10));
             level.add(new BreakTilesEffect(new Vector2i(4, 4)));
-            level.add(new HelperFighterEffect(new Vector2i(level.getWidth()-6, level.getHeight()-5)));
-            level.add(new HelperFighterEffect(new Vector2i(level.getWidth()-4, level.getHeight()-5)));
-            level.add(new HelperFighterEffect(new Vector2i(level.getWidth()-4, level.getHeight()-4)));
+//            level.add(new HelperFighterEffect(new Vector2i(level.getWidth()-4, level.getHeight()-5)));
+//            level.add(new HelperFighterEffect(new Vector2i(level.getWidth()-4, level.getHeight()-4)));
+//            level.add(new HelperFighterEffect(new Vector2i(level.getWidth()-6, level.getHeight()-5)));
             level.add(new HelperFighterEffect(new Vector2i(level.getWidth()-5, level.getHeight()-4)));
 
 
@@ -160,6 +159,7 @@ public class GameController extends Canvas implements Runnable{
 
 
     showRecordingButton.addActionListener(e -> {
+        if(levelCareTaker.getNumberOfSnapshots() == 0) return;
         playingRecording = !playingRecording;
 
         if(playingRecording) {
@@ -167,23 +167,12 @@ public class GameController extends Canvas implements Runnable{
             mouse.responsive = false;
             keyboard.responsive = false;
             synchronized (level) {
+                levelCareTaker.addSnapshot(level.takeSnapshot());
                 level.restoreSnapshot(levelCareTaker.getNextSnapshot());
             }
 
         } else {
-            showRecordingButton.setText("Play Recording");
-//            level.restoreSnapshot(levelCareTaker.getLastSnapshot());
-//            levelCareTaker.reset();
-            paused = false;
-            level.restoreSnapshot(levelCareTaker.getLastSnapshot());
-            levelCareTaker.reset();
-            inputCareTaker.reset();
-
-            keyboard.releaseAll();
-            Game.requestFocus(); //request focus for the game
-
-            mouse.responsive = true;
-            keyboard.responsive = true;
+            handlePauseRecording();
         }
     });
 
@@ -235,6 +224,7 @@ public class GameController extends Canvas implements Runnable{
         //wait until the thread dies first
         thread.join();
     }
+    int recordingTimer = 0;
     @Override
     public void run() {
 
@@ -256,11 +246,19 @@ public class GameController extends Canvas implements Runnable{
             while(delta >= 1) {
 
                 if(!playingRecording && !paused) {
-                    levelCareTaker.addSnapshot(level.takeSnapshot());
+                    if(recordingTimer % 600 == 0) {
+                        inputCareTaker.reset();
+                        levelCareTaker.reset();
+                        levelCareTaker.addSnapshot(level.takeSnapshot());
+
+                    }
                     inputCareTaker.addSnapshot(new InputSnapshot(mouse.takeSnapshot(), keyboard.takeSnapshot()));
+                    recordingTimer++;
                 } else {
                     playRecording();
                 }
+
+
                 counter++;
                 update();
                 updates++;
@@ -312,6 +310,7 @@ InputSnapshot inputSnapshot = inputCareTaker.getNextSnapshot();
 
             keyboard.releaseAll();
             this.requestFocus(); //request focus for the game
+            recordingTimer = 0;
         }
     }
     public void update() {
@@ -343,12 +342,14 @@ InputSnapshot inputSnapshot = inputCareTaker.getNextSnapshot();
         int yScroll = player.getY() - screen.height / 2;
 
 
-        if(time % (60*50) == 0) {
-            xDelta *= -1;
-        }
-        if((time + 30 * 50) % (60 * 50) == 0) {
-            yDelta *= -1;
-        }
+//        if(time % (60*50) == 0) {
+//            xDelta *= -1;
+//        }
+//        if((time + 30 * 50) % (60 * 50) == 0) {
+//            yDelta *= -1;
+//        }
+
+
         level.render(xScroll + yDelta , yScroll + xDelta, screen);
 //        AnimatedTile animatedTile = new AnimatedTile((new Sprite(16, 16, 0x00FF00)));
 //        animatedTile.render(level.getPlayer().getX(), level.getPlayer().getY(), screen);
@@ -367,31 +368,31 @@ InputSnapshot inputSnapshot = inputCareTaker.getNextSnapshot();
 
 
 
-        graphics.drawString("Health: " , 50, 50);
-        for(int x = 0; x < 64; x++) {
-            for(int y = 0; y < 64; y++) {
-                int xp = x * 16 * 3;
-                int yp = y * 16 * 3;
-                xp -= xScroll * 3;
-                yp -= yScroll * 3;
-
-                xp += 12;
-                yp += 20;
-
-// Assuming graphics is your Graphics object
-                Font currentFont = graphics.getFont(); // Get the current font
-                int newSize = 10; // Set the new font size
-                Font newFont = currentFont.deriveFont(Font.PLAIN, newSize); // Create a new font with the desired size
-                graphics.setFont(newFont); // Set the graphics object's font to the new font
-
-//// Now draw the string with the new font size
-//                if(RandomLevel.dsu != null)graphics.drawString(RandomLevel.dsu.getParent()[x + y * 64] + "", xp, yp);
-
-// Optionally, set the font back to the original size after drawing the string
-                graphics.setFont(currentFont); // Set the graphics object's font back to the original font
-
-            }
-        }
+//        graphics.drawString("Health: " , 50, 50);
+//        for(int x = 0; x < 64; x++) {
+//            for(int y = 0; y < 64; y++) {
+//                int xp = x * 16 * 3;
+//                int yp = y * 16 * 3;
+//                xp -= xScroll * 3;
+//                yp -= yScroll * 3;
+//
+//                xp += 12;
+//                yp += 20;
+//
+//// Assuming graphics is your Graphics object
+//                Font currentFont = graphics.getFont(); // Get the current font
+//                int newSize = 10; // Set the new font size
+//                Font newFont = currentFont.deriveFont(Font.PLAIN, newSize); // Create a new font with the desired size
+//                graphics.setFont(newFont); // Set the graphics object's font to the new font
+//
+////// Now draw the string with the new font size
+////                if(RandomLevel.dsu != null)graphics.drawString(RandomLevel.dsu.getParent()[x + y * 64] + "", xp, yp);
+//
+//// Optionally, set the font back to the original size after drawing the string
+//                graphics.setFont(currentFont); // Set the graphics object's font back to the original font
+//
+//            }
+//        }
         graphics.fillRect(mouse.getX() , mouse.getY(), 8, 8);
         graphics.dispose();
         bufferStrategy.show();
@@ -408,6 +409,26 @@ InputSnapshot inputSnapshot = inputCareTaker.getNextSnapshot();
     public Level getLevel() {
         return level;
     }
+
+
+    void handlePauseRecording() {
+
+        showRecordingButton.setText("Play Recording");
+//            level.restoreSnapshot(levelCareTaker.getLastSnapshot());
+//            levelCareTaker.reset();
+        paused = false;
+        level.restoreSnapshot(levelCareTaker.getLastSnapshot());
+        recordingTimer = 0;
+        levelCareTaker.reset();
+        inputCareTaker.reset();
+
+        keyboard.releaseAll();
+        this.requestFocus(); //request focus for the game
+
+        mouse.responsive = true;
+        keyboard.responsive = true;
+    }
+
 }
 
 

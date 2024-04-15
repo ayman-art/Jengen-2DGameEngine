@@ -35,7 +35,7 @@ public abstract class Effect extends Entity {
         Sprite s3 = s1.shift(0, 0);
         Sprite s4 = s1.shift(0, -2);
         AnimatedSprite sprite = new AnimatedSprite(new Sprite[]{s1, s2, s3, s4});
-        sprite.setRate(10);
+        sprite.setRate(100);
         return sprite;
     }
 

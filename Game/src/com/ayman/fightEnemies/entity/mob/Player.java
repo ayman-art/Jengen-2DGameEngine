@@ -37,9 +37,11 @@ public class Player extends Mob implements IPlayer {
     }
     public Player(Player copy) {
         this(copy.x, copy.y, copy.keyboard, copy.mouse); //call the constructor that takes x, y, and input (Keyboard, Mouse)
+        this.name = copy.name;
         this.projectile = copy.projectile;
         this.fireInterval = copy.fireInterval;
         this.visible = copy.visible;
+        this.tileBreaker = copy.tileBreaker;
         this.coins = copy.coins;
         this.moving = copy.moving;
         this.currentAnimatedSprite = down;

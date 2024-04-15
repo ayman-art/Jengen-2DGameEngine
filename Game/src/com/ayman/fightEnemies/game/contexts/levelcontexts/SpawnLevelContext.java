@@ -1,6 +1,5 @@
 package com.ayman.fightEnemies.game.contexts.levelcontexts;
 
-import com.ayman.fightEnemies.game.contexts.AIContext;
 
 public class SpawnLevelContext implements ILevelContext{
 

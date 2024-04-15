@@ -3,10 +3,6 @@ package com.ayman.fightEnemies.entity.particle;
 import com.ayman.fightEnemies.Graphics.Screen;
 import com.ayman.fightEnemies.Graphics.Sprite;
 import com.ayman.fightEnemies.entity.Entity;
-import com.ayman.fightEnemies.level.Level;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class Particle extends Entity {
 

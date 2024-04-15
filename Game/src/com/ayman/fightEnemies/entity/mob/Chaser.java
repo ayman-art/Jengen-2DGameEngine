@@ -1,10 +1,8 @@
 package com.ayman.fightEnemies.entity.mob;
 
-import com.ayman.fightEnemies.GameController;
 import com.ayman.fightEnemies.Graphics.AnimatedSprite;
 import com.ayman.fightEnemies.Graphics.Screen;
 import com.ayman.fightEnemies.Graphics.SpriteSheet;
-import com.ayman.fightEnemies.entity.Entity;
 import com.ayman.fightEnemies.entity.projectile.WizardProjectile;
 import com.ayman.fightEnemies.level.Node;
 import com.ayman.fightEnemies.level.tile.Tile;

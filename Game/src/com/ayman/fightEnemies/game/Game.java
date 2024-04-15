@@ -57,7 +57,7 @@ public class Game {
         private ScreenContext screenContext;
         private ProjectileContext projectileContext;
         private AIContext aiContext;
-        private WinnigStateContext winnigStateContext
+        private WinnigStateContext winnigStateContext;
 
         public Builder setGUIContext(GUIContext GUIContext) {
             this.GUIContext = GUIContext;

@@ -139,12 +139,7 @@ public abstract class Mob extends Entity implements IMob, Cloneable {
 
 
 
-    public int getX() {
-        return x;
-    }
-    public int getY() {
-        return y;
-    }
+
 
     public void setX(int x) {
         this.x = x;
