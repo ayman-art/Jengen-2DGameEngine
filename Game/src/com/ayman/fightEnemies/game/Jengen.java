@@ -58,10 +58,10 @@ public class Jengen {
         WizardProjectile.RANGE = projectileContext.getRange();
     }
     private void processLevel(ILevelContext levelContext){
-        if(levelContext instanceof RandomLevelContext){
-            processRandomLevelContext((RandomLevelContext) levelContext);
-        }else if(levelContext instanceof SpawnLevelContext){
-            processSpawnLevelContext((SpawnLevelContext) levelContext);
+        if(levelContext instanceof RandomLevelContext randomLevelContext){
+            processRandomLevelContext(randomLevelContext);
+        }else if(levelContext instanceof SpawnLevelContext spawnLevelContext){
+            processSpawnLevelContext(spawnLevelContext);
         }
 
     }

@@ -245,7 +245,10 @@ public class GameController extends Canvas implements Runnable{
             lastTime = now;
 
             while(delta >= 1) {
-
+                if(level.playerWon()) {
+                    System.out.println("You won");
+                    System.out.println("Congratulations " + playerName);
+                }
                 if(!playingRecording && !paused) {
                     if(recordingTimer % 300 == 0) {
                         recordingTimer = 0;

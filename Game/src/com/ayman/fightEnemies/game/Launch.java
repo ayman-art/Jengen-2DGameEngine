@@ -38,7 +38,7 @@ public class Launch {
                 .build();
 
         ILevelContext LevelContext = new RandomLevelContext.Builder()
-                .setSize(70, 100)
+                .setSize(70, 60)
                 .build();
 
         WinnigStateContext winningStateContext = new WinnigStateContext.Builder()

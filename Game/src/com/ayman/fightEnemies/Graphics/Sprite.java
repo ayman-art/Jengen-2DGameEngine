@@ -91,9 +91,7 @@ public class Sprite {
         this.width = spriteSize;
         this.height = spriteSize1;
         pixels = new int[spriteSize * spriteSize1];
-        for(int i = 0; i < spritePixels.length; i++) {
-            pixels[i] = spritePixels[i];
-        }
+        System.arraycopy(spritePixels, 0, pixels, 0, spritePixels.length);
     }
     public Sprite(Sprite sprite, int x, int y, int width, int height) {
 

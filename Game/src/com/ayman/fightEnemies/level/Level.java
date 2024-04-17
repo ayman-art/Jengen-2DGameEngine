@@ -8,9 +8,11 @@ import com.ayman.fightEnemies.entity.mob.*;
 import com.ayman.fightEnemies.entity.mob.decoratedPlayer.DecoratedPlayer;
 import com.ayman.fightEnemies.entity.particle.Particle;
 import com.ayman.fightEnemies.entity.projectile.Projectile;
+import com.ayman.fightEnemies.level.effects.CoinEffect;
 import com.ayman.fightEnemies.level.effects.Effect;
 import com.ayman.fightEnemies.level.snapshots.LevelSnapshot;
 import com.ayman.fightEnemies.level.tile.Tile;
+import com.ayman.fightEnemies.level.winning.WinningState;
 import com.ayman.fightEnemies.util.Vector2i;
 
 import java.util.*;
@@ -21,19 +23,28 @@ public class Level {
 
     protected int width, height;
     protected int[] tiles;
-//    public static Level spawn = new SpawnLevel("resources\\Sheets\\level1.png");
-    private List<IEntity> mobs = new ArrayList<>();
-    private List<Projectile> projectiles = new ArrayList<>();
-    private List<Particle> particles = new ArrayList<>();
+    //    public static Level spawn = new SpawnLevel("resources\\Sheets\\level1.png");
+    protected List<IEntity> mobs = new ArrayList<>();
+    protected List<Projectile> projectiles = new ArrayList<>();
+    protected List<Particle> particles = new ArrayList<>();
 
-    private Map<Vector2i, Effect> effects = new TreeMap<>(Comparator.comparing(Vector2i::getX).thenComparing(Vector2i::getY));
+    protected Map<Vector2i, Effect> effects = new TreeMap<>(Comparator.comparing(Vector2i::getX).thenComparing(Vector2i::getY));
 
-    public Level(int width, int height) {
+
+    protected int numberOfCoins = 0; // keep track of coins inside the Level
+    protected int numberOfEnemies = 0; // keep track of number of alive enemies inside the Level
+    protected boolean winningEffectDone = false;
+
+    WinningState winningState;
+
+    public Level(int width, int height, WinningState winningState) {
 
         this.width = width;
         this.height = height;
         tiles = new int[width * height];
         generateLevel();
+
+        this.winningState = winningState;
     }
     public Level(String path){
 
@@ -79,18 +90,26 @@ public class Level {
 
     private void clean() {
         for(int i = 0; i < mobs.size(); i++) {
-            if(mobs.get(i).isRemoved()) mobs.remove(i);
+            if(mobs.get(i).isRemoved()) {
+                if(mobs.get(i) instanceof Dummy || mobs.get(i) instanceof Chaser)
+                    numberOfEnemies--;
+                mobs.remove(i--);
+            }
         }
         for(int i = 0; i < projectiles.size(); i++) {
-            if(projectiles.get(i).isRemoved()) projectiles.remove(i);
+            if(projectiles.get(i).isRemoved()) projectiles.remove(i--);
         }
         for(int i = 0; i < particles.size(); i++) {
-            if(particles.get(i).isRemoved()) particles.remove(i);
+            if(particles.get(i).isRemoved()) particles.remove(i--);
         }
 
         Map<Vector2i, Effect> toRemove = new HashMap<>();
         for(Effect effect : effects.values()) {
-            if(effect.isRemoved()) toRemove.put(effect.getPosition(), effect);
+            if(effect.isRemoved()) {
+                if(effect instanceof CoinEffect)
+                    numberOfCoins--;
+                toRemove.put(effect.getPosition(), effect);
+            }
         }
         for(Vector2i position : toRemove.keySet()) {
             effects.remove(position);
@@ -163,7 +182,7 @@ public class Level {
     public Tile getTile(int x, int y, int[] tiles) {
         if(x < 0 || y < 0 || x >= width || y >= height) return Tile.voidTile;
 
-       // System.out.println(tiles[x + y * width]);
+        // System.out.println(tiles[x + y * width]);
 
 
         if(tiles[x + y * width] == Tile.grassColor) return Tile.grass;
@@ -193,7 +212,11 @@ public class Level {
         }
         else  if(entity instanceof IMob) {
             mobs.add(entity);
+            if(entity instanceof Dummy || entity instanceof Chaser)
+                numberOfEnemies++;
         } else if(entity instanceof Effect effect) {
+            if(effect instanceof CoinEffect)
+                numberOfCoins++;
             effects.put(effect.getPosition(), effect);
         }
     }
@@ -452,9 +475,9 @@ public class Level {
         return height;
     }
 
-    public void addEffect(Effect effect) {
-        this.effects.put(effect.getPosition(), effect);
-    }
+//    public void addEffect(Effect effect) {
+//        this.effects.put(effect.getPosition(), effect);
+//    }
 
     public void removeEffect(Effect effect) {
         this.effects.remove(effect);
@@ -477,8 +500,7 @@ public class Level {
     }
     public int getPlayerIndex(Player player) {
         for(int i = 0; i < mobs.size(); i++) {
-            if(!(mobs.get(i) instanceof IPlayer))continue;
-            IPlayer p = (IPlayer) mobs.get(i);
+            if(!(mobs.get(i) instanceof IPlayer p))continue;
             while(p instanceof DecoratedPlayer decoratedPlayer) {
                 p = decoratedPlayer.getPlayer();
             }
@@ -490,5 +512,28 @@ public class Level {
 
     public IPlayer getPlayer(int i) {
         return (IPlayer) mobs.get(i);
+    }
+
+    public List<Effect> getEffects() {
+        return (List<Effect>) effects.values();
+    }
+
+    public int getNumberOfCoins() {
+        return numberOfCoins;
+    }
+
+    public int getNumberOfEnemies() {
+        return numberOfEnemies;
+    }
+
+    public boolean isWinningEffectVisited() {
+        return winningEffectDone;
+    }
+    public void setWinningEffectVisited(boolean winningEffectDone) {
+        this.winningEffectDone = winningEffectDone;
+    }
+
+    public boolean playerWon() {
+        return winningState.checkWinningState(this);
     }
 }
