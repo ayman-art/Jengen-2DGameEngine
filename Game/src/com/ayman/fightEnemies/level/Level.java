@@ -67,7 +67,7 @@ public class Level {
         for(int i = 0; i < mobs.size(); i++) {
             mobs.get(i).update();
             if(mobs.get(i) instanceof DecoratedPlayer decoratedPlayer) {
-                System.out.println("TYPE: " + decoratedPlayer.getClass());
+//                System.out.println("TYPE: " + decoratedPlayer.getClass());
 //                System.out.println(decoratedPlayer.getSpeed());
                 if(decoratedPlayer.timeOut()) {
                     System.out.println("restored from " + decoratedPlayer.getClass());
@@ -179,7 +179,7 @@ public class Level {
     public Tile getTile(int x, int y) {
         return this.getTile(x, y, this.tiles);
     }
-    public Tile getTile(int x, int y, int[] tiles) {
+    public synchronized Tile getTile(int x, int y, int[] tiles) {
         if(x < 0 || y < 0 || x >= width || y >= height) return Tile.voidTile;
 
         // System.out.println(tiles[x + y * width]);

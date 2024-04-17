@@ -1,5 +1,6 @@
 package com.ayman.fightEnemies.level;
 
+import com.ayman.fightEnemies.GameController;
 import com.ayman.fightEnemies.entity.IEntity;
 import com.ayman.fightEnemies.entity.mob.Chaser;
 import com.ayman.fightEnemies.entity.mob.Dummy;
@@ -21,8 +22,8 @@ public class RandomLevel extends Level {
 
     static public int WIDTH = 64;
     static public int HEIGHT = 64;
-    int attempts = 0;
     public DSU dsu = new DSU(width * height);
+    private int collisionFactor = 1;
     int counter = 1;
     public RandomLevel(int width, int height) {
         super(width, height, new ItemsCollected());
@@ -37,14 +38,14 @@ public class RandomLevel extends Level {
     protected void generateLevel() {
         {
             Thread thread1 = new Thread(this::generateLevel2);
-            Thread thread2 = new Thread(thread1);
+//            Thread thread2 = new Thread(thread1);
 
             thread1.start();
-            thread2.start();
+//            thread2.start();
 
             try {
                 thread1.join();
-                thread2.join();
+//                thread2.join();
 
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -138,8 +139,6 @@ public class RandomLevel extends Level {
 //                    System.out.println(freeTile);
                 else tiles[freeTile.getX() + freeTile.getY() * width] = Tile.skyColor;
             }
-
-            System.out.println("Attempts: " + attempts);
             return true;
         }
         return false;
@@ -172,37 +171,17 @@ public class RandomLevel extends Level {
             dsu.union(x2 + y * width, 0);
         }
 
-        for(int i = 1; i < 40; i++) {
+        for(int i = 1; i < width + height + 100000; i++) {
             int x, y;
-            if(random.nextInt(2) == 0) {
-                x = 1;
-            } else {
-                x = width - 2;
-            }
-            y = random.nextInt(height);
-            if(getTile(x, y, tiles).isSolid()) continue;
-            if(x == 3 && (y == 3) || x == width - 2 && y == height - 2) {
-                i--;
-                continue;
-            }
-            tiles[x + width * y] = Tile.rockColor;
-            for(int xx = x - 1; xx <= x + 1; xx++) {
-                for(int yy = y - 1; yy <= y + 1; yy++) {
-                    if(getTile(xx, yy, tiles).isSolid()) {
-                        dsu.union(xx + yy * width, x + y * width);
-                    }
-                }
-            }
 
             if(random.nextInt(2) == 0) {
                 y = 1;
             } else {
                 y = height - 2;
             }
-            x = random.nextInt(width);
-            if(getTile(x, y, tiles).isSolid()) continue;
+
+            x = 3 + random.nextInt(width - 3 -3);
             if(x == 3 && (y == 3) || x == width - 2 && y == height - 2) {
-                i--;
                 continue;
             }
             tiles[x + width * y] = Tile.rockColor;
@@ -214,15 +193,56 @@ public class RandomLevel extends Level {
                 }
             }
 
+            if(random.nextInt(2) == 0) {
+                x = 1;
+            } else {
+                x = width - 2;
+            }
+            y = 3 + random.nextInt(height-3 -3);
+            // what is the difference between the
+            if(x == 3 && (y == 3) || x == width - 2 && y == height - 2) {
+                continue;
+            }
+            tiles[x + width * y] = Tile.rockColor;
+            for(int xx = x - 1; xx <= x + 1; xx++) {
+                for(int yy = y - 1; yy <= y + 1; yy++) {
+                    if(getTile(xx, yy, tiles).isSolid()) {
+                        dsu.union(xx + yy * width, x + y * width);
+                    }
+                }
+            }
 
         }
+
+//        for(int i = 1; i < width + height + 2000000; i++) {
+//            int x, y;
+//            if(random.nextInt(2) == 0) {
+//                x = 1;
+//            } else {
+//                x = width - 2;
+//            }
+//            y = random.nextInt(height);
+//            if(getTile(x, y, tiles).isSolid()) continue;
+//            tiles[x + width * y] = Tile.rockColor;
+//            for(int xx = x - 1; xx <= x + 1; xx++) {
+//                for(int yy = y - 1; yy <= y + 1; yy++) {
+//                    if(getTile(xx, yy, tiles).isSolid()) {
+//                        dsu.union(xx + yy * width, x + y * width);
+//                    }
+//                }
+//            }
+//
+//        }
         int _i;
-        for(_i = 0; _i < 1500 && !done  ; _i++) {
+        int maxAttempts = GameController.getDifficulty() * width * height;
+        int collisions = 0;
+        for(_i = 0; _i < maxAttempts && collisions < maxAttempts * collisionFactor && !done  ; _i++) {
             int x = 1 + random.nextInt(width - 2);
             int y = 1 + random.nextInt(height - 2);
 
             if(getTile(x, y, tiles).isSolid()) {
                 _i--;
+                collisions++;
                 continue;
             }
             if(x == 3 && (y == 3) || x == width - 2 && y == height - 2) {
@@ -233,17 +253,13 @@ public class RandomLevel extends Level {
             boolean ok = true;
             for(Vector2i[] vector2i : AdjacentCheckGenerator.vectors) {
                 Vector2i current = new Vector2i(x, y);  current = current.add(vector2i[0]);
-
                 Vector2i adjacent = new Vector2i(x, y); adjacent = adjacent.add(vector2i[1]);
-
                 int p = current.getX() + current.getY() * width;
                 int q = adjacent.getX() + adjacent.getY() * width;
-
                 if(p < 0 || p >= width * height || q < 0 || q >= width * height) {
 //                    System.out.println("Current: " + current + ", Adjacent: " + adjacent);
 //                    System.out.println("p: " + p + ", q: " + q);
 //                    System.out.println("X: " + x + ", Y: " + y);
-
                 }
                 if(dsu.connected(p, q)) {
 //                    System.out.println("V1 " + current + ", V2 " + adjacent);
@@ -256,11 +272,9 @@ public class RandomLevel extends Level {
             }
 
             if(ok) {
-                if(getTile(x, y, tiles).isSolid()) {
-                    _i--;
-                    System.exit(1234543);
-                    continue;
-                }
+                if (getTile(x, y, tiles).isSolid())
+                    throw new AssertionError();
+
                 tiles[x + y * width] = Tile.rockColor;
                 for(int i = -1; i <= 1; i++) {
                     for(int j = -1; j <= 1; j++) {
@@ -275,8 +289,10 @@ public class RandomLevel extends Level {
 
             } else {
                 _i--;
+                collisions++;
             }
         }
+
         System.out.println("_i: " + _i + "From thread" + Thread.currentThread().getName());
 
         //To ensure that only one thread can put its level.
@@ -302,8 +318,9 @@ public class RandomLevel extends Level {
             y = random.nextInt();
         }
         // Base case
-        if(n == 1) {
+        if(n <= 1) {
             mobs.add(new Player(x, y, null, null));
+            return;
         }
 
         mobs.add(getRandomMob(x, y));
@@ -336,6 +353,7 @@ public class RandomLevel extends Level {
         }
         return null;
     }
+
 
     public boolean emptySlot(int x, int y) {
         if(getTile(x, y).isSolid())

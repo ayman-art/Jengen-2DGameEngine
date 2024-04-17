@@ -26,7 +26,7 @@ public class HelperFighterDecorator extends DecoratedPlayer {
             player.getLevel().add(helper);
         }
         player.update();
-        System.out.println("HelperFighterDecorator");
+//        System.out.println("HelperFighterDecorator");
 
         time--;
         if (time == 0) {

@@ -39,6 +39,7 @@ public class GameController extends Canvas implements Runnable{
     public static int width = 300;
     public static int height = width / 12 * 8;
     public static int scaleFactor = 3;
+    private static String difficulty = "Medium";
     private  boolean playingRecording = false;
     private boolean running = false;
 
@@ -206,8 +207,20 @@ public class GameController extends Canvas implements Runnable{
         this(playerName, new JFrame());
     }
 
-
-
+    public static int getDifficulty() {
+        switch (difficulty) {
+            case "Easy" -> {
+                return 30;
+            }
+            case "Medium" -> {
+                return 40;
+            }
+            case "Hard" -> {
+                return 80;
+            }
+        }
+        return 40;
+    }
 
 
     public synchronized void start() {

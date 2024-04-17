@@ -12,7 +12,7 @@ public class Tile {
         public static Tile sky = new SkyTile(Sprite.sky);
         public static Tile bird = new BirdTile(Sprite.bird);
         public static Tile grass = new grassTile(Sprite.grass);
-        public static Tile rock = new rockTile(Sprite.rock.rotatedSPrite(Math.PI / 2));
+        public static Tile rock = new rockTile(Sprite.rock);
         public static Tile flower = new flowerTile(Sprite.flower);
         public static Tile water = new WaterTile(Sprite.water);
         public static Tile brick = new BrickTile(Sprite.brick);
