@@ -26,8 +26,8 @@ public class Launch {
                 .setEffectTime(200) // Optional (determines the time of effects)
                 .setCoinValue(10) // Optional (determines the value of the coin)
                 .setOriginalSpeed(1) // Optional (determines the original speed of the player)
-                .setChasingRange(600) // Optional (determines the chasing range of the player)
-                .setShootingRange(200) // Optional (determines the shooting range of the player)
+                .setChasingRange(100) // Optional (determines the chasing range of the player)
+                .setShootingRange(100) // Optional (determines the shooting range of the player)
                 .build();
 
         ProjectileContext projectileContext = new ProjectileContext.Builder()
@@ -38,7 +38,7 @@ public class Launch {
                 .build();
 
         ILevelContext LevelContext = new RandomLevelContext.Builder()
-                .setSize(30, 30)
+                .setSize(13, 13)
                 .build();
 
         WinnigStateContext winningStateContext = new WinnigStateContext.Builder()

@@ -251,8 +251,9 @@ public class GameController extends Canvas implements Runnable{
         int frames = 0;
         int updates = 0;
         while(running) {
-            if ((levelCareTaker.getNumberOfSnapshots() > 2)) throw new AssertionError();
-            long now = System.nanoTime();
+            if ((levelCareTaker.getNumberOfSnapshots() > 2)) {
+                throw new AssertionError();
+            }long now = System.nanoTime();
 
             delta += (now - lastTime) / ns; // number of "Updates" we need to do
             lastTime = now;

@@ -5,7 +5,14 @@ import com.ayman.fightEnemies.entity.IEntity;
 import com.ayman.fightEnemies.entity.mob.Chaser;
 import com.ayman.fightEnemies.entity.mob.Dummy;
 import com.ayman.fightEnemies.entity.mob.IMob;
+import com.ayman.fightEnemies.entity.mob.decoratedPlayer.FastPlayer;
+import com.ayman.fightEnemies.level.effects.CoinEffect;
 import com.ayman.fightEnemies.level.effects.Effect;
+import com.ayman.fightEnemies.level.effects.HealthEffect;
+import com.ayman.fightEnemies.level.effects.decorationEffects.BreakTilesEffect;
+import com.ayman.fightEnemies.level.effects.decorationEffects.HelperFighterEffect;
+import com.ayman.fightEnemies.level.effects.decorationEffects.InvisibilityEffect;
+import com.ayman.fightEnemies.level.effects.decorationEffects.SpeedEffect;
 import com.ayman.fightEnemies.level.tile.Tile;
 import com.ayman.fightEnemies.level.winning.ItemsCollected;
 import com.ayman.fightEnemies.util.AdjacentCheckGenerator;
@@ -303,7 +310,8 @@ public class RandomLevel extends Level {
                 done = true;
                 synchronized (this) {
                     this.tiles = tiles;
-                    putMobs(GameController.getDifficulty()>>1);
+                    putEffects(Math.min(getEmptySlots(),GameController.getDifficulty()));
+                    putMobs(Math.min(getEmptySlots(),GameController.getDifficulty()));
                 }
 
             }
@@ -328,20 +336,42 @@ public class RandomLevel extends Level {
         add(Objects.requireNonNull(getRandomMob(x, y)));
         putMobs(n - 1);
     }
-    private void putEffects(int n)  {
-        int x, y;
-         do{
-            x = 1 + random.nextInt(width - 2);
-            y = 1 + random.nextInt(height - 2);
-        }while(occupiedSlot(x, y));
-        // Base case
-        if(n == 1) {
-//            add(new Player(x, y, null, null));
+    private void putEffects(int n) {
+        if (n == 0) {
             return;
         }
+        int x, y;
+        do {
+            x = 1 + random.nextInt(width - 2);
+            y = 1 + random.nextInt(height - 2);
+        } while (occupiedSlot(x, y));
+        // Base case
 
-        mobs.add(getRandomMob(x, y));
-        putMobs(n - 1);
+
+        int num = random.nextInt(4);
+        switch (num) {
+            case 0 -> {
+                add(new CoinEffect(x, y));
+            }
+            case 1 -> {
+                add(new HealthEffect(x, y));
+            }
+            case 2 -> {
+                add(new BreakTilesEffect(x, y));
+            }
+            case 3 -> {
+                add(new SpeedEffect(x, y));
+            }
+            case 4 -> {
+                add(new HelperFighterEffect(x, y));
+            }
+            case 5 -> {
+                add(new InvisibilityEffect(x, y));
+            }
+            default -> throw new IllegalStateException("Unexpected value: " + num);
+        }
+
+        putEffects(n - 1);
     }
     private IMob getRandomMob(int x, int y) {
         int num = random.nextInt(2);
@@ -366,11 +396,19 @@ public class RandomLevel extends Level {
                     return true;
             }
         }
-        for(Effect effect : effects.values()) {
-            if(effect.getX() == x && effect.getY() == y)
-                return true;
-        }
         return false;
+    }
+
+    public int getEmptySlots() {
+        int count = 0;
+        for(int x = 0; x < width; x++) {
+            for(int y = 0; y < height; y++) {
+                if(!getTile(x, y).isSolid()) {
+                    count++;
+                }
+            }
+        }
+        return count;
     }
 
 }

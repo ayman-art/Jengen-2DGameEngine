@@ -13,6 +13,9 @@ public class HelperFighterEffect extends Effect {
         super(position, helperFighterAnimatedSprite);
     }
 
+    public HelperFighterEffect(int x, int y) {
+        this(new Vector2i(x, y));
+    }
     @Override
     public void applyEffect(Level level, Player player) {
         if(!isRemoved()) {

@@ -1,6 +1,7 @@
 package com.ayman.fightEnemies.entity;
 
 import com.ayman.fightEnemies.Graphics.Screen;
+import com.ayman.fightEnemies.entity.mob.IPlayer;
 import com.ayman.fightEnemies.level.Level;
 
 import java.util.Random;
@@ -26,7 +27,7 @@ public abstract class Entity implements IEntity, Cloneable {
     }
 
     public void remove() {
-
+        if(this instanceof IPlayer) return;
         removed = true;
     }
 

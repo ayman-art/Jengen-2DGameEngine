@@ -238,6 +238,7 @@ public class Level {
         for(int i = mobs.size() - 1; i >= 0; i--) {
             if(mobs.get(i) instanceof IPlayer player) return player;
         }
+
         return null;
     }
     public synchronized IPlayer getPlayer(String name) {
@@ -428,9 +429,6 @@ public class Level {
     }
 
 
-    public void removeMob(IMob mob) {
-        this.mobs.remove(mob);
-    }
 
     public LevelSnapshot takeSnapshot() {
         return new LevelSnapshot(tiles, mobs, projectiles, particles, effects);

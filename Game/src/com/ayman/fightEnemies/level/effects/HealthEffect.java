@@ -14,6 +14,14 @@ public class HealthEffect extends Effect{
         this.health = health;
     }
 
+    public HealthEffect(int x, int y, int health) {
+        this(new Vector2i(x, y), health);
+    }
+
+    public HealthEffect(int x, int y) {
+        this(new Vector2i(x, y), 10);
+    }
+
 
 
     public void applyEffect(Level level, Player player) {

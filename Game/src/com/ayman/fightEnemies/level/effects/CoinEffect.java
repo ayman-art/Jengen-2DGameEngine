@@ -14,6 +14,10 @@ public class CoinEffect extends Effect{
         super(position, coinAnimatedSprite);
     }
 
+    public CoinEffect(int x, int y) {
+        this(new Vector2i(x, y));
+    }
+
 
     @Override
     public void applyEffect(Level level, Player player) {

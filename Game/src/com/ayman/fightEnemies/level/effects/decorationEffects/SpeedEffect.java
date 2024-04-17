@@ -16,8 +16,9 @@ public class SpeedEffect extends Effect {
         public SpeedEffect(Vector2i position) {
             super(position, speedAnimatedSprite);
         }
-
-
+        public SpeedEffect(int x, int y) {
+            this(new Vector2i(x, y));
+        }
 
 
     @Override

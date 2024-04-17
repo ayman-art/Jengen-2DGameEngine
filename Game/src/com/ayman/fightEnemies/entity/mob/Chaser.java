@@ -21,6 +21,7 @@ public class Chaser extends Mob{
     protected int fireInterval = WizardProjectile.FIRE_INTERVAL;
 
     protected IMob currentEnemy;
+    boolean near = false;
 
 
     List<Node> path = null;
@@ -49,7 +50,8 @@ public class Chaser extends Mob{
         IPlayer player = (IPlayer) currentEnemy;
         int distancePow2 = (int) (Math.pow(level.getPlayer().getX() - x, 2) + Math.pow(level.getPlayer().getY() - y, 2));
         int distance = (int) Math.sqrt(distancePow2);
-        if(this.currentAnimatedSprite.getCurrentSPrite().SIZE > distance || distance > CHASING_RANGE) {
+        if(distance <= CHASING_RANGE)near = true;
+        if(this.currentAnimatedSprite.getCurrentSPrite().SIZE > distance || ! near) {
             return;
         }
         else if(Math.abs(player.getX() - x) <= 16 && Math.abs(player.getY() - y) <= 16) {

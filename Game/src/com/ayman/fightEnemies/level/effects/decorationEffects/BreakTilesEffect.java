@@ -16,6 +16,10 @@ public class BreakTilesEffect extends Effect {
         super(position, tileBreakerAnimatedSprite);
     }
 
+    public BreakTilesEffect(int x, int y) {
+        this(new Vector2i(x, y));
+    }
+
     @Override
     public void applyEffect(Level level, Player player) {
         if(!isRemoved()) {

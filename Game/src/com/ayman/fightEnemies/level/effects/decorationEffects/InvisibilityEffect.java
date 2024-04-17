@@ -13,6 +13,10 @@ public class InvisibilityEffect extends Effect {
         super(position, invisibilityAnimatedSprite);
     }
 
+    public InvisibilityEffect(int x, int y) {
+        this(new Vector2i(x, y));
+    }
+
     @Override
     public void applyEffect(Level level, Player player) {
         if(!isRemoved()) {
