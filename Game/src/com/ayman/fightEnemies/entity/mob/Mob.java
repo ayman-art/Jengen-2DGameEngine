@@ -164,7 +164,7 @@ public abstract class Mob extends Entity implements IMob, Cloneable {
         }
 
         if(health == 0) {
-            System.exit(11);
+//            System.exit(11);
         }
 
     }

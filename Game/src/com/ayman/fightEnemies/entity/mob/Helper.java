@@ -123,7 +123,7 @@ public class Helper extends Chaser {
             currentAnimatedSprite.restart();
         }
 
-        fireInterval--;
+        if(fireInterval>=0)fireInterval--;
 
         updateShoot();
 

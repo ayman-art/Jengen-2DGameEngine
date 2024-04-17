@@ -23,8 +23,9 @@ public class RandomLevel extends Level {
     static public int WIDTH = 64;
     static public int HEIGHT = 64;
     public DSU dsu = new DSU(width * height);
-    private int collisionFactor = 1;
+    private static int collisionFactor = 1;
     int counter = 1;
+
     public RandomLevel(int width, int height) {
         super(width, height, new ItemsCollected());
 
@@ -33,6 +34,8 @@ public class RandomLevel extends Level {
 
     public RandomLevel() {
         super(WIDTH, HEIGHT, new ItemsCollected());
+        add(new Chaser(3,3));
+
     }
 
     protected void generateLevel() {
@@ -171,7 +174,7 @@ public class RandomLevel extends Level {
             dsu.union(x2 + y * width, 0);
         }
 
-        for(int i = 1; i < width + height + 100000; i++) {
+        for(int i = 1; i < width + height>>2; i++) {
             int x, y;
 
             if(random.nextInt(2) == 0) {
@@ -234,7 +237,7 @@ public class RandomLevel extends Level {
 //
 //        }
         int _i;
-        int maxAttempts = GameController.getDifficulty() * width * height;
+        int maxAttempts = GameController.getDifficulty() * (width-2) * (height-2) / 100;
         int collisions = 0;
         for(_i = 0; _i < maxAttempts && collisions < maxAttempts * collisionFactor && !done  ; _i++) {
             int x = 1 + random.nextInt(width - 2);
@@ -301,7 +304,7 @@ public class RandomLevel extends Level {
                 done = true;
                 synchronized (this) {
                     this.tiles = tiles;
-
+                    putMobs(GameController.getDifficulty()>>1);
                 }
 
             }
@@ -311,38 +314,38 @@ public class RandomLevel extends Level {
     }
 
     private void putMobs(int n) {
-        int x = random.nextInt(),
-                y = random.nextInt();
+        int x = 1 + random.nextInt(width - 2),
+        y = 1 + random.nextInt(height - 2);
         while(!emptySlot(x, y)) {
-            x = random.nextInt();
-            y = random.nextInt();
+            x = 1 + random.nextInt(width - 2);
+            y = 1 + random.nextInt(height - 2);
         }
         // Base case
         if(n <= 1) {
-            mobs.add(new Player(x, y, null, null));
+//            mobs.add(new Player(x, y, null, null));
+            return;
+        }
+
+        add(Objects.requireNonNull(getRandomMob(x, y)));
+        putMobs(n - 1);
+    }
+    private void putEffects(int n)  {
+        int x, y;
+         do{
+            x = 1 + random.nextInt(width - 2);
+            y = 1 + random.nextInt(height - 2);
+        }while(!emptySlot(x, y));
+        // Base case
+        if(n == 1) {
+//            add(new Player(x, y, null, null));
             return;
         }
 
         mobs.add(getRandomMob(x, y));
         putMobs(n - 1);
     }
-    private void putEffects(int n) {
-        int x = random.nextInt(),
-                y = random.nextInt();
-        while(!emptySlot(x, y)) {
-            x = random.nextInt();
-            y = random.nextInt();
-        }
-        // Base case
-        if(n == 1) {
-            add(new Player(x, y, null, null));
-        }
-
-        mobs.add(getRandomMob(x, y));
-        putMobs(n - 1);
-    }
     private IMob getRandomMob(int x, int y) {
-        int num = random.nextInt() % 2;
+        int num = random.nextInt(2);
         switch(num) {
             case 0 -> {
                 return new Dummy(x, y);
@@ -360,7 +363,7 @@ public class RandomLevel extends Level {
             return false;
         for(IEntity entity : mobs) {
             if(entity instanceof IMob mob) {
-                if(mob.getX() == x && mob.getY() == y)
+                if(mob.getX()*16 == x && mob.getY()*16 == y)
                     return false;
             }
         }

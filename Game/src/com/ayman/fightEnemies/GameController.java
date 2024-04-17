@@ -39,7 +39,7 @@ public class GameController extends Canvas implements Runnable{
     public static int width = 300;
     public static int height = width / 12 * 8;
     public static int scaleFactor = 3;
-    private static String difficulty = "Medium";
+    private static String difficulty = "Hard";
     private  boolean playingRecording = false;
     private boolean running = false;
 
@@ -210,16 +210,16 @@ public class GameController extends Canvas implements Runnable{
     public static int getDifficulty() {
         switch (difficulty) {
             case "Easy" -> {
-                return 30;
+                return 10;
             }
             case "Medium" -> {
-                return 40;
+                return 30;
             }
             case "Hard" -> {
-                return 80;
+                return 50;
             }
         }
-        return 40;
+        return 30;
     }
 
 
@@ -370,6 +370,7 @@ InputSnapshot inputSnapshot = inputCareTaker.getNextSnapshot();
         // Center the screen on the player
         int xScroll = player.getX() - screen.width / 2;
         int yScroll = player.getY() - screen.height / 2;
+
 
 
 //        if(time % (60*50) == 0) {

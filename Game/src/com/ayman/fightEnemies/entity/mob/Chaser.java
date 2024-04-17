@@ -121,7 +121,8 @@ public class Chaser extends Mob{
             currentAnimatedSprite.restart();
         }
 
-        fireInterval--;
+        if(fireInterval>=0)
+            fireInterval--;
 
         updateShoot();
 
@@ -208,7 +209,8 @@ public class Chaser extends Mob{
             currentAnimatedSprite.restart();
         }
 
-        fireInterval--;
+        if(fireInterval>=0)
+            fireInterval--;
 
         updateShoot();
 

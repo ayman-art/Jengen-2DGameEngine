@@ -187,7 +187,7 @@ public class Player extends Mob implements IPlayer {
                             if(otherMob instanceof Player player) {
                                 player.updateHealth(projectile.getDamage());
                                 if(player.getHealth() <= 0) {
-                                    System.exit(11);
+//                                    System.exit(11);
                                 }
                             }
                             else {
