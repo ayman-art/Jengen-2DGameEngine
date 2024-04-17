@@ -39,7 +39,7 @@ public class GameController extends Canvas implements Runnable{
     public static int width = 300;
     public static int height = width / 12 * 8;
     public static int scaleFactor = 3;
-    private static String difficulty = "Medium";
+    private static String difficulty = "Easy";
     private  boolean playingRecording = false;
     private boolean running = false;
 
@@ -63,7 +63,7 @@ public class GameController extends Canvas implements Runnable{
 
 
     public final Level[] levels = new Level[2];
-    public final Level level;
+    public Level level;
 
 
     public static boolean paused = false;
@@ -262,6 +262,7 @@ public class GameController extends Canvas implements Runnable{
                 if(level.playerWon()) {
                     System.out.println("You won");
                     System.out.println("Congratulations " + playerName);
+                    loadNextLevel();
                 }
                 if(!playingRecording && !paused) {
                     if(recordingTimer % 300 == 0) {
@@ -306,7 +307,7 @@ public class GameController extends Canvas implements Runnable{
                 timer += 1000;
 
 
-                jFrame.setTitle("FightEnemies | " + updates + " ups, " + frames + " fps - " + playerName + " | " + level.getPlayer().getCoins() + " coins");
+                jFrame.setTitle("FightEnemies | " + updates + " ups, " + frames + " fps - " + playerName + " | " + level.getPlayer().getCoins() + " coins Left" + level.getNumberOfCoins());
 
 
                 //reset the updates and frames
@@ -315,6 +316,17 @@ public class GameController extends Canvas implements Runnable{
             }
         }
         thread.interrupt();
+    }
+
+    private void loadNextLevel() {
+        levelCareTaker.reset();
+        inputCareTaker.reset();
+
+        int xPlayer = level.getPlayer().getX();
+        int yPlayer = level.getPlayer().getY();
+        level = level.getNextLevel();
+        level.add(new Player(playerName, xPlayer, yPlayer, keyboard, mouse));
+
     }
 
     private void playRecording() {
@@ -460,6 +472,9 @@ InputSnapshot inputSnapshot = inputCareTaker.getNextSnapshot();
         mouse.responsive = true;
         keyboard.responsive = true;
     }
+
+
+
 
 }
 

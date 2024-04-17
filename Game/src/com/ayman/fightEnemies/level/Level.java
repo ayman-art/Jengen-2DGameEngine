@@ -19,7 +19,7 @@ import com.ayman.fightEnemies.util.Vector2i;
 import java.util.*;
 
 
-public class Level {
+public abstract class Level {
 
 
     protected int width, height;
@@ -541,4 +541,6 @@ public class Level {
     public boolean playerWon() {
         return winningState.checkWinningState(this);
     }
+
+    public abstract Level getNextLevel();
 }

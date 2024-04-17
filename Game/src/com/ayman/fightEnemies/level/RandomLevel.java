@@ -44,6 +44,7 @@ public class RandomLevel extends Level {
 
     }
 
+    @Override
     protected void generateLevel() {
         {
             Thread thread1 = new Thread(this::generateLevel2);
@@ -412,6 +413,11 @@ public class RandomLevel extends Level {
             }
         }
         return count;
+    }
+
+    @Override
+    public Level getNextLevel() {
+        return new RandomLevel(width, height);
     }
 
 }

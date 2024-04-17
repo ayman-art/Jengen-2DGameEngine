@@ -40,6 +40,11 @@ public class SpawnLevel extends Level {
         //for(int i = 0; i < 1; i++)add(new Chaser(3,3+i));
     }
 
+    @Override
+    public Level getNextLevel() {
+        return null;
+    }
+
     private void loadFromFile(String path) {
         try {
             BufferedReader reader = new BufferedReader(new FileReader(path));
