@@ -91,6 +91,6 @@ public class Dummy extends Mob{
 
     }
     public void render(Screen screen) {
-        screen.renderMob(x - 16, y - 16, this, false);
+        screen.renderMob(x , y, this, false);
     }
 }

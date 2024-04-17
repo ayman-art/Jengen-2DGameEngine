@@ -5,7 +5,6 @@ import com.ayman.fightEnemies.entity.IEntity;
 import com.ayman.fightEnemies.entity.mob.Chaser;
 import com.ayman.fightEnemies.entity.mob.Dummy;
 import com.ayman.fightEnemies.entity.mob.IMob;
-import com.ayman.fightEnemies.entity.mob.Player;
 import com.ayman.fightEnemies.level.effects.Effect;
 import com.ayman.fightEnemies.level.tile.Tile;
 import com.ayman.fightEnemies.level.winning.ItemsCollected;
@@ -316,7 +315,7 @@ public class RandomLevel extends Level {
     private void putMobs(int n) {
         int x = 1 + random.nextInt(width - 2),
         y = 1 + random.nextInt(height - 2);
-        while(!emptySlot(x, y)) {
+        while(occupiedSlot(x, y)) {
             x = 1 + random.nextInt(width - 2);
             y = 1 + random.nextInt(height - 2);
         }
@@ -334,7 +333,7 @@ public class RandomLevel extends Level {
          do{
             x = 1 + random.nextInt(width - 2);
             y = 1 + random.nextInt(height - 2);
-        }while(!emptySlot(x, y));
+        }while(occupiedSlot(x, y));
         // Base case
         if(n == 1) {
 //            add(new Player(x, y, null, null));
@@ -358,20 +357,20 @@ public class RandomLevel extends Level {
     }
 
 
-    public boolean emptySlot(int x, int y) {
+    public boolean occupiedSlot(int x, int y) {
         if(getTile(x, y).isSolid())
-            return false;
+            return true;
         for(IEntity entity : mobs) {
             if(entity instanceof IMob mob) {
-                if(mob.getX()*16 == x && mob.getY()*16 == y)
-                    return false;
+                if(mob.getX()/16 == x && mob.getY()/16 == y)
+                    return true;
             }
         }
         for(Effect effect : effects.values()) {
             if(effect.getX() == x && effect.getY() == y)
-                return false;
+                return true;
         }
-        return true;
+        return false;
     }
 
 }
