@@ -12,6 +12,7 @@ import com.ayman.fightEnemies.level.effects.CoinEffect;
 import com.ayman.fightEnemies.level.effects.Effect;
 import com.ayman.fightEnemies.level.snapshots.LevelSnapshot;
 import com.ayman.fightEnemies.level.tile.Tile;
+import com.ayman.fightEnemies.level.winning.ItemsCollected;
 import com.ayman.fightEnemies.level.winning.WinningState;
 import com.ayman.fightEnemies.util.Vector2i;
 
@@ -214,9 +215,15 @@ public class Level {
             mobs.add(entity);
             if(entity instanceof Dummy || entity instanceof Chaser)
                 numberOfEnemies++;
-        } else if(entity instanceof Effect effect && ! effects.containsKey(effect.getPosition())) {
-            if(effect instanceof CoinEffect)
+        } else if(entity instanceof Effect effect) {
+
+
+            Effect oldEffect = effects.get(effect.getPosition());
+            if(oldEffect instanceof CoinEffect) {
+                numberOfCoins--;
+            } else if(effect instanceof CoinEffect) {
                 numberOfCoins++;
+            }
             effects.put(effect.getPosition(), effect);
         }
     }

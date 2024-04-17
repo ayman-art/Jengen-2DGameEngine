@@ -337,15 +337,18 @@ public class RandomLevel extends Level {
         putMobs(n - 1);
     }
     private void putEffects(int n) {
-        if (n == 0) {
-            return;
-        }
+
         int x, y;
         do {
             x = 1 + random.nextInt(width - 2);
             y = 1 + random.nextInt(height - 2);
         } while (occupiedSlot(x, y));
-        // Base case
+        if (n == 1) {
+            if(numberOfCoins == 0 && Level.winningState instanceof ItemsCollected) {
+                add(new CoinEffect(x, y));
+            }
+            return;
+        }
 
 
         int num = random.nextInt(6);
