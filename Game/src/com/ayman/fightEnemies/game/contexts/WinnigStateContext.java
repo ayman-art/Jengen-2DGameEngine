@@ -11,6 +11,10 @@ public class WinnigStateContext extends Context{
         ReachEnd
     };
 
+    public WinningStateType getType() {
+        return type;
+    }
+
 
     private WinnigStateContext(Builder builder) {
         this.type = builder.type;

@@ -348,7 +348,7 @@ public class RandomLevel extends Level {
         // Base case
 
 
-        int num = random.nextInt(4);
+        int num = random.nextInt(6);
         switch (num) {
             case 0 -> {
                 add(new CoinEffect(x, y));

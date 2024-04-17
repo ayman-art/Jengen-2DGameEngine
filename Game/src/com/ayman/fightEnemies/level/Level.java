@@ -35,7 +35,7 @@ public class Level {
     protected int numberOfEnemies = 0; // keep track of number of alive enemies inside the Level
     protected boolean winningEffectDone = false;
 
-    WinningState winningState;
+    public static WinningState winningState;
 
     public Level(int width, int height, WinningState winningState) {
 
@@ -44,7 +44,7 @@ public class Level {
         tiles = new int[width * height];
         generateLevel();
 
-        this.winningState = winningState;
+        Level.winningState = winningState;
     }
     public Level(String path){
 
@@ -214,7 +214,7 @@ public class Level {
             mobs.add(entity);
             if(entity instanceof Dummy || entity instanceof Chaser)
                 numberOfEnemies++;
-        } else if(entity instanceof Effect effect) {
+        } else if(entity instanceof Effect effect && ! effects.containsKey(effect.getPosition())) {
             if(effect instanceof CoinEffect)
                 numberOfCoins++;
             effects.put(effect.getPosition(), effect);

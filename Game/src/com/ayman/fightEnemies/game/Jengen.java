@@ -8,9 +8,13 @@ import com.ayman.fightEnemies.game.contexts.levelcontexts.ILevelContext;
 import com.ayman.fightEnemies.game.contexts.levelcontexts.RandomLevelContext;
 import com.ayman.fightEnemies.game.contexts.levelcontexts.SpawnLevelContext;
 import com.ayman.fightEnemies.gui.AppFrame;
+import com.ayman.fightEnemies.level.Level;
 import com.ayman.fightEnemies.level.RandomLevel;
 import com.ayman.fightEnemies.level.effects.CoinEffect;
 import com.ayman.fightEnemies.level.effects.Effect;
+import com.ayman.fightEnemies.level.winning.ItemsCollected;
+import com.ayman.fightEnemies.level.winning.MobsKilled;
+import com.ayman.fightEnemies.level.winning.TargetReached;
 
 public class Jengen {
 
@@ -26,8 +30,7 @@ public class Jengen {
         processProjectiles(game.getProjectileContext());
         processAI(game.getAiContext());
         processLevel(game.getLevelContext());
-
-
+        processWinningState(game.getWinnigStateContext());
 
         AppFrame.getInstance();
     }
@@ -72,6 +75,21 @@ public class Jengen {
     private void processSpawnLevelContext(SpawnLevelContext levelContext){
 
 
+    }
+
+    private void processWinningState(WinnigStateContext winnigStateContext){
+        switch(winnigStateContext.getType()){
+            case CollectAllCoins -> {
+                Level.winningState = new ItemsCollected();
+            }
+            case KillAllEnemies -> {
+                Level.winningState = new MobsKilled();
+            }
+            case ReachEnd -> {
+                Level.winningState = new TargetReached();
+            }
+
+        }
     }
 
 }
