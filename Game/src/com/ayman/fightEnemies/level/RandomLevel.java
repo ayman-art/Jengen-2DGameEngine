@@ -1,7 +1,13 @@
 package com.ayman.fightEnemies.level;
 
+import com.ayman.fightEnemies.entity.IEntity;
 import com.ayman.fightEnemies.entity.mob.Chaser;
+import com.ayman.fightEnemies.entity.mob.Dummy;
+import com.ayman.fightEnemies.entity.mob.IMob;
+import com.ayman.fightEnemies.entity.mob.Player;
+import com.ayman.fightEnemies.level.effects.Effect;
 import com.ayman.fightEnemies.level.tile.Tile;
+import com.ayman.fightEnemies.level.winning.ItemsCollected;
 import com.ayman.fightEnemies.util.AdjacentCheckGenerator;
 import com.ayman.fightEnemies.util.DSU;
 import com.ayman.fightEnemies.util.Vector2i;
@@ -19,20 +25,18 @@ public class RandomLevel extends Level {
     public DSU dsu = new DSU(width * height);
     int counter = 1;
     public RandomLevel(int width, int height) {
-        super(width, height);
+        super(width, height, new ItemsCollected());
 
         add(new Chaser(3,3));
     }
 
     public RandomLevel() {
-        super(WIDTH, HEIGHT);
+        super(WIDTH, HEIGHT, new ItemsCollected());
     }
 
     protected void generateLevel() {
         {
-            Thread thread1 = new Thread(() -> {
-                generateLevel2();
-            });
+            Thread thread1 = new Thread(this::generateLevel2);
             Thread thread2 = new Thread(thread1);
 
             thread1.start();
@@ -53,7 +57,6 @@ public class RandomLevel extends Level {
             }
             if(true) return;
         }
-        attempts++;
 //        System.out.println("Random Level");
 
         Set<Vector2i> freeTiles = new TreeSet<>( (v1, v2) -> {
@@ -146,7 +149,7 @@ public class RandomLevel extends Level {
 
     protected void generateLevel2() {
 
-
+        int attempts = 0;
         int[] tiles = new int[width * height];
         DSU dsu = new DSU(width * height);
 
@@ -213,7 +216,7 @@ public class RandomLevel extends Level {
 
 
         }
-        int _i = 0;
+        int _i;
         for(_i = 0; _i < 1500 && !done  ; _i++) {
             int x = 1 + random.nextInt(width - 2);
             int y = 1 + random.nextInt(height - 2);
@@ -228,7 +231,7 @@ public class RandomLevel extends Level {
             }
 
             boolean ok = true;
-            for(Vector2i vector2i[] : AdjacentCheckGenerator.vectors) {
+            for(Vector2i[] vector2i : AdjacentCheckGenerator.vectors) {
                 Vector2i current = new Vector2i(x, y);  current = current.add(vector2i[0]);
 
                 Vector2i adjacent = new Vector2i(x, y); adjacent = adjacent.add(vector2i[1]);
@@ -276,18 +279,78 @@ public class RandomLevel extends Level {
         }
         System.out.println("_i: " + _i + "From thread" + Thread.currentThread().getName());
 
+        //To ensure that only one thread can put its level.
         synchronized (RandomLevel.class) {
             if(!done) {
                 done = true;
                 synchronized (this) {
                     this.tiles = tiles;
+
                 }
 
             }
         }
-        return;
+
 
     }
 
+    private void putMobs(int n) {
+        int x = random.nextInt(),
+                y = random.nextInt();
+        while(!emptySlot(x, y)) {
+            x = random.nextInt();
+            y = random.nextInt();
+        }
+        // Base case
+        if(n == 1) {
+            mobs.add(new Player(x, y, null, null));
+        }
+
+        mobs.add(getRandomMob(x, y));
+        putMobs(n - 1);
+    }
+    private void putEffects(int n) {
+        int x = random.nextInt(),
+                y = random.nextInt();
+        while(!emptySlot(x, y)) {
+            x = random.nextInt();
+            y = random.nextInt();
+        }
+        // Base case
+        if(n == 1) {
+            add(new Player(x, y, null, null));
+        }
+
+        mobs.add(getRandomMob(x, y));
+        putMobs(n - 1);
+    }
+    private IMob getRandomMob(int x, int y) {
+        int num = random.nextInt() % 2;
+        switch(num) {
+            case 0 -> {
+                return new Dummy(x, y);
+            }
+            case 1 -> {
+                return new Chaser(x, y);
+            }
+        }
+        return null;
+    }
+
+    public boolean emptySlot(int x, int y) {
+        if(getTile(x, y).isSolid())
+            return false;
+        for(IEntity entity : mobs) {
+            if(entity instanceof IMob mob) {
+                if(mob.getX() == x && mob.getY() == y)
+                    return false;
+            }
+        }
+        for(Effect effect : effects.values()) {
+            if(effect.getX() == x && effect.getY() == y)
+                return false;
+        }
+        return true;
+    }
 
 }
