@@ -36,16 +36,24 @@ public class SpawnLevel extends Level {
                     currentLevelIndex = SpawnLevel.decrypt(line);
                     System.out.println("Decrypted level index: " + currentLevelIndex);
                     reader.close();
+
+
+                    if (!(1 <= currentLevelIndex && currentLevelIndex <= numberOfLevels))
+                        throw new IllegalArgumentException("Level index out of bounds"
+                                + " currentLevelIndex: " + currentLevelIndex
+                                + " numberOfLevels: " + numberOfLevels);
+
                 } else {
-                    currentLevelIndex = 1;
+                    throw new FileNotFoundException("Progress file not found");
                 }
-            } catch (IOException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
+                currentLevelIndex = 1;;
             }
         }
 
 
-            this.currentLevelIndex = currentLevelIndex;
+        this.currentLevelIndex = currentLevelIndex;
         String levelPath = getLevelPath(currentLevelIndex);
         String entitiesPath = getEntitiesPath(currentLevelIndex);
         loadLevel(levelPath);
@@ -183,4 +191,8 @@ public class SpawnLevel extends Level {
         LevelEntitiesParser.parseEntitiesFile(fileName).forEach(this::add);
     }
 
+    public void reset() {
+        currentLevelIndex = 1;
+        saveProgressInLogFile();
+    }
 }

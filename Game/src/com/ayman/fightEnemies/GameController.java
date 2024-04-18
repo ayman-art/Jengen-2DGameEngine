@@ -270,6 +270,7 @@ public class GameController extends Canvas implements Runnable{
                     if(level instanceof SpawnLevel spawnLevel && !spawnLevel.hasNextLevel()) {
                         System.out.println("You have finished the game");
                         System.out.println("Congratulations " + playerName);
+                        spawnLevel.reset();
                         System.exit(0);
                     }
                     loadNextLevel();
