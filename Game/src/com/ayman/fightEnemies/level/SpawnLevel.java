@@ -17,14 +17,41 @@ public class SpawnLevel extends Level {
     public static String levelsLocation;
     private int currentLevelIndex = 1;
 
+    public SpawnLevel() {
+        this(-1);
+    }
 
     public SpawnLevel(int currentLevelIndex) {
+        if(currentLevelIndex > numberOfLevels)
+            throw new IllegalArgumentException("Level index out of bounds"
+                    + " currentLevelIndex: " + currentLevelIndex
+                    + " numberOfLevels: " + numberOfLevels);
+        if(currentLevelIndex == -1) {
+            try {
+                //if file found
 
-        this.currentLevelIndex = currentLevelIndex;
+                if (new File(levelsLocation + "\\progress.txt").exists()) {
+                    BufferedReader reader = new BufferedReader(new FileReader(levelsLocation + "\\progress.txt"));
+                    String line = reader.readLine();
+                    currentLevelIndex = SpawnLevel.decrypt(line);
+                    System.out.println("Decrypted level index: " + currentLevelIndex);
+                    reader.close();
+                } else {
+                    currentLevelIndex = 1;
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+
+            this.currentLevelIndex = currentLevelIndex;
         String levelPath = getLevelPath(currentLevelIndex);
         String entitiesPath = getEntitiesPath(currentLevelIndex);
         loadLevel(levelPath);
         putEntities(entitiesPath);
+
+        saveProgressInLogFile();
     }
 
     protected void loadLevel(String path) {
@@ -114,6 +141,25 @@ public class SpawnLevel extends Level {
             return null;
         return new SpawnLevel(currentLevelIndex + 1);
     }
+
+    private void saveProgressInLogFile() {
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter(levelsLocation + "\\progress.txt", false)); // Overwrite the file
+            System.out.println("Encrypting level index: " + currentLevelIndex);
+            writer.write(encrypt(currentLevelIndex) + "\n");
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    static String encrypt(int levelIndex){
+        return "level_" + levelIndex;
+    }
+    static int decrypt(String encrypted){
+        return Integer.parseInt(encrypted.substring(6));
+    }
+
     public boolean hasNextLevel(){
         return currentLevelIndex < numberOfLevels;
     }

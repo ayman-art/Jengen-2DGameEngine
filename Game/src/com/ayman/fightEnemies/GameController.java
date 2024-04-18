@@ -109,7 +109,7 @@ public class GameController extends Canvas implements Runnable{
         if(SpawnLevel.numberOfLevels == 0) {
             level = new RandomLevel();
         } else {
-            level = new SpawnLevel(1);
+            level = new SpawnLevel();
         }
 //        ((SpawnLevel) level).writeToFile("level11.txt");
         TileCoordinate playerSpawn = new TileCoordinate(level.getWidth()-2, level.getHeight()-2);
@@ -270,11 +270,7 @@ public class GameController extends Canvas implements Runnable{
                     if(level instanceof SpawnLevel spawnLevel && !spawnLevel.hasNextLevel()) {
                         System.out.println("You have finished the game");
                         System.out.println("Congratulations " + playerName);
-                        try {
-                            wait();
-                        } catch (InterruptedException e) {
-                            throw new RuntimeException(e);
-                        }
+                        System.exit(0);
                     }
                     loadNextLevel();
                 }
