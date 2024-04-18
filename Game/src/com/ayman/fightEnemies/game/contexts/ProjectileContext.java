@@ -33,7 +33,7 @@ public class ProjectileContext extends Context {
 
         public static class Builder {
             private int speed = 2;
-            private int damage = 20;
+            private int damage = 1;
             private int range = 1000;
             private int fireInterval = 10;
 

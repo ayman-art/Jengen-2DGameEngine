@@ -1,6 +1,8 @@
 package com.ayman.fightEnemies.game.contexts.levelcontexts;
 
 
+import java.net.HttpCookie;
+
 public class SpawnLevelContext implements ILevelContext{
 
     private final int numberOfLevels;
@@ -15,19 +17,20 @@ public class SpawnLevelContext implements ILevelContext{
         return numberOfLevels;
     }
 
-    public String getLevelsLocation(){
+    public String getPath(){
         return levelsLocation;
     }
+
     public static class Builder{
         private int numberOfLevels;
         String levelsLocation;
 
-        public Builder numberOfLevels(int numberOfLevels){
+        public Builder setNumberOfLevels(int numberOfLevels){
             this.numberOfLevels = numberOfLevels;
             return this;
         }
 
-        public Builder levelsLocation(String levelsLocation){
+        public Builder setPath(String levelsLocation){
             this.levelsLocation = levelsLocation;
             return this;
         }
@@ -35,6 +38,8 @@ public class SpawnLevelContext implements ILevelContext{
         public SpawnLevelContext build(){
             return new SpawnLevelContext(this);
         }
+
+
     }
 
 }
