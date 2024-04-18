@@ -4,11 +4,15 @@ import com.ayman.fightEnemies.entity.Entity;
 import com.ayman.fightEnemies.entity.mob.Chaser;
 import com.ayman.fightEnemies.entity.mob.Dummy;
 import com.ayman.fightEnemies.level.tile.Tile;
+import com.ayman.fightEnemies.util.Encryptor;
 import com.ayman.fightEnemies.util.LevelEntitiesParser;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class SpawnLevel extends Level {
 
@@ -33,7 +37,7 @@ public class SpawnLevel extends Level {
                 if (new File(levelsLocation + "\\progress.txt").exists()) {
                     BufferedReader reader = new BufferedReader(new FileReader(levelsLocation + "\\progress.txt"));
                     String line = reader.readLine();
-                    currentLevelIndex = SpawnLevel.decrypt(line);
+                    currentLevelIndex = Encryptor.decrypt(line);
                     System.out.println("Decrypted level index: " + currentLevelIndex);
                     reader.close();
 
@@ -154,19 +158,14 @@ public class SpawnLevel extends Level {
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(levelsLocation + "\\progress.txt", false)); // Overwrite the file
             System.out.println("Encrypting level index: " + currentLevelIndex);
-            writer.write(encrypt(currentLevelIndex) + "\n");
+            writer.write(Encryptor.encrypt(currentLevelIndex) + "\n");
             writer.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    static String encrypt(int levelIndex){
-        return "level_" + levelIndex;
-    }
-    static int decrypt(String encrypted){
-        return Integer.parseInt(encrypted.substring(6));
-    }
+
 
     public boolean hasNextLevel(){
         return currentLevelIndex < numberOfLevels;
