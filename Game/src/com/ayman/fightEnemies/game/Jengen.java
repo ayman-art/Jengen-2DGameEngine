@@ -10,6 +10,7 @@ import com.ayman.fightEnemies.game.contexts.levelcontexts.SpawnLevelContext;
 import com.ayman.fightEnemies.gui.AppFrame;
 import com.ayman.fightEnemies.level.Level;
 import com.ayman.fightEnemies.level.RandomLevel;
+import com.ayman.fightEnemies.level.SpawnLevel;
 import com.ayman.fightEnemies.level.effects.CoinEffect;
 import com.ayman.fightEnemies.level.effects.Effect;
 import com.ayman.fightEnemies.level.winning.ItemsCollected;
@@ -73,7 +74,8 @@ public class Jengen {
         RandomLevel.HEIGHT = levelContext.getHeight();
     }
     private void processSpawnLevelContext(SpawnLevelContext levelContext){
-
+        SpawnLevel.numberOfLevels = levelContext.getNumberOfLevels();
+        SpawnLevel.levelsLocation = levelContext.getPath();
 
     }
 
@@ -91,5 +93,7 @@ public class Jengen {
 
         }
     }
+
+
 
 }

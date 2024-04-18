@@ -3,6 +3,7 @@ package com.ayman.fightEnemies.game;
 import com.ayman.fightEnemies.game.contexts.*;
 import com.ayman.fightEnemies.game.contexts.levelcontexts.ILevelContext;
 import com.ayman.fightEnemies.game.contexts.levelcontexts.RandomLevelContext;
+import com.ayman.fightEnemies.game.contexts.levelcontexts.SpawnLevelContext;
 
 public class Launch {
     public static void main(String[] args) {
@@ -37,10 +38,15 @@ public class Launch {
                 .setFireInterval(10)
                 .build();
 
-        ILevelContext LevelContext = new RandomLevelContext.Builder()
-                .setSize(20, 20)
-                .build();
+//        ILevelContext LevelContext = new RandomLevelContext.Builder()
+//                .setSize(20, 20)
+//                .build();
 
+
+        ILevelContext LevelContext = new SpawnLevelContext.Builder()
+                .setNumberOfLevels(2)
+                .setPath("C:\\Users\\ayman\\Desktop\\FightLevels")
+                .build();
         WinnigStateContext winningStateContext = new WinnigStateContext.Builder()
                 .setType(WinnigStateContext.WinningStateType.CollectAllCoins)
                 .build();

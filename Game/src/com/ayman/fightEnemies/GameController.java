@@ -13,6 +13,7 @@ import com.ayman.fightEnemies.game.contexts.AIContext;
 import com.ayman.fightEnemies.gui.AppFrame;
 import com.ayman.fightEnemies.level.Level;
 import com.ayman.fightEnemies.level.RandomLevel;
+import com.ayman.fightEnemies.level.SpawnLevel;
 import com.ayman.fightEnemies.level.TileCoordinate;
 import com.ayman.fightEnemies.level.effects.CoinEffect;
 import com.ayman.fightEnemies.level.effects.HealthEffect;
@@ -62,7 +63,7 @@ public class GameController extends Canvas implements Runnable{
     public JButton showRecordingButton;
 
 
-    public final Level[] levels = new Level[2];
+    public static int numberOfLevelFiles;
     public Level level;
 
 
@@ -105,7 +106,11 @@ public class GameController extends Canvas implements Runnable{
 
 //        level = new RandomLevel(64, 64);
 //        level = new RandomLevel(64, 64);
-        level = new RandomLevel();
+        if(SpawnLevel.numberOfLevels == 0) {
+            level = new RandomLevel();
+        } else {
+            level = new SpawnLevel(1);
+        }
 //        ((SpawnLevel) level).writeToFile("level11.txt");
         TileCoordinate playerSpawn = new TileCoordinate(level.getWidth()-2, level.getHeight()-2);
         level.add(new Player(playerName, playerSpawn.x(), playerSpawn.y(), keyboard, mouse));
@@ -262,6 +267,15 @@ public class GameController extends Canvas implements Runnable{
                 if(level.playerWon()) {
                     System.out.println("You won");
                     System.out.println("Congratulations " + playerName);
+                    if(level instanceof SpawnLevel spawnLevel && !spawnLevel.hasNextLevel()) {
+                        System.out.println("You have finished the game");
+                        System.out.println("Congratulations " + playerName);
+                        try {
+                            wait();
+                        } catch (InterruptedException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
                     loadNextLevel();
                 }
                 if(!playingRecording && !paused) {
@@ -322,8 +336,8 @@ public class GameController extends Canvas implements Runnable{
         levelCareTaker.reset();
         inputCareTaker.reset();
 
-        int xPlayer = level.getPlayer().getX();
-        int yPlayer = level.getPlayer().getY();
+        int xPlayer = level.getPlayer().getX()/16*16;
+        int yPlayer = level.getPlayer().getY()/16*16;
         level = level.getNextLevel();
         level.add(new Player(playerName, xPlayer, yPlayer, keyboard, mouse));
 
