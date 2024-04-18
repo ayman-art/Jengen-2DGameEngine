@@ -10,7 +10,7 @@ import java.util.List;
 
 public class LevelEntitiesParser {
 
-    static List<IEntity> parseEntitiesFile(String fileName) {
+    public static List<IEntity> parseEntitiesFile(String fileName) {
         List<IEntity> entities = new ArrayList<>();
         // Parse the file and populate the entities list
         try {

@@ -1,8 +1,10 @@
 package com.ayman.fightEnemies.level;
 
+import com.ayman.fightEnemies.entity.Entity;
 import com.ayman.fightEnemies.entity.mob.Chaser;
 import com.ayman.fightEnemies.entity.mob.Dummy;
 import com.ayman.fightEnemies.level.tile.Tile;
+import com.ayman.fightEnemies.util.LevelEntitiesParser;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -11,8 +13,18 @@ import java.io.*;
 public class SpawnLevel extends Level {
 
 
-    public SpawnLevel(String path) {
-        super(path);
+    public static int numberOfLevels;
+    public static String levelsLocation;
+    private int currentLevelIndex = 1;
+
+
+    public SpawnLevel(int currentLevelIndex) {
+
+        this.currentLevelIndex = currentLevelIndex;
+        String levelPath = getLevelPath(currentLevelIndex);
+        String entitiesPath = getEntitiesPath(currentLevelIndex);
+        loadLevel(levelPath);
+        putEntities(entitiesPath);
     }
 
     protected void loadLevel(String path) {
@@ -23,7 +35,8 @@ public class SpawnLevel extends Level {
         try {
             System.out.println("Loading level from: " + path);
 
-            BufferedImage image = ImageIO.read(getClass().getResource(path));
+            assert path != null;
+            BufferedImage image = ImageIO.read(new File(path));
 
             this.width = image.getWidth();
             this.height = image.getHeight();
@@ -40,10 +53,6 @@ public class SpawnLevel extends Level {
         //for(int i = 0; i < 1; i++)add(new Chaser(3,3+i));
     }
 
-    @Override
-    public Level getNextLevel() {
-        return null;
-    }
 
     private void loadFromFile(String path) {
         try {
@@ -99,14 +108,33 @@ public class SpawnLevel extends Level {
         }
     }
 
-    protected void generateLevel() {
-
-
-        for (int i = 0; i < tiles.length; i++) {
-
-
-        }
-
-
+    @Override
+    public Level getNextLevel() {
+        if(currentLevelIndex > numberOfLevels)
+            return null;
+        return new SpawnLevel(currentLevelIndex + 1);
     }
+    public boolean hasNextLevel(){
+        return currentLevelIndex < numberOfLevels;
+    }
+
+    public int getCurrentLevelIndex() {
+        return currentLevelIndex;
+    }
+
+    private String getPathPrefix(int levelIndex){
+        return levelsLocation + "\\level_" + levelIndex + "\\";
+    }
+    private String getLevelPath(int levelIndex){
+        return getPathPrefix(levelIndex) + "level.png";
+    }
+    private String getEntitiesPath(int levelIndex){
+        return getPathPrefix(levelIndex) + "entities.txt";
+    }
+
+
+    private void putEntities(String fileName) {
+        LevelEntitiesParser.parseEntitiesFile(fileName).forEach(this::add);
+    }
+
 }

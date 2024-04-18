@@ -47,14 +47,7 @@ public abstract class Level {
 
         Level.winningState = winningState;
     }
-    public Level(String path){
-
-        loadLevel(path);
-        generateLevel();
-
-
-
-    }
+    public Level(){};
 
     protected void generateLevel() {
         System.out.println("calling generateLevel from Level");
