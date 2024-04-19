@@ -14,6 +14,7 @@ public class Launch {
                 .setHeight(300 * 8 / 12)
                 .setScaleFactor(3) // Optional (determines the scale factor of the GUI)
                 .setMiniMapAlpha(100) // Optional (determines the transparency of the minimap)
+                .setAboutText("This is A Fighting oe") // Optional (determines the about text)
                 .build();
 
         // Setting the AIContext

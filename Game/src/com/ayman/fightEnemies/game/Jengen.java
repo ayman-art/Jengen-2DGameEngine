@@ -8,6 +8,7 @@ import com.ayman.fightEnemies.game.contexts.levelcontexts.ILevelContext;
 import com.ayman.fightEnemies.game.contexts.levelcontexts.RandomLevelContext;
 import com.ayman.fightEnemies.game.contexts.levelcontexts.SpawnLevelContext;
 import com.ayman.fightEnemies.gui.AppFrame;
+import com.ayman.fightEnemies.gui.states.AboutState;
 import com.ayman.fightEnemies.level.Level;
 import com.ayman.fightEnemies.level.RandomLevel;
 import com.ayman.fightEnemies.level.SpawnLevel;
@@ -44,6 +45,7 @@ public class Jengen {
         GameController.width = guiContext.getWidth();
         GameController.height = guiContext.getHeight();
         GameController.scaleFactor = guiContext.getScaleFactor();
+        AboutState.aboutText = guiContext.getAboutText();
     }
 
     private void processPlayer(PlayerContext playerContext){

@@ -10,10 +10,12 @@ public class AboutState extends GuiState{
 
     JButton backButton;
 
+    public static String aboutText = "This is a game about fighting enemies";
+
 
 
     public AboutState() {
-        aboutLabel = new JLabel("This is a game about fighting enemies");
+        aboutLabel = new JLabel(aboutText);
         aboutLabel.setBounds(100, 100, 300, 100);
 
         backButton = new JButton("Back");

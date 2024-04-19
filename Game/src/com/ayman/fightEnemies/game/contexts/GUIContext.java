@@ -1,5 +1,7 @@
 package com.ayman.fightEnemies.game.contexts;
 
+import com.ayman.fightEnemies.game.contexts.levelcontexts.RandomLevelContext;
+
 import java.util.Optional;
 
 public class GUIContext extends Context {
@@ -11,10 +13,14 @@ public class GUIContext extends Context {
 
     private Optional<Integer> MiniMapAlpha = Optional.empty();
 
+    private String aboutText;
+
     private GUIContext(Builder builder) {
         this.width = builder.width;
         this.height = builder.height;
         this.scaleFactor = builder.scaleFactor;
+        this.MiniMapAlpha = builder.MiniMapAlpha;
+        this.aboutText = builder.aboutText;
     }
 
     public int getWidth() {
@@ -27,18 +33,21 @@ public class GUIContext extends Context {
         return scaleFactor;
     }
 
+    public String getAboutText() {
+        return aboutText;
+    }
+
 
     public static class Builder {
 
 
+        String aboutText;
         int width;
         int height;
         int scaleFactor;
 
         private Optional<Integer> MiniMapAlpha = Optional.empty();
 
-        public Builder() {
-        }
 
         public Builder setWidth(int width) {
             this.width = width;
@@ -59,8 +68,14 @@ public class GUIContext extends Context {
             return this;
         }
 
+        public Builder setAboutText(String aboutText) {
+            this.aboutText = aboutText;
+            return this;
+        }
+
         public GUIContext build() {
             return new GUIContext(this);
         }
+
     }
 }
