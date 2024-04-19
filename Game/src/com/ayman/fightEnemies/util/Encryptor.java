@@ -3,13 +3,14 @@ package com.ayman.fightEnemies.util;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 public class Encryptor {
     public static String encrypt(int levelIndex) {
         String ret = "";
-        int target = levelIndex * 100;
+        int target = levelIndex * levelIndex * 10;
         while(sumOfChars(ret) < target){
-            ret += (char)(Math.min(target - sumOfChars(ret), 25) + 'A');
+            ret += (char)(Math.min(target - sumOfChars(ret), new Random().nextInt(26)) + 'A');
         }
         return shuffleString(ret);
 
@@ -30,7 +31,7 @@ public class Encryptor {
     public static int sumOfChars(String s){
         int sum = 0;
         for (int i = 0; i < s.length(); i++) {
-            sum += s.charAt(i);
+            sum += s.charAt(i) - 'A';
         }
         return sum;
     }
@@ -39,6 +40,12 @@ public class Encryptor {
         for (int i = 0; i < encrypted.length(); i++) {
             sum += encrypted.charAt(i);
         }
-        return sum / 100;
+        return (int) Math.sqrt(sum / 10);
+    }
+
+    public static void main(String[] args) {
+        int levelIndex = 2;
+        String encrypted = encrypt(levelIndex);
+        System.out.println("Encrypted: " + encrypted);
     }
 }
