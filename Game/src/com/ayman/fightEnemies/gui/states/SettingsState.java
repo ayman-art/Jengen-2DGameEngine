@@ -17,6 +17,7 @@ public class SettingsState extends GuiState {
     ButtonGroup difficultyGroup;
 
     public SettingsState() {
+
         settingsLabel = new JLabel("Settings");
         backButton = new JButton("Back");
 
@@ -56,6 +57,8 @@ public class SettingsState extends GuiState {
     @Override
     public void update(AppFrame frame) {
         frame.getContentPane().removeAll();
+        frame.getContentPane().repaint();
+        frame.setLayout(null);
 
         frame.add(settingsLabel);
         frame.add(easyRadioButton);

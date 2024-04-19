@@ -38,8 +38,9 @@ public class Encryptor {
     public static int decrypt(String encrypted){
         int sum = 0;
         for (int i = 0; i < encrypted.length(); i++) {
-            sum += encrypted.charAt(i);
+            sum += encrypted.charAt(i) - 'A';
         }
+        System.out.println("Sum: " + sum);
         return (int) Math.sqrt(sum / 10);
     }
 
