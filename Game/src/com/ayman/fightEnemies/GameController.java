@@ -40,7 +40,7 @@ public class GameController extends Canvas implements Runnable{
     public static int width = 300;
     public static int height = width / 12 * 8;
     public static int scaleFactor = 3;
-    private static String difficulty = "Easy";
+    public static String difficulty = "Easy";
     private  boolean playingRecording = false;
     private boolean running = false;
 

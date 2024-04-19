@@ -1,5 +1,7 @@
 package com.ayman.fightEnemies.gui.states;
 
+import com.ayman.fightEnemies.GameController;
+import com.ayman.fightEnemies.game.Game;
 import com.ayman.fightEnemies.gui.AppFrame;
 
 import javax.swing.*;
@@ -33,7 +35,25 @@ public class SettingsState extends GuiState {
         difficultyGroup.add(hardRadioButton);
 
         // Set default selection
-        mediumRadioButton.setSelected(true);
+        JRadioButton selectedButton = null;
+        switch(GameController.difficulty) {
+            case "Easy":
+                selectedButton = easyRadioButton;
+                easyRadioButton.setSelected(true);
+                break;
+            case "Medium":
+                mediumRadioButton.setSelected(true);
+                selectedButton = mediumRadioButton;
+
+                break;
+            case "Hard":
+                hardRadioButton.setSelected(true);
+                selectedButton = hardRadioButton;
+                break;
+        }
+
+        selectedButton.setFont(new Font("Arial", Font.BOLD, 24)); // Larger font size
+        selectedButton.setForeground(Color.GREEN);
 
         // Set font size for radio buttons
         Font radioButtonFont = new Font("Arial", Font.PLAIN, 24); // Larger font size
@@ -94,6 +114,7 @@ public class SettingsState extends GuiState {
             JRadioButton selectedRadioButton = (JRadioButton) e.getSource();
             selectedRadioButton.setFont(selectedFont);
             selectedRadioButton.setForeground(selectedColor);
+            GameController.difficulty = selectedRadioButton.getText();
         }
     }
 }
