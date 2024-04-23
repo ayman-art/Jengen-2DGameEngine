@@ -1,5 +1,7 @@
 package com.ayman.fightEnemies.util;
 
+import com.ayman.fightEnemies.level.SpawnLevel;
+
 import java.io.*;
 
 public class FileCodeEncryptor {
@@ -8,29 +10,28 @@ public class FileCodeEncryptor {
         System.out.println("Hello");
     }
 
-    public static void encryptFile(final String filePath) {
-        int index = filePath.length() - 1;
-        while (filePath.charAt(index) != '/' && filePath.charAt(index) != '\\'){
-            index--;
-        }
-        String enc_code_path = filePath.substring(0, index + 1);
-        StringBuilder levelNumber = new StringBuilder();
-        index--;
-        while (Character.isDigit(filePath.charAt(index))) {
-            levelNumber.insert(0, filePath.charAt(index));
-            index--;
-        }
-        enc_code_path += "code.enc";
+    public static void encryptFile(final String filePath, final int levelNumber, final String extension) {
+
+        String enc_code_path = filePath +"level_" + levelNumber + "\\code.enc";
         System.out.println(filePath);
         File file = new File(enc_code_path);
+
         try {
             FileWriter writer = new FileWriter(file);
-            writer.write(getEncryptedCode(filePath, Integer.parseInt(levelNumber.toString())));
+            writer.write(getEncryptedCode(filePath + "level_" + levelNumber +"\\level." + extension, levelNumber));
+            writer.write(getEncryptedCode(filePath + "level_" + levelNumber + "\\entities.txt", levelNumber));
             writer.close();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
+
+    public static void encryptFile(final String filePath, final int levelNumber) {
+        encryptFile(filePath, levelNumber, "png");
+    }
+
+
+
 
     public static String getEncryptedCode(final String filePath, int levelNumber) {
         long ret = 0;
@@ -52,9 +53,11 @@ public class FileCodeEncryptor {
 
 
     public static void main(String[] args) {
-        String filePath =
-        """
-        C:\\Users\\ayman\\Desktop\\FightLevels\\level_1\\entities.txt""";
-        encryptFile(filePath);
-    }
+        String levelsPath = "C:\\Users\\ayman\\Desktop\\FightLevels\\";
+        int numberOfLevels = 2;
+        for (int i = 1; i <= numberOfLevels; i++)
+            encryptFile(levelsPath, i);
+        }
+
+
 }

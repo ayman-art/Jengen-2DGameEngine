@@ -1,47 +1,46 @@
 package com.ayman.fightEnemies.util;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 
 public class FileCodeChecker {
 
-    static boolean checkFileCode(String filePath) {
-        int index = filePath.length() - 1;
-        while (filePath.charAt(index) != '/' && filePath.charAt(index) != '\\'){
-            index--;
-        }
-        String enc_code_path = filePath.substring(0, index + 1);
-        StringBuilder levelNumber = new StringBuilder();
-        index--;
-        while (Character.isDigit(filePath.charAt(index))) {
-            levelNumber.insert(0, filePath.charAt(index));
-            index--;
-        }
-        enc_code_path += "code.enc";
-        System.out.println(filePath);
+    static boolean checkFileCode(String filePath, int levelNumber, String extension) {
+        String expectedCode = "";
 
-        String encryptedCode = FileCodeEncryptor.getEncryptedCode(filePath, Integer.parseInt(levelNumber.toString()));
+        expectedCode += FileCodeEncryptor.getEncryptedCode(filePath + "level_" + levelNumber +"\\level." + extension, levelNumber);
+        expectedCode += FileCodeEncryptor.getEncryptedCode(filePath + "level_" + levelNumber + "\\entities.txt", levelNumber);
+
+        String enc_code_path = filePath + "level_" + levelNumber + "\\code.enc";
+        System.out.println(filePath);
         File file = new File(enc_code_path);
         String actualCode = "";
         try {
-            BufferedReader reader = new BufferedReader(new FileReader(enc_code_path));
-            actualCode = reader.readLine();
-        } catch (IOException e) {
+            FileReader reader = new FileReader(file);
+            BufferedReader bufferedReader = new BufferedReader(reader);
+            actualCode = bufferedReader.readLine();
+            bufferedReader.close();
+            reader.close();
+            } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        System.out.println(encryptedCode);
-        System.out.println(actualCode);
-        return encryptedCode.equals(actualCode);
 
+        System.out.println(expectedCode);
+        System.out.println(actualCode);
+
+        if(!expectedCode.equals(actualCode))
+            throw new RuntimeException("File code does not match");
+        return true;
+    }
+
+    public static boolean checkFileCode(String filePath, int levelNumber) {
+        return checkFileCode(filePath, levelNumber, "png");
     }
 
 
 
     public static void main(String[] args) {
-        String filePath = "C:\\Users\\ayman\\Desktop\\FightLevels\\level_1\\entities.txt";
-        FileCodeEncryptor.encryptFile(filePath);
-        System.out.println(checkFileCode(filePath));
+        String filePath = "C:\\Users\\ayman\\Desktop\\FightLevels\\";
+        FileCodeChecker.checkFileCode(filePath, 2);
+
     }
 }
