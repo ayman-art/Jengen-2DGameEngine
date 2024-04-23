@@ -12,14 +12,14 @@ public class FileCodeEncryptor {
 
     public static void encryptFile(final String filePath, final int levelNumber, final String extension) {
 
-        String enc_code_path = filePath +"level_" + levelNumber + "\\code.enc";
+        String enc_code_path = filePath +"\\level_" + levelNumber + "\\code.enc";
         System.out.println(filePath);
         File file = new File(enc_code_path);
 
         try {
             FileWriter writer = new FileWriter(file);
-            writer.write(getEncryptedCode(filePath + "level_" + levelNumber +"\\level." + extension, levelNumber));
-            writer.write(getEncryptedCode(filePath + "level_" + levelNumber + "\\entities.txt", levelNumber));
+            writer.write(getEncryptedCode(filePath + "\\level_" + levelNumber +"\\level." + extension, levelNumber));
+            writer.write(getEncryptedCode(filePath + "\\level_" + levelNumber + "\\entities.txt", levelNumber));
             writer.close();
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -53,7 +53,7 @@ public class FileCodeEncryptor {
 
 
     public static void main(String[] args) {
-        String levelsPath = "C:\\Users\\ayman\\Desktop\\FightLevels\\";
+        String levelsPath = "C:\\Users\\ayman\\Desktop\\FightLevels";
         int numberOfLevels = 2;
         for (int i = 1; i <= numberOfLevels; i++)
             encryptFile(levelsPath, i);

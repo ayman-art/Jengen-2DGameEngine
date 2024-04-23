@@ -20,7 +20,7 @@ import com.ayman.fightEnemies.level.winning.TargetReached;
 
 public class Jengen {
 
-    private Game game;
+    private final Game game;
 
     public Jengen(Game game){
         this.game = game;

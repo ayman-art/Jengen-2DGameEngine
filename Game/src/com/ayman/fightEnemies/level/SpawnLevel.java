@@ -5,6 +5,7 @@ import com.ayman.fightEnemies.entity.mob.Chaser;
 import com.ayman.fightEnemies.entity.mob.Dummy;
 import com.ayman.fightEnemies.level.tile.Tile;
 import com.ayman.fightEnemies.util.Encryptor;
+import com.ayman.fightEnemies.util.FileCodeChecker;
 import com.ayman.fightEnemies.util.LevelEntitiesParser;
 
 import javax.imageio.ImageIO;
@@ -60,6 +61,10 @@ public class SpawnLevel extends Level {
         this.currentLevelIndex = currentLevelIndex;
         String levelPath = getLevelPath(currentLevelIndex);
         String entitiesPath = getEntitiesPath(currentLevelIndex);
+
+        // Ensuring that the User has not tampered with the files
+        FileCodeChecker.checkFileCode(levelsLocation, currentLevelIndex);
+
         loadLevel(levelPath);
         putEntities(entitiesPath);
 

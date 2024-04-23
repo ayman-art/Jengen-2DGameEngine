@@ -7,10 +7,10 @@ public class FileCodeChecker {
     static boolean checkFileCode(String filePath, int levelNumber, String extension) {
         String expectedCode = "";
 
-        expectedCode += FileCodeEncryptor.getEncryptedCode(filePath + "level_" + levelNumber +"\\level." + extension, levelNumber);
-        expectedCode += FileCodeEncryptor.getEncryptedCode(filePath + "level_" + levelNumber + "\\entities.txt", levelNumber);
+        expectedCode += FileCodeEncryptor.getEncryptedCode(filePath + "\\level_" + levelNumber +"\\level." + extension, levelNumber);
+        expectedCode += FileCodeEncryptor.getEncryptedCode(filePath + "\\level_" + levelNumber + "\\entities.txt", levelNumber);
 
-        String enc_code_path = filePath + "level_" + levelNumber + "\\code.enc";
+        String enc_code_path = filePath + "\\level_" + levelNumber + "\\code.enc";
         System.out.println(filePath);
         File file = new File(enc_code_path);
         String actualCode = "";
@@ -39,7 +39,7 @@ public class FileCodeChecker {
 
 
     public static void main(String[] args) {
-        String filePath = "C:\\Users\\ayman\\Desktop\\FightLevels\\";
+        String filePath = "C:\\Users\\ayman\\Desktop\\FightLevels";
         FileCodeChecker.checkFileCode(filePath, 2);
 
     }
