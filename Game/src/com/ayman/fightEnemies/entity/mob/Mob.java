@@ -78,15 +78,17 @@ public abstract class Mob extends Entity implements IMob, Cloneable {
                 if(this instanceof IPlayer player && player.isTileBreaker()) {
                     if(Math.abs(xa)<= 1 && Math.abs(ya) <= 1) {
                         new ParticleSpawner(getX(), getY(), 1, 1, getLevel(), getLevel().getTile(xt, yt));
-                        getLevel().removeTile(xt, yt);
-                        try {
-                            Clip clip = Projectile.break_tileClip;
-//                            System.out.println("Playing sound");
+                        if(level.getTile(xt, yt).isBreakable()) {
+                            getLevel().removeTile(xt, yt);
+                            try {
+                                Clip clip = Projectile.break_tileClip;
+                                //                            System.out.println("Playing sound");
 
-                            clip.setFramePosition(0);
-                            clip.start();
-                        } catch (Exception e) {
-                            e.printStackTrace();
+                                clip.setFramePosition(0);
+                                clip.start();
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
                         }
                     }
                 }

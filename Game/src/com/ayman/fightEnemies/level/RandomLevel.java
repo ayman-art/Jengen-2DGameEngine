@@ -230,11 +230,11 @@ public class RandomLevel extends Level {
 //                x = width - 2;
 //            }
 //            y = random.nextInt(height);
-//            if(getTile(x, y, tiles).isSolid()) continue;
-//            tiles[x + width * y] = Tile.rockColor;
+//            if(getTile(x, y, custumed).isSolid()) continue;
+//            custumed[x + width * y] = Tile.rockColor;
 //            for(int xx = x - 1; xx <= x + 1; xx++) {
 //                for(int yy = y - 1; yy <= y + 1; yy++) {
-//                    if(getTile(xx, yy, tiles).isSolid()) {
+//                    if(getTile(xx, yy, custumed).isSolid()) {
 //                        dsu.union(xx + yy * width, x + y * width);
 //                    }
 //                }

@@ -3,23 +3,25 @@ package com.ayman.fightEnemies.level.tile;
 import com.ayman.fightEnemies.Graphics.Screen;
 import com.ayman.fightEnemies.Graphics.Sprite;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Tile {
 
 
         public int x, y;
         public Sprite sprite;
 
-        public static Tile sky = new SkyTile(Sprite.sky);
-        public static Tile bird = new BirdTile(Sprite.bird);
-        public static Tile grass = new grassTile(Sprite.grass);
-        public static Tile rock = new rockTile(Sprite.rock);
-        public static Tile flower = new flowerTile(Sprite.flower);
-        public static Tile water = new WaterTile(Sprite.water);
-        public static Tile brick = new BrickTile(Sprite.brick);
-        public static Tile wood = new WoodTile(Sprite.wood);
+        public static Tile sky = new Tile(Sprite.sky, false, false);
+        public static Tile bird = new Tile(Sprite.bird, false, false);
+        public static Tile grass = new Tile(Sprite.grass, false, false);
+        public static Tile rock = new Tile(Sprite.rock, true, true);
+        public static Tile flower = new Tile(Sprite.flower, false, false);
+        public static Tile water = new Tile(Sprite.water, false, false);
+        public static Tile brick = new Tile(Sprite.brick, true, false);
+        public static Tile wood = new Tile(Sprite.wood, false, false);
 
-
-        public static Tile voidTile = new VoidTile(Sprite.voidSprite);
+        public static Tile voidTile = new Tile(Sprite.voidSprite, false, false);
 
 
         public static final int grassColor = 0xff00ff00;
@@ -31,24 +33,42 @@ public class Tile {
         public static final int waterColor = 0xff00ffff;
         public static final int woodColor = 0xff7F0000;
 
+        public static final Map<Integer, Tile> costumedTiles = new HashMap<>();
 
 
+        private final boolean isSolid, isBreakable;
 
 
+        public static void registerCostumedTile(int color, Tile tile) {
+            costumedTiles.put(color, tile);
+        }
 
-        public Tile(Sprite sprite) {
+        public Tile(Sprite sprite, boolean isSolid, boolean isBreakable) {
 
             this.sprite = sprite;
+            this.isSolid = isSolid;
+            this.isBreakable = isBreakable;
+        }
+
+        public Tile(int color, Sprite sprite, boolean isSolid, boolean isBreakable) {
+            this.sprite = sprite;
+            this.isSolid = isSolid;
+            this.isBreakable = isBreakable;
+
+            costumedTiles.put(color, this);
         }
 
         public void render(int x, int y, Screen screen) {
-
+            screen.renderTile(x << 4, y << 4, this);
 
         }
 
         public boolean isSolid() {
+            return isSolid;
+        }
 
-            return false;
+        public boolean isBreakable() {
+            return isBreakable;
         }
 
 

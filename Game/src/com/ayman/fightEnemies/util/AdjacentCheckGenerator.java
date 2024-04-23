@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * This class is used to generate the pairs of adjacent tiles which need to be checked for connectivity.
+ * This class is used to generate the pairs of adjacent custumed which need to be checked for connectivity.
  * This will be used in the RandomLevel class to generate a valid level.
  * */
 public class AdjacentCheckGenerator {

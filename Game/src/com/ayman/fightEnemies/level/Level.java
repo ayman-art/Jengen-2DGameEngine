@@ -176,7 +176,7 @@ public abstract class Level {
     public synchronized Tile getTile(int x, int y, int[] tiles) {
         if(x < 0 || y < 0 || x >= width || y >= height) return Tile.voidTile;
 
-        // System.out.println(tiles[x + y * width]);
+        // System.out.println(custumed[x + y * width]);
 
 
         if(tiles[x + y * width] == Tile.grassColor) return Tile.grass;
@@ -187,6 +187,10 @@ public abstract class Level {
         if(tiles[x + y * width] == Tile.birdColor) return Tile.bird;
         if(tiles[x + y * width] == Tile.waterColor) return Tile.water;
         if(tiles[x + y * width] == Tile.woodColor) return Tile.wood;
+
+        if(Tile.costumedTiles.containsKey(tiles[x + y * width])) {
+            return Tile.costumedTiles.get(tiles[x + y * width]);
+        }
 
 
 

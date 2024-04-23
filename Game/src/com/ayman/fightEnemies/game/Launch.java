@@ -1,5 +1,7 @@
 package com.ayman.fightEnemies.game;
 
+import com.ayman.fightEnemies.Graphics.Sprite;
+import com.ayman.fightEnemies.Graphics.SpriteSheet;
 import com.ayman.fightEnemies.game.contexts.*;
 import com.ayman.fightEnemies.game.contexts.levelcontexts.ILevelContext;
 import com.ayman.fightEnemies.game.contexts.levelcontexts.RandomLevelContext;
@@ -54,11 +56,16 @@ public class Launch {
                 .build();
 
 
+        ScreenContext screenContext = new ScreenContext.Builder()
+//                .addTile(0xff00ff00, true, true, new Sprite(16, 0, 0, MySpriteSheets.balls))
+//                .addTile(0xff230920, false, false, new Sprite(16, 1, 0, MySpriteSheets.sun))
+                .build();
+
         Game game = new Game.Builder()
                 .setGUIContext(guiContext)
                 .setLevelContext(LevelContext)
                 .setPlayerContext(playerContext)
-                .setScreenContext(new ScreenContext())
+                .setScreenContext(screenContext)
                 .setProjectileContext(projectileContext)
                 .setAIContext(aiContext)
                 .setWinningStateContext(winningStateContext)
