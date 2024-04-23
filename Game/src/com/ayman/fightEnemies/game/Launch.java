@@ -47,6 +47,7 @@ public class Launch {
         ILevelContext LevelContext = new SpawnLevelContext.Builder()
                 .setNumberOfLevels(2)
                 .setPath("C:\\Users\\ayman\\Desktop\\FightLevels")
+                .setLevelExtension("png")
                 .build();
         WinnigStateContext winningStateContext = new WinnigStateContext.Builder()
                 .setType(WinnigStateContext.WinningStateType.CollectAllCoins)

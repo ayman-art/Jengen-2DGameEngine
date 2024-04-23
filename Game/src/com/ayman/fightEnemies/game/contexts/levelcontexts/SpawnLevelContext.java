@@ -8,9 +8,12 @@ public class SpawnLevelContext implements ILevelContext{
     private final int numberOfLevels;
     private final String levelsLocation;
 
+    private final String extension;
+
     private SpawnLevelContext(Builder builder){
         this.numberOfLevels = builder.numberOfLevels;
         this.levelsLocation = builder.levelsLocation;
+        this.extension = builder.extension;
     }
 
     public int getNumberOfLevels(){
@@ -25,6 +28,8 @@ public class SpawnLevelContext implements ILevelContext{
         private int numberOfLevels;
         String levelsLocation;
 
+        String extension = "png";
+
         public Builder setNumberOfLevels(int numberOfLevels){
             this.numberOfLevels = numberOfLevels;
             return this;
@@ -35,9 +40,17 @@ public class SpawnLevelContext implements ILevelContext{
             return this;
         }
 
+        public Builder setLevelExtension(String extension){
+            this.extension = extension;
+            return this;
+        }
+
+
+
         public SpawnLevelContext build(){
             return new SpawnLevelContext(this);
         }
+
 
 
     }

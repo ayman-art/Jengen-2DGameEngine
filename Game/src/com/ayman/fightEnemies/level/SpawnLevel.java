@@ -19,8 +19,10 @@ public class SpawnLevel extends Level {
 
 
     public static int numberOfLevels;
+    public static String extension = "png";
     public static String levelsLocation;
     private int currentLevelIndex = 1;
+
 
     public SpawnLevel() {
         this(-1);
@@ -184,7 +186,7 @@ public class SpawnLevel extends Level {
         return levelsLocation + "\\level_" + levelIndex + "\\";
     }
     private String getLevelPath(int levelIndex){
-        return getPathPrefix(levelIndex) + "level.png";
+        return getPathPrefix(levelIndex) + "level." + SpawnLevel.extension;
     }
     private String getEntitiesPath(int levelIndex){
         return getPathPrefix(levelIndex) + "entities.txt";
