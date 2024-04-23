@@ -6,7 +6,7 @@ import java.util.UUID;
 
 public class SetIdCommand extends ClientCommand {
 
-    private GameClient gameClient;
+    private final GameClient gameClient;
     private final UUID id;
 
     public SetIdCommand(GameClient gameClient, UUID id){
@@ -15,9 +15,6 @@ public class SetIdCommand extends ClientCommand {
     }
 
 
-    public SetIdCommand(UUID id){
-        this.id = id;
-    }
 
     @Override
     public synchronized void execute() {

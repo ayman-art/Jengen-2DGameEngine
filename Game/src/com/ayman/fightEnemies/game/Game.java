@@ -9,7 +9,6 @@ public class Game {
     private final ILevelContext levelContext;
     private final PlayerContext playerContext;
     private final ScreenContext screenContext;
-
     private final ProjectileContext projectileContext;
     private final AIContext aiContext;
     private final WinnigStateContext winnigStateContext;

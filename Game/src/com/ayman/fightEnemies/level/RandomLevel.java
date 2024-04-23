@@ -5,9 +5,7 @@ import com.ayman.fightEnemies.entity.IEntity;
 import com.ayman.fightEnemies.entity.mob.Chaser;
 import com.ayman.fightEnemies.entity.mob.Dummy;
 import com.ayman.fightEnemies.entity.mob.IMob;
-import com.ayman.fightEnemies.entity.mob.decoratedPlayer.FastPlayer;
 import com.ayman.fightEnemies.level.effects.CoinEffect;
-import com.ayman.fightEnemies.level.effects.Effect;
 import com.ayman.fightEnemies.level.effects.HealthEffect;
 import com.ayman.fightEnemies.level.effects.decorationEffects.BreakTilesEffect;
 import com.ayman.fightEnemies.level.effects.decorationEffects.HelperFighterEffect;
@@ -354,24 +352,12 @@ public class RandomLevel extends Level {
 
         int num = random.nextInt(6);
         switch (num) {
-            case 0 -> {
-                add(new CoinEffect(x, y));
-            }
-            case 1 -> {
-                add(new HealthEffect(x, y));
-            }
-            case 2 -> {
-                add(new BreakTilesEffect(x, y));
-            }
-            case 3 -> {
-                add(new SpeedEffect(x, y));
-            }
-            case 4 -> {
-                add(new HelperFighterEffect(x, y));
-            }
-            case 5 -> {
-                add(new InvisibilityEffect(x, y));
-            }
+            case 0 -> add(new CoinEffect(x, y));
+            case 1 -> add(new HealthEffect(x, y));
+            case 2 -> add(new BreakTilesEffect(x, y));
+            case 3 -> add(new SpeedEffect(x, y));
+            case 4 -> add(new HelperFighterEffect(x, y));
+            case 5 -> add(new InvisibilityEffect(x, y));
             default -> throw new IllegalStateException("Unexpected value: " + num);
         }
 

@@ -1,6 +1,5 @@
 package com.ayman.fightEnemies.network.server.commands;
 
-import com.ayman.fightEnemies.network.client.GameClient;
 import com.ayman.fightEnemies.network.server.GameServer;
 import com.ayman.fightEnemies.network.server.ServerClient;
 
@@ -8,7 +7,7 @@ public class UpdateMulPlayerCommand extends Command{
     private final GameServer gameServer;
     private final ServerClient serverClient;
 
-    private int x, y;
+    private final int x, y;
 
     public UpdateMulPlayerCommand(GameServer gameServer, ServerClient serverClient, int x, int y) {
         this.gameServer = gameServer;

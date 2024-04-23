@@ -6,7 +6,7 @@ import com.ayman.fightEnemies.network.client.GameClient;
 public class AddMulPlayerCommand extends ClientCommand{
 
     GameClient gameClient;
-    private String name;
+    private final String name;
 
     public AddMulPlayerCommand(GameClient gameClient, String name) {
         this.gameClient = gameClient;
