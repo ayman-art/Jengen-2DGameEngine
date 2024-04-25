@@ -4,6 +4,11 @@ import com.ayman.fightEnemies.gui.AppFrame;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 public class MainMenuState extends GuiState {
 
@@ -29,6 +34,19 @@ public class MainMenuState extends GuiState {
             buttons[i].setBounds(100, 100 + i * 100, 400, 100);
             buttons[i].setBackground(colors[i]);
             buttons[i].setFont(new Font("Trebuchet MS", Font.BOLD | Font.ITALIC, 40));
+            //Adding border when hovering
+            int finalI = i;
+            buttons[i].addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseEntered(MouseEvent e) {
+                    buttons[finalI].setBorder(BorderFactory.createLineBorder(Color.YELLOW, 2));
+                }
+
+                @Override
+                public void mouseExited(MouseEvent e) {
+                    buttons[finalI].setBorder(BorderFactory.createEmptyBorder());
+                }
+            });
         }
 
         logo = new JLabel();
@@ -39,6 +57,16 @@ public class MainMenuState extends GuiState {
 
 
         logo.setIcon(new ImageIcon(new ImageIcon(getClass().getResource("/logos/Jengen.png")).getImage().getScaledInstance(320, 245, Image.SCALE_DEFAULT)));
+        //Changing cursor
+
+        logo.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        logo.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                // Open the URL when the JLabel is clicked
+                openURL("https://github.com/ayman-art/Fight-Enemies");
+            }
+        });
 
 
 
@@ -46,7 +74,13 @@ public class MainMenuState extends GuiState {
 
 
 
-
+    }
+    private void openURL(String url) {
+        try {
+            Desktop.getDesktop().browse(new URI(url));
+        } catch (IOException | URISyntaxException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

@@ -37,20 +37,19 @@ public class SettingsState extends GuiState {
 
         // Set default selection
         JRadioButton selectedButton = null;
-        switch(GameController.difficulty) {
-            case "Easy":
+        switch (GameController.difficulty) {
+            case "Easy" -> {
                 selectedButton = easyRadioButton;
                 easyRadioButton.setSelected(true);
-                break;
-            case "Medium":
+            }
+            case "Medium" -> {
                 mediumRadioButton.setSelected(true);
                 selectedButton = mediumRadioButton;
-
-                break;
-            case "Hard":
+            }
+            case "Hard" -> {
                 hardRadioButton.setSelected(true);
                 selectedButton = hardRadioButton;
-                break;
+            }
         }
 
         selectedButton.setFont(new Font("Arial", Font.BOLD, 24)); // Larger font size
@@ -63,8 +62,12 @@ public class SettingsState extends GuiState {
         hardRadioButton.setFont(radioButtonFont);
 
         // Set bounds for components
-        settingsLabel.setBounds(100, 100, 100, 100);
-        backButton.setBounds(100, 250, 400, 100);
+        settingsLabel.setBounds(50, 10, 400, 250);
+        settingsLabel.setFont(new Font("Arial", Font.BOLD | Font.ITALIC, 24));
+        settingsLabel.setForeground(Color.PINK);
+        backButton.setBounds(100, 350, 400, 100);
+        backButton.setBackground(Color.PINK);
+        backButton.setFont(new Font("Trebuchet MS", Font.BOLD | Font.ITALIC, 15));
         easyRadioButton.setBounds(100, 200, 200, 50); // Adjusted size for readability
         mediumRadioButton.setBounds(300, 200, 200, 50); // Adjusted size for readability
         hardRadioButton.setBounds(500, 200, 200, 50); // Adjusted size for readability
@@ -73,6 +76,19 @@ public class SettingsState extends GuiState {
         easyRadioButton.addActionListener(new RadioButtonListener());
         mediumRadioButton.addActionListener(new RadioButtonListener());
         hardRadioButton.addActionListener(new RadioButtonListener());
+
+        easyRadioButton.setBackground(Color.yellow);
+        mediumRadioButton.setBackground(Color.yellow);
+        hardRadioButton.setBackground(Color.yellow);
+
+
+        easyRadioButton.setFocusable(false);
+        mediumRadioButton.setFocusable(false);
+        hardRadioButton.setFocusable(false);
+
+
+
+
     }
 
     @Override
