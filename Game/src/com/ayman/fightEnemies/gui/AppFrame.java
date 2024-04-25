@@ -1,5 +1,6 @@
 package com.ayman.fightEnemies.gui;
 
+import com.ayman.fightEnemies.GameController;
 import com.ayman.fightEnemies.gui.states.GuiState;
 import com.ayman.fightEnemies.gui.states.MainMenuState;
 
@@ -14,7 +15,7 @@ public class AppFrame extends JFrame {
     public AppFrame() {
         super("Main Menu");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(new java.awt.Dimension(800, 600));
+        setSize(new java.awt.Dimension(GameController.width * GameController.scaleFactor, GameController.height * GameController.scaleFactor));
         setLocationRelativeTo(null);
         setVisible(true);
         setLayout(null);

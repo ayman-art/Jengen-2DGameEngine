@@ -45,13 +45,14 @@ public class GameController extends Canvas implements Runnable{
     private boolean running = false;
 
 
-    private BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
-    private int[] pixels = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
+    private final BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+    private final int[] pixels = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
 
 
 
     private final Screen screen;
     public Keyboard keyboard;
+    private final Mouse mouse;
     public long lastTime = 0;
 
 
@@ -63,7 +64,6 @@ public class GameController extends Canvas implements Runnable{
     public JButton showRecordingButton;
 
 
-    public static int numberOfLevelFiles;
     public Level level;
 
 
@@ -78,7 +78,6 @@ public class GameController extends Canvas implements Runnable{
 
     private final LevelCareTaker levelCareTaker = new LevelCareTaker();
     private final InputCareTaker inputCareTaker = new InputCareTaker();
-    private Mouse mouse;
 
 
     public GameController(com.ayman.fightEnemies.game.Game game) {
@@ -117,20 +116,6 @@ public class GameController extends Canvas implements Runnable{
         if(!ClientController.isOn()){
             IPlayer player = new InvisibilityDecorator((new Player(playerName, playerSpawn.x(), playerSpawn.y(), keyboard, mouse)));
             player = new BreakTilesDecorator(player);
-//        level.add(new HelperFighterDecorator(player));
-//            level.add(new Chaser(1, 1));
-            level.add(new CoinEffect(new Vector2i(2, 2)));
-            level.add(new SpeedEffect(new Vector2i(level.getWidth()-4, level.getHeight()-4)));
-//            level.add(new SpeedEffect(new Vector2i(level.getWidth() - 3, level.getHeight() - 3)));
-            level.add(new HealthEffect(new Vector2i(5, 5), 10));
-            level.add(new BreakTilesEffect(new Vector2i(4, 4)));
-//            level.add(new HelperFighterEffect(new Vector2i(level.getWidth()-4, level.getHeight()-5)));
-//            level.add(new HelperFighterEffect(new Vector2i(level.getWidth()-4, level.getHeight()-4)));
-//            level.add(new HelperFighterEffect(new Vector2i(level.getWidth()-6, level.getHeight()-5)));
-            level.add(new HelperFighterEffect(new Vector2i(level.getWidth()-5, level.getHeight()-4)));
-
-
-
         }
 
         GameController Game = this;

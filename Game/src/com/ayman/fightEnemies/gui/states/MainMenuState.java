@@ -12,6 +12,8 @@ public class MainMenuState extends GuiState {
     JButton aboutButton;
     JButton exitButton;
 
+    JLabel logo;
+
 
     public MainMenuState() {
         playButton = new JButton("Play");
@@ -29,6 +31,14 @@ public class MainMenuState extends GuiState {
             buttons[i].setFont(new Font("Trebuchet MS", Font.BOLD | Font.ITALIC, 40));
         }
 
+        logo = new JLabel();
+        logo.setBounds(540, 200, 320, 245);
+//        logo.setSize(200, 150);
+        logo.setBackground(Color.WHITE);
+        logo.setOpaque(true);
+
+
+        logo.setIcon(new ImageIcon(new ImageIcon(getClass().getResource("/logos/Jengen.png")).getImage().getScaledInstance(320, 245, Image.SCALE_DEFAULT)));
 
 
 
@@ -48,6 +58,7 @@ public class MainMenuState extends GuiState {
         frame.add(settingsButton);
         frame.add(aboutButton);
         frame.add(exitButton);
+        frame.add(logo);
 
         JLabel label = new JLabel("Powered By");
         label.setBounds(640, 480, 400, 100);
@@ -60,8 +71,8 @@ public class MainMenuState extends GuiState {
         label2.setForeground(Color.RED);
         frame.add(label2);
 
-
-        frame.getContentPane().setBackground(Color.YELLOW);
+        //Setting color to Dark Purple
+        frame.getContentPane().setBackground(new Color(75, 0, 130));
 
         playButton.addActionListener(e -> {
             frame.setGuiState(new GameState());

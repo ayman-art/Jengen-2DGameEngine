@@ -1,13 +1,13 @@
 package com.ayman.fightEnemies.gui.states;
 
 import com.ayman.fightEnemies.GameController;
-import com.ayman.fightEnemies.game.Game;
 import com.ayman.fightEnemies.gui.AppFrame;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Scanner;
 
 public class SettingsState extends GuiState {
 
@@ -22,6 +22,7 @@ public class SettingsState extends GuiState {
 
         settingsLabel = new JLabel("Settings");
         backButton = new JButton("Back");
+        backButton.setBackground(Color.lightGray);
 
         // Create radio buttons for difficulty levels
         easyRadioButton = new JRadioButton("Easy");
@@ -117,4 +118,5 @@ public class SettingsState extends GuiState {
             GameController.difficulty = selectedRadioButton.getText();
         }
     }
+
 }
