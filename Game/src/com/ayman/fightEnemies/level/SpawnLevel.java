@@ -4,6 +4,7 @@ import com.ayman.fightEnemies.entity.Entity;
 import com.ayman.fightEnemies.entity.mob.Chaser;
 import com.ayman.fightEnemies.entity.mob.Dummy;
 import com.ayman.fightEnemies.level.tile.Tile;
+import com.ayman.fightEnemies.network.client.controller.ClientController;
 import com.ayman.fightEnemies.util.Encryptor;
 import com.ayman.fightEnemies.util.FileCodeChecker;
 import com.ayman.fightEnemies.util.LevelEntitiesParser;
@@ -194,7 +195,8 @@ public class SpawnLevel extends Level {
 
 
     private void putEntities(String fileName) {
-        LevelEntitiesParser.parseEntitiesFile(fileName).forEach(this::add);
+        if(!ClientController.isOn())
+            LevelEntitiesParser.parseEntitiesFile(fileName).forEach(this::add);
     }
 
     public void reset() {

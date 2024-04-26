@@ -15,16 +15,10 @@ import com.ayman.fightEnemies.level.Level;
 import com.ayman.fightEnemies.level.RandomLevel;
 import com.ayman.fightEnemies.level.SpawnLevel;
 import com.ayman.fightEnemies.level.TileCoordinate;
-import com.ayman.fightEnemies.level.effects.CoinEffect;
-import com.ayman.fightEnemies.level.effects.HealthEffect;
-import com.ayman.fightEnemies.level.effects.decorationEffects.BreakTilesEffect;
-import com.ayman.fightEnemies.level.effects.decorationEffects.HelperFighterEffect;
-import com.ayman.fightEnemies.level.effects.decorationEffects.SpeedEffect;
 import com.ayman.fightEnemies.level.snapshots.InputCareTaker;
 import com.ayman.fightEnemies.level.snapshots.InputSnapshot;
 import com.ayman.fightEnemies.level.snapshots.LevelCareTaker;
 import com.ayman.fightEnemies.network.client.controller.ClientController;
-import com.ayman.fightEnemies.util.Vector2i;
 
 import javax.swing.*;
 import java.awt.*;
@@ -74,7 +68,7 @@ public class GameController extends Canvas implements Runnable{
 
 
     public static String playerName ;
-    public static AIContext.AIType aiType = AIContext.AIType.Dijkstra;
+    public static AIContext.AIType aiType = AIContext.AIType.DStar;
 
     private final LevelCareTaker levelCareTaker = new LevelCareTaker();
     private final InputCareTaker inputCareTaker = new InputCareTaker();
@@ -105,7 +99,7 @@ public class GameController extends Canvas implements Runnable{
 
 //        level = new RandomLevel(64, 64);
 //        level = new RandomLevel(64, 64);
-        if(SpawnLevel.numberOfLevels == 0) {
+        if(SpawnLevel.numberOfLevels == 0 && !ClientController.isOn()) {
             level = new RandomLevel();
         } else {
             level = new SpawnLevel();
@@ -249,7 +243,7 @@ public class GameController extends Canvas implements Runnable{
             lastTime = now;
 
             while(delta >= 1) {
-                if(level.playerWon()) {
+                if(!ClientController.isOn() && level.playerWon()) {
                     System.out.println("You won");
                     System.out.println("Congratulations " + playerName);
                     if(level instanceof SpawnLevel spawnLevel && !spawnLevel.hasNextLevel()) {

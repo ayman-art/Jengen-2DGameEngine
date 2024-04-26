@@ -12,6 +12,7 @@ import java.util.UUID;
  */
 public class ClientController extends Thread {
 
+    public static boolean twoPlayerMode;
     private static ClientController instance;
 
     private final GameClient gameClient;
@@ -30,15 +31,14 @@ public class ClientController extends Thread {
     }
 
     public static synchronized boolean isOn() {
-        return instance != null;
+        return twoPlayerMode;
     }
 
     public synchronized static ClientController init(GameClient gameClient) {
         if (instance != null) {
             throw new IllegalStateException("ClientController has already been initialized");
         }
-        instance = new ClientController(gameClient);
-        return instance;
+        return instance = new ClientController(gameClient);
     }
 
 

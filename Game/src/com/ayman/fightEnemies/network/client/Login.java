@@ -1,15 +1,15 @@
 package com.ayman.fightEnemies.network.client;
 
+import com.ayman.fightEnemies.level.SpawnLevel;
 import com.ayman.fightEnemies.network.client.controller.ClientController;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.io.Serial;
 import java.net.*;
+import java.util.Scanner;
 import java.util.UUID;
 
 
@@ -78,13 +78,11 @@ public class Login extends JFrame {
         contentPanel.add(lblPortDesc);
 
         JButton btnLogin = new JButton("Login");
-        btnLogin.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                String name = txtName.getText();
-                String address = txtAddress.getText();
-                int port = Integer.parseInt(txtPort.getText());
-                login(name, address, port);
-            }
+        btnLogin.addActionListener(e -> {
+            String name = txtName.getText();
+            String address = txtAddress.getText();
+            int port = Integer.parseInt(txtPort.getText());
+            login(name, address, port);
         });
         btnLogin.setBounds(91, 311, 117, 29);
         contentPanel.add(btnLogin);
@@ -92,6 +90,12 @@ public class Login extends JFrame {
 
     private void login(String name, String address, int port) {
         dispose();
+
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter the Level Directory: ");
+        SpawnLevel.levelsLocation = scanner.nextLine();
+        System.out.println("Enter the number of levels: ");
+        SpawnLevel.numberOfLevels = scanner.nextInt();
 
         DatagramSocket socket = null;
         try {
@@ -101,6 +105,7 @@ public class Login extends JFrame {
         }
 
         try {
+            ClientController.twoPlayerMode = true;
             GameClient gameClient = new GameClient(InetAddress.getByName(address), port, name);
             ClientController controller = ClientController.init(gameClient);
             controller.start();
@@ -122,11 +127,12 @@ public class Login extends JFrame {
 //        game.requestFocus(); //request focus for the game
 
 
+
     }
 
     private void sendConnectionPacket(String name, String address, int port, DatagramSocket socket) {
 
-        DatagramPacket packet = null;
+        DatagramPacket packet;
 
         int attempts = 100;
         try {
@@ -170,9 +176,9 @@ public class Login extends JFrame {
 
     }
     private void sendDisconnectionPacket(String name, String address, int port, DatagramSocket socket) {
-        DatagramPacket packet = null;
+        DatagramPacket packet;
         try {
-            String disconnectionMessage = "D" + UUID.randomUUID().toString();
+            String disconnectionMessage = "D" + UUID.randomUUID();
             packet = new DatagramPacket(disconnectionMessage.getBytes(), (disconnectionMessage).getBytes().length, InetAddress.getByName(address), port);
         } catch (UnknownHostException e) {
             throw new RuntimeException(e);
@@ -186,14 +192,12 @@ public class Login extends JFrame {
     }
 
     public static void main(String[] args) {
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    Login frame = new Login();
-                    frame.setVisible(true);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+        EventQueue.invokeLater(() -> {
+            try {
+                Login frame = new Login();
+                frame.setVisible(true);
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         });
     }

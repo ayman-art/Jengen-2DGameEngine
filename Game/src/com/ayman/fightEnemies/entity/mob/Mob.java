@@ -45,7 +45,7 @@ public abstract class Mob extends Entity implements IMob, Cloneable {
             x += xa;
             y += ya;
 
-            if(ClientController.isOn())ClientController.getInstance().sendPlayerPosition(x, y);
+            if(ClientController.isOn() && this instanceof IPlayer)ClientController.getInstance().sendPlayerPosition(x, y);
 
         } else {
 //            new ParticleSpawner(x,y, 20, 1, level);
@@ -132,7 +132,8 @@ public abstract class Mob extends Entity implements IMob, Cloneable {
         projectiles.add(projectile);
         level.addProjectile(projectile);
 
-        if(ClientController.isOn())ClientController.getInstance().sendPlayerShoot(x, y, dir);
+        if(ClientController.isOn() && this instanceof IPlayer)
+            ClientController.getInstance().sendPlayerShoot(x, y, dir);
     }
 
     public Sprite getSprite() {
@@ -169,6 +170,10 @@ public abstract class Mob extends Entity implements IMob, Cloneable {
 //            System.exit(11);
             if( !(this instanceof IPlayer))
                 remove();
+            if(ClientController.isOn() && this instanceof IPlayer) {
+                System.out.println("Loser!");
+                System.exit(8086);
+            }
         }
 
     }
