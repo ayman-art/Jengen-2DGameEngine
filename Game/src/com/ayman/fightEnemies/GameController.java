@@ -4,6 +4,7 @@ package com.ayman.fightEnemies;
 import com.ayman.fightEnemies.Graphics.Screen;
 import com.ayman.fightEnemies.Input.Keyboard;
 import com.ayman.fightEnemies.Input.Mouse;
+import com.ayman.fightEnemies.audio.Sound;
 import com.ayman.fightEnemies.entity.mob.IPlayer;
 import com.ayman.fightEnemies.entity.mob.Player;
 import com.ayman.fightEnemies.entity.mob.decoratedPlayer.BreakTilesDecorator;
@@ -20,11 +21,14 @@ import com.ayman.fightEnemies.level.snapshots.InputSnapshot;
 import com.ayman.fightEnemies.level.snapshots.LevelCareTaker;
 import com.ayman.fightEnemies.network.client.controller.ClientController;
 
+import javax.sound.sampled.Clip;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
+import java.util.ArrayList;
+import java.util.Random;
 
 public class GameController extends Canvas implements Runnable{
 
@@ -34,7 +38,7 @@ public class GameController extends Canvas implements Runnable{
     public static int width = 300;
     public static int height = width / 12 * 8;
     public static int scaleFactor = 3;
-    public static String difficulty = "Easy";
+    public static String difficulty = "Medium";
     private  boolean playingRecording = false;
     private boolean running = false;
 
@@ -79,7 +83,7 @@ public class GameController extends Canvas implements Runnable{
     }
 
     public GameController(String playerName, JFrame jFrame) {
-        Projectile.init();
+        Sound.init();
         GameController.playerName = playerName;
 
         Dimension size = new Dimension(width * scaleFactor, height * scaleFactor);
@@ -99,18 +103,26 @@ public class GameController extends Canvas implements Runnable{
 
 //        level = new RandomLevel(64, 64);
 //        level = new RandomLevel(64, 64);
+        TileCoordinate playerSpawn;
         if(SpawnLevel.numberOfLevels == 0 && !ClientController.isOn()) {
             level = new RandomLevel();
+            Random random = new Random();
+            int xPlayer = 0, yPlayer = 0;
+            while(level.getTile(xPlayer, yPlayer).isSolid()) {
+                xPlayer = random.nextInt(level.getWidth() - 1);
+                yPlayer = random.nextInt(level.getHeight() - 1);
+            }
+            level.add(new Player(playerName, xPlayer*16, yPlayer*16, keyboard, mouse));
         } else {
             level = new SpawnLevel();
+            int xPlayer = level.getPlayer().getX();
+            int yPlayer = level.getPlayer().getY();
+            level.removePlayer();
+            level.add(new Player(playerName, xPlayer*16, yPlayer*16, keyboard, mouse));
+
         }
 //        ((SpawnLevel) level).writeToFile("level11.txt");
-        TileCoordinate playerSpawn = new TileCoordinate(level.getWidth()-2, level.getHeight()-2);
-        level.add(new Player(playerName, playerSpawn.x(), playerSpawn.y(), keyboard, mouse));
-        if(!ClientController.isOn()){
-            IPlayer player = new InvisibilityDecorator((new Player(playerName, playerSpawn.x(), playerSpawn.y(), keyboard, mouse)));
-            player = new BreakTilesDecorator(player);
-        }
+
 
         GameController Game = this;
         Game.jFrame.setResizable(false);
@@ -243,16 +255,26 @@ public class GameController extends Canvas implements Runnable{
             lastTime = now;
 
             while(delta >= 1) {
-                if(!ClientController.isOn() && level.playerWon()) {
-                    System.out.println("You won");
-                    System.out.println("Congratulations " + playerName);
-                    if(level instanceof SpawnLevel spawnLevel && !spawnLevel.hasNextLevel()) {
-                        System.out.println("You have finished the game");
+                if(!ClientController.isOn()) {
+                    if( level.playerWon()){
+                        System.out.println("You won");
                         System.out.println("Congratulations " + playerName);
-                        spawnLevel.reset();
-                        System.exit(0);
+                        if (level instanceof SpawnLevel spawnLevel && !spawnLevel.hasNextLevel()) {
+                            System.out.println("You have finished the game");
+                            System.out.println("Congratulations " + playerName);
+                            spawnLevel.reset();
+                            System.exit(0);
+                        }
+                        Sound.winningClip.start();
+                        loadNextLevel();
+                    } else if(level.playerLost()) {
+                        System.out.println("You lost");
+                        System.out.println("Game Over " + playerName);
+                        playingRecording = false;
+                        Sound.losingClip.start();
+                        AppFrame.getInstance().setGuiState(new com.ayman.fightEnemies.gui.states.MainMenuState());
+                        return;
                     }
-                    loadNextLevel();
                 }
                 if(!playingRecording && !paused) {
                     if(recordingTimer % 300 == 0) {
@@ -311,11 +333,25 @@ public class GameController extends Canvas implements Runnable{
     private void loadNextLevel() {
         levelCareTaker.reset();
         inputCareTaker.reset();
+        recordingTimer = 0;
 
-        int xPlayer = level.getPlayer().getX()/16*16;
-        int yPlayer = level.getPlayer().getY()/16*16;
+        int xPlayer = level.getPlayer().getX()/16;
+        int yPlayer = level.getPlayer().getY()/16;
         level = level.getNextLevel();
-        level.add(new Player(playerName, xPlayer, yPlayer, keyboard, mouse));
+        if(SpawnLevel.numberOfLevels == 0) {
+            Random random = new Random();
+            while(level.getTile(xPlayer, yPlayer).isSolid()) {
+                xPlayer = random.nextInt(level.getWidth() - 1);
+                yPlayer = random.nextInt(level.getHeight() - 1);
+            }
+            level.add(new Player(playerName, xPlayer*16, yPlayer*16, keyboard, mouse));
+        }
+        else {
+            int xp = level.getPlayer().getX();
+            int yp = level.getPlayer().getY();
+            level.removePlayer();
+            level.add(new Player(playerName, xp*16, yp*16, keyboard, mouse));
+        }
 
     }
 
@@ -324,7 +360,7 @@ public class GameController extends Canvas implements Runnable{
 
 
         if(inputCareTaker.hasNext()) {
-InputSnapshot inputSnapshot = inputCareTaker.getNextSnapshot();
+            InputSnapshot inputSnapshot = inputCareTaker.getNextSnapshot();
             mouse.restoreSnapshot(inputSnapshot.mouseSnapshot);
             keyboard.restoreSnapshot(inputSnapshot.keyboardSnapshot);
 //                        System.out.println("restoring");
@@ -467,5 +503,4 @@ InputSnapshot inputSnapshot = inputCareTaker.getNextSnapshot();
 
 
 }
-
 
