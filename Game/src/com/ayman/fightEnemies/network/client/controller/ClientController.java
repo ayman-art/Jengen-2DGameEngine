@@ -61,7 +61,8 @@ public class ClientController extends Thread {
                 String clientName = commandArgs[0];
                 int x = Integer.parseInt(commandArgs[1]);
                 int y = Integer.parseInt(commandArgs[2]);
-                return new UpdateMulPlayerClientCommand(this.gameClient, clientName, x, y);
+                int health = Integer.parseInt(commandArgs[3]);
+                return new UpdateMulPlayerClientCommand(this.gameClient, clientName, x, y, health);
             } case "S" -> {
                 String[] commandArgs = commandString.substring(1).split(" ");
                 String clientName = commandArgs[0];
@@ -142,8 +143,8 @@ public class ClientController extends Thread {
     }
 
 
-    public void sendPlayerPosition(int x, int y) {
-        gameClient.sendData("U" + gameClient.getUUID() + " " + x + " " + y);
+    public void sendPlayerPosition(int x, int y, int health) {
+        gameClient.sendData("U" + gameClient.getUUID() + " " + x + " " + y + " " + health);
     }
 
     public void sendPlayerShoot(int x, int y, double dir) {
