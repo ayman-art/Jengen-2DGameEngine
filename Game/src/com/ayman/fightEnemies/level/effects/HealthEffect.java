@@ -1,6 +1,7 @@
 package com.ayman.fightEnemies.level.effects;
 
 import com.ayman.fightEnemies.Graphics.AnimatedSprite;
+import com.ayman.fightEnemies.audio.Sound;
 import com.ayman.fightEnemies.entity.mob.IPlayer;
 import com.ayman.fightEnemies.entity.mob.Player;
 import com.ayman.fightEnemies.level.Level;
@@ -19,12 +20,14 @@ public class HealthEffect extends Effect{
     }
 
     public HealthEffect(int x, int y) {
-        this(new Vector2i(x, y), 10);
+        this(new Vector2i(x, y), 50);
     }
 
 
 
     public void applyEffect(Level level, Player player) {
+        Sound.healthClip.setFramePosition(0);
+        Sound.healthClip.start();
         if(!isRemoved())        player.updateHealth(-health);
     }
 }

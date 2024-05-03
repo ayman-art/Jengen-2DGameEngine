@@ -7,7 +7,7 @@ import com.ayman.fightEnemies.util.Vector2i;
 
 public class WinningEffect extends Effect {
     public WinningEffect(Vector2i position) {
-        super(position, coinAnimatedSprite);
+        super(position, winningAnimatedSprite);
     }
 
     @Override

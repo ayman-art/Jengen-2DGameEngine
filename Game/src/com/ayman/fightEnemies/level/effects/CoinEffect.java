@@ -1,5 +1,6 @@
 package com.ayman.fightEnemies.level.effects;
 
+import com.ayman.fightEnemies.audio.Sound;
 import com.ayman.fightEnemies.entity.mob.IPlayer;
 import com.ayman.fightEnemies.entity.mob.Player;
 import com.ayman.fightEnemies.level.Level;
@@ -21,6 +22,8 @@ public class CoinEffect extends Effect{
 
     @Override
     public void applyEffect(Level level, Player player) {
+        Sound.coinClip.setFramePosition(0);
+        Sound.coinClip.start();
         if(!isRemoved())        player.addCoins(coins);
     }
 }
