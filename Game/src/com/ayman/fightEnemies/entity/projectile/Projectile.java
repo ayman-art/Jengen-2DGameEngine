@@ -22,8 +22,7 @@ public  class Projectile extends Entity {
 
         protected Sprite sprite;
 
-        public static Clip gunClip;
-        public static Clip break_tileClip;
+
         public static Clip fireClip;
         protected Clip clip;
         Thread musicThread = new Thread(() -> {
@@ -35,28 +34,7 @@ public  class Projectile extends Entity {
             }
         });
 
-        public static void init() {
-            gunClip = loadSound("/sounds/gun01.wav");
-            break_tileClip = loadSound("/sounds/break_tile.wav");
-//            fireClip = loadSound("/sounds/fire01.wav");
-        }
 
-        public static Clip loadSound(String resourcePath) {
-            Clip clip;
-            try {
-                System.out.println("Loading sound");
-                clip = AudioSystem.getClip();
-            } catch (LineUnavailableException e) {
-                throw new RuntimeException(e);
-            }
-            try {
-                clip.open(AudioSystem.getAudioInputStream(Objects.requireNonNull(WizardProjectile.class.getResource(resourcePath))));
-            } catch (LineUnavailableException | UnsupportedAudioFileException | IOException e) {
-                throw new RuntimeException(e);
-            }
-            System.out.println("Done");
-            return clip;
-        }
 
         public Projectile(int x, int y, double dir, Level level) {
             init(level);

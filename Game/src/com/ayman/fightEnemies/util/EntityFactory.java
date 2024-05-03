@@ -6,6 +6,7 @@ import com.ayman.fightEnemies.entity.mob.Dummy;
 import com.ayman.fightEnemies.entity.mob.Player;
 import com.ayman.fightEnemies.level.effects.CoinEffect;
 import com.ayman.fightEnemies.level.effects.HealthEffect;
+import com.ayman.fightEnemies.level.effects.WinningEffect;
 import com.ayman.fightEnemies.level.effects.decorationEffects.BreakTilesEffect;
 import com.ayman.fightEnemies.level.effects.decorationEffects.HelperFighterEffect;
 import com.ayman.fightEnemies.level.effects.decorationEffects.InvisibilityEffect;
@@ -41,6 +42,9 @@ public class EntityFactory {
             }
             case "HealthEffect" -> {
                 return new HealthEffect(new Vector2i(x, y), 10);
+            }
+            case "WinningEffect" -> {
+                return new WinningEffect(new Vector2i(x, y));
             }
             default -> throw new IllegalArgumentException("Invalid entity type: " + type);
         }

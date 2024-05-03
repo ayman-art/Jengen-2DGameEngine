@@ -1,7 +1,5 @@
 package com.ayman.fightEnemies.game;
 
-import com.ayman.fightEnemies.Graphics.Sprite;
-import com.ayman.fightEnemies.Graphics.SpriteSheet;
 import com.ayman.fightEnemies.game.contexts.*;
 import com.ayman.fightEnemies.game.contexts.levelcontexts.ILevelContext;
 import com.ayman.fightEnemies.game.contexts.levelcontexts.RandomLevelContext;
@@ -13,7 +11,7 @@ public class Launch {
             .setHeight(300 * 8 / 12)
             .setScaleFactor(3) // Optional (determines the scale factor of the GUI)
             .setMiniMapAlpha(100) // Optional (determines the transparency of the minimap)
-            .setAboutText("This is A Fighting oe") // Optional (determines the about text)
+            .setAboutText("This is A Fighting Game using most of the feature provided the Jengen Game Engine") // Optional (determines the about text)
             .build();
 
     // Setting the AIContext
@@ -33,23 +31,23 @@ public class Launch {
 
     static ProjectileContext projectileContext = new ProjectileContext.Builder()
             .setSpeed(2)
-            .setDamage(20)
+            .setDamage(2)
             .setRange(1000)
             .setFireInterval(10)
             .build();
 
-//        ILevelContext LevelContext = new RandomLevelContext.Builder()
-//                .setSize(20, 20)
-//                .build();
+    static ILevelContext levelContext = new RandomLevelContext.Builder()
+                .setSize(30, 17)
+                .build();
 
 
-    static ILevelContext levelContext = new SpawnLevelContext.Builder()
-            .setNumberOfLevels(2)
-            .setPath("C:\\Users\\ayman\\Desktop\\FightLevels")
-            .setLevelExtension("png")
-            .build();
+//    static ILevelContext levelContext = new SpawnLevelContext.Builder()
+//            .setNumberOfLevels(2)
+//            .setPath("C:\\Users\\ayman\\Desktop\\FightLevels")
+//            .setLevelExtension("png")
+//            .build();
     static WinnigStateContext winningStateContext = new WinnigStateContext.Builder()
-            .setType(WinnigStateContext.WinningStateType.CollectAllCoins)
+            .setType(WinnigStateContext.WinningStateType.KillAllEnemies)
             .build();
 
 

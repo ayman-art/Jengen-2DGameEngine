@@ -19,6 +19,9 @@ public class MainMenuState extends GuiState {
 
     JLabel logo;
 
+    JLabel label;
+    JLabel label2;
+
 
     public MainMenuState() {
         playButton = new JButton("Play");
@@ -69,6 +72,14 @@ public class MainMenuState extends GuiState {
         });
 
 
+        label = new JLabel("Powered By");
+        label.setBounds(640, 460, 400, 100);
+        label.setFont(new Font("Trebuchet MS", Font.BOLD | Font.ITALIC, 15));
+        label.setForeground(Color.green);
+        label2 = new JLabel("Jengen");
+        label2.setBounds(650, 480, 400, 100);
+        label2.setFont(new Font("Trebuchet MS", Font.BOLD | Font.ITALIC, 15));
+        label2.setForeground(Color.RED);
 
 
 
@@ -94,15 +105,8 @@ public class MainMenuState extends GuiState {
         frame.add(exitButton);
         frame.add(logo);
 
-        JLabel label = new JLabel("Powered By");
-        label.setBounds(640, 480, 400, 100);
-        label.setFont(new Font("Trebuchet MS", Font.BOLD | Font.ITALIC, 15));
-        label.setForeground(Color.green);
+        frame.setLayout(null);
         frame.add(label);
-        JLabel label2 = new JLabel("Jengen");
-        label2.setBounds(650, 500, 400, 100);
-        label2.setFont(new Font("Trebuchet MS", Font.BOLD | Font.ITALIC, 15));
-        label2.setForeground(Color.RED);
         frame.add(label2);
 
         //Setting color to Dark Purple

@@ -40,6 +40,8 @@ public class Dummy extends Mob{
             }
         }
 
+        int distance = (int) (Math.sqrt(level.getPlayer().getX() - x) * (level.getPlayer().getX() - x) + (level.getPlayer().getY() - y) * (level.getPlayer().getY() - y));
+        if(distance > CHASING_RANGE) return;
         if(random.nextInt(100) == 0) {
             shoot(x, y, random.nextGaussian());
         }

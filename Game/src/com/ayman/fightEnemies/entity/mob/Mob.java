@@ -1,12 +1,15 @@
 package com.ayman.fightEnemies.entity.mob;
 
+import com.ayman.fightEnemies.GameController;
 import com.ayman.fightEnemies.Graphics.AnimatedSprite;
 import com.ayman.fightEnemies.Graphics.Screen;
 import com.ayman.fightEnemies.Graphics.Sprite;
+import com.ayman.fightEnemies.audio.Sound;
 import com.ayman.fightEnemies.entity.Entity;
 import com.ayman.fightEnemies.entity.spawner.ParticleSpawner;
 import com.ayman.fightEnemies.entity.projectile.Projectile;
 import com.ayman.fightEnemies.entity.projectile.WizardProjectile;
+import com.ayman.fightEnemies.gui.AppFrame;
 import com.ayman.fightEnemies.level.effects.Effect;
 import com.ayman.fightEnemies.network.client.controller.ClientController;
 
@@ -45,7 +48,7 @@ public abstract class Mob extends Entity implements IMob, Cloneable {
             x += xa;
             y += ya;
 
-            if(ClientController.isOn() && this instanceof IPlayer)ClientController.getInstance().sendPlayerPosition(x, y);
+            if(ClientController.isOn() && this instanceof IPlayer)ClientController.getInstance().sendPlayerPosition(x, y, health);
 
         } else {
 //            new ParticleSpawner(x,y, 20, 1, level);
@@ -81,7 +84,7 @@ public abstract class Mob extends Entity implements IMob, Cloneable {
                             new ParticleSpawner(getX(), getY(), 1, 1, getLevel(), getLevel().getTile(xt, yt));
                             getLevel().removeTile(xt, yt);
                             try {
-                                Clip clip = Projectile.break_tileClip;
+                                Clip clip = Sound.break_tileClip;
                                 //                            System.out.println("Playing sound");
 
                                 clip.setFramePosition(0);
@@ -124,6 +127,8 @@ public abstract class Mob extends Entity implements IMob, Cloneable {
         }
         return false;
     }
+
+
 
     public void shoot(int x, int y, double dir) {
 
@@ -201,5 +206,8 @@ public abstract class Mob extends Entity implements IMob, Cloneable {
 
     public void setSpeed(int speed) {
         this.speed = speed;
+    }
+    public void setHealth(int health) {
+        this.health = health;
     }
 }

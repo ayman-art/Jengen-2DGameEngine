@@ -57,7 +57,7 @@ public abstract class Level {
         System.out.println("calling loadLevel from Level");
     }
 
-    public void update() {
+    public synchronized void  update() {
         for(int i = 0; i < mobs.size(); i++) {
             mobs.get(i).update();
             if(mobs.get(i) instanceof DecoratedPlayer decoratedPlayer) {
@@ -129,12 +129,12 @@ public abstract class Level {
             }
         }
 
-        for(int i = 0; i < mobs.size(); i++) {
-            mobs.get(i).render(screen);
-            if(mobs.get(i) instanceof Chaser chaser) {
+        for (IEntity iEntity : mobs) {
+            iEntity.render(screen);
+            if (iEntity instanceof Chaser chaser) {
                 chaser.renderPath(screen);
             }
-            if(mobs.get(i) instanceof IMob mob) {
+            if (iEntity instanceof IMob mob) {
                 mob.renderHealth(screen);
             }
         }
@@ -511,6 +511,9 @@ public abstract class Level {
         }
         return -1;
     }
+    public boolean isInside(int xp, int yp, int x, int y, int size) {
+        return xp >= x && xp <= x + size && yp >= y && yp <= y + size;
+    }
 
     public IPlayer getPlayer(int i) {
         return (IPlayer) mobs.get(i);
@@ -540,4 +543,35 @@ public abstract class Level {
     }
 
     public abstract Level getNextLevel();
+
+    public void removePlayer() {
+        for(int i = 0; i < mobs.size(); i++) {
+            if(mobs.get(i) instanceof IPlayer) {
+                mobs.remove(i);
+                return;
+            }
+        }
+    }
+
+    public IMob getClosestMob(IMob tar, Player exclude) {
+        IMob closest = null;
+        double minDistance = Double.MAX_VALUE;
+        for(IEntity mob : mobs) {
+            if(mob instanceof IMob m) {
+                if(m == tar || m == exclude || m instanceof DecoratedPlayer decoratedPlayer && ((DecoratedPlayer) m).getInnerMostPlayer() == exclude)
+                    continue;
+                double distance = Math.sqrt(Math.pow(m.getX() - tar.getX(), 2) + Math.pow(m.getY() - tar.getY(), 2));
+                if (distance < minDistance) {
+                    minDistance = distance;
+                    closest = m;
+                }
+
+            }
+        }
+        return closest;
+    }
+
+    public boolean playerLost() {
+        return getPlayer().getHealth() == 0;
+    }
 }

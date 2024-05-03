@@ -2,10 +2,10 @@ package com.ayman.fightEnemies.game.contexts;
 
 public class ProjectileContext extends Context {
 
-        private int speed;
-        private int damage;
-        private int range;
-        private int fireInterval;
+        private final int speed;
+        private final int damage;
+        private final int range;
+        private final int fireInterval;
 
         private ProjectileContext(Builder builder){
             this.speed = builder.speed;

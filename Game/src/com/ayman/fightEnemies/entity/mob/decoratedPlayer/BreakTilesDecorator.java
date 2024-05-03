@@ -1,7 +1,11 @@
 package com.ayman.fightEnemies.entity.mob.decoratedPlayer;
 
+import com.ayman.fightEnemies.audio.Sound;
 import com.ayman.fightEnemies.entity.mob.IPlayer;
 import com.ayman.fightEnemies.level.effects.Effect;
+/**
+ * BreakTilesDecorator is a concrete decorator that adds the ability to break tiles to the player.
+ */
 
 public class BreakTilesDecorator extends DecoratedPlayer{
     public BreakTilesDecorator(IPlayer player) {
@@ -18,6 +22,7 @@ public class BreakTilesDecorator extends DecoratedPlayer{
         }
 
 
+        player.setTileBreaker(true); // ensure tileBreakerEffect
         player.update();
 
         time--;

@@ -172,26 +172,30 @@ public class Player extends Mob implements IPlayer {
 
         for(IMob mob : level.getMobs()) {
             for(Projectile projectile : mob.getProjectiles()) {
+                if(projectile.isRemoved()) continue;
                 for(IMob otherMob : level.getMobs()) {
                     if(mob != otherMob) {
-                        int xProjectile = projectile.getX();
-                        int yProjectile = projectile.getY();
-                        if(xProjectile >= otherMob.getX() && xProjectile <= otherMob.getX() + 16
-                                && yProjectile >= otherMob.getY() && yProjectile <= otherMob.getY() + 16) {
-//                            otherMob.remove();
 
+                        int xProjectile = projectile.getX() + 8;
+                        int yProjectile = projectile.getY() + 8;
+                        if(level.isInside(xProjectile, yProjectile, otherMob.getX(), otherMob.getY(), 16)
+                                || level.isInside(xProjectile, yProjectile, otherMob.getX() + 16, otherMob.getY(), 16)
+                                || level.isInside(xProjectile + 16, yProjectile, otherMob.getX(), otherMob.getY(), 16)
+                                || level.isInside(xProjectile, yProjectile + 16, otherMob.getX(), otherMob.getY(), 16)
+                                || level.isInside(xProjectile + 16, yProjectile + 16, otherMob.getX(), otherMob.getY(), 16)
+                                || level.isInside(xProjectile + 8, yProjectile + 8, otherMob.getX(), otherMob.getY(), 16)) {
 
-//                            projectile.remove();
-                            level.removeProjectile(projectile);
+                            projectile.remove();
+//                            level.removeProjectile(projectile);
 
-                            if(otherMob instanceof Player player) {
+                            if(otherMob instanceof IPlayer player) {
                                 player.updateHealth(projectile.getDamage());
                                 if(player.getHealth() <= 0) {
 //                                    System.exit(11);
                                 }
                             }
                             else {
-                                otherMob.updateHealth(projectile.getDamage());
+                                otherMob.updateHealth(projectile.getDamage() * 20);
                                 if(otherMob.getHealth() <= 0) {
                                     otherMob.remove();
                                 }

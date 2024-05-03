@@ -2,6 +2,7 @@ package com.ayman.fightEnemies.entity.projectile;
 
 import com.ayman.fightEnemies.Graphics.Screen;
 import com.ayman.fightEnemies.Graphics.Sprite;
+import com.ayman.fightEnemies.audio.Sound;
 import com.ayman.fightEnemies.entity.spawner.ParticleSpawner;
 import com.ayman.fightEnemies.entity.spawner.Spawner;
 import com.ayman.fightEnemies.level.Level;
@@ -18,10 +19,10 @@ public class WizardProjectile extends Projectile {
 
 
 
-    public static int FIRE_INTERVAL = 4;
+    public static int FIRE_INTERVAL = 10;
     public static int RANGE = 1000;
     public static int SPEED = 2;
-    public static int DAMAGE = 20;
+    public static int DAMAGE = 1;
 
     public WizardProjectile(int x, int y, double dir, Level level) {
         super(x, y, dir, level);
@@ -34,7 +35,7 @@ public class WizardProjectile extends Projectile {
 
         sprite = Sprite.wizardProjectile.rotatedSPrite(angle);
 
-        this.clip = Projectile.gunClip;
+        this.clip = Sound.gunClip;
         playSound();
 ;
     }

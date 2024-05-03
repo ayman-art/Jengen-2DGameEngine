@@ -18,4 +18,5 @@ public interface IEntity {
     int getY();
 
     Level getLevel();
+
 }

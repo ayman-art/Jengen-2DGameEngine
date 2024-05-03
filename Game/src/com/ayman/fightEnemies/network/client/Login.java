@@ -1,5 +1,6 @@
 package com.ayman.fightEnemies.network.client;
 
+import com.ayman.fightEnemies.entity.projectile.WizardProjectile;
 import com.ayman.fightEnemies.level.SpawnLevel;
 import com.ayman.fightEnemies.network.client.controller.ClientController;
 
@@ -96,7 +97,8 @@ public class Login extends JFrame {
         SpawnLevel.levelsLocation = scanner.nextLine();
         System.out.println("Enter the number of levels: ");
         SpawnLevel.numberOfLevels = scanner.nextInt();
-
+        // decreasing fire rate to ensure that the server will not be overwhelmed
+        WizardProjectile.FIRE_INTERVAL = 20;
         DatagramSocket socket = null;
         try {
             socket = new DatagramSocket();

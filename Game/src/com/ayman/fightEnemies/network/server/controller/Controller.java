@@ -59,7 +59,8 @@ public class Controller {
                 String clientID = commandArgs[0];
                 int x = Integer.parseInt(commandArgs[1]);
                 int y = Integer.parseInt(commandArgs[2]);
-                return new UpdateMulPlayerCommand(server, server.getClient(UUID.fromString(clientID)), x, y);
+                int health = Integer.parseInt(commandArgs[3]);
+                return new UpdateMulPlayerCommand(server, server.getClient(UUID.fromString(clientID)), x, y, health);
             } case "S" -> {
                 String[] commandArgs = commandString.substring(1).split(" ");
                 String clientID = commandArgs[0];

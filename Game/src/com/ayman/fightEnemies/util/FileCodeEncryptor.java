@@ -57,7 +57,9 @@ public class FileCodeEncryptor {
         int numberOfLevels = 2;
         for (int i = 1; i <= numberOfLevels; i++)
             encryptFile(levelsPath, i);
+        System.out.println("Level files encrypted successfully!");
         }
+
 
 
 }

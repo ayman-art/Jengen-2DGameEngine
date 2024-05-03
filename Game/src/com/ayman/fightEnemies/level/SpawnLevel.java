@@ -1,9 +1,5 @@
 package com.ayman.fightEnemies.level;
 
-import com.ayman.fightEnemies.entity.Entity;
-import com.ayman.fightEnemies.entity.mob.Chaser;
-import com.ayman.fightEnemies.entity.mob.Dummy;
-import com.ayman.fightEnemies.level.tile.Tile;
 import com.ayman.fightEnemies.network.client.controller.ClientController;
 import com.ayman.fightEnemies.util.Encryptor;
 import com.ayman.fightEnemies.util.FileCodeChecker;
@@ -12,9 +8,6 @@ import com.ayman.fightEnemies.util.LevelEntitiesParser;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 public class SpawnLevel extends Level {
 
@@ -22,7 +15,7 @@ public class SpawnLevel extends Level {
     public static int numberOfLevels;
     public static String extension = "png";
     public static String levelsLocation;
-    private int currentLevelIndex = 1;
+    private int currentLevelIndex;
 
 
     public SpawnLevel() {
@@ -56,7 +49,7 @@ public class SpawnLevel extends Level {
                 }
             } catch (Exception e) {
                 e.printStackTrace();
-                currentLevelIndex = 1;;
+                currentLevelIndex = 1;
             }
         }
 
@@ -75,7 +68,7 @@ public class SpawnLevel extends Level {
     }
 
     protected void loadLevel(String path) {
-        if (path != null && path.substring(path.length() - 4).equals(".txt")) {
+        if (path != null && path.endsWith(".txt")) {
             loadFromFile(path);
             return;
         }
@@ -84,12 +77,12 @@ public class SpawnLevel extends Level {
 
             assert path != null;
             BufferedImage image = ImageIO.read(new File(path));
+            if (image == null) System.out.println("image is null");
 
             this.width = image.getWidth();
             this.height = image.getHeight();
             tiles = new int[width * height];
             image.getRGB(0, 0, width, height, tiles, 0, width);
-            if (image == null) System.out.println("image is null");
             if (tiles == null) System.out.println("levelPixels is null");
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -195,8 +188,7 @@ public class SpawnLevel extends Level {
 
 
     private void putEntities(String fileName) {
-        if(!ClientController.isOn())
-            LevelEntitiesParser.parseEntitiesFile(fileName).forEach(this::add);
+        LevelEntitiesParser.parseEntitiesFile(fileName).forEach(this::add);
     }
 
     public void reset() {

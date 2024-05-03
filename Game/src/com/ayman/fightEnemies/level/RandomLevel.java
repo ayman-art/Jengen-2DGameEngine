@@ -7,12 +7,14 @@ import com.ayman.fightEnemies.entity.mob.Dummy;
 import com.ayman.fightEnemies.entity.mob.IMob;
 import com.ayman.fightEnemies.level.effects.CoinEffect;
 import com.ayman.fightEnemies.level.effects.HealthEffect;
+import com.ayman.fightEnemies.level.effects.WinningEffect;
 import com.ayman.fightEnemies.level.effects.decorationEffects.BreakTilesEffect;
 import com.ayman.fightEnemies.level.effects.decorationEffects.HelperFighterEffect;
 import com.ayman.fightEnemies.level.effects.decorationEffects.InvisibilityEffect;
 import com.ayman.fightEnemies.level.effects.decorationEffects.SpeedEffect;
 import com.ayman.fightEnemies.level.tile.Tile;
 import com.ayman.fightEnemies.level.winning.ItemsCollected;
+import com.ayman.fightEnemies.level.winning.TargetReached;
 import com.ayman.fightEnemies.util.AdjacentCheckGenerator;
 import com.ayman.fightEnemies.util.DSU;
 import com.ayman.fightEnemies.util.Vector2i;
@@ -27,17 +29,17 @@ public class RandomLevel extends Level {
     static public int WIDTH = 64;
     static public int HEIGHT = 64;
     public DSU dsu = new DSU(width * height);
-    private static int collisionFactor = 1;
+    private static final int collisionFactor = 1;
     int counter = 1;
 
     public RandomLevel(int width, int height) {
-        super(width, height, new ItemsCollected());
+        super(width, height, winningState);
 
         add(new Chaser(3,3));
     }
 
     public RandomLevel() {
-        super(WIDTH, HEIGHT, new ItemsCollected());
+        super(WIDTH, HEIGHT, winningState);
         add(new Chaser(3,3));
 
     }
@@ -345,7 +347,8 @@ public class RandomLevel extends Level {
         if (n == 1) {
             if(numberOfCoins == 0 && Level.winningState instanceof ItemsCollected) {
                 add(new CoinEffect(x, y));
-            }
+            } else if(Level.winningState instanceof TargetReached)
+                add(new WinningEffect(new Vector2i(x, y)));
             return;
         }
 

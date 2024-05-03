@@ -39,4 +39,6 @@ public interface IMob extends IEntity {
     int getHealth();
 
     boolean collision(int xa, int ya);
+
+    void setHealth(int heath);
 }

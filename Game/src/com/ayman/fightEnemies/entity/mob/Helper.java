@@ -5,14 +5,12 @@ import com.ayman.fightEnemies.util.Vector2i;
 
 public class Helper extends Chaser {
 
-    private Player player;
+    private final Player player;
 
 
     public Helper(Player player) {
         super(player.getX() / 16, player.getY() / 16);
         this.player = player;
-
-
     }
 
 
@@ -30,15 +28,27 @@ public class Helper extends Chaser {
             if(h.player == this.player) {
                 currentEnemy = null;
             }
+            System.out.println("Helper is attacking another helper");
         }
 
 
-        if(currentEnemy == null) {
+        if(currentEnemy == null || currentEnemy.isRemoved()) {
 
             if((level.getMobs().size() > 2))
-                currentEnemy = level.getMobs().get(1 + random.nextInt(level.getMobs().size() - 1));
-            if(currentEnemy == this || currentEnemy == player) {
+                currentEnemy = level.getClosestMob(this, player);
+            if
+            (
+                    currentEnemy == this ||
+                    currentEnemy == player ||
+                    currentEnemy instanceof DecoratedPlayer decoratedPlayer && decoratedPlayer.getInnerMostPlayer() == player
+            ) {
+                if(currentEnemy == this) System.out.println("this");
+                if(currentEnemy == player) System.out.println("player");
+                if(currentEnemy instanceof DecoratedPlayer decoratedPlayer && decoratedPlayer.getInnerMostPlayer() == player) {
+                    System.out.println("lela tawela");
+                }
                 currentEnemy = null;
+                System.out.println("Helper is attacking itself or the player");
             }
 //            System.out.println(currentEnemy);
             return;
@@ -47,11 +57,11 @@ public class Helper extends Chaser {
 
         int distancePow2 = (int) (Math.pow(currentEnemy.getX() - x, 2) + Math.pow(currentEnemy.getY() - y, 2));
         int distance = (int) Math.sqrt(distancePow2);
-        if(this.currentAnimatedSprite.getCurrentSPrite().SIZE > distance || distance > CHASING_RANGE) {
-            return;
+        if( distance > CHASING_RANGE) {
+//            return;
         }
-        else if(Math.abs(currentEnemy.getX() - x) <= 16 && Math.abs(currentEnemy.getY() - y) <= 16) {
-            currentEnemy.updateHealth(20);
+        else if(this.currentAnimatedSprite.getCurrentSPrite().SIZE > distance && time % (60*2) == 0) {
+            shoot(x, y, random.nextGaussian());
         }
 //        int xa = level.getPlayer().getX() - x;
 //        int ya = level.getPlayer().getY() - y;

@@ -1,22 +1,19 @@
 package com.ayman.fightEnemies.entity.mob.decoratedPlayer;
 
-import com.ayman.fightEnemies.GameController;
-import com.ayman.fightEnemies.Graphics.Screen;
-import com.ayman.fightEnemies.Input.Keyboard;
 import com.ayman.fightEnemies.entity.mob.IMob;
 import com.ayman.fightEnemies.entity.mob.IPlayer;
-import com.ayman.fightEnemies.entity.mob.Player;
 import com.ayman.fightEnemies.level.effects.Effect;
 
 public class FastPlayer extends DecoratedPlayer {
 
+    static private final int speedFactor = 4;
 
 
 
     public FastPlayer(IPlayer player) {
         super(player);
         this.time = Effect.EFFECT_TIME;
-        player.setSpeed(4 * player.getSpeed());
+        player.setSpeed(speedFactor * player.getSpeed());
     }
 
     @Override
@@ -27,7 +24,6 @@ public class FastPlayer extends DecoratedPlayer {
         }
 
         player.update();
-//        System.out.println("FastPlayer");
 
         time--;
         if(time == 0) {
@@ -39,7 +35,7 @@ public class FastPlayer extends DecoratedPlayer {
 
     @Override
     public void removeDecoration() {
-        player.setSpeed(player.getSpeed() / 4);
+        player.setSpeed(player.getSpeed() / speedFactor);
     }
 
 

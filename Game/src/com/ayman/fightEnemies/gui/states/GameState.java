@@ -16,7 +16,7 @@ public class GameState extends GuiState {
         frame.getContentPane().repaint();
 
 
-        GameController Game = new GameController("Fight Enemies", frame);
+        GameController Game = new GameController(GameController.playerName, frame);
 
     }
 }
