@@ -1,21 +1,17 @@
 package com.ayman.fightEnemies.util;
 
-import com.sun.jdi.IntegerType;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
- * This class is used to generate the pairs of adjacent custumed which need to be checked for connectivity.
- * This will be used in the RandomLevel class to generate a valid level.
+ * This class is used to generate the pairs of adjacent coordinates which need to be checked for connectivity.
+ * This will be used in the RandomLevel class to generate a valid level with no isolated areas.
  * */
 public class AdjacentCheckGenerator {
 
     public static final List<Vector2i[]> vectors = new ArrayList<>();
 
-    private AdjacentCheckGenerator() {
-    }
+
 
     static {
 

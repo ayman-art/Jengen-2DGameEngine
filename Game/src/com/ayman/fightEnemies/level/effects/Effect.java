@@ -1,12 +1,19 @@
 package com.ayman.fightEnemies.level.effects;
 
-import com.ayman.fightEnemies.Graphics.*;
+import com.ayman.fightEnemies.Graphics.AnimatedSprite;
+import com.ayman.fightEnemies.Graphics.Screen;
+import com.ayman.fightEnemies.Graphics.Sprite;
+import com.ayman.fightEnemies.Graphics.SpriteSheet;
 import com.ayman.fightEnemies.entity.Entity;
-import com.ayman.fightEnemies.entity.mob.IPlayer;
 import com.ayman.fightEnemies.entity.mob.Player;
 import com.ayman.fightEnemies.level.Level;
 import com.ayman.fightEnemies.util.Vector2i;
 
+/**
+ * This is an abstract class that represents the effects that can be applied to the player.
+ The class contains the position of the effect, the sprite of the effect, and the time of the effect.
+ It also stores the animated sprites of the effects.
+ */
 public abstract class Effect extends Entity {
     public static int EFFECT_TIME = 200;
     protected Vector2i position;

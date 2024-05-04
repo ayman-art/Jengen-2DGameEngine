@@ -1,7 +1,5 @@
 package com.ayman.fightEnemies.level.effects.decorationEffects;
 
-import com.ayman.fightEnemies.Graphics.AnimatedSprite;
-import com.ayman.fightEnemies.entity.mob.IPlayer;
 import com.ayman.fightEnemies.entity.mob.Player;
 import com.ayman.fightEnemies.entity.mob.decoratedPlayer.DecoratedPlayer;
 import com.ayman.fightEnemies.entity.mob.decoratedPlayer.FastPlayer;
@@ -9,6 +7,9 @@ import com.ayman.fightEnemies.level.Level;
 import com.ayman.fightEnemies.level.effects.Effect;
 import com.ayman.fightEnemies.util.Vector2i;
 
+/**
+ * This class is used to create the SpeedEffect which is an effect that makes the player faster.
+ */
 public class SpeedEffect extends Effect {
 
         int speed;

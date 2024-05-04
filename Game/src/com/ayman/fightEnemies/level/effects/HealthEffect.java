@@ -1,12 +1,14 @@
 package com.ayman.fightEnemies.level.effects;
 
-import com.ayman.fightEnemies.Graphics.AnimatedSprite;
 import com.ayman.fightEnemies.audio.Sound;
-import com.ayman.fightEnemies.entity.mob.IPlayer;
 import com.ayman.fightEnemies.entity.mob.Player;
 import com.ayman.fightEnemies.level.Level;
 import com.ayman.fightEnemies.util.Vector2i;
 
+/**
+ * This class is used to create the HealthEffect which is an effect that gives the player health.
+
+ */
 public class HealthEffect extends Effect{
     int health;
 

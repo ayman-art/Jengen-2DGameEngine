@@ -5,6 +5,12 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * This class is used to encrypt the level index to a string, and decrypt it back.
+ The encryption is done by generating a string of characters with a sum of their ASCII values equal to the level index squared times 10.
+ The decryption is done by calculating the sum of the ASCII values of the characters in the string, and then taking the square root of the sum divided by 10.
+ The goal of this class is to provide a way to store the level index in a quite secure way.
+ */
 public class Encryptor {
     public static String encrypt(int levelIndex) {
         String ret = "";
@@ -41,7 +47,7 @@ public class Encryptor {
             sum += encrypted.charAt(i) - 'A';
         }
         System.out.println("Sum: " + sum);
-        return (int) Math.sqrt(sum / 10);
+        return (int) Math.sqrt(sum / 10.0);
     }
 
     public static void main(String[] args) {

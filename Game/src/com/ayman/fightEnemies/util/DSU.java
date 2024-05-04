@@ -1,7 +1,11 @@
 package com.ayman.fightEnemies.util;
+
+/**
+ * This class is used to check the connectivity of the level graph.
+ */
 public class DSU {
-    private int[] parent;
-    private int[] rank;
+    private final int[] parent;
+    private final int[] rank;
     private int count; // number of components
 
     public DSU(int n) {

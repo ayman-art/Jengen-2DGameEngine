@@ -2,6 +2,9 @@ package com.ayman.fightEnemies.util;
 
 import java.io.*;
 
+/**
+ * This class is used to check that the user has not tampered with the code files.
+ * */
 public class FileCodeChecker {
 
     static boolean checkFileCode(String filePath, int levelNumber, String extension) {
@@ -13,7 +16,7 @@ public class FileCodeChecker {
         String enc_code_path = filePath + "\\level_" + levelNumber + "\\code.enc";
         System.out.println(filePath);
         File file = new File(enc_code_path);
-        String actualCode = "";
+        String actualCode;
         try {
             FileReader reader = new FileReader(file);
             BufferedReader bufferedReader = new BufferedReader(reader);

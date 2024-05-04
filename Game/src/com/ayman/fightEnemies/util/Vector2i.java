@@ -1,8 +1,10 @@
 package com.ayman.fightEnemies.util;
 
-import java.util.Vector;
+/**
+ * This class is used to represent a 2D integer vector.
 
-public class Vector2i {
+ */
+public class Vector2i implements Comparable<Vector2i>{
     private int x, y;
 
     public Vector2i() {
@@ -60,6 +62,12 @@ public class Vector2i {
         Vector2i vec = (Vector2i) object;
         if(vec.getX() == this.getX() && vec.getY() == this.getY()) return true;
         return false;
+    }
+    @Override
+    public int compareTo(Vector2i vector) {
+        if(this.getX() != vector.getX())
+            return Integer.compare(this.getX(), vector.getX());
+        return Integer.compare(this.getY(), vector.getY());
     }
 
 

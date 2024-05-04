@@ -12,6 +12,10 @@ import com.ayman.fightEnemies.level.effects.decorationEffects.HelperFighterEffec
 import com.ayman.fightEnemies.level.effects.decorationEffects.InvisibilityEffect;
 import com.ayman.fightEnemies.level.effects.decorationEffects.SpeedEffect;
 
+/**
+ * This class is used to create entities based on their type.
+ The goal of this class is to provide a way to create entities while parsing the level file.
+ */
 public class EntityFactory {
 
     static IEntity createEntity(String type, int x, int y) {

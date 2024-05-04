@@ -1,15 +1,11 @@
 package com.ayman.fightEnemies.util;
 
-import com.ayman.fightEnemies.level.SpawnLevel;
-
 import java.io.*;
 
+/**
+ * This class is used to encrypt the code files to prevent tampering with the game files.
+ */
 public class FileCodeEncryptor {
-    final static int sasa = 3;
-    static {
-        System.out.println("Hello");
-    }
-
     public static void encryptFile(final String filePath, final int levelNumber, final String extension) {
 
         String enc_code_path = filePath +"\\level_" + levelNumber + "\\code.enc";

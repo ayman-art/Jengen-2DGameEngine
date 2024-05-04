@@ -6,6 +6,10 @@ import com.ayman.fightEnemies.entity.mob.Player;
 import com.ayman.fightEnemies.level.Level;
 import com.ayman.fightEnemies.util.Vector2i;
 
+/**
+ * This class is used to create the CoinEffect which is an effect that gives the player coins.
+
+ */
 public class CoinEffect extends Effect{
 
     public static int COIN_VALUE = 5;

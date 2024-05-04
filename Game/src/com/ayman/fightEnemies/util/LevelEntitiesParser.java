@@ -8,6 +8,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class is used to parse the entities file and create the entities in the level.
+
+ */
 public class LevelEntitiesParser {
 
     public static List<IEntity> parseEntitiesFile(String fileName) {
