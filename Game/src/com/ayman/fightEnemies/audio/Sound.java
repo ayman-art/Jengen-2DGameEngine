@@ -1,10 +1,8 @@
 package com.ayman.fightEnemies.audio;
 
 import com.ayman.fightEnemies.entity.projectile.WizardProjectile;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
+
+import javax.sound.sampled.*;
 import java.io.IOException;
 import java.util.Objects;
 
@@ -26,6 +24,12 @@ public class Sound {
      */
     public static void init() {
         gunClip = loadSound("/sounds/gun01.wav");
+        FloatControl gainControl = (FloatControl) gunClip.getControl(FloatControl.Type.MASTER_GAIN);
+        gainControl.setValue(-80.0f); // -80.0f is the minimum volume (in decibels)
+        // Start playing the clip
+        gunClip.setFramePosition(0); // Start from the beginning
+        gunClip.start();
+        gainControl.setValue(0.0f); // Set the volume to 0.0f (maximum volume)
         break_tileClip = loadSound("/sounds/break_tile.wav");
         winningClip = loadSound("/sounds/winning.wav");
         losingClip = loadSound("/sounds/losing.wav");
