@@ -11,6 +11,7 @@ import java.util.Map;
  */
 public class Tile {
 
+        public static int TILE_SIZE = 16;
 
         public int x, y;
         public Sprite sprite;

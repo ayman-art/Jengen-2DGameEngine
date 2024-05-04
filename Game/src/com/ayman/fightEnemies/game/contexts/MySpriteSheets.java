@@ -16,8 +16,8 @@ public class MySpriteSheets {
 
     static {
 //        try {
-//            balls = new SpriteSheet("/Sheets/balls.png", 16);
-//            sun = new SpriteSheet("/Sheets/sun.png", 16);
+//            balls = new SpriteSheet("/Sheets/balls.png", Tile.TILE_SIZE);
+//            sun = new SpriteSheet("/Sheets/sun.png", Tile.TILE_SIZE);
             // Add more sprite sheets here
 //        } catch (IOException e) {
 //            throw new RuntimeException(e);

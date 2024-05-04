@@ -345,7 +345,7 @@ public class RandomLevel extends Level {
             return true;
         for(IEntity entity : mobs) {
             if(entity instanceof IMob mob) {
-                if(mob.getX()/16 == x && mob.getY()/16 == y)
+                if(mob.getX()/Tile.TILE_SIZE == x && mob.getY()/Tile.TILE_SIZE == y)
                     return true;
             }
         }

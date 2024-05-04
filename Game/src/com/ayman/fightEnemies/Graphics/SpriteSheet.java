@@ -1,5 +1,7 @@
 package com.ayman.fightEnemies.Graphics;
 
+import com.ayman.fightEnemies.level.tile.Tile;
+
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -32,11 +34,11 @@ public class SpriteSheet {
             tiles = new SpriteSheet("/Sheets/spritesheet.png", 256);
             currentLevel = new SpriteSheet("/Sheets/level1.png", 256);
 
-            player = new SpriteSheet(tiles, 0, 2, 3, 3, 16);
-            player_up = new SpriteSheet(player, 0, 0, 1, 3, 16);
-            player_right = new SpriteSheet(player, 1, 0, 1, 3, 16);
+            player = new SpriteSheet(tiles, 0, 2, 3, 3, Tile.TILE_SIZE);
+            player_up = new SpriteSheet(player, 0, 0, 1, 3, Tile.TILE_SIZE);
+            player_right = new SpriteSheet(player, 1, 0, 1, 3, Tile.TILE_SIZE);
             player_left = player_right.flippedCopy(); //flipped horizontally
-            player_down = new SpriteSheet(player, 2, 0, 1, 3, 16);
+            player_down = new SpriteSheet(player, 2, 0, 1, 3, Tile.TILE_SIZE);
 
 
 

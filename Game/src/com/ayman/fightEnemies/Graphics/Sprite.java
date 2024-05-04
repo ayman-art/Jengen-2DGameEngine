@@ -1,5 +1,7 @@
 package com.ayman.fightEnemies.Graphics;
 
+import com.ayman.fightEnemies.level.tile.Tile;
+
 import java.awt.*;
 import java.util.Arrays;
 
@@ -16,19 +18,19 @@ public class Sprite {
 
     protected SpriteSheet sheet; //The sheet that contains the sprite
 
-    public static Sprite sky = new Sprite(16, 0, 0, SpriteSheet.tiles);
-    public static Sprite bird = new Sprite(16, 1, 0, SpriteSheet.tiles);
-    public static Sprite grass = new Sprite(16, 2, 0, SpriteSheet.tiles);
-    public static Sprite flower = new Sprite(16, 3, 0, SpriteSheet.tiles);
-    public static Sprite rock = new Sprite(16, 4, 0, SpriteSheet.tiles);
-    public static Sprite water = new Sprite(16, 5, 0, SpriteSheet.tiles);
-    public static Sprite brick = new Sprite(16, 6, 0, SpriteSheet.tiles);
-    public static Sprite wood = new Sprite(16, 7, 0, SpriteSheet.tiles);
+    public static Sprite sky = new Sprite(Tile.TILE_SIZE, 0, 0, SpriteSheet.tiles);
+    public static Sprite bird = new Sprite(Tile.TILE_SIZE, 1, 0, SpriteSheet.tiles);
+    public static Sprite grass = new Sprite(Tile.TILE_SIZE, 2, 0, SpriteSheet.tiles);
+    public static Sprite flower = new Sprite(Tile.TILE_SIZE, 3, 0, SpriteSheet.tiles);
+    public static Sprite rock = new Sprite(Tile.TILE_SIZE, 4, 0, SpriteSheet.tiles);
+    public static Sprite water = new Sprite(Tile.TILE_SIZE, 5, 0, SpriteSheet.tiles);
+    public static Sprite brick = new Sprite(Tile.TILE_SIZE, 6, 0, SpriteSheet.tiles);
+    public static Sprite wood = new Sprite(Tile.TILE_SIZE, 7, 0, SpriteSheet.tiles);
 
-    public static Sprite wizardProjectile = new Sprite(16, 8, 0, SpriteSheet.tiles);
+    public static Sprite wizardProjectile = new Sprite(Tile.TILE_SIZE, 8, 0, SpriteSheet.tiles);
 
     public static Sprite basicParticle = new Sprite(3, 0xAAAAAA);
-    public static Sprite voidSprite = new Sprite(16, Color.GRAY.getRGB());
+    public static Sprite voidSprite = new Sprite(Tile.TILE_SIZE, Color.GRAY.getRGB());
 
 
 

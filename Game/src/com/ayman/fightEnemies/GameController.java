@@ -15,6 +15,7 @@ import com.ayman.fightEnemies.level.SpawnLevel;
 import com.ayman.fightEnemies.level.snapshots.InputCareTaker;
 import com.ayman.fightEnemies.level.snapshots.InputSnapshot;
 import com.ayman.fightEnemies.level.snapshots.LevelCareTaker;
+import com.ayman.fightEnemies.level.tile.Tile;
 import com.ayman.fightEnemies.network.client.controller.ClientController;
 
 import javax.swing.*;
@@ -113,13 +114,13 @@ public class GameController extends Canvas implements Runnable{
                 xPlayer = random.nextInt(level.getWidth() - 1);
                 yPlayer = random.nextInt(level.getHeight() - 1);
             }
-            level.add(new Player(playerName, xPlayer*16, yPlayer*16, keyboard, mouse));
+            level.add(new Player(playerName, xPlayer* Tile.TILE_SIZE, yPlayer*Tile.TILE_SIZE, keyboard, mouse));
         } else {
             level = new SpawnLevel();
             int xPlayer = level.getPlayer().getX();
             int yPlayer = level.getPlayer().getY();
             level.removePlayer();
-            level.add(new Player(playerName, xPlayer*16, yPlayer*16, keyboard, mouse));
+            level.add(new Player(playerName, xPlayer*Tile.TILE_SIZE, yPlayer*Tile.TILE_SIZE, keyboard, mouse));
 
         }
 
@@ -334,8 +335,8 @@ public class GameController extends Canvas implements Runnable{
         inputCareTaker.reset();
         recordingTimer = 0;
 
-        int xPlayer = level.getPlayer().getX()/16;
-        int yPlayer = level.getPlayer().getY()/16;
+        int xPlayer = level.getPlayer().getX()/Tile.TILE_SIZE;
+        int yPlayer = level.getPlayer().getY()/Tile.TILE_SIZE;
         level = level.getNextLevel();
         if(SpawnLevel.numberOfLevels == 0) {
             Random random = new Random();
@@ -343,13 +344,13 @@ public class GameController extends Canvas implements Runnable{
                 xPlayer = random.nextInt(level.getWidth() - 1);
                 yPlayer = random.nextInt(level.getHeight() - 1);
             }
-            level.add(new Player(playerName, xPlayer*16, yPlayer*16, keyboard, mouse));
+            level.add(new Player(playerName, xPlayer*Tile.TILE_SIZE, yPlayer*Tile.TILE_SIZE, keyboard, mouse));
         }
         else {
             int xp = level.getPlayer().getX();
             int yp = level.getPlayer().getY();
             level.removePlayer();
-            level.add(new Player(playerName, xp*16, yp*16, keyboard, mouse));
+            level.add(new Player(playerName, xp*Tile.TILE_SIZE, yp*Tile.TILE_SIZE, keyboard, mouse));
         }
 
     }

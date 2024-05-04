@@ -154,14 +154,14 @@ public class Screen {
         xp -= xOffset;
         yp -= yOffset;
 
-        for(int y = 0; y < 16; y++) {
+        for(int y = 0; y < Tile.TILE_SIZE; y++) {
             int ya = yp + y;
-            for(int x = 0; x < 16; x++) {
+            for(int x = 0; x < Tile.TILE_SIZE; x++) {
                 int xa = xp + (flip ? 31 - x : x);
 
                 if(xa < 0 || xa >= width || ya < 0 || ya >= height) continue;
 
-                int col = mob.getSprite().pixels[x + y * 16];
+                int col = mob.getSprite().pixels[x + y * Tile.TILE_SIZE];
                 if(mob instanceof IPlayer player && !player.isVisible()) {
                     col = blendColors(col, pixels[xa + ya * width], 75);
                 }

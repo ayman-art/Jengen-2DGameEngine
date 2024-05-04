@@ -127,9 +127,9 @@ public abstract class Level {
 
         screen.setOffset(xScroll, yScroll);
         int x0 = xScroll >> 4;
-        int x1 = (xScroll + screen.width +  16) >> 4; //rendering another tile to the right of the screen
+        int x1 = (xScroll + screen.width +  Tile.TILE_SIZE) >> 4; //rendering another tile to the right of the screen
         int y0 = yScroll >> 4;
-        int y1 = (yScroll + screen.height + 16) >> 4;//rendering another tile to the bottom of the screen
+        int y1 = (yScroll + screen.height + Tile.TILE_SIZE) >> 4;//rendering another tile to the bottom of the screen
 
         for(int y = y0; y < y1; y++) {
             for(int x = x0; x < x1; x++) {
@@ -169,10 +169,10 @@ public abstract class Level {
 //        int xOffset = -2; //the offset of the collision box from the Center of the IMob
 //        int yOffset = 4; //the offset of the collision box from the Center of the IMob
         for(int c = 0; c < 4; c++) {
-//            double xt = ((x + xa) + c % 2 * size/5 -5) /16; //the x coordinate of the tile the IMob is colliding with
-//            double xt = ((x + xa) + c % 2 * size/5 -5) /16; //the x coordinate of the tile the IMob is colliding with
-            double xt = (double) ((x) + c % 2 * size + xOffset) /16; //the x coordinate of the tile the IMob is colliding with
-            double yt = (double) ((y) + c / 2 * size + yOffset) / 16; //the y coordinate of the tile the IMob is colliding with
+//            double xt = ((x + xa) + c % 2 * size/5 -5) /Tile.TILE_SIZE; //the x coordinate of the tile the IMob is colliding with
+//            double xt = ((x + xa) + c % 2 * size/5 -5) /Tile.TILE_SIZE; //the x coordinate of the tile the IMob is colliding with
+            double xt = (double) ((x) + c % 2 * size + xOffset) /Tile.TILE_SIZE; //the x coordinate of the tile the IMob is colliding with
+            double yt = (double) ((y) + c / 2 * size + yOffset) / Tile.TILE_SIZE; //the y coordinate of the tile the IMob is colliding with
 
             if(getTile((int)xt, (int)yt).isSolid()) solid = true;
         }
@@ -487,9 +487,9 @@ public abstract class Level {
 
         screen.renderSprite(0, 0, new Sprite(tiles, width, height), true, 100);
         for(int i2 = 0; i2 < mobs.size(); i2++) {
-            screen.renderPixel(mobs.get(i2).getX() / 16, mobs.get(i2).getY() / 16, 0xff0000, 3, true, alpha);
+            screen.renderPixel(mobs.get(i2).getX() / Tile.TILE_SIZE, mobs.get(i2).getY() / Tile.TILE_SIZE, 0xff0000, 3, true, alpha);
             if(mobs.get(i2) instanceof IPlayer player) {
-                screen.renderPixel(player.getX() / 16, player.getY() / 16, 0x0000ff, 3, true, alpha);
+                screen.renderPixel(player.getX() / Tile.TILE_SIZE, player.getY() / Tile.TILE_SIZE, 0x0000ff, 3, true, alpha);
             }
         }
 
@@ -604,5 +604,6 @@ public abstract class Level {
 
     public int[] getTiles() {
         return tiles;
+
     }
 }

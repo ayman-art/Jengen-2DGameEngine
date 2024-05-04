@@ -7,6 +7,7 @@ import com.ayman.fightEnemies.Graphics.SpriteSheet;
 import com.ayman.fightEnemies.entity.Entity;
 import com.ayman.fightEnemies.entity.mob.Player;
 import com.ayman.fightEnemies.level.Level;
+import com.ayman.fightEnemies.level.tile.Tile;
 import com.ayman.fightEnemies.util.Vector2i;
 
 /**
@@ -39,7 +40,7 @@ public abstract class Effect extends Entity {
     }
 
     static AnimatedSprite loadAnimations(int x, int y) {
-        Sprite s1 = new Sprite(16, x, y, SpriteSheet.tiles);
+        Sprite s1 = new Sprite(Tile.TILE_SIZE, x, y, SpriteSheet.tiles);
         Sprite s2 = s1.shift(0, 2);
         Sprite s3 = s1.shift(0, 0);
         Sprite s4 = s1.shift(0, -2);
@@ -59,7 +60,7 @@ public abstract class Effect extends Entity {
     }
 
     public void render(Screen screen) {
-        screen.renderSprite(position.getX() * 16, position.getY() * 16, sprite.getCurrentSPrite(), false);
+        screen.renderSprite(position.getX() * Tile.TILE_SIZE, position.getY() * Tile.TILE_SIZE, sprite.getCurrentSPrite(), false);
     }
 
     public Vector2i getPosition() {

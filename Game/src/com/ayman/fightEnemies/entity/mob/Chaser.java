@@ -79,11 +79,11 @@ public class Chaser extends Mob {
 
         int xa = 0, ya = 0;
 
-        if (x != vec.getX() * 16 || y != vec.getY() * 16) {
-            if (x < vec.getX() * 16) xa++;
-            if (x > vec.getX() * 16) xa--;
-            if (y < vec.getY() * 16) ya++;
-            if (y > vec.getY() * 16) ya--;
+        if (x != vec.getX() * Tile.TILE_SIZE || y != vec.getY() * Tile.TILE_SIZE) {
+            if (x < vec.getX() * Tile.TILE_SIZE) xa++;
+            if (x > vec.getX() * Tile.TILE_SIZE) xa--;
+            if (y < vec.getY() * Tile.TILE_SIZE) ya++;
+            if (y > vec.getY() * Tile.TILE_SIZE) ya--;
 
         } else if (level.getPlayer().isVisible())
         {
@@ -97,10 +97,10 @@ public class Chaser extends Mob {
 
                 vec = path.get(0).tileCoordinate;
 
-                if (x / 16 < vec.getX()) xa++;
-                if (x / 16 > vec.getX()) xa--;
-                if (y / 16 < vec.getY()) ya++;
-                if (y / 16 > vec.getY()) ya--;
+                if (x / Tile.TILE_SIZE < vec.getX()) xa++;
+                if (x / Tile.TILE_SIZE > vec.getX()) xa--;
+                if (y / Tile.TILE_SIZE < vec.getY()) ya++;
+                if (y / Tile.TILE_SIZE > vec.getY()) ya--;
 
             }
         }

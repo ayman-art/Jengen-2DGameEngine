@@ -52,8 +52,8 @@ public class Launch {
 
 
     static ScreenContext screenContext = new ScreenContext.Builder()
-//                .addTile(0xff00ff00, true, true, new Sprite(16, 0, 0, MySpriteSheets.balls))
-//                .addTile(0xff230920, false, false, new Sprite(16, 1, 0, MySpriteSheets.sun))
+//                .addTile(0xff00ff00, true, true, new Sprite(Tile.TILE_SIZE, 0, 0, MySpriteSheets.balls))
+//                .addTile(0xff230920, false, false, new Sprite(Tile.TILE_SIZE, 1, 0, MySpriteSheets.sun))
             .build();
 
 
