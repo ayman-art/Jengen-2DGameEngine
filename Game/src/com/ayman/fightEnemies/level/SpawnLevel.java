@@ -1,6 +1,5 @@
 package com.ayman.fightEnemies.level;
 
-import com.ayman.fightEnemies.network.client.controller.ClientController;
 import com.ayman.fightEnemies.util.Encryptor;
 import com.ayman.fightEnemies.util.FileCodeChecker;
 import com.ayman.fightEnemies.util.LevelEntitiesParser;
@@ -8,6 +7,14 @@ import com.ayman.fightEnemies.util.LevelEntitiesParser;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.*;
+
+/**
+ * This class is used to represent a Custom Level.
+ * It extends the Level class and adds the ability to load levels from files.
+    It takes the level index and loads the level from the file after validating it.
+  It also saves the progress in a file.
+ It loads the level by adding the Map and the entities.
+ */
 
 public class SpawnLevel extends Level {
 
@@ -79,6 +86,7 @@ public class SpawnLevel extends Level {
             BufferedImage image = ImageIO.read(new File(path));
             if (image == null) System.out.println("image is null");
 
+            assert image != null;
             this.width = image.getWidth();
             this.height = image.getHeight();
             tiles = new int[width * height];
@@ -87,10 +95,6 @@ public class SpawnLevel extends Level {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-//        add(new Chaser(3, 3));
-
-
-        //for(int i = 0; i < 1; i++)add(new Chaser(3,3+i));
     }
 
 
@@ -113,14 +117,14 @@ public class SpawnLevel extends Level {
                 tiles[i] = Integer.parseInt(reader.readLine());
             }
 
-            // Print the array
-            System.out.println("Array:");
-            for (int i = 0; i < arrayLength; i++) {
-                System.out.print(tiles[i] + " ");
-                if ((i + 1) % width == 0) {
-                    System.out.println();
-                }
-            }
+//            // Print the array
+//            System.out.println("Array:");
+//            for (int i = 0; i < arrayLength; i++) {
+//                System.out.print(tiles[i] + " ");
+//                if ((i + 1) % width == 0) {
+//                    System.out.println();
+//                }
+//            }
 
             reader.close();
         } catch (IOException | NumberFormatException e) {

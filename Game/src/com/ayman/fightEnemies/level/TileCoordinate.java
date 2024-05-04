@@ -1,5 +1,9 @@
 package com.ayman.fightEnemies.level;
 
+/**
+ * This class is used to represent a 2D integer vector to represent the tile coordinates actual coordinates.
+
+ */
 public class TileCoordinate {
 
         private int x, y;

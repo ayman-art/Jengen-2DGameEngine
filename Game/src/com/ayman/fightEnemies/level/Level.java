@@ -487,9 +487,9 @@ public abstract class Level {
 
         screen.renderSprite(0, 0, new Sprite(tiles, width, height), true, 100);
         for(int i2 = 0; i2 < mobs.size(); i2++) {
-            screen.renderPixel(mobs.get(i2).getX() / 16, mobs.get(i2).getY() / 16, 0xff0000, 2, true, alpha);
+            screen.renderPixel(mobs.get(i2).getX() / 16, mobs.get(i2).getY() / 16, 0xff0000, 3, true, alpha);
             if(mobs.get(i2) instanceof IPlayer player) {
-                screen.renderPixel(player.getX() / 16, player.getY() / 16, 0x00ff00, 2, true, alpha);
+                screen.renderPixel(player.getX() / 16, player.getY() / 16, 0x0000ff, 3, true, alpha);
             }
         }
 
