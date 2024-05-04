@@ -6,6 +6,9 @@ import com.ayman.fightEnemies.Graphics.Sprite;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * This class is used to create Tiles which are the building blocks of the game.
+ */
 public class Tile {
 
 
@@ -63,11 +66,19 @@ public class Tile {
 
         }
 
-        public boolean isSolid() {
+    /**
+     * This method is used to check if the tile is solid.
+     * @return true if the tile is solid which causes collision, false otherwise.
+     */
+    public boolean isSolid() {
             return isSolid;
         }
 
-        public boolean isBreakable() {
+    /**
+     * This method is used to check if the tile is breakable.
+     * @return true if the tile is breakable by the TileBreaker Decorated Player, false otherwise.
+     */
+    public boolean isBreakable() {
             return isBreakable;
         }
 

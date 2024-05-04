@@ -8,6 +8,15 @@ import com.ayman.fightEnemies.util.Vector2i;
 
 import java.util.*;
 
+/**
+ * This class is used to create the LevelSnapshot which is a snapshot of the level.
+ * Level snapshots are not taken every frame as the input to prevent inefficiency.
+ * @param tiles the tiles of the level
+ * @param mobs the mobs of the level
+ * @param projectiles the projectiles of the level
+ * @param particles the particles of the level
+ * @param effects the effects of the level
+ */
 public record LevelSnapshot(int[] tiles, List<IEntity> mobs, List<Projectile> projectiles, List<Particle> particles, Map<Vector2i, Effect> effects) {
     public LevelSnapshot(int[] tiles, List<IEntity> mobs, List<Projectile> projectiles, List<Particle> particles, Map<Vector2i, Effect> effects) {
         this.tiles = tiles.clone();

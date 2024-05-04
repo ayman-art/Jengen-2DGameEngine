@@ -12,7 +12,6 @@ import com.ayman.fightEnemies.level.effects.CoinEffect;
 import com.ayman.fightEnemies.level.effects.Effect;
 import com.ayman.fightEnemies.level.snapshots.LevelSnapshot;
 import com.ayman.fightEnemies.level.tile.Tile;
-import com.ayman.fightEnemies.level.winning.ItemsCollected;
 import com.ayman.fightEnemies.level.winning.WinningState;
 import com.ayman.fightEnemies.util.Vector2i;
 
@@ -21,17 +20,32 @@ import java.util.*;
 import static com.ayman.fightEnemies.Graphics.Screen.MiniMapAlpha;
 
 
+/**
+ * This class is the abstract class for the levels in the game.
+ */
 public abstract class Level {
 
 
     protected int width, height;
     protected int[] tiles;
-    //    public static Level spawn = new SpawnLevel("resources\\Sheets\\level1.png");
+    /**
+     * The list of mobs in the level. These can be the player(raw or decorated), enemies(Dummy, Chaser) or Helper.
+     */
     protected List<IEntity> mobs = new ArrayList<>();
-    protected List<Projectile> projectiles = new ArrayList<>();
-    protected List<Particle> particles = new ArrayList<>();
 
-    protected Map<Vector2i, Effect> effects = new TreeMap<>(Comparator.comparing(Vector2i::getX).thenComparing(Vector2i::getY));
+    /**
+     * The list of projectiles in the level.
+     */
+    protected List<Projectile> projectiles = new ArrayList<>();
+    /**
+     * The list of particles in the level.
+     */
+    protected List<Particle> particles = new ArrayList<>();
+    /**
+     * The list of effects in the level.
+     */
+
+    protected Map<Vector2i, Effect> effects = new TreeMap<>();
 
 
     protected int numberOfCoins = 0; // keep track of coins inside the Level
@@ -49,24 +63,17 @@ public abstract class Level {
 
         Level.winningState = winningState;
     }
-    public Level(){};
+    public Level(){}
 
-    protected void generateLevel() {
-        System.out.println("calling generateLevel from Level");
-    }
+    protected  void generateLevel(){}
 
-    protected void loadLevel(String path) {
-        System.out.println("calling loadLevel from Level");
-    }
-
+    protected void loadLevel(String path){}
     public synchronized void  update() {
         for(int i = 0; i < mobs.size(); i++) {
             mobs.get(i).update();
             if(mobs.get(i) instanceof DecoratedPlayer decoratedPlayer) {
-//                System.out.println("TYPE: " + decoratedPlayer.getClass());
-//                System.out.println(decoratedPlayer.getSpeed());
                 if(decoratedPlayer.timeOut()) {
-                    System.out.println("restored from " + decoratedPlayer.getClass());
+//                    System.out.println("restored from " + decoratedPlayer.getClass());
                     mobs.set(i, decoratedPlayer.restorePlayer());
                 }
             }
@@ -88,7 +95,7 @@ public abstract class Level {
         for(int i = 0; i < mobs.size(); i++) {
             if(mobs.get(i).isRemoved()) {
                 if(mobs.get(i) instanceof Dummy || mobs.get(i) instanceof Chaser)
-                    numberOfEnemies--;
+                    numberOfEnemies--; // keep track of number of alive enemies inside the Level
                 mobs.remove(i--);
             }
         }
@@ -140,11 +147,11 @@ public abstract class Level {
                 mob.renderHealth(screen);
             }
         }
-        for(int i = 0; i < projectiles.size(); i++) {
-            projectiles.get(i).render(screen);
+        for (Projectile projectile : projectiles) {
+            projectile.render(screen);
         }
-        for(int i = 0; i < particles.size(); i++) {
-            particles.get(i).render(screen);
+        for (Particle particle : particles) {
+            particle.render(screen);
         }
 
         for(Effect effect : effects.values()) {
@@ -164,8 +171,8 @@ public abstract class Level {
         for(int c = 0; c < 4; c++) {
 //            double xt = ((x + xa) + c % 2 * size/5 -5) /16; //the x coordinate of the tile the IMob is colliding with
 //            double xt = ((x + xa) + c % 2 * size/5 -5) /16; //the x coordinate of the tile the IMob is colliding with
-            double xt = ((x) + c % 2 * size + xOffset) /16; //the x coordinate of the tile the IMob is colliding with
-            double yt = ((y) + c / 2 * size + yOffset) / 16; //the y coordinate of the tile the IMob is colliding with
+            double xt = (double) ((x) + c % 2 * size + xOffset) /16; //the x coordinate of the tile the IMob is colliding with
+            double yt = (double) ((y) + c / 2 * size + yOffset) / 16; //the y coordinate of the tile the IMob is colliding with
 
             if(getTile((int)xt, (int)yt).isSolid()) solid = true;
         }
@@ -200,6 +207,10 @@ public abstract class Level {
         return Tile.voidTile;
     }
 
+    /**
+     * Add an entity to the level.
+     * @param entity the entity can be of type Particle, Projectile, IMob, IPlayer, or Effect. The method is responsible for adding the entity to the correct list.
+     */
     public void add(IEntity entity) {
         entity.init(this);
 
@@ -215,7 +226,6 @@ public abstract class Level {
             if(entity instanceof Dummy || entity instanceof Chaser)
                 numberOfEnemies++;
         } else if(entity instanceof Effect effect) {
-
 
             Effect oldEffect = effects.get(effect.getPosition());
             if(oldEffect instanceof CoinEffect) {
@@ -248,27 +258,28 @@ public abstract class Level {
         return null;
     }
     public synchronized IPlayer getPlayer(String name) {
-        for(int i = 0; i < mobs.size(); i++) {
-            if(mobs.get(i) instanceof IPlayer player) {
-                if(player.getName().equals(name)) return player;
+        for (IEntity mob : mobs) {
+            if (mob instanceof IPlayer player) {
+                if (player.getName().equals(name)) return player;
             }
         }
         return null;
     }
 
 
-
-
-
-
+    /**
+     * Get the mobs in a certain radius around a mob.
+     * @param mob the mob around which we want to get the other mobs.
+     * @param radius the radius around the mob.
+     * @return a list of mobs that are in the radius around the mob.
+     */
     public List<IMob> getMobs(IMob mob, int radius) {
         List<IMob> result = new ArrayList<>();
-        int ex = (int)mob.getX();
-        int ey = (int)mob.getY();
+        int ex = mob.getX();
+        int ey = mob.getY();
         for(int i = 0; i < mobs.size(); i++) {
-            IEntity entity = mobs.get(i);
-            int x = (int)mob.getX();
-            int y = (int)mob.getY();
+            int x = mob.getX();
+            int y = mob.getY();
             int dx = Math.abs(x - ex);
             int dy = Math.abs(y - ey);
             double distance = Math.sqrt((dx * dx) + (dy * dy));
@@ -289,8 +300,14 @@ public abstract class Level {
             new Vector2i(-1, -1)
 
     );
+
+    /**
+     * Find the path from a start point to a goal point. Used by the AI to find the path of the Chaser and Helper.
+     * @param start the point from which we want to find the path.
+     * @param goal the point to which we want to find the path.
+     * @return a list of nodes that represent the path-sequence from the start to the goal.
+     */
     public List<Node> findPath(Vector2i start, Vector2i goal) {
-        int counter = 0;
 
         List<Node> path = new ArrayList<>();
         Set<Vector2i> visited = new TreeSet<>(Comparator.comparing(Vector2i::getX).thenComparing(Vector2i::getY));
@@ -307,17 +324,11 @@ public abstract class Level {
         costSoFar.put(startNode.tileCoordinate, 0);
 
         while(!frontier.isEmpty()) {
-            counter++;
-            if(frontier.size() > 10000) System.out.println("Wrong work with queue");
-            if(visited.size() > 1000) {
-//                System.out.println("Wrong work with visiting");
-            }
-
+//            if(frontier.size() > 10000) System.out.println("Wrong work with queue");
 
             Node current = frontier.poll();
-            boolean bad = false;
 
-            if(bad) continue;
+            assert current != null;
             visited.add(current.tileCoordinate);
 
 
@@ -353,13 +364,25 @@ public abstract class Level {
 
 
         Collections.reverse(path);
-//        System.out.println("counter" + counter);
         return path;
     }
+
+    /**
+     * Find the visible tiles from a start point to a goal point. Used by the AI to find the visible tiles of the Chaser and Helper.
+     * The method is similar to the findPath method but it does not return the path, it returns the visited tiles.
+     * The method is used in Debugging to show the efficiency of the Algorithm.
+     * @param start the point from which we want to find the path.
+     * @param goal the point to which we want to find the path.
+     * @return a set of visited tiles.
+     */
     public Set<Vector2i> findVis(Vector2i start, Vector2i goal) {
 
         List<Node> path = new ArrayList<>();
-        PriorityQueue<Node> frontier = new PriorityQueue<>(Comparator.comparingDouble(Node::getF));
+        PriorityQueue<Node> frontier = switch (GameController.aiType) {
+            case AStar -> new PriorityQueue<>(Comparator.comparingDouble(Node::getF));
+            case Dijkstra -> new PriorityQueue<>(Comparator.comparingDouble(Node::getG));
+            case DStar -> new PriorityQueue<>(Comparator.comparingDouble(Node::getH));
+        };
         Set<Vector2i> visited = new TreeSet<>(Comparator.comparing(Vector2i::getX).thenComparing(Vector2i::getY));
         Map<Vector2i, Integer> costSoFar = new TreeMap<>(Comparator.comparing(Vector2i::getX).thenComparing(Vector2i::getY));
 
@@ -452,6 +475,10 @@ public abstract class Level {
         return tiles;
     }
 
+    /**
+     * Render the minimap of the level.
+     * It renders the tiles, the mobs, and the player on the minimap.
+     */
     public void renderMiniMap(Screen screen, int x, int y) {
         if(MiniMapAlpha.isEmpty())
             return;
@@ -469,8 +496,6 @@ public abstract class Level {
     }
 
     public void removeTile(int xt, int yt) {
-        int x = xt / 16;
-        int y = yt / 16;
         this.tiles[xt + yt * width] = Tile.grassColor;
     }
 
@@ -491,9 +516,6 @@ public abstract class Level {
     }
 
     public boolean hasEffect(int xt, int yt) {
-        if(xt == 2 && yt == 2) {
-            int as = 43;
-        }
         return effects.containsKey(new Vector2i(xt, yt));
     }
 
@@ -563,7 +585,7 @@ public abstract class Level {
         double minDistance = Double.MAX_VALUE;
         for(IEntity mob : mobs) {
             if(mob instanceof IMob m) {
-                if(m == tar || m == exclude || m instanceof DecoratedPlayer decoratedPlayer && ((DecoratedPlayer) m).getInnerMostPlayer() == exclude)
+                if(m == tar || m == exclude || m instanceof DecoratedPlayer decoratedPlayer && decoratedPlayer.getInnerMostPlayer() == exclude)
                     continue;
                 double distance = Math.sqrt(Math.pow(m.getX() - tar.getX(), 2) + Math.pow(m.getY() - tar.getY(), 2));
                 if (distance < minDistance) {

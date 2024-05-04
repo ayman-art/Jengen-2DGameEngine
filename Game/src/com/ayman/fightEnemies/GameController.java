@@ -265,6 +265,7 @@ public class GameController extends Canvas implements Runnable{
                             spawnLevel.reset();
                             System.exit(0);
                         }
+                        Sound.winningClip.setFramePosition(0);
                         Sound.winningClip.start();
                         loadNextLevel();
                     } else if(level.playerLost()) {

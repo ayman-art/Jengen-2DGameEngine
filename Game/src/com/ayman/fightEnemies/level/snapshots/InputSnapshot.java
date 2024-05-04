@@ -1,10 +1,9 @@
 package com.ayman.fightEnemies.level.snapshots;
 
-import com.ayman.fightEnemies.Input.Keyboard;
-import com.ayman.fightEnemies.Input.Mouse;
-
-import java.util.Optional;
-
+/**
+ *  This class is used to create the InputSnapshot which stores the mouse and keyboard snapshots.
+ *  It is used along with Level Snapshots to allow the engine to run the game in the same way it was played.
+ */
 public class InputSnapshot {
     public MouseSnapshot mouseSnapshot;
     public KeyboardSnapshot keyboardSnapshot;

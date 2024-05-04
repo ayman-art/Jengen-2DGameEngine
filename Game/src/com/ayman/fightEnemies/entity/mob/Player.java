@@ -182,10 +182,10 @@ public class Player extends Mob implements IPlayer {
                             projectile.remove();
 
                             if(otherMob instanceof IPlayer player) {
-                                player.updateHealth(projectile.getDamage());
+                                player.updateHealth(projectile.getDamage()  * 3 / 2);
                             }
                             else {
-                                otherMob.updateHealth(projectile.getDamage() * 20);
+                                otherMob.updateHealth(projectile.getDamage() * 10);
                                 if(otherMob.getHealth() <= 0) {
                                     otherMob.remove();
                                 }

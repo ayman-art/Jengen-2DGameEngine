@@ -71,6 +71,11 @@ public class Vector2i implements Comparable<Vector2i>{
     }
 
 
+    /**
+     * This method is used to calculate the distance between two vectors.
+     * @param vector the vector to calculate the distance to.
+     * @return the distance between the two vectors.
+     */
     public double distanceTo(Vector2i vector) {
         double dx = vector.getX() - this.getX();
         double dy = vector.getY() - this.getY();

@@ -29,19 +29,17 @@ public class RandomLevel extends Level {
     static public int WIDTH = 64;
     static public int HEIGHT = 64;
     public DSU dsu = new DSU(width * height);
+    /**
+     * The number of times the level generation will try to generate a valid tile.
+     */
     private static final int collisionFactor = 1;
-    int counter = 1;
 
     public RandomLevel(int width, int height) {
         super(width, height, winningState);
-
-        add(new Chaser(3,3));
     }
 
     public RandomLevel() {
         super(WIDTH, HEIGHT, winningState);
-        add(new Chaser(3,3));
-
     }
 
     @Override
@@ -61,19 +59,15 @@ public class RandomLevel extends Level {
                 e.printStackTrace();
             }
 
+            // Setting the unset tiles to sky color
             for(int i = 0; i < width * height; i++) {
                 if(tiles[i] == 0) {
                     tiles[i] = Tile.skyColor;
                 }
             }
-            if(true) return;
         }
-//        System.out.println("Random Level");
 
-        Set<Vector2i> freeTiles = new TreeSet<>( (v1, v2) -> {
-            if(v1.getX() == v2.getX()) return v1.getY() - v2.getY();
-            return v1.getX() - v2.getX();
-        });
+        Set<Vector2i> freeTiles = new TreeSet<>();
 
         int[] SolidTilesColors = {Tile.brickColor};
         int[] nonSolidTilesColors = {Tile.grassColor};
@@ -96,7 +90,7 @@ public class RandomLevel extends Level {
         }
 
         if(!isValidLevel(freeTiles)) {
-//                System.out.println("Invalid Level, Generating new level");
+                System.out.println("Invalid Level, Generating new level");
             generateLevel();
         }
 
@@ -311,7 +305,7 @@ public class RandomLevel extends Level {
                 done = true;
                 synchronized (this) {
                     this.tiles = tiles;
-                    putEffects(Math.min(getEmptySlots(),GameController.getDifficulty()));
+                    putEffects(Math.min(getEmptySlots(),getEmptySlots() / GameController.getDifficulty() ));
                     putMobs(Math.min(getEmptySlots(),GameController.getDifficulty()));
                 }
 

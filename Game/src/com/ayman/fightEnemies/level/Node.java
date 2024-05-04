@@ -2,11 +2,31 @@ package com.ayman.fightEnemies.level;
 
 import com.ayman.fightEnemies.util.Vector2i;
 
+/**
+ * Node is a class that represents a node. Used in AI pathfinding algorithms.
+
+ */
 public class Node {
 
     public Vector2i tileCoordinate;
+    /**
+     * The parent is the node that precedes the current node in the path.
+     * Used to trace back the path from the end node to the start node.
+     */
     public Node parent;
-    public double f, g, h;
+
+    /**
+     * The f is the resultant value of the cost of the path from the start node to the current node and the heuristic value of the current node.
+     */
+    public double f;
+    /**
+     * The g is the cost of the path from the start node to the current node.
+     */
+    public double g;
+    /**
+     * The h is the heuristic value of the current node.
+     */
+    public double h;
 
     public Node(Vector2i tileCoordinate, Node parent, double g, double h) {
         this.tileCoordinate = tileCoordinate;
@@ -70,9 +90,10 @@ public class Node {
     public boolean equals(Object object) {
         if(!(object instanceof Node)) return false;
         Node node = (Node) object;
-        if(node.getTileCoordinate().getX() == this.getTileCoordinate().getX() && node.getTileCoordinate().getY() == this.getTileCoordinate().getY()) return true;
-        return false;
+        return node.getTileCoordinate().getX() == this.getTileCoordinate().getX() && node.getTileCoordinate().getY() == this.getTileCoordinate().getY();
     }
+
+
 
     public String toString() {
         return "Node: " + tileCoordinate.toString();

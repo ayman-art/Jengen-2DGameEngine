@@ -3,16 +3,16 @@ package com.ayman.fightEnemies.level.snapshots;
 import java.util.LinkedList;
 import java.util.Queue;
 
+/**
+ * This class is used to create the InputCareTaker which is a class that is used to store the input snapshots
+ */
 public class InputCareTaker {
 
     private final Queue<InputSnapshot> inputSnapshots = new LinkedList<>();
-    private static int MAX_SIZE = 1000;
+    private static final int MAX_SIZE = 1000;
 
 
     public void addSnapshot(InputSnapshot snapshot) {
-//        if (inputSnapshots.size() >= MAX_SIZE) {
-//            inputSnapshots.poll();
-//        }
         inputSnapshots.add(snapshot);
     }
 

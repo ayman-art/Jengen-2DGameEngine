@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+/**
+ * This class is storing the level snapshots.
+
+ */
 public class LevelCareTaker {
     private final List<LevelSnapshot> levelSnapshots = new ArrayList<>();
 
