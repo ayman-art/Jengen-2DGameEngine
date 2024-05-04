@@ -9,8 +9,13 @@ import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Objects;
 
-public class MainMenuState extends GuiState {
+/**
+ * MainMenuState is a class that represents the Main Menu State of the game. It includes the main menu buttons and the logo.
+
+ */
+public class MainMenuState implements GuiState {
 
     JButton playButton;
     JButton settingsButton;
@@ -59,7 +64,10 @@ public class MainMenuState extends GuiState {
         logo.setOpaque(true);
 
 
-        logo.setIcon(new ImageIcon(new ImageIcon(getClass().getResource("/logos/Jengen.png")).getImage().getScaledInstance(320, 245, Image.SCALE_DEFAULT)));
+        logo.setIcon(new ImageIcon(new ImageIcon(
+                Objects.requireNonNull(getClass().getResource("/logos/Jengen.png")))
+                .getImage().getScaledInstance(320, 245, Image.SCALE_DEFAULT)
+        ));
         //Changing cursor
 
         logo.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -112,22 +120,13 @@ public class MainMenuState extends GuiState {
         //Setting color to Dark Purple
         frame.getContentPane().setBackground(new Color(75, 0, 130));
 
-        playButton.addActionListener(e -> {
-            frame.setGuiState(new GameState());
+        playButton.addActionListener(e -> frame.setGuiState(new GameState()));
 
-        });
+        settingsButton.addActionListener(e -> frame.setGuiState(new SettingsState()));
 
-        settingsButton.addActionListener(e -> {
-            frame.setGuiState(new SettingsState());
-        });
+        aboutButton.addActionListener(e -> frame.setGuiState(new AboutState()));
 
-        aboutButton.addActionListener(e -> {
-            frame.setGuiState(new AboutState());
-        });
-
-        exitButton.addActionListener(e -> {
-            System.exit(0);
-        });
+        exitButton.addActionListener(e -> System.exit(0));
 
     }
 }

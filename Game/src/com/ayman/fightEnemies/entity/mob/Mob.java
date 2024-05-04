@@ -1,15 +1,13 @@
 package com.ayman.fightEnemies.entity.mob;
 
-import com.ayman.fightEnemies.GameController;
 import com.ayman.fightEnemies.Graphics.AnimatedSprite;
 import com.ayman.fightEnemies.Graphics.Screen;
 import com.ayman.fightEnemies.Graphics.Sprite;
 import com.ayman.fightEnemies.audio.Sound;
 import com.ayman.fightEnemies.entity.Entity;
-import com.ayman.fightEnemies.entity.spawner.ParticleSpawner;
 import com.ayman.fightEnemies.entity.projectile.Projectile;
 import com.ayman.fightEnemies.entity.projectile.WizardProjectile;
-import com.ayman.fightEnemies.gui.AppFrame;
+import com.ayman.fightEnemies.entity.spawner.ParticleSpawner;
 import com.ayman.fightEnemies.level.effects.Effect;
 import com.ayman.fightEnemies.network.client.controller.ClientController;
 
@@ -17,6 +15,9 @@ import javax.sound.sampled.Clip;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Mob is an abstract class that represents the common methods and fields of the Mob entities.
+ */
 public abstract class Mob extends Entity implements IMob, Cloneable {
 
 
@@ -33,12 +34,6 @@ public abstract class Mob extends Entity implements IMob, Cloneable {
     protected int health = 100;
     public void move(int xa, int ya) {
 
-//        if(xa != 0 && ya != 0) {
-//            move(xa, 0);
-//            move(0, ya);
-//            return;
-//        }
-
         if(xa > 0) dir = 1; //east
         if(xa < 0) dir = 3; //west
         if(ya > 0) dir = 2; //south
@@ -48,11 +43,8 @@ public abstract class Mob extends Entity implements IMob, Cloneable {
             x += xa;
             y += ya;
 
-            if(ClientController.isOn() && this instanceof IPlayer)ClientController.getInstance().sendPlayerPosition(x, y, health);
-
-        } else {
-//            new ParticleSpawner(x,y, 20, 1, level);
-//            new ParticleSpawner(x, y, 5, 1, level, level.getTile(x /16, y /16));
+            if(ClientController.isOn() && this instanceof IPlayer)
+                ClientController.getInstance().sendPlayerPosition(x, y, health);
         }
     }
 
@@ -76,29 +68,23 @@ public abstract class Mob extends Entity implements IMob, Cloneable {
         for(int c = 0; c < 4; c++) {
             int xt = ((x + xa) + c % 2 * (width-1) + offSetX) >> 4; //the x coordinate of the tile the Mob is colliding with
             int yt = ((y + ya) + c / 2 * (height-1) + offSetY) >> 4; //the y coordinate of the tile the Mob is colliding with
+            final boolean near = Math.abs(xa) <= 1 && Math.abs(ya) <= 1;
             if(level.getTile(xt, yt).isSolid()) {
                 solid = true;
                 if(this instanceof IPlayer player && player.isTileBreaker()) {
-                    if(Math.abs(xa)<= 1 && Math.abs(ya) <= 1) {
+                    if(near) {
                         if(level.getTile(xt, yt).isBreakable()) {
                             new ParticleSpawner(getX(), getY(), 1, 1, getLevel(), getLevel().getTile(xt, yt));
                             getLevel().removeTile(xt, yt);
-                            try {
-                                Clip clip = Sound.break_tileClip;
-                                //                            System.out.println("Playing sound");
 
-                                clip.setFramePosition(0);
-                                clip.start();
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
+                            Sound.break_tileClip.setFramePosition(0);
+                            Sound.break_tileClip.start();
+
                         }
                     }
                 }
             } else if(this instanceof IPlayer && level.hasEffect(xt, yt)) {
-//                System.exit(222);
-                if(Math.abs(xa)<= 1 && Math.abs(ya) <= 1) {
-                    System.out.println("Effect found");
+                if(near) {
                     Effect effect = level.getEffect(xt, yt);
                     effect.applyEffect(level, (Player) this);
                     effect.remove();
@@ -120,7 +106,6 @@ public abstract class Mob extends Entity implements IMob, Cloneable {
             int xc = x + corner[0] + xa;
             int yc = y + corner[1] + ya;
             System.out.println((xc >> 4) + ", " + (yc >> 4));
-//            System.out.println(level.getTile(xc >> 4, yc >> 4));
             if (level.getTile(xc >> 4, yc >> 4).isSolid()) {
                 return true;
             }
@@ -133,7 +118,6 @@ public abstract class Mob extends Entity implements IMob, Cloneable {
     public void shoot(int x, int y, double dir) {
 
         Projectile projectile = new WizardProjectile(x + 6, y, dir, level);
-//        System.out.println("||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
         projectiles.add(projectile);
         level.addProjectile(projectile);
 
@@ -172,7 +156,6 @@ public abstract class Mob extends Entity implements IMob, Cloneable {
         }
 
         if(health == 0) {
-//            System.exit(11);
             if( !(this instanceof IPlayer))
                 remove();
             if(ClientController.isOn() && this instanceof IPlayer) {

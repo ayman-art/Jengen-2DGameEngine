@@ -1,17 +1,19 @@
 package com.ayman.fightEnemies.game.contexts;
 
-import com.ayman.fightEnemies.game.contexts.levelcontexts.RandomLevelContext;
-
 import java.util.Optional;
+
+/**
+ * GUIContext is a class that holds the context of the GUI.
+ */
 
 public class GUIContext extends Context {
 
-    private int width;
-    private int height;
+    private final int width;
+    private final int height;
 
-    private int scaleFactor;
+    private final int scaleFactor;
 
-    private Optional<Integer> MiniMapAlpha = Optional.empty();
+    private Optional<Integer> MiniMapAlpha;
 
     private String aboutText;
 
@@ -35,6 +37,9 @@ public class GUIContext extends Context {
 
     public String getAboutText() {
         return aboutText;
+    }
+    public Optional<Integer> getMiniMapAlpha() {
+        return MiniMapAlpha;
     }
 
 

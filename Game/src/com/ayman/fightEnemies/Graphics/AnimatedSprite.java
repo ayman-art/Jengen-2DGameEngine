@@ -1,5 +1,8 @@
 package com.ayman.fightEnemies.Graphics;
 
+/**
+ * A class used to be delegated the animation of the sprite
+ */
 public class AnimatedSprite implements Cloneable {
 
 

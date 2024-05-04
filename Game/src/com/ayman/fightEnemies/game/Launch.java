@@ -3,37 +3,36 @@ package com.ayman.fightEnemies.game;
 import com.ayman.fightEnemies.game.contexts.*;
 import com.ayman.fightEnemies.game.contexts.levelcontexts.ILevelContext;
 import com.ayman.fightEnemies.game.contexts.levelcontexts.RandomLevelContext;
-import com.ayman.fightEnemies.game.contexts.levelcontexts.SpawnLevelContext;
 
 public class Launch {
     static GUIContext guiContext = new GUIContext.Builder()
             .setWidth(300)
             .setHeight(300 * 8 / 12)
-            .setScaleFactor(3) // Optional (determines the scale factor of the GUI)
+            .setScaleFactor(3)
             .setMiniMapAlpha(100) // Optional (determines the transparency of the minimap)
             .setAboutText("This is A Fighting Game using most of the feature provided the Jengen Game Engine") // Optional (determines the about text)
             .build();
 
     // Setting the AIContext
     static AIContext aiContext = new AIContext.Builder()
-            .setType(AIContext.AIType.AStar)
+            .setType(AIContext.AIType.AStar) // (determines the type of the AI used in path finding)
             .build();
 
     // Setting the PlayerContext
     static PlayerContext playerContext = new PlayerContext.Builder()
-            .setName("Ayman")
-            .setEffectTime(200) // Optional (determines the time of effects)
-            .setCoinValue(10) // Optional (determines the value of the coin)
-            .setOriginalSpeed(1) // Optional (determines the original speed of the player)
-            .setChasingRange(100) // Optional (determines the chasing range of the player)
-            .setShootingRange(100) // Optional (determines the shooting range of the player)
+            .setName("Ayman") // (determines the name of the player the game will be granted to)
+            .setEffectTime(200) // (determines the time of effects)
+            .setCoinValue(10) //  (determines the value of the coin)
+            .setOriginalSpeed(1) // (determines the original speed of the player)
+            .setChasingRange(100) //  (determines the chasing range)
+            .setShootingRange(100) // (determines the shooting range of the player)
             .build();
 
     static ProjectileContext projectileContext = new ProjectileContext.Builder()
             .setSpeed(2)
             .setDamage(2)
-            .setRange(1000)
-            .setFireInterval(10)
+            .setRange(1000) // (determines the range of the projectile which is the distance it can travel)
+            .setFireInterval(10) // (determines the fire interval of the projectile which is the time between each fire)
             .build();
 
     static ILevelContext levelContext = new RandomLevelContext.Builder()
@@ -47,7 +46,7 @@ public class Launch {
 //            .setLevelExtension("png")
 //            .build();
     static WinnigStateContext winningStateContext = new WinnigStateContext.Builder()
-            .setType(WinnigStateContext.WinningStateType.KillAllEnemies)
+            .setType(WinnigStateContext.WinningStateType.KillAllEnemies) // (determines the type of the winning state)
             .build();
 
 
@@ -59,7 +58,7 @@ public class Launch {
 
     public static void main(String[] args) {
 
-        // Setting the GUIContext
+
         Game game = new Game.Builder()
                 .setGUIContext(guiContext)
                 .setLevelContext(levelContext)
@@ -69,9 +68,10 @@ public class Launch {
                 .setAIContext(aiContext)
                 .setWinningStateContext(winningStateContext)
                 .build();
-        
-        
+
+        ////////////////////////////////
         Jengen jengen = new Jengen(game);
         jengen.start();
+        ////////////////////////////////
     }
 }

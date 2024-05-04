@@ -9,7 +9,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Scanner;
 
-public class SettingsState extends GuiState {
+/**
+ * SettingsState is a class that represents the Settings State of the game. It includes the settings label, radio buttons for difficulty levels, and the back button.
+ */
+public class SettingsState implements GuiState {
 
     JLabel settingsLabel;
     JButton backButton;

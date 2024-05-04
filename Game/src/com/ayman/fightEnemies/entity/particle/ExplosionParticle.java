@@ -2,6 +2,10 @@ package com.ayman.fightEnemies.entity.particle;
 
 import com.ayman.fightEnemies.Graphics.Sprite;
 
+
+/**
+ * ExplosionParticle is a class that represents the explosion particles. It is created when an explosion occurs.
+ */
 public class ExplosionParticle extends Particle{
     public ExplosionParticle(int x, int y, int life, int xVel, int yVel, Sprite sprite) {
         super(x, y, life);

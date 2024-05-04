@@ -2,10 +2,14 @@ package com.ayman.fightEnemies.gui.states;
 
 import com.ayman.fightEnemies.gui.AppFrame;
 
-public abstract class GuiState {
+/**
+ * GuiState is an interface that represents the state of the game.
+
+ */
+public interface GuiState {
 
 
-    public abstract void update(AppFrame frame);
+    void update(AppFrame frame);
 
 
 }

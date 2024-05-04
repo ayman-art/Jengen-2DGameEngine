@@ -1,17 +1,15 @@
 package com.ayman.fightEnemies.game.contexts;
 
 
-import com.ayman.fightEnemies.game.Game;
-
 public class PlayerContext extends Context {
 
-    private String name;
+    private final String name;
 
-    private int effectsTime;
-    private int coinValue;
-    private int originalSpeed;
-    private int chasingRange;
-    private int shootingRange;
+    private final int effectsTime;
+    private final int coinValue;
+    private final int originalSpeed;
+    private final int chasingRange;
+    private final int shootingRange;
 
     private PlayerContext(Builder builder){
         this.name = builder.name;

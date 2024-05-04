@@ -3,6 +3,10 @@ package com.ayman.fightEnemies.entity.mob;
 import com.ayman.fightEnemies.entity.mob.decoratedPlayer.DecoratedPlayer;
 import com.ayman.fightEnemies.util.Vector2i;
 
+/**
+ * Helper is a concrete class from the Chaser class that represents a helper that helps the player in fighting.
+
+ */
 public class Helper extends Chaser {
 
     private final Player player;
@@ -17,7 +21,6 @@ public class Helper extends Chaser {
     @Override
     public void update() {
 
-//        System.out.println("Update from Helper");
         if(player.isRemoved()) {
             remove();
             return;
@@ -28,7 +31,6 @@ public class Helper extends Chaser {
             if(h.player == this.player) {
                 currentEnemy = null;
             }
-            System.out.println("Helper is attacking another helper");
         }
 
 
@@ -36,35 +38,25 @@ public class Helper extends Chaser {
 
             if((level.getMobs().size() > 2))
                 currentEnemy = level.getClosestMob(this, player);
+
             if
-            (
-                    currentEnemy == this ||
+            (currentEnemy == this ||
                     currentEnemy == player ||
-                    currentEnemy instanceof DecoratedPlayer decoratedPlayer && decoratedPlayer.getInnerMostPlayer() == player
-            ) {
-                if(currentEnemy == this) System.out.println("this");
-                if(currentEnemy == player) System.out.println("player");
-                if(currentEnemy instanceof DecoratedPlayer decoratedPlayer && decoratedPlayer.getInnerMostPlayer() == player) {
-                    System.out.println("lela tawela");
-                }
+                        currentEnemy instanceof DecoratedPlayer decoratedPlayer && decoratedPlayer.getInnerMostPlayer() == player)
+            {
                 currentEnemy = null;
-                System.out.println("Helper is attacking itself or the player");
             }
-//            System.out.println(currentEnemy);
             return;
+
         }
         time++;
 
         int distancePow2 = (int) (Math.pow(currentEnemy.getX() - x, 2) + Math.pow(currentEnemy.getY() - y, 2));
         int distance = (int) Math.sqrt(distancePow2);
-        if( distance > CHASING_RANGE) {
-//            return;
-        }
-        else if(this.currentAnimatedSprite.getCurrentSPrite().SIZE > distance && time % (60*2) == 0) {
+
+        if(this.currentAnimatedSprite.getCurrentSPrite().SIZE > distance && time % (60*2) == 0) {
             shoot(x, y, random.nextGaussian());
         }
-//        int xa = level.getPlayer().getX() - x;
-//        int ya = level.getPlayer().getY() - y;
 
         int xa = 0, ya = 0;
 
@@ -84,7 +76,7 @@ public class Helper extends Chaser {
                     level.findPath(new Vector2i(x >> 4, y >> 4),
                             new Vector2i(currentEnemy.getX() >> 4, currentEnemy.getY() >> 4));
 //            visited = level.findVis(new Vector2i(x >> 4, y >> 4),
-//                    new Vector2i(level.getPlayer().getX() >> 4, level.getPlayer().getY() >> 4));
+//                    new Vector2i(level.getPlayer().getX() >> 4, level.getPlayer().getY() >> 4));  // for debugging purposes
 
             if (path != null && !path.isEmpty()) {
 

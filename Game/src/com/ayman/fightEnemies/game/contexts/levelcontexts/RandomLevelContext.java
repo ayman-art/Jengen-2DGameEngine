@@ -1,9 +1,12 @@
 package com.ayman.fightEnemies.game.contexts.levelcontexts;
 
+/**
+ * RandomLevelContext is a class that holds the context of the Random Level.
+ */
 public class RandomLevelContext implements ILevelContext{
 
-    private int width;
-    private int height;
+    private final int width;
+    private final int height;
 
     private RandomLevelContext(Builder builder){
         this.width = builder.width;

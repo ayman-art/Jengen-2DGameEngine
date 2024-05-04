@@ -9,6 +9,10 @@ import com.ayman.fightEnemies.Input.Mouse;
 import com.ayman.fightEnemies.entity.projectile.Projectile;
 import com.ayman.fightEnemies.entity.projectile.WizardProjectile;
 
+/**
+ * Player is a concrete class from the Mob class that represents the player.
+
+ */
 public class Player extends Mob implements IPlayer {
 
 
@@ -46,10 +50,6 @@ public class Player extends Mob implements IPlayer {
         this.moving = copy.moving;
         this.currentAnimatedSprite = down;
 
-    }
-    public Player() {
-        keyboard = null;
-        mouse = null;
     }
     public Player(int x, int y, Keyboard keyboard, Mouse mouse) { //if we want to spawn the player at a specific location
         this.x = x;
@@ -128,12 +128,7 @@ public class Player extends Mob implements IPlayer {
 
         fireInterval--;
 
-
-
-
-
         updateShoot();
-        //System.out.println(projectiles.size());
 
         clear();
     }
@@ -163,7 +158,6 @@ public class Player extends Mob implements IPlayer {
             double dx = mouse.getX() - (double) (GameController.width * GameController.scaleFactor) / 2;
             double dy = mouse.getY() - (double) (GameController.height * GameController.scaleFactor) / 2;
 
-//            System.out.println("dx: " + dx + ", dy: " + dy);
             double dir = Math.atan2(dy, dx);
             shoot(x, y, dir);
 
@@ -186,13 +180,9 @@ public class Player extends Mob implements IPlayer {
                                 || level.isInside(xProjectile + 8, yProjectile + 8, otherMob.getX(), otherMob.getY(), 16)) {
 
                             projectile.remove();
-//                            level.removeProjectile(projectile);
 
                             if(otherMob instanceof IPlayer player) {
                                 player.updateHealth(projectile.getDamage());
-                                if(player.getHealth() <= 0) {
-//                                    System.exit(11);
-                                }
                             }
                             else {
                                 otherMob.updateHealth(projectile.getDamage() * 20);
@@ -212,40 +202,6 @@ public class Player extends Mob implements IPlayer {
 
 
     public void render(Screen screen) {
-//        boolean flip = false;
-//
-//        if(dir == 0) {
-//            sprite = Sprite.player_forward;
-//            if(moving) {
-//                if(anim % 20 > 10) { //change the sprite every 10 frames
-//                    sprite = Sprite.player_forward_1;
-//                } else {
-//                    sprite = Sprite.player_forward_2;
-//                }
-//            }
-//        }
-//        if(dir == 1 || dir == 3) {
-//            if(dir == 3) flip = true;
-//            sprite = Sprite.player_side;
-//            if(moving) {
-//                if(anim % 20 > 10) { //change the sprite every 10 frames
-//                    sprite = Sprite.player_side_1;
-//                } else {
-//                    sprite = Sprite.player_side_2;
-//                }
-//            }
-//        }
-//        if(dir == 2) {
-//            sprite = Sprite.player_backwards;
-//            if(moving) {
-//                if(anim % 20 > 10) { //change the sprite every 10 frames
-//                    sprite = Sprite.player_backwards_1;
-//                } else {
-//                    sprite = Sprite.player_backwards_2;
-//                }
-//            }
-//        }
-
         screen.renderMob(x , y, this, false);
     }
 

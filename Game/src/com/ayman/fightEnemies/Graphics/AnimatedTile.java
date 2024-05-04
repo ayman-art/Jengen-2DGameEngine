@@ -1,9 +1,5 @@
 package com.ayman.fightEnemies.Graphics;
 
-import com.ayman.fightEnemies.level.tile.Tile;
-
-import javax.swing.*;
-
 public class AnimatedTile {
     int time = 0;
     Sprite[] sprites;

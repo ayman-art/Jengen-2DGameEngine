@@ -2,9 +2,12 @@ package com.ayman.fightEnemies.Graphics;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
+import java.util.Objects;
 
+/**
+ *
+ */
 public class SpriteSheet {
 
     private String path;
@@ -21,7 +24,6 @@ public class SpriteSheet {
     public static SpriteSheet player_left;
     public static SpriteSheet player_right;
 
-    public static SpriteSheet coin;
 
 
 
@@ -33,10 +35,8 @@ public class SpriteSheet {
             player = new SpriteSheet(tiles, 0, 2, 3, 3, 16);
             player_up = new SpriteSheet(player, 0, 0, 1, 3, 16);
             player_right = new SpriteSheet(player, 1, 0, 1, 3, 16);
-            player_left = player_right.flippedCopy();
+            player_left = player_right.flippedCopy(); //flipped horizontally
             player_down = new SpriteSheet(player, 2, 0, 1, 3, 16);
-
-            coin = new SpriteSheet(tiles,0, 1, 1, 1, 16);
 
 
 
@@ -117,18 +117,18 @@ public class SpriteSheet {
     private void load(String path) throws IOException {
 
 
-        BufferedImage image = ImageIO.read(getClass().getResource("/Sheets/spritesheet.png"));
-//        System.out.println(path);
+        BufferedImage image = ImageIO.read(Objects.requireNonNull(getClass().getResource(path)));
 
         int w = image.getWidth();
         int h = image.getHeight();
 
-        image.getRGB(0, 0, w, h, pixels, 0, w); //
+        //load the image into the pixels array
+        image.getRGB(0, 0, w, h, pixels, 0, w);
     }
 
 
 
-    public SpriteSheet flip() {
+    public void flip() {
         for (int y0 = 0; y0 < HEIGHT; y0++) {
             for (int x0 = 0; x0 < WIDTH / 2; x0++) {
                 int temp = pixels[x0 + y0 * WIDTH];
@@ -137,7 +137,6 @@ public class SpriteSheet {
                 pixels[xReflected+ y0 * WIDTH] = temp;
             }
         }
-        return this;
     }
 
     public SpriteSheet flippedCopy() throws IOException {

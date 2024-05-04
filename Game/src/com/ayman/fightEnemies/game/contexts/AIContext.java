@@ -1,5 +1,10 @@
 package com.ayman.fightEnemies.game.contexts;
 
+/**
+ * AIContext is a class that holds the context of the AI.
+ * It has a type that can be Dijkstra, AStar, or DStar for Finding Path Algorithms.
+
+ */
 public class AIContext extends Context{
 
     final private AIType type;

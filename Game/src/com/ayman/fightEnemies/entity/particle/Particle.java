@@ -4,6 +4,11 @@ import com.ayman.fightEnemies.Graphics.Screen;
 import com.ayman.fightEnemies.Graphics.Sprite;
 import com.ayman.fightEnemies.entity.Entity;
 
+/**
+ * Particle is a class that represents the particles in the game.
+
+ */
+
 public class Particle extends Entity {
 
     Sprite sprite;

@@ -1,6 +1,7 @@
 package com.ayman.fightEnemies.game;
 
 import com.ayman.fightEnemies.GameController;
+import com.ayman.fightEnemies.Graphics.Screen;
 import com.ayman.fightEnemies.entity.mob.Mob;
 import com.ayman.fightEnemies.entity.projectile.WizardProjectile;
 import com.ayman.fightEnemies.game.contexts.*;
@@ -14,9 +15,12 @@ import com.ayman.fightEnemies.level.RandomLevel;
 import com.ayman.fightEnemies.level.SpawnLevel;
 import com.ayman.fightEnemies.level.effects.CoinEffect;
 import com.ayman.fightEnemies.level.effects.Effect;
+import com.ayman.fightEnemies.level.tile.Tile;
 import com.ayman.fightEnemies.level.winning.ItemsCollected;
 import com.ayman.fightEnemies.level.winning.MobsKilled;
 import com.ayman.fightEnemies.level.winning.TargetReached;
+
+import java.util.Map;
 
 public class Jengen {
 
@@ -33,8 +37,13 @@ public class Jengen {
         processAI(game.getAiContext());
         processLevel(game.getLevelContext());
         processWinningState(game.getWinnigStateContext());
+        processScreenContext(game.getScreenContext());
 
         AppFrame.getInstance();
+    }
+
+    private void processScreenContext(ScreenContext screenContext) {
+        Tile.costumedTiles = screenContext.getCostumedTiles();
     }
 
     private void processAI(AIContext aiContext) {
@@ -46,6 +55,7 @@ public class Jengen {
         GameController.height = guiContext.getHeight();
         GameController.scaleFactor = guiContext.getScaleFactor();
         AboutState.aboutText = guiContext.getAboutText();
+        Screen.MiniMapAlpha = guiContext.getMiniMapAlpha();
     }
 
     private void processPlayer(PlayerContext playerContext){

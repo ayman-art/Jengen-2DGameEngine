@@ -5,7 +5,10 @@ import com.ayman.fightEnemies.gui.AppFrame;
 
 import javax.swing.*;
 
-public class GameState extends GuiState {
+/**
+ * GameState is a class that represents the Game State of the game.
+ */
+public class GameState implements GuiState {
 
     public GameState() {
     }
@@ -23,20 +26,7 @@ public class GameState extends GuiState {
 
 class Main {
     public static void main(String[]s ) {
-
-
         JFrame frame = new JFrame();
-
-//
-//        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//        frame.setSize(new java.awt.Dimension(800, 600));
-//        frame.setLocationRelativeTo(null);
-//        frame.setVisible(true);
-////        frame.setLayout(null);
-//        frame.getContentPane().removeAll();
-//        frame.getContentPane().repaint();
-//
-//        frame.setSize(800,600);
         new GameController("P", frame);
     }
 }

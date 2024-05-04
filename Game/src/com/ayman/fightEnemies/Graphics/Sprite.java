@@ -3,10 +3,14 @@ package com.ayman.fightEnemies.Graphics;
 import java.awt.*;
 import java.util.Arrays;
 
+/**
+ * A class used to represent a sprite
+ */
 public class Sprite {
 
     public final int SIZE;
-    private int width, height;
+    private final int width;
+    private final int height;
     public int x, y;
     public int[] pixels;
 
@@ -25,20 +29,6 @@ public class Sprite {
 
     public static Sprite basicParticle = new Sprite(3, 0xAAAAAA);
     public static Sprite voidSprite = new Sprite(16, Color.GRAY.getRGB());
-
-    public static Sprite player0 = new Sprite(16, 0, 1, SpriteSheet.tiles);
-    public static Sprite player1 = new Sprite(16, 1, 1, SpriteSheet.tiles);
-    public static Sprite player2 = new Sprite(16, 0, 2, SpriteSheet.tiles);
-    public static Sprite player3 = new Sprite(16, 1, 2, SpriteSheet.tiles);
-    public static Sprite player_forward = new Sprite(16, 0, 1, SpriteSheet.tiles);
-    public static Sprite player_forward_1 = new Sprite(16, 0, 2, SpriteSheet.tiles);
-    public static Sprite player_forward_2 = new Sprite(16, 0, 3, SpriteSheet.tiles);
-    public static Sprite player_side = new Sprite(16, 1, 1, SpriteSheet.tiles);
-    public static Sprite player_side_1 = new Sprite(16, 1, 2, SpriteSheet.tiles);
-    public static Sprite player_side_2 = new Sprite(16, 1, 3, SpriteSheet.tiles);
-    public static Sprite player_backwards = new Sprite(16, 2, 1, SpriteSheet.tiles);
-    public static Sprite player_backwards_1 = new Sprite(16, 2, 2, SpriteSheet.tiles);
-    public static Sprite player_backwards_2 = new Sprite(16, 2, 3, SpriteSheet.tiles);
 
 
 
@@ -139,8 +129,9 @@ public class Sprite {
         Arrays.fill(newPixels, pixels[0]);
         for(int y = 0; y < SIZE; y++) {
             for(int x = 0; x < SIZE; x++) {
-                double radius = Math.sqrt((x - SIZE / 2) * (x - SIZE / 2) + (y - SIZE / 2) * (y - SIZE / 2));
-                double theta = Math.atan2(y - SIZE / 2, x - SIZE / 2);
+                double s = SIZE / 2.0;
+                double radius = Math.sqrt((x - s) * (x - s) + (y - s) * (y - s));
+                double theta = Math.atan2(y - s, x - s);
 
                 int xx = (int) (radius * Math.cos(theta - angle) + SIZE / 2);
                 int yy = (int) (radius * Math.sin(theta - angle) + SIZE / 2);

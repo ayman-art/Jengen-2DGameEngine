@@ -5,7 +5,11 @@ import com.ayman.fightEnemies.gui.AppFrame;
 import javax.swing.*;
 import java.awt.*;
 
-public class AboutState extends GuiState{
+/**
+ * AboutState is a class that represents the About State of the game.
+
+ */
+public class AboutState implements GuiState{
 
     JLabel aboutLabel;
 
@@ -34,9 +38,7 @@ public class AboutState extends GuiState{
         frame.add(aboutLabel);
         frame.add(backButton);
 
-        backButton.addActionListener(e -> {
-            frame.setGuiState(new MainMenuState());
-        });
+        backButton.addActionListener(e -> frame.setGuiState(new MainMenuState()));
 
     }
 }

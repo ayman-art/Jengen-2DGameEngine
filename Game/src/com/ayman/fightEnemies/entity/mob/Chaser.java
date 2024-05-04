@@ -11,7 +11,12 @@ import com.ayman.fightEnemies.util.Vector2i;
 import java.util.List;
 import java.util.Set;
 
+
+/**
+ * Chaser is a concrete class from the Mob class that represents the enemy that chases the player.
+ */
 public class Chaser extends Mob {
+
 
     protected AnimatedSprite up = new AnimatedSprite(SpriteSheet.player_up, 3);
     protected AnimatedSprite down = new AnimatedSprite(SpriteSheet.player_down, 3);
@@ -20,11 +25,23 @@ public class Chaser extends Mob {
 
     protected int fireInterval = WizardProjectile.FIRE_INTERVAL;
 
+    /**
+     * The current enemy that the chaser is chasing and shooting.
+     */
     protected IMob currentEnemy;
+    /**
+     * A flag to check if the player has come near the chaser. If true, the chaser will start chasing the player forever.
+     */
     boolean near = false;
 
 
+    /**
+     * The path that the chaser will follow to reach the player. It is updated only when reaching a tile edge to avoid recalculating the path every frame.
+     */
     List<Node> path = null;
+    /**
+     * The set of visited nodes in the path. It is used for debugging purposes and rendering them shows the efficiency of the pathfinding algorithm.
+     */
     Set<Vector2i> visited = null;
     protected int time = 0;
 
@@ -47,7 +64,6 @@ public class Chaser extends Mob {
         }
 
 
-        IPlayer player = (IPlayer) currentEnemy;
         int distancePow2 = (int) (Math.pow(level.getPlayer().getX() - x, 2) + Math.pow(level.getPlayer().getY() - y, 2));
         int distance = (int) Math.sqrt(distancePow2);
         if (distance <= CHASING_RANGE)
@@ -69,93 +85,13 @@ public class Chaser extends Mob {
             if (y < vec.getY() * 16) ya++;
             if (y > vec.getY() * 16) ya--;
 
-        } else if (level.getPlayer().isVisible())// if(time % 60 == 0)
+        } else if (level.getPlayer().isVisible())
         {
             path =
                     level.findPath(new Vector2i(x >> 4, y >> 4),
                             new Vector2i(level.getPlayer().getX() >> 4, level.getPlayer().getY() >> 4));
 //            visited = level.findVis(new Vector2i(x >> 4, y >> 4),
-//                    new Vector2i(level.getPlayer().getX() >> 4, level.getPlayer().getY() >> 4));
-
-            if (path != null && !path.isEmpty()) {
-
-                vec = path.get(0).tileCoordinate;
-
-                if (x / 16 < vec.getX()) xa++;
-                if (x / 16 > vec.getX()) xa--;
-                if (y / 16 < vec.getY()) ya++;
-                if (y / 16 > vec.getY()) ya--;
-
-            }
-        }
-
-
-        if (xa < 0) {
-            xa = -1;
-            currentAnimatedSprite = left;
-        } else if (xa > 0) {
-            xa = 1;
-            currentAnimatedSprite = right;
-        }
-        if (ya < 0) {
-            ya = -1;
-            currentAnimatedSprite = up;
-        } else if (ya > 0) {
-            ya = 1;
-            currentAnimatedSprite = down;
-        }
-
-
-        if (xa != 0 || ya != 0) {
-            moving = true;
-            move(xa, ya);
-        } else {
-            moving = false;
-            currentAnimatedSprite.restart();
-        }
-
-
-        if (moving) {
-            currentAnimatedSprite.update();
-        } else {
-            currentAnimatedSprite.restart();
-        }
-
-        if (fireInterval >= 0)
-            fireInterval--;
-
-        updateShoot();
-
-        clear();
-//        update2();
-
-    }
-
-    public void update2() {
-        time++;
-
-        IPlayer player = level.getPlayer();
-        int distancePow2 = (int) (Math.pow(level.getPlayer().getX() - x, 2) + Math.pow(level.getPlayer().getY() - y, 2));
-        int distance = (int) Math.sqrt(distancePow2);
-        if (this.currentAnimatedSprite.getCurrentSPrite().SIZE > distance || distance > CHASING_RANGE || !player.isVisible())
-            return;
-
-
-        int xa = 0, ya = 0;
-
-        if (x != vec.getX() * 16 || y != vec.getY() * 16) {
-            if (x < vec.getX() * 16) xa++;
-            if (x > vec.getX() * 16) xa--;
-            if (y < vec.getY() * 16) ya++;
-            if (y > vec.getY() * 16) ya--;
-
-        } else if (level.getPlayer().isVisible())// if(time % 60 == 0)
-        {
-            path =
-                    level.findPath(new Vector2i(x >> 4, y >> 4),
-                            new Vector2i(level.getPlayer().getX() >> 4, level.getPlayer().getY() >> 4));
-//            visited = level.findVis(new Vector2i(x >> 4, y >> 4),
-//                    new Vector2i(level.getPlayer().getX() >> 4, level.getPlayer().getY() >> 4));
+//                    new Vector2i(level.getPlayer().getX() >> 4, level.getPlayer().getY() >> 4)); // for debugging purposes
 
             if (path != null && !path.isEmpty()) {
 
@@ -232,7 +168,6 @@ public class Chaser extends Mob {
         double dy = currentEnemy.getY() - this.y;
 
         if (dx * dx + dy * dy > Mob.SHOOTING_RANGE * Mob.SHOOTING_RANGE) return;
-//            System.out.println("dx: " + dx + ", dy: " + dy);
         double dir = Math.atan2(dy, dx);
         shoot(x, y, dir);
 
@@ -254,6 +189,11 @@ public class Chaser extends Mob {
     public void render(Screen screen) {
         screen.renderMob(x, y, this, false);
     }
+
+    /**
+     * Renders the path that the chaser is following to reach the player for debugging purposes.
+     * @param screen
+     */
     public void renderPath(Screen screen) {
         if (visited != null) {
             for (Vector2i v : visited) {

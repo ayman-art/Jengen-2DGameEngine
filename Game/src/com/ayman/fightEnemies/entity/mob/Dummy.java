@@ -6,6 +6,9 @@ import com.ayman.fightEnemies.Graphics.SpriteSheet;
 
 import java.util.Random;
 
+/**
+ * Dummy is a concrete class from the Mob class that represents the enemy that moves randomly.
+ */
 public class Dummy extends Mob{
 
     private final AnimatedSprite up = new AnimatedSprite(SpriteSheet.player_up, 3);

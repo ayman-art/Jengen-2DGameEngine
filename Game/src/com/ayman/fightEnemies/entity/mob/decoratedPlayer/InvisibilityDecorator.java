@@ -1,9 +1,11 @@
 package com.ayman.fightEnemies.entity.mob.decoratedPlayer;
 
-import com.ayman.fightEnemies.GameController;
 import com.ayman.fightEnemies.entity.mob.IPlayer;
 import com.ayman.fightEnemies.level.effects.Effect;
 
+/**
+ * InvisibilityDecorator is a concrete decorator that adds the ability to be invisible to the player.
+ */
 public class InvisibilityDecorator extends DecoratedPlayer {
     public InvisibilityDecorator(IPlayer player) {
         super(player);

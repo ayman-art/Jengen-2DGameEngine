@@ -4,14 +4,14 @@ import com.ayman.fightEnemies.Graphics.Screen;
 import com.ayman.fightEnemies.level.Level;
 
 public interface IEntity {
-    public void init(Level level);
+    void init(Level level);
 
-    public void update();
-    public void render(Screen screen);
+    void update();
+    void render(Screen screen);
 
-    public void remove();
-    public boolean isRemoved();
-    public IEntity clone() throws CloneNotSupportedException;
+    void remove();
+    boolean isRemoved();
+    IEntity clone() throws CloneNotSupportedException;
 
     int getX();
 

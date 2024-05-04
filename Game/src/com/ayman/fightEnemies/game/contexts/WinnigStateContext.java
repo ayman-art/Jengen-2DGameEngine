@@ -1,5 +1,13 @@
 package com.ayman.fightEnemies.game.contexts;
 
+/**
+ * WinnigStateContext is a class that holds the context of the Winning State.
+ The Engine supports three types of winning states:
+    CollectAllCoins: The player has to collect all the coins in the level to win.
+    KillAllEnemies: The player has to kill all the enemies in the level to win.
+    ReachEnd: The player has to reach the end of the level to win.
+
+ */
 public class WinnigStateContext extends Context{
 
     final private WinningStateType type;

@@ -4,11 +4,15 @@ import com.ayman.fightEnemies.entity.mob.Helper;
 import com.ayman.fightEnemies.entity.mob.IPlayer;
 import com.ayman.fightEnemies.level.effects.Effect;
 
+/**
+ * HelperFighterDecorator is a concrete decorator that adds the ability to have a helper to fight for the player.
+ *
+ */
 public class HelperFighterDecorator extends DecoratedPlayer {
     Helper helper;
     public HelperFighterDecorator(IPlayer player) {
         super(player);
-        time = Effect.EFFECT_TIME * 2;
+        time = Effect.EFFECT_TIME * 2; // Adding 2 times the effect time for the helper to be able to help the player for a longer time.
     }
 
     @Override

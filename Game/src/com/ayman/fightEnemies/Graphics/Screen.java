@@ -7,8 +7,13 @@ import com.ayman.fightEnemies.entity.projectile.Projectile;
 import com.ayman.fightEnemies.level.tile.Tile;
 
 import java.awt.*;
+import java.util.Arrays;
+import java.util.Optional;
 import java.util.Random;
 
+/**
+ * Screen is the Renderer of the game.
+  */
 public class Screen {
 
     public final int width;
@@ -25,6 +30,8 @@ public class Screen {
 
     public int xOffset, yOffset;
 
+    static public Optional<Integer> MiniMapAlpha = Optional.empty();
+
     public Screen(int width, int height) {
 
         this.width = width;
@@ -38,13 +45,7 @@ public class Screen {
 
 
     public void clear() {
-
-        for(int i = 0; i < pixels.length; i++) {
-            pixels[i] = 0;
-        }
-
-
-
+        Arrays.fill(pixels, 0);
     }
 
 
@@ -52,10 +53,8 @@ public class Screen {
 
 
     public void renderTile(int xp, int yp, Tile tile) {
-
         xp -= xOffset;
         yp -= yOffset;
-//        System.out.println("xp: " + xp + ", yp: " + yp);
 
         for(int y = 0; y < tile.sprite.SIZE; y++) {
             int ya = yp + y;
@@ -92,7 +91,6 @@ public class Screen {
                 if(col != 0xffff00ff) {
                     col = blendColors(col, pixels[xa + ya * width], alpha);
                     pixels[xa + ya * width] = col;
-                    //System.out.println("xa: " + xa + ", ya: " + ya  );
                 }
             }
         }
@@ -193,6 +191,14 @@ public class Screen {
             }
         }
     }
+
+    /**
+     * Blends two colors together
+     * @param foregroundColor the color of the sprite
+     * @param backgroundColor the color of the background
+     * @param alpha the alpha value of the sprite
+     * @return the blended color
+     */
     private int blendColors(int foregroundColor, int backgroundColor, int alpha) {
         if(backgroundColor == 0xffff00ff) return foregroundColor;
         if(foregroundColor == 0xffff00ff) return backgroundColor;

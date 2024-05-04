@@ -3,6 +3,10 @@ package com.ayman.fightEnemies.game;
 import com.ayman.fightEnemies.game.contexts.*;
 import com.ayman.fightEnemies.game.contexts.levelcontexts.ILevelContext;
 
+/**
+ * Game is a class that holds the context of the game required by the engine to prduce the game.
+
+ */
 public class Game {
 
     private final GUIContext guiContext;

@@ -4,6 +4,9 @@ import com.ayman.fightEnemies.entity.mob.IMob;
 import com.ayman.fightEnemies.entity.mob.IPlayer;
 import com.ayman.fightEnemies.level.effects.Effect;
 
+/**
+ * FastPlayer is a concrete decorator that adds the ability to move faster to the player.
+ */
 public class FastPlayer extends DecoratedPlayer {
 
     static private final int speedFactor = 4;

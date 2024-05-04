@@ -1,5 +1,9 @@
 package com.ayman.fightEnemies.game.contexts;
 
+/**
+ * ProjectileContext is a class that holds the context of the Projectile.
+ * For now the engine only supports one type of projectile.
+ */
 public class ProjectileContext extends Context {
 
         private final int speed;

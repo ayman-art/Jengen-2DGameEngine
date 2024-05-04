@@ -9,6 +9,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * ScreenContext is a class that holds the context of the screen(Rendering).
+
+ */
 public class ScreenContext extends Context {
 
     private final Map<Integer, Tile> costumedTiles;
@@ -18,6 +22,11 @@ public class ScreenContext extends Context {
     private ScreenContext(Builder builder) {
         this.costumedTiles = builder.costumedTiles;
     }
+
+    public Map<Integer, Tile> getCostumedTiles() {
+        return costumedTiles;
+    }
+
     public static class Builder {
 
         private Map<Integer, Tile> costumedTiles = new HashMap<>();

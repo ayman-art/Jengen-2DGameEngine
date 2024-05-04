@@ -1,8 +1,9 @@
 package com.ayman.fightEnemies.game.contexts.levelcontexts;
 
+/**
+ * SpawnLevelContext is a class that holds the context of the Spawn Level that is created by the Game maker.
 
-import java.net.HttpCookie;
-
+ */
 public class SpawnLevelContext implements ILevelContext{
 
     private final int numberOfLevels;

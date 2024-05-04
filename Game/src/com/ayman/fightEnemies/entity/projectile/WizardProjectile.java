@@ -4,15 +4,7 @@ import com.ayman.fightEnemies.Graphics.Screen;
 import com.ayman.fightEnemies.Graphics.Sprite;
 import com.ayman.fightEnemies.audio.Sound;
 import com.ayman.fightEnemies.entity.spawner.ParticleSpawner;
-import com.ayman.fightEnemies.entity.spawner.Spawner;
 import com.ayman.fightEnemies.level.Level;
-
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
-import java.io.IOException;
-import java.util.*;
 
 public class WizardProjectile extends Projectile {
 
@@ -35,9 +27,9 @@ public class WizardProjectile extends Projectile {
 
         sprite = Sprite.wizardProjectile.rotatedSPrite(angle);
 
-        this.clip = Sound.gunClip;
-        playSound();
-;
+        Sound.gunClip.setFramePosition(0);
+        Sound.gunClip.start();
+
     }
 
     public void update() {
@@ -58,9 +50,7 @@ public class WizardProjectile extends Projectile {
     }
 
     private double distance() {
-        double dist = 0;
-        dist = Math.sqrt(Math.abs((xOrigin - x) * (xOrigin - x) + (yOrigin - y) * (yOrigin - y)));
-        return dist;
+        return Math.sqrt(Math.abs((xOrigin - x) * (xOrigin - x) + (yOrigin - y) * (yOrigin - y)));
     }
 
     @Override
