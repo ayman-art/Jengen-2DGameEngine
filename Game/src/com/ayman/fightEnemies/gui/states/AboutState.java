@@ -20,8 +20,8 @@ public class AboutState implements GuiState{
 
 
     public AboutState() {
-        aboutLabel = new JLabel(aboutText);
-        aboutLabel.setBounds(100, 100, 300, 100);
+        aboutLabel = new JLabel("<html>" + aboutText + "</html>"); // "<html>" + aboutText + "</html>" allows for multi-line text
+        aboutLabel.setBounds(100, 100, 300, 150);
         aboutLabel.setFont(new Font("Arial", Font.BOLD | Font.ITALIC, 24));
         aboutLabel.setForeground(Color.GREEN);
 

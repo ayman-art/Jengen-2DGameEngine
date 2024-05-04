@@ -6,6 +6,10 @@ import com.ayman.fightEnemies.level.snapshots.InputSnapshot;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+/**
+ * Keyboard is a class that represents the Keyboard input of the game.
+    It includes the states of the keys, and the responsive boolean.
+ */
 public class Keyboard implements KeyListener {
 
 
@@ -38,7 +42,6 @@ public class Keyboard implements KeyListener {
     public void keyTyped(KeyEvent e) {
 
         keys[e.getKeyCode()] = true;
-//        System.out.println("y");
 
     }
 
@@ -51,8 +54,6 @@ public class Keyboard implements KeyListener {
             GameController.paused = !GameController.paused;
 
         }
-//        System.out.println("key pressed" + e.getKeyCode());
-
     }
 
     @Override

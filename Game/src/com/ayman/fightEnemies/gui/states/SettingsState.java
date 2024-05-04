@@ -7,7 +7,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Scanner;
 
 /**
  * SettingsState is a class that represents the Settings State of the game. It includes the settings label, radio buttons for difficulty levels, and the back button.
@@ -55,6 +54,7 @@ public class SettingsState implements GuiState {
             }
         }
 
+        assert selectedButton != null;
         selectedButton.setFont(new Font("Arial", Font.BOLD, 24)); // Larger font size
         selectedButton.setForeground(Color.GREEN);
 
@@ -75,22 +75,14 @@ public class SettingsState implements GuiState {
         mediumRadioButton.setBounds(300, 200, 200, 50); // Adjusted size for readability
         hardRadioButton.setBounds(500, 200, 200, 50); // Adjusted size for readability
 
+
+        JRadioButton[] radioButtons = {easyRadioButton, mediumRadioButton, hardRadioButton};
         // Add action listeners to radio buttons
-        easyRadioButton.addActionListener(new RadioButtonListener());
-        mediumRadioButton.addActionListener(new RadioButtonListener());
-        hardRadioButton.addActionListener(new RadioButtonListener());
-
-        easyRadioButton.setBackground(Color.yellow);
-        mediumRadioButton.setBackground(Color.yellow);
-        hardRadioButton.setBackground(Color.yellow);
-
-
-        easyRadioButton.setFocusable(false);
-        mediumRadioButton.setFocusable(false);
-        hardRadioButton.setFocusable(false);
-
-
-
+        for (JRadioButton radioButton : radioButtons) {
+            radioButton.addActionListener(new RadioButtonListener());
+            radioButton.setBackground(Color.yellow);
+            radioButton.setFocusable(false);
+        }
 
     }
 
@@ -109,9 +101,7 @@ public class SettingsState implements GuiState {
         frame.repaint();
         frame.setVisible(true);
 
-        backButton.addActionListener(e -> {
-            frame.setGuiState(new MainMenuState());
-        });
+        backButton.addActionListener(e -> frame.setGuiState(new MainMenuState()));
     }
 
     // ActionListener for radio buttons
@@ -121,12 +111,12 @@ public class SettingsState implements GuiState {
             // Reset font and color for all radio buttons
             Font defaultFont = new Font("Arial", Font.PLAIN, 24); // Larger font size
             Color defaultColor = UIManager.getColor("RadioButton.foreground");
-            easyRadioButton.setFont(defaultFont);
-            easyRadioButton.setForeground(defaultColor);
-            mediumRadioButton.setFont(defaultFont);
-            mediumRadioButton.setForeground(defaultColor);
-            hardRadioButton.setFont(defaultFont);
-            hardRadioButton.setForeground(defaultColor);
+
+            JRadioButton[] radioButtons = {easyRadioButton, mediumRadioButton, hardRadioButton};
+            for (JRadioButton radioButton : radioButtons) {
+                radioButton.setFont(defaultFont);
+                radioButton.setForeground(defaultColor);
+            }
 
             // Set font and color for the selected radio button
             Font selectedFont = new Font("Arial", Font.BOLD, 24); // Larger font size

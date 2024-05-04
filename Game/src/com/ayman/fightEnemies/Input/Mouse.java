@@ -1,12 +1,16 @@
 package com.ayman.fightEnemies.Input;
 
-import com.ayman.fightEnemies.level.snapshots.InputCareTaker;
 import com.ayman.fightEnemies.level.snapshots.InputSnapshot;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
+/**
+ * Mouse is a class that represents the Mouse input of the game.
+ * It includes the states of the mouse, and the responsive boolean.
+
+ */
 public class Mouse implements MouseListener, MouseMotionListener {
 
     private int mouseX = -1;

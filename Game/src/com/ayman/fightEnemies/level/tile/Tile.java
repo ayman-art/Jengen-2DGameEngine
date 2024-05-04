@@ -33,7 +33,7 @@ public class Tile {
         public static final int waterColor = 0xff00ffff;
         public static final int woodColor = 0xff7F0000;
 
-        public static final Map<Integer, Tile> costumedTiles = new HashMap<>();
+        public static Map<Integer, Tile> costumedTiles = new HashMap<>();
 
 
         private final boolean isSolid, isBreakable;

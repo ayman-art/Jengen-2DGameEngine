@@ -18,6 +18,8 @@ import com.ayman.fightEnemies.util.Vector2i;
 
 import java.util.*;
 
+import static com.ayman.fightEnemies.Graphics.Screen.MiniMapAlpha;
+
 
 public abstract class Level {
 
@@ -451,13 +453,16 @@ public abstract class Level {
     }
 
     public void renderMiniMap(Screen screen, int x, int y) {
+        if(MiniMapAlpha.isEmpty())
+            return;
+        int alpha = MiniMapAlpha.get();
 
 
         screen.renderSprite(0, 0, new Sprite(tiles, width, height), true, 100);
         for(int i2 = 0; i2 < mobs.size(); i2++) {
-            screen.renderPixel(mobs.get(i2).getX() / 16, mobs.get(i2).getY() / 16, 0xff0000, 4, true, 100);
-            if(mobs.get(i2) instanceof Player player) {
-                screen.renderPixel(player.getX() / 16, player.getY() / 16, 0x00ff00, 4, true, 100);
+            screen.renderPixel(mobs.get(i2).getX() / 16, mobs.get(i2).getY() / 16, 0xff0000, 2, true, alpha);
+            if(mobs.get(i2) instanceof IPlayer player) {
+                screen.renderPixel(player.getX() / 16, player.getY() / 16, 0x00ff00, 2, true, alpha);
             }
         }
 

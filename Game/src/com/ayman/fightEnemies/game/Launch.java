@@ -10,7 +10,7 @@ public class Launch {
             .setHeight(300 * 8 / 12)
             .setScaleFactor(3)
             .setMiniMapAlpha(100) // Optional (determines the transparency of the minimap)
-            .setAboutText("This is A Fighting Game using most of the feature provided the Jengen Game Engine") // Optional (determines the about text)
+            .setAboutText("This is A Fighting Game using most of the features provided the Jengen Game Engine") // Optional (determines the about text)
             .build();
 
     // Setting the AIContext
