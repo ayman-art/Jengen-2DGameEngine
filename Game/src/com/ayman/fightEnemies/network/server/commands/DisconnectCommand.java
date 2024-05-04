@@ -4,6 +4,10 @@ import com.ayman.fightEnemies.network.server.GameServer;
 
 import java.util.UUID;
 
+/**
+ * This class is responsible for disconnecting the client from the server.
+
+ */
 public class DisconnectCommand extends Command{
 
     private final GameServer server;

@@ -4,6 +4,10 @@ import com.ayman.fightEnemies.network.server.GameServer;
 
 import java.util.UUID;
 
+/**
+ * This class is responsible for shooting the player and sending the shooting information to the clients.
+
+ */
 public class ShootCommand extends Command{
     private final GameServer server;
     private final UUID clientID;

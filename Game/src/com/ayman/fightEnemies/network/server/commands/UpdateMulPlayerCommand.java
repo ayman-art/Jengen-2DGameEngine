@@ -3,6 +3,10 @@ package com.ayman.fightEnemies.network.server.commands;
 import com.ayman.fightEnemies.network.server.GameServer;
 import com.ayman.fightEnemies.network.server.ServerClient;
 
+/**
+ * This class is responsible for updating the player's position and health.
+
+ */
 public class UpdateMulPlayerCommand extends Command{
     private final GameServer gameServer;
     private final ServerClient serverClient;

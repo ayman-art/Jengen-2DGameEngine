@@ -6,6 +6,9 @@ import com.ayman.fightEnemies.network.server.ServerClient;
 import java.net.InetAddress;
 import java.util.UUID;
 
+/**
+ *  This class is responsible for connecting the client to the server.
+ */
 public class ConnectCommand extends Command{
     static int counter = 0;
 

@@ -30,8 +30,10 @@ public class FileCodeChecker {
         System.out.println(expectedCode);
         System.out.println(actualCode);
 
-        if(!expectedCode.equals(actualCode))
-            throw new RuntimeException("File code does not match");
+        if(!expectedCode.equals(actualCode)) {
+            System.out.println("Code has been tampered with, what are you trying to do?");
+            System.exit(86086);
+        }
         return true;
     }
 

@@ -2,6 +2,9 @@ package com.ayman.fightEnemies.network.client.commands;
 
 import com.ayman.fightEnemies.network.client.GameClient;
 
+/**
+ * This class is responsible for updating the player's position and health.
+ */
 public class UpdateMulPlayerClientCommand extends ClientCommand{
 
     private final GameClient gameClient;

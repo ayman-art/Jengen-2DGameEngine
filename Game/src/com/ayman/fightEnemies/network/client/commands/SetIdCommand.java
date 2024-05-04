@@ -4,6 +4,10 @@ import com.ayman.fightEnemies.network.client.GameClient;
 
 import java.util.UUID;
 
+/**
+ * This class is responsible for setting the id of the player.
+
+ */
 public class SetIdCommand extends ClientCommand {
 
     private final GameClient gameClient;

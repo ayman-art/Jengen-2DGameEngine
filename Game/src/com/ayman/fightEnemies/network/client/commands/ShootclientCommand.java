@@ -4,6 +4,10 @@ import com.ayman.fightEnemies.entity.mob.IPlayer;
 import com.ayman.fightEnemies.entity.mob.Player;
 import com.ayman.fightEnemies.network.client.GameClient;
 
+/**
+ * This class is responsible for shooting a bullet from the player.
+
+ */
 public class ShootclientCommand extends ClientCommand {
 
 

@@ -3,6 +3,7 @@ package com.ayman.fightEnemies.game;
 import com.ayman.fightEnemies.game.contexts.*;
 import com.ayman.fightEnemies.game.contexts.levelcontexts.ILevelContext;
 import com.ayman.fightEnemies.game.contexts.levelcontexts.RandomLevelContext;
+import com.ayman.fightEnemies.game.contexts.levelcontexts.SpawnLevelContext;
 
 public class Launch {
     static GUIContext guiContext = new GUIContext.Builder()
@@ -35,18 +36,18 @@ public class Launch {
             .setFireInterval(10) // (determines the fire interval of the projectile which is the time between each fire)
             .build();
 
-    static ILevelContext levelContext = new RandomLevelContext.Builder()
-                .setSize(30, 17)
-                .build();
+//    static ILevelContext levelContext = new RandomLevelContext.Builder()
+//                .setSize(30, 17)
+//                .build();
 
 
-//    static ILevelContext levelContext = new SpawnLevelContext.Builder()
-//            .setNumberOfLevels(2)
-//            .setPath("C:\\Users\\ayman\\Desktop\\FightLevels")
-//            .setLevelExtension("png")
-//            .build();
+    static ILevelContext levelContext = new SpawnLevelContext.Builder()
+            .setNumberOfLevels(2)
+            .setPath("C:\\Users\\ayman\\Desktop\\FightLevels")
+            .setLevelExtension("png")
+            .build();
     static WinnigStateContext winningStateContext = new WinnigStateContext.Builder()
-            .setType(WinnigStateContext.WinningStateType.KillAllEnemies) // (determines the type of the winning state)
+            .setType(WinnigStateContext.WinningStateType.CollectAllCoins) // (determines the type of the winning state)
             .build();
 
 

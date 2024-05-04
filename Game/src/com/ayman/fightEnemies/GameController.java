@@ -121,8 +121,10 @@ public class GameController extends Canvas implements Runnable{
             level.add(new Player(playerName, xPlayer*16, yPlayer*16, keyboard, mouse));
 
         }
-//        ((SpawnLevel) level).writeToFile("level11.txt");
 
+        handleWindow();
+    }
+    public void handleWindow() {
 
         GameController Game = this;
         Game.jFrame.setResizable(false);
@@ -155,23 +157,23 @@ public class GameController extends Canvas implements Runnable{
         });
 
 
-    showRecordingButton.addActionListener(e -> {
-        if(levelCareTaker.getNumberOfSnapshots() == 0) return;
-        playingRecording = !playingRecording;
+        showRecordingButton.addActionListener(e -> {
+            if(levelCareTaker.getNumberOfSnapshots() == 0) return;
+            playingRecording = !playingRecording;
 
-        if(playingRecording) {
-            showRecordingButton.setText("Stop Playing");
-            mouse.responsive = false;
-            keyboard.responsive = false;
-            synchronized (level) {
-                levelCareTaker.addSnapshot(level.takeSnapshot());
-                level.restoreSnapshot(levelCareTaker.getNextSnapshot());
+            if(playingRecording) {
+                showRecordingButton.setText("Stop Playing");
+                mouse.responsive = false;
+                keyboard.responsive = false;
+                synchronized (level) {
+                    levelCareTaker.addSnapshot(level.takeSnapshot());
+                    level.restoreSnapshot(levelCareTaker.getNextSnapshot());
+                }
+
+            } else {
+                handlePauseRecording();
             }
-
-        } else {
-            handlePauseRecording();
-        }
-    });
+        });
 
 
 
@@ -257,52 +259,19 @@ public class GameController extends Canvas implements Runnable{
             while(delta >= 1) {
                 if(!ClientController.isOn()) {
                     if( level.playerWon()){
-                        System.out.println("You won");
-                        System.out.println("Congratulations " + playerName);
-                        if (level instanceof SpawnLevel spawnLevel && !spawnLevel.hasNextLevel()) {
-                            System.out.println("You have finished the game");
-                            System.out.println("Congratulations " + playerName);
-                            spawnLevel.reset();
-                            System.exit(0);
-                        }
-                        Sound.winningClip.setFramePosition(0);
-                        Sound.winningClip.start();
-                        loadNextLevel();
+                        handleWinning();
                     } else if(level.playerLost()) {
-                        System.out.println("You lost");
-                        System.out.println("Game Over " + playerName);
-                        playingRecording = false;
-                        Sound.losingClip.start();
-                        AppFrame.getInstance().setGuiState(new com.ayman.fightEnemies.gui.states.MainMenuState());
+                        handleLosing();
                         return;
                     }
                 }
-                if(!playingRecording && !paused) {
-                    if(recordingTimer % 300 == 0) {
-                        recordingTimer = 0;
-                        if(levelCareTaker.getNumberOfSnapshots() < 2) {
-                            synchronized (levelCareTaker) {
-                                levelCareTaker.addSnapshot(level.takeSnapshot());
-                            }
-                        } else {
-                            synchronized (levelCareTaker) {
-                                levelCareTaker.removeOldSnapshot();
-                                levelCareTaker.addSnapshot(level.takeSnapshot());
-                                if (inputCareTaker.getNumberOfSnapshots() != 600) {
-                                    System.out.println("You are not a genius the number of snapshots is " + inputCareTaker.getNumberOfSnapshots() );
-                                }
-                                else System.out.println("You are just a genius");
-                                inputCareTaker.removeOldSnapshots(300);
-                            }
-                        }
 
-                    }
-                    inputCareTaker.addSnapshot(new InputSnapshot(mouse.takeSnapshot(), keyboard.takeSnapshot()));
-                    recordingTimer++;
+
+                if(!playingRecording && !paused) {
+                    handleRecording();
                 } else {
                     playRecording();
                 }
-
 
                 counter++;
                 update();
@@ -331,6 +300,28 @@ public class GameController extends Canvas implements Runnable{
         thread.interrupt();
     }
 
+    private void handleWinning() {
+        System.out.println("You won");
+        System.out.println("Congratulations " + playerName);
+        if (level instanceof SpawnLevel spawnLevel && !spawnLevel.hasNextLevel()) {
+            System.out.println("You have finished the game");
+            System.out.println("Congratulations " + playerName);
+            spawnLevel.reset();
+            System.exit(0);
+        }
+        Sound.winningClip.setFramePosition(0);
+        Sound.winningClip.start();
+        loadNextLevel();
+    }
+
+    private void handleLosing() {
+        System.out.println("You lost");
+        System.out.println("Game Over " + playerName);
+        playingRecording = false;
+        Sound.losingClip.start();
+        AppFrame.getInstance().setGuiState(new com.ayman.fightEnemies.gui.states.MainMenuState());
+    }
+
     private void loadNextLevel() {
         levelCareTaker.reset();
         inputCareTaker.reset();
@@ -354,6 +345,29 @@ public class GameController extends Canvas implements Runnable{
             level.add(new Player(playerName, xp*16, yp*16, keyboard, mouse));
         }
 
+    }
+    private void handleRecording() {
+        if(recordingTimer % 300 == 0) {
+            recordingTimer = 0;
+            if(levelCareTaker.getNumberOfSnapshots() < 2) {
+                synchronized (levelCareTaker) {
+                    levelCareTaker.addSnapshot(level.takeSnapshot());
+                }
+            } else {
+                synchronized (levelCareTaker) {
+                    levelCareTaker.removeOldSnapshot();
+                    levelCareTaker.addSnapshot(level.takeSnapshot());
+                    if (inputCareTaker.getNumberOfSnapshots() != 600) {
+                        System.out.println("You are not a genius the number of snapshots is " + inputCareTaker.getNumberOfSnapshots() );
+                    }
+                    else System.out.println("You are just a genius");
+                    inputCareTaker.removeOldSnapshots(300);
+                }
+            }
+
+        }
+        inputCareTaker.addSnapshot(new InputSnapshot(mouse.takeSnapshot(), keyboard.takeSnapshot()));
+        recordingTimer++;
     }
 
     private void playRecording() {
@@ -384,14 +398,12 @@ public class GameController extends Canvas implements Runnable{
         }
     }
     public void update() {
-        if(paused) return;
+        if(paused)
+            return;
 
         keyboard.update();
         mouse.update();
         level.update();
-
-
-
     }
 
     int xDelta = 1, yDelta = 1;

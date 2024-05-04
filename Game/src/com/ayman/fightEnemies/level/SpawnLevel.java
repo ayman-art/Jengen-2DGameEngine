@@ -25,6 +25,9 @@ public class SpawnLevel extends Level {
     private int currentLevelIndex;
 
 
+    /**
+     * it is used when enc
+     */
     public SpawnLevel() {
         this(-1);
     }

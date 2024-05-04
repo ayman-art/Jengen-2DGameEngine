@@ -3,6 +3,10 @@ package com.ayman.fightEnemies.network.client.commands;
 import com.ayman.fightEnemies.entity.mob.Player;
 import com.ayman.fightEnemies.network.client.GameClient;
 
+/**
+ * This class is responsible for adding a new player to the game.
+
+ */
 public class AddMulPlayerCommand extends ClientCommand{
 
     GameClient gameClient;

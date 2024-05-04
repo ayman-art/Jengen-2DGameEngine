@@ -6,6 +6,10 @@ import java.io.IOException;
 import java.net.*;
 import java.util.UUID;
 
+/**
+ * Represents the client in the game with respect to the server
+
+ */
 public class GameClient extends Thread{
 
 
