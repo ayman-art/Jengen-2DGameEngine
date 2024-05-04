@@ -295,11 +295,14 @@ public class RandomLevel extends Level {
             x = 1 + random.nextInt(width - 2);
             y = 1 + random.nextInt(height - 2);
         } while (occupiedSlot(x, y));
-        if (n == 1) {
-            if(numberOfCoins == 0 && Level.winningState instanceof ItemsCollected) {
+        if (n == 2 && Level.winningState instanceof ItemsCollected) {
                 add(new CoinEffect(x, y));
-            } else if(Level.winningState instanceof TargetReached)
+                putMobs(1);
+        } else if(n == 1) {
+            if(Level.winningState instanceof TargetReached)
                 add(new WinningEffect(new Vector2i(x, y)));
+            else if(Level.winningState instanceof ItemsCollected)
+                add(new CoinEffect(x, y));
             return;
         }
 

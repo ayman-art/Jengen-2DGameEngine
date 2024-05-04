@@ -7,29 +7,32 @@ import com.ayman.fightEnemies.Input.Mouse;
 import com.ayman.fightEnemies.audio.Sound;
 import com.ayman.fightEnemies.entity.mob.IPlayer;
 import com.ayman.fightEnemies.entity.mob.Player;
-import com.ayman.fightEnemies.entity.mob.decoratedPlayer.BreakTilesDecorator;
-import com.ayman.fightEnemies.entity.mob.decoratedPlayer.InvisibilityDecorator;
-import com.ayman.fightEnemies.entity.projectile.Projectile;
 import com.ayman.fightEnemies.game.contexts.AIContext;
 import com.ayman.fightEnemies.gui.AppFrame;
 import com.ayman.fightEnemies.level.Level;
 import com.ayman.fightEnemies.level.RandomLevel;
 import com.ayman.fightEnemies.level.SpawnLevel;
-import com.ayman.fightEnemies.level.TileCoordinate;
 import com.ayman.fightEnemies.level.snapshots.InputCareTaker;
 import com.ayman.fightEnemies.level.snapshots.InputSnapshot;
 import com.ayman.fightEnemies.level.snapshots.LevelCareTaker;
 import com.ayman.fightEnemies.network.client.controller.ClientController;
 
-import javax.sound.sampled.Clip;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
-import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * Here is the GameController class that is responsible for controlling the game.
+ * It is responsible for updating the game and rendering it.
+ * It also handles the recording of the game and playing it.
+    Also, it handles the pause and resume of the game.
+ Besides, it handles the winning and losing of the game, and the transition between levels.
+ Also, it handles the window of the game and the buttons in it.
+ It handles the difficulty of the game and the player name.
+ */
 public class GameController extends Canvas implements Runnable{
 
 
@@ -101,9 +104,7 @@ public class GameController extends Canvas implements Runnable{
         this.jFrame = jFrame;
         jFrame.setLayout(new BorderLayout());
 
-//        level = new RandomLevel(64, 64);
-//        level = new RandomLevel(64, 64);
-        TileCoordinate playerSpawn;
+
         if(SpawnLevel.numberOfLevels == 0 && !ClientController.isOn()) {
             level = new RandomLevel();
             Random random = new Random();
@@ -124,6 +125,11 @@ public class GameController extends Canvas implements Runnable{
 
         handleWindow();
     }
+
+    /**
+     * This method is responsible for handling the window components.
+     * It adds the buttons to the window and sets the title of the window.
+     */
     public void handleWindow() {
 
         GameController Game = this;
@@ -165,7 +171,7 @@ public class GameController extends Canvas implements Runnable{
                 showRecordingButton.setText("Stop Playing");
                 mouse.responsive = false;
                 keyboard.responsive = false;
-                synchronized (level) {
+                synchronized (levelCareTaker) {
                     levelCareTaker.addSnapshot(level.takeSnapshot());
                     level.restoreSnapshot(levelCareTaker.getNextSnapshot());
                 }
@@ -289,7 +295,7 @@ public class GameController extends Canvas implements Runnable{
                 timer += 1000;
 
 
-                jFrame.setTitle("FightEnemies | " + updates + " ups, " + frames + " fps - " + playerName + " | " + level.getPlayer().getCoins() + " coins Left" + level.getNumberOfCoins());
+                jFrame.setTitle("FightEnemies | " + updates + " ups, " + frames + " fps - " + playerName + " | " + level.getPlayer().getCoins() + "Dollars");
 
 
                 //reset the updates and frames
@@ -301,8 +307,9 @@ public class GameController extends Canvas implements Runnable{
     }
 
     private void handleWinning() {
-        System.out.println("You won");
         System.out.println("Congratulations " + playerName);
+        System.out.println("You won this level");
+        System.out.println();
         if (level instanceof SpawnLevel spawnLevel && !spawnLevel.hasNextLevel()) {
             System.out.println("You have finished the game");
             System.out.println("Congratulations " + playerName);
@@ -349,19 +356,19 @@ public class GameController extends Canvas implements Runnable{
     private void handleRecording() {
         if(recordingTimer % 300 == 0) {
             recordingTimer = 0;
-            if(levelCareTaker.getNumberOfSnapshots() < 2) {
-                synchronized (levelCareTaker) {
+
+            synchronized (levelCareTaker) {
+                if (levelCareTaker.getNumberOfSnapshots() < 2) {
                     levelCareTaker.addSnapshot(level.takeSnapshot());
-                }
-            } else {
-                synchronized (levelCareTaker) {
-                    levelCareTaker.removeOldSnapshot();
-                    levelCareTaker.addSnapshot(level.takeSnapshot());
-                    if (inputCareTaker.getNumberOfSnapshots() != 600) {
-                        System.out.println("You are not a genius the number of snapshots is " + inputCareTaker.getNumberOfSnapshots() );
+                } else {
+                    synchronized (levelCareTaker) {
+                        levelCareTaker.removeOldSnapshot();
+                        levelCareTaker.addSnapshot(level.takeSnapshot());
+                        if (inputCareTaker.getNumberOfSnapshots() != 600) {
+                            System.out.println("You are not a genius the number of snapshots is " + inputCareTaker.getNumberOfSnapshots());
+                        }
+                        inputCareTaker.removeOldSnapshots(300);
                     }
-                    else System.out.println("You are just a genius");
-                    inputCareTaker.removeOldSnapshots(300);
                 }
             }
 
@@ -378,10 +385,7 @@ public class GameController extends Canvas implements Runnable{
             InputSnapshot inputSnapshot = inputCareTaker.getNextSnapshot();
             mouse.restoreSnapshot(inputSnapshot.mouseSnapshot);
             keyboard.restoreSnapshot(inputSnapshot.keyboardSnapshot);
-//                        System.out.println("restoring");
         } else {
-
-
             showRecordingButton.setText("Play Recording");
             level.restoreSnapshot(levelCareTaker.getLastSnapshot());
             levelCareTaker.reset();
@@ -390,7 +394,6 @@ public class GameController extends Canvas implements Runnable{
             playingRecording = false;
             mouse.responsive = true;
             keyboard.responsive = true;
-
 
             keyboard.releaseAll();
             this.requestFocus(); //request focus for the game
@@ -408,7 +411,8 @@ public class GameController extends Canvas implements Runnable{
 
     int xDelta = 1, yDelta = 1;
     int time = 0;
-    public void render(  ) {time+= 2;
+    public void render() {
+        time+= 2;
 
         IPlayer player = level.getPlayer();
 
@@ -425,7 +429,7 @@ public class GameController extends Canvas implements Runnable{
 
 
 
-//        if(time % (60*50) == 0) {
+//        if(time % (60*50) == 0) { // Earthquake effect
 //            xDelta *= -1;
 //        }
 //        if((time + 30 * 50) % (60 * 50) == 0) {
@@ -434,49 +438,18 @@ public class GameController extends Canvas implements Runnable{
 
 
         level.render(xScroll + yDelta , yScroll + xDelta, screen);
-//        AnimatedTile animatedTile = new AnimatedTile((new Sprite(16, 16, 0x00FF00)));
-//        animatedTile.render(level.getPlayer().getX(), level.getPlayer().getY(), screen);
         level.renderMiniMap(screen, 0, 0);
-        for(int i = 0; i < pixels.length; i++) {
-            this.pixels[i] = screen.pixels[i]; //copy the pixels data from screen to the pixels array of the image object
-        }
+        //copy the pixels data from screen to the pixels array of the image object
+        System.arraycopy(screen.pixels, 0, this.pixels, 0, pixels.length);
 
         Graphics graphics = bufferStrategy.getDrawGraphics();
         graphics.drawImage(image, 0, 0, getWidth(), getHeight(), null);
         graphics.setColor(Color.black);
-        graphics.setFont(new Font("Verdana", Font.PLAIN, 50));
-        graphics.drawString("X: " + player.getX()/16 + ", Y: " + player.getY()/16, 450, 450);
-        graphics.drawString(mouse.getButton() + "", 80, 80);
+        graphics.setFont(new Font("Verdana", Font.PLAIN, 20));
+
+        graphics.drawString("Coins Left: " + level.getNumberOfCoins(), 150, 50);
 
 
-
-
-//        graphics.drawString("Health: " , 50, 50);
-//        for(int x = 0; x < 64; x++) {
-//            for(int y = 0; y < 64; y++) {
-//                int xp = x * 16 * 3;
-//                int yp = y * 16 * 3;
-//                xp -= xScroll * 3;
-//                yp -= yScroll * 3;
-//
-//                xp += 12;
-//                yp += 20;
-//
-//// Assuming graphics is your Graphics object
-//                Font currentFont = graphics.getFont(); // Get the current font
-//                int newSize = 10; // Set the new font size
-//                Font newFont = currentFont.deriveFont(Font.PLAIN, newSize); // Create a new font with the desired size
-//                graphics.setFont(newFont); // Set the graphics object's font to the new font
-//
-////// Now draw the string with the new font size
-////                if(RandomLevel.dsu != null)graphics.drawString(RandomLevel.dsu.getParent()[x + y * 64] + "", xp, yp);
-//
-//// Optionally, set the font back to the original size after drawing the string
-//                graphics.setFont(currentFont); // Set the graphics object's font back to the original font
-//
-//            }
-//        }
-        graphics.fillRect(mouse.getX() , mouse.getY(), 8, 8);
         graphics.dispose();
         bufferStrategy.show();
 
@@ -485,9 +458,6 @@ public class GameController extends Canvas implements Runnable{
 
     }
 
-    public static void main(String[] args) {
-        GameController Game = new GameController("SASA", new JFrame());
-    }
 
     public Level getLevel() {
         return level;
@@ -497,8 +467,6 @@ public class GameController extends Canvas implements Runnable{
     void handlePauseRecording() {
 
         showRecordingButton.setText("Play Recording");
-//            level.restoreSnapshot(levelCareTaker.getLastSnapshot());
-//            levelCareTaker.reset();
         paused = false;
         level.restoreSnapshot(levelCareTaker.getLastSnapshot());
         recordingTimer = 0;

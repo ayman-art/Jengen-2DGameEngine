@@ -167,7 +167,8 @@ public class Chaser extends Mob {
         double dx = currentEnemy.getX() - this.x;
         double dy = currentEnemy.getY() - this.y;
 
-        if (dx * dx + dy * dy > Mob.SHOOTING_RANGE * Mob.SHOOTING_RANGE) return;
+        if (dx * dx + dy * dy > Mob.SHOOTING_RANGE * Mob.SHOOTING_RANGE)
+            return;
         double dir = Math.atan2(dy, dx);
         shoot(x, y, dir);
 

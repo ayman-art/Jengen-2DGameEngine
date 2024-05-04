@@ -11,7 +11,7 @@ public class Launch {
             .setHeight(300 * 8 / 12)
             .setScaleFactor(3)
             .setMiniMapAlpha(100) // Optional (determines the transparency of the minimap)
-            .setAboutText("This is A Fighting Game using most of the features provided the Jengen Game Engine") // Optional (determines the about text)
+            .setAboutText("This is A Fighting Game using most of the features provided by the Jengen Game Engine")
             .build();
 
     // Setting the AIContext
@@ -36,16 +36,16 @@ public class Launch {
             .setFireInterval(10) // (determines the fire interval of the projectile which is the time between each fire)
             .build();
 
-//    static ILevelContext levelContext = new RandomLevelContext.Builder()
-//                .setSize(30, 17)
-//                .build();
+    static ILevelContext levelContext = new RandomLevelContext.Builder()
+                .setSize(30, 17)
+                .build();
 
 
-    static ILevelContext levelContext = new SpawnLevelContext.Builder()
-            .setNumberOfLevels(2)
-            .setPath("C:\\Users\\ayman\\Desktop\\FightLevels")
-            .setLevelExtension("png")
-            .build();
+//    static ILevelContext levelContext = new SpawnLevelContext.Builder()
+//            .setNumberOfLevels(2)
+//            .setPath("C:\\Users\\ayman\\Desktop\\FightLevels")
+//            .setLevelExtension("png")
+//            .build();
     static WinnigStateContext winningStateContext = new WinnigStateContext.Builder()
             .setType(WinnigStateContext.WinningStateType.CollectAllCoins) // (determines the type of the winning state)
             .build();
