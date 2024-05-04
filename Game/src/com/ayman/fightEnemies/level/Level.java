@@ -601,4 +601,8 @@ public abstract class Level {
     public boolean playerLost() {
         return getPlayer().getHealth() == 0;
     }
+
+    public int[] getTiles() {
+        return tiles;
+    }
 }
