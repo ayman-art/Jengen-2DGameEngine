@@ -296,7 +296,7 @@ public class GameController extends Canvas implements Runnable{
                 timer += 1000;
 
 
-                jFrame.setTitle("FightEnemies | " + updates + " ups, " + frames + " fps - " + playerName + " | " + level.getPlayer().getCoins() + "Dollars");
+                jFrame.setTitle("FightEnemies | " + updates + " ups, " + frames + " fps - " + playerName + " | " + level.getPlayer().getCoins() + " Dollars");
 
 
                 //reset the updates and frames

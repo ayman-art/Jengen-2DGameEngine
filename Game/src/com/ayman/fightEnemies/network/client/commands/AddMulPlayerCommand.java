@@ -1,5 +1,6 @@
 package com.ayman.fightEnemies.network.client.commands;
 
+import com.ayman.fightEnemies.Graphics.Sprite;
 import com.ayman.fightEnemies.entity.mob.Player;
 import com.ayman.fightEnemies.level.tile.Tile;
 import com.ayman.fightEnemies.network.client.GameClient;
@@ -21,7 +22,7 @@ public class AddMulPlayerCommand extends ClientCommand{
     public void execute() {
         synchronized(this.gameClient.getGame().getLevel()) {
             if(this.gameClient.getGame().getLevel().getPlayer(name) == null) {
-                this.gameClient.getGame().getLevel().add(new Player(name, 3 * Tile.TILE_SIZE, 10 * Tile.TILE_SIZE, null, null));
+                this.gameClient.getGame().getLevel().add(new Player(name, 3 * Sprite.TILE_SIZE, 10 * Sprite.TILE_SIZE, null, null));
         }
         this.gameClient.sendData("A" + this.gameClient.getUUID() + " " + name);
     }

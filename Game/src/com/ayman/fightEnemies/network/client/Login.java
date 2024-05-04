@@ -1,5 +1,6 @@
 package com.ayman.fightEnemies.network.client;
 
+import com.ayman.fightEnemies.Graphics.Sprite;
 import com.ayman.fightEnemies.entity.projectile.WizardProjectile;
 import com.ayman.fightEnemies.level.SpawnLevel;
 import com.ayman.fightEnemies.network.client.controller.ClientController;
@@ -40,7 +41,7 @@ public class Login extends JFrame {
         contentPanel.setLayout(null);
 
         JLabel lblName = new JLabel("Name:");
-        lblName.setBounds(127, 34, 45, 16);
+        lblName.setBounds(127, 34, 45, Sprite.TILE_SIZE);
         contentPanel.add(lblName);
 
         txtName = new JTextField();
@@ -50,7 +51,7 @@ public class Login extends JFrame {
 
 
         JLabel lblIpAddress = new JLabel("IP Address of the GameController Server you want to connect to:");
-        lblIpAddress.setBounds(20, 96, 300, 16);
+        lblIpAddress.setBounds(20, 96, 300, Sprite.TILE_SIZE);
         contentPanel.add(lblIpAddress);
 
         txtAddress = new JTextField();
@@ -60,11 +61,11 @@ public class Login extends JFrame {
         txtAddress.setText("localhost");
 
         JLabel lblAddressDesc = new JLabel("(eg. 192.168.1.2)");
-        lblAddressDesc.setBounds(100, 142, 112, 16);
+        lblAddressDesc.setBounds(100, 142, 112, Sprite.TILE_SIZE);
 
         contentPanel.add(lblAddressDesc);
         JLabel lblPort = new JLabel("Server Port:");
-        lblPort.setBounds(113, 171, 70, 16);
+        lblPort.setBounds(113, 171, 70, Sprite.TILE_SIZE);
         contentPanel.add(lblPort);
 
         txtPort = new JTextField();
@@ -75,7 +76,7 @@ public class Login extends JFrame {
 
 
         JLabel lblPortDesc = new JLabel("(eg. 8192)");
-        lblPortDesc.setBounds(116, 218, 68, 16);
+        lblPortDesc.setBounds(116, 218, 68, Sprite.TILE_SIZE);
         contentPanel.add(lblPortDesc);
 
         JButton btnLogin = new JButton("Login");

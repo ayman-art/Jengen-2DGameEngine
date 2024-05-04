@@ -11,6 +11,8 @@ import java.util.Arrays;
 public class Sprite {
 
     public final int SIZE;
+
+    public static final int TILE_SIZE = 16;
     private final int width;
     private final int height;
     public int x, y;
@@ -18,19 +20,19 @@ public class Sprite {
 
     protected SpriteSheet sheet; //The sheet that contains the sprite
 
-    public static Sprite sky = new Sprite(Tile.TILE_SIZE, 0, 0, SpriteSheet.tiles);
-    public static Sprite bird = new Sprite(Tile.TILE_SIZE, 1, 0, SpriteSheet.tiles);
-    public static Sprite grass = new Sprite(Tile.TILE_SIZE, 2, 0, SpriteSheet.tiles);
-    public static Sprite flower = new Sprite(Tile.TILE_SIZE, 3, 0, SpriteSheet.tiles);
-    public static Sprite rock = new Sprite(Tile.TILE_SIZE, 4, 0, SpriteSheet.tiles);
-    public static Sprite water = new Sprite(Tile.TILE_SIZE, 5, 0, SpriteSheet.tiles);
-    public static Sprite brick = new Sprite(Tile.TILE_SIZE, 6, 0, SpriteSheet.tiles);
-    public static Sprite wood = new Sprite(Tile.TILE_SIZE, 7, 0, SpriteSheet.tiles);
+    public static Sprite sky = new Sprite(TILE_SIZE, 0, 0, SpriteSheet.tiles);
+    public static Sprite bird = new Sprite(TILE_SIZE, 1, 0, SpriteSheet.tiles);
+    public static Sprite grass = new Sprite(TILE_SIZE, 2, 0, SpriteSheet.tiles);
+    public static Sprite flower = new Sprite(TILE_SIZE, 3, 0, SpriteSheet.tiles);
+    public static Sprite rock = new Sprite(TILE_SIZE, 4, 0, SpriteSheet.tiles);
+    public static Sprite water = new Sprite(TILE_SIZE, 5, 0, SpriteSheet.tiles);
+    public static Sprite brick = new Sprite(TILE_SIZE, 6, 0, SpriteSheet.tiles);
+    public static Sprite wood = new Sprite(TILE_SIZE, 7, 0, SpriteSheet.tiles);
 
-    public static Sprite wizardProjectile = new Sprite(Tile.TILE_SIZE, 8, 0, SpriteSheet.tiles);
+    public static Sprite wizardProjectile = new Sprite(TILE_SIZE, 8, 0, SpriteSheet.tiles);
 
     public static Sprite basicParticle = new Sprite(3, 0xAAAAAA);
-    public static Sprite voidSprite = new Sprite(Tile.TILE_SIZE, Color.GRAY.getRGB());
+    public static Sprite voidSprite = new Sprite(TILE_SIZE, Color.GRAY.getRGB());
 
 
 

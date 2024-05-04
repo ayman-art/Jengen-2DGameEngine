@@ -202,10 +202,10 @@ public class Screen {
     private int blendColors(int foregroundColor, int backgroundColor, int alpha) {
         if(backgroundColor == 0xffff00ff) return foregroundColor;
         if(foregroundColor == 0xffff00ff) return backgroundColor;
-        int blendedRed = ((foregroundColor >> 16) & 0xFF) * alpha / 255 + ((backgroundColor >> 16) & 0xFF) * (255 - alpha) / 255;
+        int blendedRed = ((foregroundColor >> Tile.TILE_SIZE) & 0xFF) * alpha / 255 + ((backgroundColor >> Tile.TILE_SIZE) & 0xFF) * (255 - alpha) / 255;
         int blendedGreen = ((foregroundColor >> 8) & 0xFF) * alpha / 255 + ((backgroundColor >> 8) & 0xFF) * (255 - alpha) / 255;
         int blendedBlue = (foregroundColor & 0xFF) * alpha / 255 + (backgroundColor & 0xFF) * (255 - alpha) / 255;
-        return (blendedRed << 16) | (blendedGreen << 8) | blendedBlue;
+        return (blendedRed << Tile.TILE_SIZE) | (blendedGreen << 8) | blendedBlue;
     }
 }
 

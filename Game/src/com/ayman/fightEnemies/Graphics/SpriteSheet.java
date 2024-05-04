@@ -7,6 +7,8 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Objects;
 
+import  com.ayman.fightEnemies.Graphics.Screen;
+
 /**
  *
  */
@@ -34,11 +36,11 @@ public class SpriteSheet {
             tiles = new SpriteSheet("/Sheets/spritesheet.png", 256);
             currentLevel = new SpriteSheet("/Sheets/level1.png", 256);
 
-            player = new SpriteSheet(tiles, 0, 2, 3, 3, Tile.TILE_SIZE);
-            player_up = new SpriteSheet(player, 0, 0, 1, 3, Tile.TILE_SIZE);
-            player_right = new SpriteSheet(player, 1, 0, 1, 3, Tile.TILE_SIZE);
+            player = new SpriteSheet(tiles, 0, 2, 3, 3, Sprite.TILE_SIZE);
+            player_up = new SpriteSheet(player, 0, 0, 1, 3, Sprite.TILE_SIZE);
+            player_right = new SpriteSheet(player, 1, 0, 1, 3, Sprite.TILE_SIZE);
             player_left = player_right.flippedCopy(); //flipped horizontally
-            player_down = new SpriteSheet(player, 2, 0, 1, 3, Tile.TILE_SIZE);
+            player_down = new SpriteSheet(player, 2, 0, 1, 3, Sprite.TILE_SIZE);
 
 
 
@@ -68,9 +70,7 @@ public class SpriteSheet {
             this.WIDTH = spriteSheet.WIDTH;
             this.HEIGHT = spriteSheet.HEIGHT;
             this.pixels = new int[WIDTH * HEIGHT];
-            for(int i = 0; i < spriteSheet.pixels.length; i++) {
-                this.pixels[i] = spriteSheet.pixels[i];
-            }
+        System.arraycopy(spriteSheet.pixels, 0, this.pixels, 0, spriteSheet.pixels.length);
 
 
     }

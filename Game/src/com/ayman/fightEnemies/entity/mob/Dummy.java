@@ -2,6 +2,7 @@ package com.ayman.fightEnemies.entity.mob;
 
 import com.ayman.fightEnemies.Graphics.AnimatedSprite;
 import com.ayman.fightEnemies.Graphics.Screen;
+import com.ayman.fightEnemies.Graphics.Sprite;
 import com.ayman.fightEnemies.Graphics.SpriteSheet;
 import com.ayman.fightEnemies.level.tile.Tile;
 
@@ -72,7 +73,7 @@ public class Dummy extends Mob{
             currentAnimatedSprite.restart();
         }
 
-        if(level.tileCollision(this.x + xa, this.y + ya, Tile.TILE_SIZE, 0,0)) {
+        if(level.tileCollision(this.x + xa, this.y + ya, Sprite.TILE_SIZE, 0,0)) {
             direction = Direction.NONE;
             return;
         }

@@ -55,15 +55,15 @@ public abstract class Mob extends Entity implements IMob, Cloneable {
     public abstract void render(Screen screen);
 
     public void renderHealth(Screen screen) {
-        int x = this.x - Tile.TILE_SIZE;
-        int y = this.y - Tile.TILE_SIZE;
+        int x = this.x - Sprite.TILE_SIZE;
+        int y = this.y - Sprite.TILE_SIZE;
         screen.renderHealthBar(x, y, health);
     }
 
     public boolean collision(int xa, int ya) {
         boolean solid = false;
-        int width = Tile.TILE_SIZE; //the width of the Mob collision box
-        int height = Tile.TILE_SIZE; //the height of the Mob collision box
+        int width = Sprite.TILE_SIZE; //the width of the Mob collision box
+        int height = Sprite.TILE_SIZE; //the height of the Mob collision box
         int offSetX = 0; //the offset of the collision box from the Center of the Mob
         int offSetY = 0; //the offset of the collision box from the Center of the Mob
         for(int c = 0; c < 4; c++) {
@@ -98,7 +98,7 @@ public abstract class Mob extends Entity implements IMob, Cloneable {
 
 
     private boolean collisionEntire(int xa, int ya) {
-        int size = Tile.TILE_SIZE; //the size of the sprite
+        int size = Sprite.TILE_SIZE; //the size of the sprite
         int[][] corners = new int[][]{ //the corners of the sprite
                 {-size, -size}, {size - 1, -size}, {-size, size - 1}, {size - 1, size - 1},
                 {0, size - 1}, {0, -size}, {-size, 0}, {size - 1, 0}

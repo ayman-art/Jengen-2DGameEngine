@@ -40,7 +40,7 @@ public abstract class Effect extends Entity {
     }
 
     static AnimatedSprite loadAnimations(int x, int y) {
-        Sprite s1 = new Sprite(Tile.TILE_SIZE, x, y, SpriteSheet.tiles);
+        Sprite s1 = new Sprite(Sprite.TILE_SIZE, x, y, SpriteSheet.tiles);
         Sprite s2 = s1.shift(0, 2);
         Sprite s3 = s1.shift(0, 0);
         Sprite s4 = s1.shift(0, -2);
@@ -60,7 +60,7 @@ public abstract class Effect extends Entity {
     }
 
     public void render(Screen screen) {
-        screen.renderSprite(position.getX() * Tile.TILE_SIZE, position.getY() * Tile.TILE_SIZE, sprite.getCurrentSPrite(), false);
+        screen.renderSprite(position.getX() * Sprite.TILE_SIZE, position.getY() * Sprite.TILE_SIZE, sprite.getCurrentSPrite(), false);
     }
 
     public Vector2i getPosition() {

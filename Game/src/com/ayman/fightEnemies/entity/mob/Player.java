@@ -3,6 +3,7 @@ package com.ayman.fightEnemies.entity.mob;
 import com.ayman.fightEnemies.GameController;
 import com.ayman.fightEnemies.Graphics.AnimatedSprite;
 import com.ayman.fightEnemies.Graphics.Screen;
+import com.ayman.fightEnemies.Graphics.Sprite;
 import com.ayman.fightEnemies.Graphics.SpriteSheet;
 import com.ayman.fightEnemies.Input.Keyboard;
 import com.ayman.fightEnemies.Input.Mouse;
@@ -93,7 +94,7 @@ public class Player extends Mob implements IPlayer {
             moving = true;
             int maxXa = 0, maxYa = 0;
 
-            int width = Tile.TILE_SIZE, height = Tile.TILE_SIZE;
+            int width = Sprite.TILE_SIZE, height = Sprite.TILE_SIZE;
             int speed = getSpeed();
             if (xa != 0) {
                 while(!collision(maxXa + width * xa, 0) && Math.abs(maxXa + width * xa) <= speed)
@@ -173,12 +174,12 @@ public class Player extends Mob implements IPlayer {
 
                         int xProjectile = projectile.getX() + 8;
                         int yProjectile = projectile.getY() + 8;
-                        if(level.isInside(xProjectile, yProjectile, otherMob.getX(), otherMob.getY(), Tile.TILE_SIZE)
-                                || level.isInside(xProjectile, yProjectile, otherMob.getX() + Tile.TILE_SIZE, otherMob.getY(), Tile.TILE_SIZE)
-                                || level.isInside(xProjectile + Tile.TILE_SIZE, yProjectile, otherMob.getX(), otherMob.getY(), Tile.TILE_SIZE)
-                                || level.isInside(xProjectile, yProjectile + Tile.TILE_SIZE, otherMob.getX(), otherMob.getY(), Tile.TILE_SIZE)
-                                || level.isInside(xProjectile + Tile.TILE_SIZE, yProjectile + Tile.TILE_SIZE, otherMob.getX(), otherMob.getY(), Tile.TILE_SIZE)
-                                || level.isInside(xProjectile + 8, yProjectile + 8, otherMob.getX(), otherMob.getY(), Tile.TILE_SIZE)) {
+                        if(level.isInside(xProjectile, yProjectile, otherMob.getX(), otherMob.getY(), Sprite.TILE_SIZE)
+                                || level.isInside(xProjectile, yProjectile, otherMob.getX() + Sprite.TILE_SIZE, otherMob.getY(), Sprite.TILE_SIZE)
+                                || level.isInside(xProjectile + Sprite.TILE_SIZE, yProjectile, otherMob.getX(), otherMob.getY(), Sprite.TILE_SIZE)
+                                || level.isInside(xProjectile, yProjectile + Sprite.TILE_SIZE, otherMob.getX(), otherMob.getY(), Sprite.TILE_SIZE)
+                                || level.isInside(xProjectile + Sprite.TILE_SIZE, yProjectile + Sprite.TILE_SIZE, otherMob.getX(), otherMob.getY(), Sprite.TILE_SIZE)
+                                || level.isInside(xProjectile + 8, yProjectile + 8, otherMob.getX(), otherMob.getY(), Sprite.TILE_SIZE)) {
 
                             projectile.remove();
 

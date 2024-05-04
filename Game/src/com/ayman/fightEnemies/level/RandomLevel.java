@@ -1,6 +1,7 @@
 package com.ayman.fightEnemies.level;
 
 import com.ayman.fightEnemies.GameController;
+import com.ayman.fightEnemies.Graphics.Sprite;
 import com.ayman.fightEnemies.entity.IEntity;
 import com.ayman.fightEnemies.entity.mob.Chaser;
 import com.ayman.fightEnemies.entity.mob.Dummy;
@@ -345,7 +346,7 @@ public class RandomLevel extends Level {
             return true;
         for(IEntity entity : mobs) {
             if(entity instanceof IMob mob) {
-                if(mob.getX()/Tile.TILE_SIZE == x && mob.getY()/Tile.TILE_SIZE == y)
+                if(mob.getX()/ Sprite.TILE_SIZE == x && mob.getY()/Sprite.TILE_SIZE == y)
                     return true;
             }
         }

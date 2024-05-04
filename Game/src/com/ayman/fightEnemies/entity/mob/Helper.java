@@ -1,5 +1,6 @@
 package com.ayman.fightEnemies.entity.mob;
 
+import com.ayman.fightEnemies.Graphics.Sprite;
 import com.ayman.fightEnemies.entity.mob.decoratedPlayer.DecoratedPlayer;
 import com.ayman.fightEnemies.level.tile.Tile;
 import com.ayman.fightEnemies.util.Vector2i;
@@ -14,7 +15,7 @@ public class Helper extends Chaser {
 
 
     public Helper(Player player) {
-        super(player.getX() / Tile.TILE_SIZE, player.getY() / Tile.TILE_SIZE);
+        super(player.getX() / Sprite.TILE_SIZE, player.getY() / Sprite.TILE_SIZE);
         this.player = player;
     }
 
@@ -64,11 +65,11 @@ public class Helper extends Chaser {
         if(currentEnemy instanceof IPlayer player && !player.isVisible()) {
             return;
         }
-        if(x !=vec.getX() * Tile.TILE_SIZE || y != vec.getY() * Tile.TILE_SIZE){
-            if(x < vec.getX() * Tile.TILE_SIZE) xa++;
-            if(x > vec.getX() * Tile.TILE_SIZE) xa--;
-            if(y < vec.getY() * Tile.TILE_SIZE) ya++;
-            if(y > vec.getY() * Tile.TILE_SIZE) ya--;
+        if(x !=vec.getX() * Sprite.TILE_SIZE || y != vec.getY() * Sprite.TILE_SIZE){
+            if(x < vec.getX() * Sprite.TILE_SIZE) xa++;
+            if(x > vec.getX() * Sprite.TILE_SIZE) xa--;
+            if(y < vec.getY() * Sprite.TILE_SIZE) ya++;
+            if(y > vec.getY() * Sprite.TILE_SIZE) ya--;
 
         } else {
 
@@ -83,10 +84,10 @@ public class Helper extends Chaser {
 
                 vec = path.get(0).tileCoordinate;
 
-                if (x / Tile.TILE_SIZE < vec.getX()) xa++;
-                if (x / Tile.TILE_SIZE > vec.getX()) xa--;
-                if (y / Tile.TILE_SIZE < vec.getY()) ya++;
-                if (y / Tile.TILE_SIZE > vec.getY()) ya--;
+                if (x / Sprite.TILE_SIZE < vec.getX()) xa++;
+                if (x / Sprite.TILE_SIZE > vec.getX()) xa--;
+                if (y / Sprite.TILE_SIZE < vec.getY()) ya++;
+                if (y / Sprite.TILE_SIZE > vec.getY()) ya--;
 
             }
         }
