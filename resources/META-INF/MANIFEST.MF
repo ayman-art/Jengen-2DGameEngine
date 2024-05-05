@@ -1,3 +1,3 @@
 Manifest-Version: 1.0
-Main-Class: com.ayman.jengen.network.client.Login
+Main-Class: Launch
 

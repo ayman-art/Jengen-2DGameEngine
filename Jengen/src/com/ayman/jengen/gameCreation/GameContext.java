@@ -1,13 +1,13 @@
-package com.ayman.jengen.game;
+package com.ayman.jengen.gameCreation;
 
-import com.ayman.jengen.game.contexts.*;
-import com.ayman.jengen.game.contexts.levelcontexts.ILevelContext;
+import com.ayman.jengen.gameCreation.contexts.*;
+import com.ayman.jengen.gameCreation.contexts.levelcontexts.ILevelContext;
 
 /**
  * Game is a class that holds the context of the game required by the engine to prduce the game.
 
  */
-public class Game {
+public class GameContext {
 
     private final GUIContext guiContext;
     private final ILevelContext levelContext;
@@ -17,7 +17,7 @@ public class Game {
     private final AIContext aiContext;
     private final WinnigStateContext winnigStateContext;
 
-    private Game(Builder builder) {
+    private GameContext(Builder builder) {
         this.guiContext = builder.GUIContext;
         this.levelContext = builder.levelContext;
         this.playerContext = builder.playerContext;
@@ -97,8 +97,8 @@ public class Game {
         }
 
 
-        public Game build() {
-            return new Game(this);
+        public GameContext build() {
+            return new GameContext(this);
         }
     }
 }

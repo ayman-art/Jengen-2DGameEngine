@@ -19,10 +19,17 @@ public class SpriteSheet {
 
     public static SpriteSheet tiles, currentLevel;
     public static SpriteSheet player;
+    public static SpriteSheet enemy;
     public static SpriteSheet player_down;
     public static SpriteSheet player_up;
     public static SpriteSheet player_left;
     public static SpriteSheet player_right;
+
+    public static SpriteSheet enemy_down;
+    public static SpriteSheet enemy_up;
+    public static SpriteSheet enemy_left;
+    public static SpriteSheet enemy_right;
+
 
 
 
@@ -37,6 +44,14 @@ public class SpriteSheet {
             player_right = new SpriteSheet(player, 1, 0, 1, 3, Sprite.TILE_SIZE);
             player_left = player_right.flippedCopy(); //flipped horizontally
             player_down = new SpriteSheet(player, 2, 0, 1, 3, Sprite.TILE_SIZE);
+
+            enemy = new SpriteSheet(tiles, 3, 2, 3, 3, Sprite.TILE_SIZE);
+            enemy_up = new SpriteSheet(enemy, 0, 0, 1, 3, Sprite.TILE_SIZE);
+            enemy_right = new SpriteSheet(enemy, 1, 0, 1, 3, Sprite.TILE_SIZE);
+            enemy_left = enemy_right.flippedCopy(); //flipped horizontally
+            enemy_down = new SpriteSheet(enemy, 2, 0, 1, 3, Sprite.TILE_SIZE);
+
+
 
 
 

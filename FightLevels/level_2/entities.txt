@@ -2,5 +2,5 @@ Player 1 1
 Chaser 4 3
 Dummy 10 3
 HealthEffect 4 4
-Dummy 50 53
+Dummy 10 10
 CoinEffect 10 11

@@ -1,6 +1,8 @@
 package com.ayman.jengen.entity.mob;
 
+import com.ayman.jengen.Graphics.AnimatedSprite;
 import com.ayman.jengen.Graphics.Sprite;
+import com.ayman.jengen.Graphics.SpriteSheet;
 import com.ayman.jengen.entity.mob.decoratedPlayer.DecoratedPlayer;
 import com.ayman.jengen.util.Vector2i;
 
@@ -9,6 +11,12 @@ import com.ayman.jengen.util.Vector2i;
 
  */
 public class Helper extends Chaser {
+
+
+    private final AnimatedSprite down = new AnimatedSprite(SpriteSheet.player_down, 3);
+    private final AnimatedSprite up = new AnimatedSprite(SpriteSheet.player_up, 3);
+    private final AnimatedSprite left = new AnimatedSprite(SpriteSheet.player_left, 3);
+    private final AnimatedSprite right = new AnimatedSprite(SpriteSheet.player_right, 3);
 
     private final Player player;
 

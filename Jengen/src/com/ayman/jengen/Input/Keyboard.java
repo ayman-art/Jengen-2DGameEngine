@@ -41,12 +41,19 @@ public class Keyboard implements KeyListener {
     @Override
     public void keyTyped(KeyEvent e) {
 
+        if(e.getKeyCode() >= 200) {
+            return;
+        }
         keys[e.getKeyCode()] = true;
 
     }
 
     @Override
     public void keyPressed(KeyEvent e) {
+
+        if(e.getKeyCode() >= 200) {
+            return;
+        }
 
         keys[e.getKeyCode()] = true;
         if(e.getKeyCode() == KeyEvent.VK_S) {
@@ -58,6 +65,10 @@ public class Keyboard implements KeyListener {
 
     @Override
     public void keyReleased(KeyEvent e) {
+
+        if(e.getKeyCode() >= 200) {
+            return;
+        }
 
         keys[e.getKeyCode()] = false;
     }

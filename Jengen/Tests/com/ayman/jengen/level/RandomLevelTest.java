@@ -13,8 +13,8 @@ class RandomLevelTest {
     int height;
     @Test
     void testRandomLevel() {
-        width = 100;
-        height = 100;
+        width = 40;
+        height = 20;
     }
 
     @AfterEach

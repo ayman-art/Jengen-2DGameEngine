@@ -316,7 +316,7 @@ public abstract class Level {
         PriorityQueue<Node> frontier = switch (GameController.aiType) {
             case AStar -> new PriorityQueue<>(Comparator.comparingDouble(Node::getF));
             case Dijkstra -> new PriorityQueue<>(Comparator.comparingDouble(Node::getG));
-            case DStar -> new PriorityQueue<>(Comparator.comparingDouble(Node::getH));
+            case GFS -> new PriorityQueue<>(Comparator.comparingDouble(Node::getH));
         };
         //init
         Node startNode = new Node(start, null, 0, start.distanceTo(goal));
@@ -381,7 +381,7 @@ public abstract class Level {
         PriorityQueue<Node> frontier = switch (GameController.aiType) {
             case AStar -> new PriorityQueue<>(Comparator.comparingDouble(Node::getF));
             case Dijkstra -> new PriorityQueue<>(Comparator.comparingDouble(Node::getG));
-            case DStar -> new PriorityQueue<>(Comparator.comparingDouble(Node::getH));
+            case GFS -> new PriorityQueue<>(Comparator.comparingDouble(Node::getH));
         };
         Set<Vector2i> visited = new TreeSet<>(Comparator.comparing(Vector2i::getX).thenComparing(Vector2i::getY));
         Map<Vector2i, Integer> costSoFar = new TreeMap<>(Comparator.comparing(Vector2i::getX).thenComparing(Vector2i::getY));
@@ -487,7 +487,7 @@ public abstract class Level {
 
         screen.renderSprite(0, 0, new Sprite(tiles, width, height), true, 100);
         for(int i2 = 0; i2 < mobs.size(); i2++) {
-            screen.renderPixel(mobs.get(i2).getX() / Sprite.TILE_SIZE, mobs.get(i2).getY() / Sprite.TILE_SIZE, 0xff0000, 3, true, alpha);
+            screen.renderPixel(mobs.get(i2).getX() / Sprite.TILE_SIZE, mobs.get(i2).getY() / Sprite.TILE_SIZE, 0xff0000, 2, true, alpha);
             if(mobs.get(i2) instanceof IPlayer player) {
                 screen.renderPixel(player.getX() / Sprite.TILE_SIZE, player.getY() / Sprite.TILE_SIZE, 0x0000ff, 3, true, alpha);
             }

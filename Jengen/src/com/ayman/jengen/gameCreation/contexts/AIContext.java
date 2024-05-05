@@ -1,8 +1,8 @@
-package com.ayman.jengen.game.contexts;
+package com.ayman.jengen.gameCreation.contexts;
 
 /**
  * AIContext is a class that holds the context of the AI.
- * It has a type that can be Dijkstra, AStar, or DStar for Finding Path Algorithms.
+ * It has a type that can be Dijkstra, AStar, or GFS for Finding Path Algorithms.
 
  */
 public class AIContext extends Context{
@@ -12,7 +12,7 @@ public class AIContext extends Context{
     public enum AIType {
         Dijkstra,
         AStar,
-        DStar
+        GFS
     };
 
 

@@ -42,7 +42,6 @@ public class Sound {
     public static Clip loadSound(String resourcePath) {
         Clip clip;
         try {
-            System.out.println("Loading sound");
             clip = AudioSystem.getClip();
         } catch (LineUnavailableException e) {
             throw new RuntimeException(e);
@@ -52,7 +51,6 @@ public class Sound {
         } catch (LineUnavailableException | UnsupportedAudioFileException | IOException e) {
             throw new RuntimeException(e);
         }
-        System.out.println("Done");
         return clip;
     }
 }

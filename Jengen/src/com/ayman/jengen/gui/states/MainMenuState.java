@@ -76,7 +76,7 @@ public class MainMenuState implements GuiState {
             @Override
             public void mouseClicked(MouseEvent e) {
                 // Open the URL when the JLabel is clicked
-                openURL("https://github.com/ayman-art/Fight-Enemies");
+                openURL("https://github.com/ayman-art/Jengen-2DGameEngine");
             }
         });
 

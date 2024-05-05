@@ -7,7 +7,8 @@ import com.ayman.jengen.Input.Mouse;
 import com.ayman.jengen.audio.Sound;
 import com.ayman.jengen.entity.mob.IPlayer;
 import com.ayman.jengen.entity.mob.Player;
-import com.ayman.jengen.game.contexts.AIContext;
+import com.ayman.jengen.gameCreation.GameContext;
+import com.ayman.jengen.gameCreation.contexts.AIContext;
 import com.ayman.jengen.gui.AppFrame;
 import com.ayman.jengen.level.Level;
 import com.ayman.jengen.level.RandomLevel;
@@ -76,14 +77,14 @@ public class GameController extends Canvas implements Runnable{
 
 
     public static String playerName ;
-    public static AIContext.AIType aiType = AIContext.AIType.DStar;
+    public static AIContext.AIType aiType = AIContext.AIType.GFS;
 
     private final LevelCareTaker levelCareTaker = new LevelCareTaker();
     private final InputCareTaker inputCareTaker = new InputCareTaker();
 
 
-    public GameController(com.ayman.jengen.game.Game game) {
-        this(game.getPlayerContext().getName(), new JFrame());
+    public GameController(GameContext gameContext) {
+        this(gameContext.getPlayerContext().getName(), new JFrame());
     }
 
     public GameController(String playerName, JFrame jFrame) {

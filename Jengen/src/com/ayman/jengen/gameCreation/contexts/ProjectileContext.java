@@ -1,4 +1,4 @@
-package com.ayman.jengen.game.contexts;
+package com.ayman.jengen.gameCreation.contexts;
 
 /**
  * ProjectileContext is a class that holds the context of the Projectile.

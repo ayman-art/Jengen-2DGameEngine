@@ -19,10 +19,10 @@ import java.util.Set;
 public class Chaser extends Mob {
 
 
-    protected AnimatedSprite up = new AnimatedSprite(SpriteSheet.player_up, 3);
-    protected AnimatedSprite down = new AnimatedSprite(SpriteSheet.player_down, 3);
-    protected AnimatedSprite left = new AnimatedSprite(SpriteSheet.player_left, 3);
-    protected AnimatedSprite right = new AnimatedSprite(SpriteSheet.player_right, 3);
+    protected AnimatedSprite up = new AnimatedSprite(SpriteSheet.enemy_up, 3);
+    protected AnimatedSprite down = new AnimatedSprite(SpriteSheet.enemy_down, 3);
+    protected AnimatedSprite left = new AnimatedSprite(SpriteSheet.enemy_left, 3);
+    protected AnimatedSprite right = new AnimatedSprite(SpriteSheet.enemy_right, 3);
 
     protected int fireInterval = WizardProjectile.FIRE_INTERVAL;
 

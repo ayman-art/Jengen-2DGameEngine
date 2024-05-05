@@ -1,13 +1,13 @@
-package com.ayman.jengen.game;
+package com.ayman.jengen.gameCreation;
 
 import com.ayman.jengen.GameController;
 import com.ayman.jengen.Graphics.Screen;
 import com.ayman.jengen.entity.mob.Mob;
 import com.ayman.jengen.entity.projectile.WizardProjectile;
-import com.ayman.jengen.game.contexts.*;
-import com.ayman.jengen.game.contexts.levelcontexts.ILevelContext;
-import com.ayman.jengen.game.contexts.levelcontexts.RandomLevelContext;
-import com.ayman.jengen.game.contexts.levelcontexts.SpawnLevelContext;
+import com.ayman.jengen.gameCreation.contexts.*;
+import com.ayman.jengen.gameCreation.contexts.levelcontexts.ILevelContext;
+import com.ayman.jengen.gameCreation.contexts.levelcontexts.RandomLevelContext;
+import com.ayman.jengen.gameCreation.contexts.levelcontexts.SpawnLevelContext;
 import com.ayman.jengen.gui.AppFrame;
 import com.ayman.jengen.gui.states.AboutState;
 import com.ayman.jengen.level.Level;
@@ -22,20 +22,20 @@ import com.ayman.jengen.level.winning.TargetReached;
 
 public class Jengen {
 
-    private final Game game;
+    private final GameContext gameContext;
 
-    public Jengen(Game game){
-        this.game = game;
+    public Jengen(GameContext gameContext){
+        this.gameContext = gameContext;
     }
 
     public void start(){
-        processGUI(game.getGuiContext());
-        processPlayer(game.getPlayerContext());
-        processProjectiles(game.getProjectileContext());
-        processAI(game.getAiContext());
-        processLevel(game.getLevelContext());
-        processWinningState(game.getWinnigStateContext());
-        processScreenContext(game.getScreenContext());
+        processGUI(gameContext.getGuiContext());
+        processPlayer(gameContext.getPlayerContext());
+        processProjectiles(gameContext.getProjectileContext());
+        processAI(gameContext.getAiContext());
+        processLevel(gameContext.getLevelContext());
+        processWinningState(gameContext.getWinnigStateContext());
+        processScreenContext(gameContext.getScreenContext());
 
         AppFrame.getInstance();
     }

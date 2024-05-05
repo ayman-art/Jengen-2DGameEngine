@@ -28,8 +28,9 @@ public class HealthEffect extends Effect{
 
 
     public void applyEffect(Level level, Player player) {
+        if(isRemoved()) return;
         Sound.healthClip.setFramePosition(0);
         Sound.healthClip.start();
-        if(!isRemoved())        player.updateHealth(-health);
+        player.updateHealth(-health);
     }
 }

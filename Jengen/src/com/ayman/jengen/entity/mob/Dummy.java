@@ -12,10 +12,10 @@ import java.util.Random;
  */
 public class Dummy extends Mob{
 
-    private final AnimatedSprite up = new AnimatedSprite(SpriteSheet.player_up, 3);
-    private final AnimatedSprite down = new AnimatedSprite(SpriteSheet.player_down, 3);
-    private final AnimatedSprite left = new AnimatedSprite(SpriteSheet.player_left, 3);
-    private final AnimatedSprite right = new AnimatedSprite(SpriteSheet.player_right, 3);
+    private final AnimatedSprite up = new AnimatedSprite(SpriteSheet.enemy_up, 3);
+    private final AnimatedSprite down = new AnimatedSprite(SpriteSheet.enemy_down, 3);
+    private final AnimatedSprite left = new AnimatedSprite(SpriteSheet.enemy_left, 3);
+    private final AnimatedSprite right = new AnimatedSprite(SpriteSheet.enemy_right, 3);
 
 
     private final Random random = new Random();
