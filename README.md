@@ -173,7 +173,7 @@ Jengen supports pausing and resuming the game. It allows the player to pause the
 
       
     - Random Level:
-        - Used to create a random level. It generates the level randomly based on the size.
+        - Used to create a random level. It generates the level randomly based on the size. The Engine Provides 3 Levels Of Difficulty which determines the density of the tiles and enemies.
         - This is done by using a DSU data structure to generate the level. It prevents the generation of isolated tiles and ensures that the all the tiles are connected.
         - Two threads are used to generate the level as mentioned in the Producer-Consumer Like Pattern.
         - This allows the game to generate the level efficiently and make the game more interesting and endless!
