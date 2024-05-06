@@ -278,3 +278,5 @@ Jengen
 Try The Demo Game From Here
 [Game](https://github.com/ayman-art/Jengen-2DGameEngine/files/15214908/Fight_Enemies_jar.zip)
 You can run the .jar file or just click on the script(This Allows Printing in the console). Note: you need to have Java RunTime Env. to run the game
+Join Jengen Server for updates, discussions, and connecting.
+https://discord.gg/q2Ugw3wd
