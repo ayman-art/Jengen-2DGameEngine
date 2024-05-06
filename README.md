@@ -36,7 +36,7 @@
         - RandomLevel (fully random level) (Advanced)
 - **[AI](#ai)**: Jengen includes a basic AI system for controlling the behavior of non-player characters (NPCs).
 - **[Security](#security)**: Jengen provides a simple way to encrypt and decrypt the game data. This is used to prevent cheating or tampering with the game data.
-- **[Recording](#recording)**: Jengen supports recording the game in an efficient way.
+- **[Recording](#recording)**: Jengen supports recording the game ***in an efficient way***.
 
 ---
 ## Demos(Most of Engine Features & MultiPlayer Mode)
@@ -214,7 +214,6 @@ Jengen supports pausing and resuming the game. It allows the player to pause the
 ---
 ![aaea8640-f590-4ed5-8e0c-05a38dfab240](https://github.com/ayman-art/Fight-Enemies/assets/52029584/9dc82fda-a095-4706-8b44-e4ac4f2abc58)
 
-## Design Considerations
 
 
 ## Folder Structure
@@ -278,4 +277,4 @@ Jengen
 
 Try The Demo Game From Here
 [Game](https://github.com/ayman-art/Jengen-2DGameEngine/files/15214908/Fight_Enemies_jar.zip)
-You can run the .jar file or just click on the script(This Allows Printing in the console).
+You can run the .jar file or just click on the script(This Allows Printing in the console). Note: you need to have Java RunTime Env. to run the game
